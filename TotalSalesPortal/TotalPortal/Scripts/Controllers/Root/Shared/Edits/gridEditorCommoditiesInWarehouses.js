@@ -16,24 +16,30 @@
         if (currentDataSourceRow != undefined) {
             var dataItem = e.sender.dataItem(e.item.index());
 
-            currentDataSourceRow.set("CommodityID", dataItem.CommodityID);
-            currentDataSourceRow.set("CommodityCode", dataItem.CommodityCode);
-            currentDataSourceRow.set("CommodityName", dataItem.CommodityName);
-            currentDataSourceRow.set("CommodityTypeID", dataItem.CommodityTypeID);
-            currentDataSourceRow.set("WarehouseID", dataItem.WarehouseID);
-            currentDataSourceRow.set("WarehouseCode", dataItem.WarehouseCode);
-            currentDataSourceRow.set("QuantityAvailable", dataItem.QuantityAvailable);
-            currentDataSourceRow.set("Quantity", 1);
-            currentDataSourceRow.set("VATPercent", dataItem.VATPercent);
-            currentDataSourceRow.set("GrossPrice", dataItem.GrossPrice);
-            
-            if (currentDataSourceRow.ListedPrice != undefined)
-                currentDataSourceRow.set("ListedPrice", currentDataSourceRow.UnitPrice);
+            if (dataItem.Bookable === true) {
+                currentDataSourceRow.set("CommodityID", dataItem.CommodityID);
+                currentDataSourceRow.set("CommodityCode", dataItem.CommodityCode);
+                currentDataSourceRow.set("CommodityName", dataItem.CommodityName);
+                currentDataSourceRow.set("CommodityTypeID", dataItem.CommodityTypeID);
+                currentDataSourceRow.set("WarehouseID", dataItem.WarehouseID);
+                currentDataSourceRow.set("WarehouseCode", dataItem.WarehouseCode);
+                currentDataSourceRow.set("QuantityAvailable", dataItem.QuantityAvailable);
+                currentDataSourceRow.set("Quantity", 1);
+                currentDataSourceRow.set("VATPercent", dataItem.VATPercent);
+                currentDataSourceRow.set("GrossPrice", dataItem.GrossPrice);
 
-            currentDataSourceRow.set("DiscountPercent", dataItem.DiscountPercent);
+                if (currentDataSourceRow.ListedPrice != undefined)
+                    currentDataSourceRow.set("ListedPrice", currentDataSourceRow.UnitPrice);
+
+                currentDataSourceRow.set("DiscountPercent", dataItem.DiscountPercent);
+
+                window.commodityNameBeforeChange = dataItem.CommodityName;
+            }
+            else
+                e.preventDefault();
         }
 
-        window.commodityNameBeforeChange = dataItem.CommodityName;
+
     };
 
 
