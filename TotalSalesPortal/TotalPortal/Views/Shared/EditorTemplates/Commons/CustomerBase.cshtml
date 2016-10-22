@@ -1,0 +1,10 @@
+﻿@using TotalPortal.Configuration
+
+@model TotalDTO.Commons.ICustomerBaseDTO
+
+@Html.HiddenFor(model => model.CustomerID)
+@Html.HiddenFor(model => model.Name)
+
+<label id="label_Customer_Name" class="label-description"> "Khách hàng: " + @(@Model != null && @Model.Name != null && @Model.Name != "" ? @Model.Name : "Không có thông tin khách hàng") </label>
+
+@Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")

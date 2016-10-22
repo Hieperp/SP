@@ -1,0 +1,28 @@
+﻿@using TotalPortal.Configuration
+
+@model TotalDTO.Commons.ICustomerBaseDTO
+
+@Html.HiddenFor(model => model.OfficialName)
+@Html.HiddenFor(model => model.Birthday)
+@Html.HiddenFor(model => model.VATCode)
+@Html.HiddenFor(model => model.Telephone)
+@Html.HiddenFor(model => model.AddressNo)
+@Html.HiddenFor(model => model.TerritoryID)
+@Html.HiddenFor(model => model.EntireTerritoryEntireName)
+@Html.HiddenFor(model => model.PriceCategoryID)
+@Html.HiddenFor(model => model.PriceCategoryName)
+
+
+@*<div class="div-row3">
+    <div class="div-input" style="margin-left: 0px; margin-top: 4px;">*@
+@*@{string birthday = Model.Birthday != null && Model.Birthday.Value.Year > 1900 ? Model.Birthday.Value.ToShortDateString() : "";}*@
+
+@*<a href="javascript:void(0)" style="margin-left: 46px; color:black;"><img id="img-birthday" src="~/Content/Images/New/BirthdayIcon.png" title="Ngày sinh" /> <label id="label-Birthday" class="label-description" style="width:70px;">@birthday</label></a>*@
+@*<a href="javascript:void(0)" style="margin-left: 2px; color:black;"><img id="img-telephone" src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> @Html.DisplayFor(a => a.Telephone  <label id="label-Telephone" class="label-description">@(@Model != null ? @Model.Telephone : "")</label></a>*@
+<a href="javascript:void(0)" style="margin-left: 2px; color:black;"><img id="img-telephone" src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> @Html.DisplayFor(a => a.Telephone, null, "LbTelephone") </a>
+
+@*@Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })*@
+@*</div>
+    </div>*@
+@*<label id="label_Full_Customer_Description" class="label-description"> @(@Model != null && @Model.VATCode != null && @Model.VATCode != "" ? "MST: " + @Model.VATCode : "") Đ/C: @(@Model != null ? @Model.AddressNo : ""), @(@Model != null ? @Model.EntireTerritoryEntireName : "") </label>*@
+@Html.DisplayFor(m => m.VATCode) Đ/C: @Html.DisplayFor(m => m.AddressNo), @Html.DisplayFor(m => m.EntireTerritoryEntireName, new { @id = "LbEntireTerritoryEntireName" })

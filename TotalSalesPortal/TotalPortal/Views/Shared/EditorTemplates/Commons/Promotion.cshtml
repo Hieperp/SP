@@ -1,0 +1,11 @@
+﻿@using TotalPortal.Configuration
+
+@model TotalDTO.Commons.PromotionDTO
+
+@Html.HiddenFor(model => model.PromotionID)
+@Html.HiddenFor(model => model.Name)
+@Html.HiddenFor(model => model.EndDate)
+@Html.HiddenFor(model => model.DiscountPercent)
+@Html.HiddenFor(model => model.Remarks)
+
+<label id="label_Full_Promotion_Description" class="label-description"> @(@Model != null && @Model.PromotionID != null && @Model.Name != null && @Model.Name != "" ? "CTKM: " + @Model.Name : "Áp dụng tất cả CTKM còn hiệu lực") </label>

@@ -1,0 +1,47 @@
+﻿@using TotalModel.Models;
+@using TotalPortal.Configuration;
+
+@model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
+
+@(Html.Kendo().Grid<Promotion>()
+    .Name("gridPromotion")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.Code).Title("Mã chương trình").Width(18);
+        columns.Bound(c => c.Name).Title("Tên chương trình").Width(22);
+
+        columns.Bound(c => c.DiscountPercent).Title("% CK").Width(9).Format("{0:n0}");
+        columns.Bound(c => c.Remarks).Title("Ghi chú").Width(16);
+    })
+    .ToolBar(toolbar =>
+        {
+            toolbar.Template(@<text>
+                <div class="toolbar">
+                    @Html.EditorFor(d => d.Customer,"AutoCompletes/CustomerBase")
+                </div>
+            </text>);
+        })
+    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .DataSource(ds => ds.Ajax()
+    .Read(read => read.Action("GetPromotionByCustomers", "PromotionAPIs", new { area = "Commons" }).Data("onGetPromotionByCustomers"))
+    .ServerOperation(true))
+    .Selectable()
+)
+
+
+
+<script type="text/javascript">
+    function onGetPromotionByCustomers(e) {
+        return {
+            customerID: $("#Customer_CustomerID").val()
+        };
+    }
+    
+    $("#Customer_CustomerID").change(function (e) {
+        $("#gridPromotion").data("kendoGrid").dataSource.read();
+    })
+
+    $("#gridPromotion").dblclick(function (e) {
+        okButton_Click();
+    })
+</script>

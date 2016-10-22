@@ -1,0 +1,103 @@
+﻿@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
+
+@model TotalPortal.Areas.Inventories.ViewModels.GoodsIssueViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.GoodsIssueID);
+
+    @Html.HiddenFor(model => model.DeliveryAdviceID);
+    @Html.HiddenFor(model => model.DeliveryAdviceReference);
+    @Html.HiddenFor(model => model.DeliveryAdviceEntryDate);
+    @Html.HiddenFor(model => model.Description);
+    @Html.HiddenFor(model => model.Remarks);
+
+    @Html.HiddenFor(model => model.Customer.CustomerID);
+    @Html.HiddenFor(model => model.Customer.Name);
+    @Html.HiddenFor(model => model.Customer.VATCode);
+    @Html.HiddenFor(model => model.Customer.Telephone);
+    @Html.HiddenFor(model => model.Customer.AddressNo);
+    @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
+
+
+    @(Html.Kendo().TabStrip()
+        .HtmlAttributes(new { @style = "height: 466px; margin-left: 0px; margin-right: 0px;" })
+        .Name("tabStrip")
+        .Items(tabStrip =>
+        {
+            tabStrip.Add().Text("Chọn phiếu đặt hàng")
+                .Selected(true)
+                .Content(@<text>
+            @Html.Partial("~/Areas/Inventories/Views/GoodsIssues/_GetDeliveryAdvice.cshtml")
+                </text>);
+
+            tabStrip.Add().Text("Chọn nhà cung cấp")
+                .Content(@<text>
+                    @Html.Partial("~/Areas/Inventories/Views/GoodsIssues/_GetCustomer.cshtml")
+                </text>);
+        })
+    )
+
+
+    <div class="background-bar" style="height: 45px;">
+        <div class="popup-button-bar">
+            <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "GoodsIssues")" formtarget="_top" style="display:none" />
+
+            <input id="okButton" type="button" value="Ok" class="k-button" onclick="okButton_Click()" />
+            <input id="cancelButton" type="button" value="Cancel" class="k-button" onclick="cancelButton_Click()" />
+        </div>
+    </div>
+}
+
+<link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript">
+    function okButton_Click() {
+        handleOKEvent($("#tabStrip").data("kendoTabStrip").select().index());
+    }
+
+    function okWOSelectButton_Click() {
+        handleOKEvent();
+    }
+
+
+    function cancelButton_Click() {
+        $("#myWindow").data("kendoWindow").close();
+    }
+
+
+    function handleOKEvent(tabIndex) {
+        if (tabIndex === undefined)
+            _setModelInput();
+        else {
+            var selectedGrid = $(tabIndex === 0 ? "#getDeliveryAdvicesGrid" : "#getCustomersGrid").data("kendoGrid");
+            var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
+            if (selectedDataItem === undefined)
+                return false;
+
+            _setModelInput(selectedDataItem);
+        }
+        $("#submitCreateWizard").trigger("click");
+
+
+        function _setModelInput(selectedDataItem) {
+            $("#DeliveryAdviceID").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceID === undefined ? null : selectedDataItem.DeliveryAdviceID);
+            $("#DeliveryAdviceReference").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceReference === undefined ? null : selectedDataItem.DeliveryAdviceReference);
+            $("#DeliveryAdviceEntryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceEntryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceEntryDate, SettingsManager.DateFormat));
+            //$("#DeliveryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceDeliveryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceDeliveryDate, SettingsManager.DateFormat));
+            $("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
+            $("#Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
+
+            $("#Customer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerID);
+            $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
+            //$("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
+            $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
+            $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+            $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
+        }
+    }
+
+</script>

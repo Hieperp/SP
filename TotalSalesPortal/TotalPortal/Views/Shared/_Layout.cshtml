@@ -1,0 +1,104 @@
+﻿@using RequireJsNet
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <!--This bundle was moved by the Telerik VS Extensions for compatibility reasons-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.uniform.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.dataviz.uniform.min.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/css")
+    <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/jszip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/Nmvns/nmvn-function.js")"></script>
+    <script type="text/javascript" src="@Url.Action("GlobalJavaScriptEnums")"></script>
+
+    @*@{
+        var culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+    }
+    <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/cultures/kendo.culture." + culture + ".min.js")"></script>
+    <script type="text/javascript">
+        kendo.culture("@culture");        //set current culture script
+    </script>*@
+
+</head>
+<body>
+
+    @Html.RenderRequireJsSetup(new RequireRendererConfiguration
+        {
+            // the url from where require.js will be loaded
+            RequireJsUrl = Url.Content("~/Scripts/require.js"), //~/Scripts/Components/RequireJS/require.js
+            // baseUrl to be passed to require.js, will be used when composing urls for scripts
+            BaseUrl = Url.Content("~/Scripts/"),
+            // a list of all the configuration files you want to load
+            ConfigurationFiles = new[] { "~/RequireJS.json" },
+            // root folder for your js controllers, will be used for composing paths to entrypoint
+            EntryPointRoot = "~/Scripts/",
+            // whether we should load overrides or not, used for autoBundles, disabled on debug mode
+            LoadOverrides = true,//!HttpContext.Current.IsDebuggingEnabled
+            // compute the value you want locale to have, used for i18n
+            LocaleSelector = html => System.Threading.Thread.CurrentThread.CurrentUICulture.Name.Split('-')[0],
+            // instance of IRequireJsLogger
+            Logger = null,
+            // extensability point for the config object
+            ProcessConfig = config => { },
+            // extensability point for the options object
+            ProcessOptions = options => { },
+            // value for urlArgs to be passed to require.js, used for versioning
+            UrlArgs = "" //RenderHelper.RenderAppVersion()
+        })
+
+
+
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top" hidden="hidden">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<link href="@Url.Content("~/Content/GeneralLayout.css")" rel="stylesheet" type="text/css" />

@@ -1,0 +1,50 @@
+﻿@using TotalPortal.Configuration
+@using TotalModel.Models;
+
+@(Html.Kendo().Grid<PendingDeliveryAdvice>()
+    .Name("getDeliveryAdvicesGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.DeliveryAdviceReference).Title("Phiếu đặt hàng").Width(100);
+        columns.Bound(c => c.DeliveryAdviceEntryDate).Title("Ngày mua").Width(80).Format("{0:" + SettingsManager.DateFormat + "}");
+        columns.Bound(c => c.CustomerName).Title("Nhà cung cấp").Width(160);
+        columns.Bound(c => c.CustomerAttentionName).Title("Số xác nhận").Width(100);
+        columns.Bound(c => c.CustomerAddressNo).Title("Diễn giải").Width(120);
+        columns.Bound(c => c.Description).Title("Diễn giải").Width(120);
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar" style="float: right;">
+                <label>Nhập số phiếu đặt hàng:</label>
+                <input id="deliveryAdviceReferenceSearchBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="deliveryAdviceReferenceSearchBox_KeyUp()" />
+            </div>
+        </text>);
+    })
+        .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+        .DataSource(ds => ds.Ajax()
+            .Read(read => read.Action("GetDeliveryAdvices", "GoodsIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetDeliveryAdvices"))
+            .ServerOperation(true)
+        )
+        .Selectable()
+)
+
+<script type="text/javascript">
+    function onAdditionalGetDeliveryAdvices(e) {
+        return {
+            locationID: window.parent.requireConfig.pageOptions.LocationID,
+            goodsIssueID: $("#GoodsIssueID").val(),
+            deliveryAdviceReference: $("#deliveryAdviceReferenceSearchBox").val()
+        };
+    }
+
+    function deliveryAdviceReferenceSearchBox_KeyUp() {
+        if ($("#deliveryAdviceReferenceSearchBox").val().length === 0 || $("#deliveryAdviceReferenceSearchBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
+            $("#getDeliveryAdvicesGrid").data("kendoGrid").dataSource.read();
+        }
+    }
+
+    $("#getDeliveryAdvicesGrid").dblclick(function (e) {
+        okButton_Click();
+    })
+</script>

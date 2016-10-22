@@ -1,0 +1,100 @@
+﻿@using TotalPortal.Configuration;
+
+@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
+
+@model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.PriceCategoryID);
+    @Html.HiddenFor(model => model.PriceCategoryName);
+
+    @Html.HiddenFor(model => model.Promotion.PromotionID);
+    @Html.HiddenFor(model => model.Promotion.Name);
+    @Html.HiddenFor(model => model.Promotion.EndDate);
+    @Html.HiddenFor(model => model.Promotion.DiscountPercent);
+    @Html.HiddenFor(model => model.Promotion.Remarks);
+
+    @(Html.Kendo().TabStrip()
+        .HtmlAttributes(new { @style = "height: 466px; margin-left: 0px; margin-right: 0px;" })
+        .Name("tabStrip")
+        .Items(tabStrip =>
+        {
+            tabStrip.Add().Text("Danh sách khách hàng")
+                .Selected(true)
+                .Content(@<text>
+                    @Html.Partial("~/Areas/Sales/Views/DeliveryAdvices/_SearchCustomer.cshtml")
+                </text>);
+
+            tabStrip.Add().Text("Đơn đặt hàng")
+                .Content(@<text>
+                    @*@Html.Partial("~/Views/Helpers/Commons/_SearchServiceContract.cshtml")*@
+                </text>);
+        })
+    )
+
+
+    <div class="background-bar" style="height: 45px;">
+        <div class="popup-button-bar">
+            <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "DeliveryAdvices")" formtarget="_top" style="display:none" />
+
+            <input id="okButton" type="button" value="Áp dụng CTKM đang chọn" class="k-button" onclick="okButton_Click()" />
+            <input id="okWOSelectButton" type="button" value="Áp dụng tất cả CTKM" class="k-button" onclick="okWOSelectButton_Click()" />
+            <input id="cancelButton" type="button" value="Thoát" class="k-button" onclick="cancelButton_Click()" />
+        </div>
+    </div>
+
+}
+
+<link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    function okButton_Click() {
+        handleOKEvent($($("#tabStrip").data("kendoTabStrip").select().index() === 0 ? "#gridPromotion" : "#gridXXXX_ReserveForLater").data("kendoGrid"));
+    }
+
+    function okWOSelectButton_Click() {
+        handleOKEvent();
+    }
+
+    function cancelButton_Click() {
+        window.parent.$("#myWindow").data("kendoWindow").close();
+    }
+
+    function handleOKEvent(selectedGrid) { //This javascript is now used only here. Later, if it is used somewhere else, it should be break into a standalone js file, and then just only add a link here
+
+        if ($("#Customer_CustomerID").val() === null || $("#Customer_CustomerID").val() === "")
+            return false;
+
+        if (selectedGrid === undefined)
+            _setModelInput();
+        else {
+            var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
+            if (selectedDataItem === undefined)
+                return false;
+
+            _setModelInput(selectedDataItem);
+        }
+        $("#submitCreateWizard").trigger("click");
+
+
+        function _setModelInput(selectedDataItem) {
+            $("#PriceCategoryID").val($("#Customer_PriceCategoryID").val());
+            $("#PriceCategoryName").val($("#Customer_PriceCategoryName").val());
+
+            $("#Promotion_PromotionID").val(selectedDataItem === undefined || selectedDataItem.PromotionID === undefined ? null : selectedDataItem.PromotionID);
+            $("#Promotion_Name").val(selectedDataItem === undefined || selectedDataItem.Name === undefined ? null : selectedDataItem.Name);
+            $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, SettingsManager.DateTimeFormat));
+            $("#Promotion_DiscountPercent").val(selectedDataItem === undefined || selectedDataItem.DiscountPercent === undefined ? null : selectedDataItem.DiscountPercent);
+            $("#Promotion_Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
+        }
+    }
+
+</script>
+
+
+
+
+

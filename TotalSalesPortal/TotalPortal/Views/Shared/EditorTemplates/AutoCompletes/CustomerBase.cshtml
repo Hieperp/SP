@@ -1,0 +1,92 @@
+﻿@using TotalPortal.Configuration
+
+@model TotalDTO.Commons.ICustomerBaseDTO
+
+@Html.HiddenFor(model => model.CustomerID)
+
+@Html.Hidden("TempName", (@Model != null ? @Model.Name : ""))
+
+@(Html.Kendo().AutoCompleteFor(model => model.Name)
+    .DataTextField("Name")
+    .Filter("contains")
+    .MinLength(SettingsManager.AutoCompleteMinLenght)
+    .Placeholder("Chọn khách hàng, hoặc shift+ để thêm mới...")
+    .HeaderTemplate("<div class=\"dropdown-header custom-header\">" +
+            "<span class=\"k-widget k-header\">Tên</span>" +
+            "<span class=\"k-widget k-header\">Ngày sinh</span>" +
+            "<span class=\"k-widget k-header\">Điện thoại</span>" +
+            "<span class=\"k-widget k-header\">Địa chỉ</span>" +
+            "</div>")
+    .Template("<div class=\"dropdown-body\">" +
+            "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
+            "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
+            "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
+            "<span class=\"k-state-default\"><p>#: data.AddressNo + data.EntireTerritoryEntireName #</p></span>" +
+            "</div>")
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("SearchCustomers", "CustomerAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {searchText: e.filter.filters[0].value};} </text>);//Send parameter to controller search action
+        })
+        .ServerFiltering(true);
+    })
+    .Events(e =>
+    {
+        e.Select("customer_Select");
+        e.DataBound("customer_DataBound");
+    })
+    .HtmlAttributes(new { @class = "customerBase_AutoComplete" })
+)
+
+
+@Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")
+
+<link href="@Url.Content("~/Content/CustomCss/GeneralCustomersAutoComplete.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/CustomCss/CustomersAutoComplete.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+
+    getModelID = function (modelID) {
+        return modelID.substring(0, modelID.length - 4); //At first: Pass: modelID = this.element.attr('id') = 'Customer_Name', Then: Return: ('Customer_Name').substring(0, modelID.length - 4) = 'Customer_'
+    }
+    
+    customer_DataBound = function (e) {
+        var modelID = getModelID(this.element.attr('id'));
+        $(".k-animation-container:has(#" + modelID + "Name-list)").css("width", "743");
+        $("#" + modelID + "Name-list").css("width", "743");
+        $("#" + modelID + "Name-list").css("height", $("#" + modelID + "Name-list").height() + 1);
+    }
+
+    customer_Select = function (e) {
+        var modelID = getModelID(this.element.attr('id'));
+
+        var dataItem = e.sender.dataItem(e.item.index());
+
+        $("#" + modelID + "CustomerID").val(dataItem.CustomerID);
+        $("#" + modelID + "OfficialName").val(dataItem.OfficialName);
+        $("#" + modelID + "Birthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
+        $("#" + modelID + "VATCode").val(dataItem.VATCode);
+        $("#" + modelID + "Telephone").val(dataItem.Telephone);
+        $("#" + modelID + "AddressNo").val(dataItem.AddressNo);
+        $("#" + modelID + "TerritoryID").val(dataItem.TerritoryID);
+        $("#" + modelID + "EntireTerritoryEntireName").val(dataItem.EntireTerritoryEntireName);
+        $("#" + modelID + "PriceCategoryID").val(dataItem.PriceCategoryID);
+        $("#" + modelID + "PriceCategoryName").val(dataItem.PriceCategoryName);
+
+        //$("#label-Birthday").text($("#" + modelID + "Birthday").val());
+        //$("#label-Telephone").text(dataItem.Telephone);
+        //$("#label_Full_Customer_Description").text((dataItem.VATCode != null && dataItem.VATCode != "" ? "MST: " + dataItem.VATCode : "") + " Đ/C: " + dataItem.AddressNo + ", " + dataItem.EntireTerritoryEntireName);
+
+
+        $("#" + modelID + "TempName").val(dataItem.Name);
+
+        $("#" + modelID + "CustomerID").trigger("change");
+    }
+
+    $(".customerBase_AutoComplete").focusout(function (e) {
+        var modelID = getModelID(this.id);
+        $(this).val($("#" + modelID + "TempName").val());
+    });
+
+</script>
