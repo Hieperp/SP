@@ -29,13 +29,13 @@
     <script src="@Url.Content("~/Scripts/Nmvns/nmvn-function.js")"></script>
     <script type="text/javascript" src="@Url.Action("GlobalJavaScriptEnums")"></script>
 
-    @*@{
+    @{
         var culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
     }
     <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/cultures/kendo.culture." + culture + ".min.js")"></script>
     <script type="text/javascript">
         kendo.culture("@culture");        //set current culture script
-    </script>*@
+    </script>
 
 </head>
 <body>
