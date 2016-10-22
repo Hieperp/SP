@@ -173,7 +173,9 @@
     <Compile Include="Validations\ValidationErrors.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Models\TotalSalesPortal.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TotalSalesPortal.Designer.cs</LastGenOutput>
