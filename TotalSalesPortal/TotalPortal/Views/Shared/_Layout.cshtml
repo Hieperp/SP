@@ -12,7 +12,7 @@
 
     <!--This bundle was moved by the Telerik VS Extensions for compatibility reasons-->
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+    
 
     <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.common.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
@@ -29,16 +29,52 @@
     <script src="@Url.Content("~/Scripts/Nmvns/nmvn-function.js")"></script>
     <script type="text/javascript" src="@Url.Action("GlobalJavaScriptEnums")"></script>
 
-    @{
+    @*@{
         var culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
     }
     <script src="@Url.Content("~/Scripts/kendo/2014.3.1411/cultures/kendo.culture." + culture + ".min.js")"></script>
     <script type="text/javascript">
         kendo.culture("@culture");        //set current culture script
-    </script>
+    </script>*@
 
 </head>
 <body>
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top" hidden="hidden">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        @Scripts.Render("~/bundles/jqueryval")
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+
 
     @Html.RenderRequireJsSetup(new RequireRendererConfiguration
         {
@@ -65,39 +101,6 @@
         })
 
 
-
-
-
-    <div class="navbar navbar-inverse navbar-fixed-top" hidden="hidden">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
-
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
 
