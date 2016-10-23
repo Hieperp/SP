@@ -51,12 +51,14 @@
     <Compile Include="EntityFrameworkExtension.cs" />
     <Compile Include="Helpers\ModuleDetailRepository.cs" />
     <Compile Include="Helpers\ModuleRepository.cs" />
+    <Compile Include="Helpers\SqlProgrammability\Accounts\AccountInvoice.cs" />
     <Compile Include="Helpers\SqlProgrammability\Commons\Commons.cs" />
     <Compile Include="Helpers\SqlProgrammability\InitReference.cs" />
     <Compile Include="Helpers\SqlProgrammability\Sales\DeliveryAdvice.cs" />
     <Compile Include="Helpers\SqlProgrammability\Inventories\GoodsIssue.cs" />
     <Compile Include="Helpers\SqlProgrammability\Inventories\Inventories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Accounts\AccountInvoiceRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Commons\AspNetUserRepository.cs" />
     <Compile Include="Repositories\Commons\CommodityRepository.cs" />

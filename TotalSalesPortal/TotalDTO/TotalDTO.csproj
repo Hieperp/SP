@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\AccountInvoiceDetailDTO.cs" />
+    <Compile Include="Accounts\AccountInvoiceDTO.cs" />
     <Compile Include="BaseDTO.cs" />
     <Compile Include="BaseWithDetailDTO.cs" />
     <Compile Include="Commons\CommodityDTO.cs" />

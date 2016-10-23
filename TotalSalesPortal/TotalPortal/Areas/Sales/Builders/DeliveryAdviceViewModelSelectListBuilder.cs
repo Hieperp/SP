@@ -18,10 +18,7 @@ namespace TotalPortal.Areas.Sales.Builders
         private readonly IAspNetUserRepository aspNetUserRepository;
         private readonly IAspNetUserSelectListBuilder aspNetUserSelectListBuilder;
 
-        public DeliveryAdviceViewModelSelectListBuilder(IPaymentTermSelectListBuilder paymentTermSelectListBuilder,
-                                    IPaymentTermRepository paymentTermRepository,
-                                    IAspNetUserSelectListBuilder aspNetUserSelectListBuilder,
-                                    IAspNetUserRepository aspNetUserRepository)
+        public DeliveryAdviceViewModelSelectListBuilder(IPaymentTermSelectListBuilder paymentTermSelectListBuilder, IPaymentTermRepository paymentTermRepository, IAspNetUserSelectListBuilder aspNetUserSelectListBuilder, IAspNetUserRepository aspNetUserRepository)
         {
             this.paymentTermSelectListBuilder = paymentTermSelectListBuilder;
             this.paymentTermRepository = paymentTermRepository;
@@ -38,4 +35,3 @@ namespace TotalPortal.Areas.Sales.Builders
     }
 
 }
-

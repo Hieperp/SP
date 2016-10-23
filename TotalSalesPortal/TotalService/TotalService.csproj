@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\AccountInvoiceService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Commons\CommodityService.cs" />
     <Compile Include="GenericService.cs" />

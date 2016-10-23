@@ -19,6 +19,7 @@ namespace TotalModel.Models
         {
             this.DeliveryAdvices = new HashSet<DeliveryAdvice>();
             this.GoodsIssues = new HashSet<GoodsIssue>();
+            this.AccountInvoices = new HashSet<AccountInvoice>();
         }
     
         public int CustomerID { get; set; }
@@ -48,5 +49,7 @@ namespace TotalModel.Models
         public virtual PriceCategory PriceCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
     }
 }

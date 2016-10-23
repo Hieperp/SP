@@ -50,6 +50,8 @@ namespace TotalModel.Models
         public virtual DbSet<PriceCategory> PriceCategories { get; set; }
         public virtual DbSet<GoodsIssueDetail> GoodsIssueDetails { get; set; }
         public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
+        public virtual DbSet<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
+        public virtual DbSet<AccountInvoice> AccountInvoices { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {
@@ -307,6 +309,87 @@ namespace TotalModel.Models
                 new ObjectParameter("SaveRelativeOption", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GoodsIssueSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual ObjectResult<string> AccountInvoicePostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("AccountInvoicePostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int AccountInvoiceSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AccountInvoiceSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual ObjectResult<AccountInvoiceIndex> GetAccountInvoiceIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AccountInvoiceIndex>("GetAccountInvoiceIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<AccountInvoiceViewDetail> GetAccountInvoiceViewDetails(Nullable<int> accountInvoiceID)
+        {
+            var accountInvoiceIDParameter = accountInvoiceID.HasValue ?
+                new ObjectParameter("AccountInvoiceID", accountInvoiceID) :
+                new ObjectParameter("AccountInvoiceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AccountInvoiceViewDetail>("GetAccountInvoiceViewDetails", accountInvoiceIDParameter);
+        }
+    
+        public virtual ObjectResult<PendingGoodsIssue> GetPendingGoodsIssues(Nullable<int> goodsIssueID, string aspUserID, Nullable<int> locationID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> accountInvoiceID, string goodsIssueDetailIDs)
+        {
+            var goodsIssueIDParameter = goodsIssueID.HasValue ?
+                new ObjectParameter("GoodsIssueID", goodsIssueID) :
+                new ObjectParameter("GoodsIssueID", typeof(int));
+    
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var accountInvoiceIDParameter = accountInvoiceID.HasValue ?
+                new ObjectParameter("AccountInvoiceID", accountInvoiceID) :
+                new ObjectParameter("AccountInvoiceID", typeof(int));
+    
+            var goodsIssueDetailIDsParameter = goodsIssueDetailIDs != null ?
+                new ObjectParameter("GoodsIssueDetailIDs", goodsIssueDetailIDs) :
+                new ObjectParameter("GoodsIssueDetailIDs", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", goodsIssueIDParameter, aspUserIDParameter, locationIDParameter, fromDateParameter, toDateParameter, accountInvoiceIDParameter, goodsIssueDetailIDsParameter);
         }
     }
 }

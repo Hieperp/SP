@@ -56,6 +56,12 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_Employees" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.AccountInvoiceDetail" Width="1.5" PointX="18.875" PointY="11.25" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.AccountInvoice" Width="1.5" PointX="16.625" PointY="2.125" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_AccountInvoices" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoices_Customers" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoices_Locations" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
