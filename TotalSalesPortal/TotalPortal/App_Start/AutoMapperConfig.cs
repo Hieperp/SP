@@ -9,10 +9,11 @@ using TotalModel.Models;
 using TotalDTO.Sales;
 using TotalDTO.Inventories;
 using TotalDTO.Commons;
-
+using TotalDTO.Accounts;
 
 using TotalPortal.Areas.Sales.ViewModels;
 using TotalPortal.Areas.Inventories.ViewModels;
+using TotalPortal.Areas.Accounts.ViewModels;
 
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TotalPortal.App_Start.AutoMapperConfig), "SetupMappings")]
@@ -38,6 +39,12 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<GoodsIssuePrimitiveDTO, GoodsIssue>();
                 cfg.CreateMap<GoodsIssueViewDetail, GoodsIssueDetailDTO>();
                 cfg.CreateMap<GoodsIssueDetailDTO, GoodsIssueDetail>();
+
+                cfg.CreateMap<AccountInvoice, AccountInvoiceViewModel>();
+                cfg.CreateMap<AccountInvoice, AccountInvoiceDTO>();
+                cfg.CreateMap<AccountInvoicePrimitiveDTO, AccountInvoice>();
+                cfg.CreateMap<AccountInvoiceViewDetail, AccountInvoiceDetailDTO>();
+                cfg.CreateMap<AccountInvoiceDetailDTO, AccountInvoiceDetail>();
 
                 cfg.CreateMap<Employee, EmployeeBaseDTO>();
                 cfg.CreateMap<Customer, CustomerBaseDTO>();

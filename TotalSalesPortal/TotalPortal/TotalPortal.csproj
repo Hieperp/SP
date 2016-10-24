@@ -52,6 +52,14 @@
       <HintPath>..\lib\KENDOUIMVC\2014.3.1411.545\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\ReportViewer\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcReportViewer, Version=0.8.5816.27247, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcReportViewer.0.8.3\lib\net45\MvcReportViewer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -705,6 +713,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="MvcReportViewer.aspx" />
+    <Content Include="MvcReportViewerErrorPage.html" />
     <Content Include="RequireJS.json" />
     <Content Include="Areas\Sales\Views\web.config" />
     <Content Include="Areas\Purchases\Views\web.config" />
@@ -747,7 +757,7 @@
     <Content Include="Areas\Accounts\Views\AccountInvoices\Create.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Delete.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Edit.cshtml" />
-    <Content Include="Areas\Accounts\Views\AccountInvoices\GetPendingSalesInvoices.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountInvoices\GetPendingGoodsIssues.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Index.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Print.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\PrintDetail.cshtml" />
@@ -755,6 +765,7 @@
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controllers\Accounts\AccountInvoices\AddPendingGoodsIssue.js" />
     <Content Include="Scripts\Controllers\Accounts\AccountInvoices\Create.js" />
     <Content Include="Scripts\Controllers\Accounts\AccountInvoices\Delete.js" />
     <Content Include="Scripts\Controllers\Accounts\AccountInvoices\Edit.js" />
@@ -988,6 +999,7 @@
     <Content Include="Scripts\kendo\2014.3.1411\messages\kendo.messages.zh-TW.min.js" />
     <Content Include="Scripts\kendo\2014.3.1411\pako_deflate.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MvcReportViewer.js" />
     <Content Include="Scripts\Nmvns\nmvn-function-v01.js" />
     <Content Include="Scripts\Nmvns\nmvn-function.js" />
     <Content Include="Scripts\r.js" />
@@ -996,6 +1008,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\url.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

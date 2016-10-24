@@ -17,24 +17,29 @@ namespace TotalPortal.App_Start
     using TotalCore.Repositories.Commons;
     using TotalCore.Repositories.Sales;
     using TotalCore.Repositories.Inventories;
+    using TotalCore.Repositories.Accounts;
     using TotalCore.Services.Sales;
     using TotalCore.Services.Inventories;
+    using TotalCore.Services.Accounts;
     
     
     using TotalDAL.Repositories.Commons;
     using TotalDAL.Repositories.Sales;
     using TotalDAL.Repositories.Inventories;
-    
-
-    using TotalPortal.Areas.Sales.Builders;
-    using TotalPortal.Areas.Inventories.Builders;
-    using TotalPortal.Areas.Commons.Builders;
+    using TotalDAL.Repositories.Accounts;
 
 
     using TotalService.Sales;
     using TotalService.Inventories;
+    using TotalService.Accounts;
+
+
+    using TotalPortal.Areas.Sales.Builders;
+    using TotalPortal.Areas.Inventories.Builders;
+    using TotalPortal.Areas.Commons.Builders;
+    using TotalPortal.Areas.Accounts.Builders;
     
-    
+        
     
 
 
@@ -88,6 +93,11 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IGoodsIssueRepository>().To<GoodsIssueRepository>();
                 kernel.Bind<IGoodsIssueAPIRepository>().To<GoodsIssueAPIRepository>();
                 kernel.Bind<IGoodsIssueViewModelSelectListBuilder>().To<GoodsIssueViewModelSelectListBuilder>();
+
+                kernel.Bind<IAccountInvoiceService>().To<AccountInvoiceService>();
+                kernel.Bind<IAccountInvoiceRepository>().To<AccountInvoiceRepository>();
+                kernel.Bind<IAccountInvoiceAPIRepository>().To<AccountInvoiceAPIRepository>();
+                kernel.Bind<IAccountInvoiceViewModelSelectListBuilder>().To<AccountInvoiceViewModelSelectListBuilder>();
 
 
                 kernel.Bind<IInventoryRepository>().To<InventoryRepository>();
