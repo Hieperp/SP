@@ -18,12 +18,14 @@ namespace TotalModel.Models
         public GoodsIssue()
         {
             this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
+            this.ReceiptDetails = new HashSet<ReceiptDetail>();
+            this.Receipts = new HashSet<Receipt>();
         }
     
         public int GoodsIssueID { get; set; }
         public System.DateTime EntryDate { get; set; }
         public string Reference { get; set; }
-        public int DeliveryAdviceID { get; set; }
+        public Nullable<int> DeliveryAdviceID { get; set; }
         public int CustomerID { get; set; }
         public int EmployeeID { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
@@ -53,5 +55,9 @@ namespace TotalModel.Models
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receipt> Receipts { get; set; }
     }
 }

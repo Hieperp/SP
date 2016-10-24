@@ -158,6 +158,12 @@
     <Compile Include="Models\Promotion.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Receipt.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReceiptDetail.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Territory.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>

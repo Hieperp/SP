@@ -17,9 +17,10 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
+            this.AccountInvoices = new HashSet<AccountInvoice>();
+            this.Receipts = new HashSet<Receipt>();
             this.DeliveryAdvices = new HashSet<DeliveryAdvice>();
             this.GoodsIssues = new HashSet<GoodsIssue>();
-            this.AccountInvoices = new HashSet<AccountInvoice>();
         }
     
         public int CustomerID { get; set; }
@@ -43,13 +44,15 @@ namespace TotalModel.Models
         public bool IsSupplier { get; set; }
         public bool IsFemale { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryAdvice> DeliveryAdvices { get; set; }
         public virtual EntireTerritory EntireTerritory { get; set; }
         public virtual PriceCategory PriceCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receipt> Receipts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryAdvice> DeliveryAdvices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
     }
 }
