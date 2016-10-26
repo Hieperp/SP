@@ -53,6 +53,7 @@
     <Compile Include="Helpers\ISqlRoutines.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Accounts\IAccountInvoiceRepository.cs" />
+    <Compile Include="Repositories\Accounts\IReceiptRepository.cs" />
     <Compile Include="Repositories\Commons\IAspNetUserRepository.cs" />
     <Compile Include="Repositories\Commons\ICommodityRepository.cs" />
     <Compile Include="Repositories\Commons\ICustomerRepository.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Repositories\Inventories\IGoodsIssueRepository.cs" />
     <Compile Include="Repositories\Sales\IDeliveryAdviceRepository.cs" />
     <Compile Include="Services\Accounts\IAccountInvoiceService.cs" />
+    <Compile Include="Services\Accounts\IReceiptService.cs" />
     <Compile Include="Services\Commons\ICommodityService.cs" />
     <Compile Include="Services\Helpers\IHelperService.cs" />
     <Compile Include="Services\IBaseService.cs" />

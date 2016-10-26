@@ -393,5 +393,108 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", goodsIssueIDParameter, aspUserIDParameter, locationIDParameter, fromDateParameter, toDateParameter, accountInvoiceIDParameter, goodsIssueDetailIDsParameter);
         }
+    
+        public virtual ObjectResult<CustomerReceivable> GetCustomerReceivables(Nullable<int> locationID, Nullable<int> receiptID, string customerName)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var receiptIDParameter = receiptID.HasValue ?
+                new ObjectParameter("ReceiptID", receiptID) :
+                new ObjectParameter("ReceiptID", typeof(int));
+    
+            var customerNameParameter = customerName != null ?
+                new ObjectParameter("CustomerName", customerName) :
+                new ObjectParameter("CustomerName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CustomerReceivable>("GetCustomerReceivables", locationIDParameter, receiptIDParameter, customerNameParameter);
+        }
+    
+        public virtual ObjectResult<GoodsIssueReceivable> GetGoodsIssueReceivables(Nullable<int> locationID, Nullable<int> receiptID, string goodsIssueReference)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var receiptIDParameter = receiptID.HasValue ?
+                new ObjectParameter("ReceiptID", receiptID) :
+                new ObjectParameter("ReceiptID", typeof(int));
+    
+            var goodsIssueReferenceParameter = goodsIssueReference != null ?
+                new ObjectParameter("GoodsIssueReference", goodsIssueReference) :
+                new ObjectParameter("GoodsIssueReference", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsIssueReceivable>("GetGoodsIssueReceivables", locationIDParameter, receiptIDParameter, goodsIssueReferenceParameter);
+        }
+    
+        public virtual ObjectResult<ReceiptIndex> GetReceiptIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReceiptIndex>("GetReceiptIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<ReceiptViewDetail> GetReceiptViewDetails(Nullable<int> receiptID, Nullable<int> goodsIssueID, Nullable<int> customerID, Nullable<bool> isReadonly)
+        {
+            var receiptIDParameter = receiptID.HasValue ?
+                new ObjectParameter("ReceiptID", receiptID) :
+                new ObjectParameter("ReceiptID", typeof(int));
+    
+            var goodsIssueIDParameter = goodsIssueID.HasValue ?
+                new ObjectParameter("GoodsIssueID", goodsIssueID) :
+                new ObjectParameter("GoodsIssueID", typeof(int));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReceiptViewDetail>("GetReceiptViewDetails", receiptIDParameter, goodsIssueIDParameter, customerIDParameter, isReadonlyParameter);
+        }
+    
+        public virtual ObjectResult<string> ReceiptEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ReceiptEditable", entityIDParameter);
+        }
+    
+        public virtual ObjectResult<string> ReceiptPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ReceiptPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int ReceiptSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReceiptSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
     }
 }

@@ -92,6 +92,9 @@
     <Compile Include="Models\CustomerCategory.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerReceivable.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerType.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
@@ -120,6 +123,9 @@
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GoodsIssueIndex.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GoodsIssueReceivable.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GoodsIssueViewDetail.cs">
@@ -162,6 +168,12 @@
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReceiptDetail.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReceiptIndex.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReceiptViewDetail.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Territory.cs">

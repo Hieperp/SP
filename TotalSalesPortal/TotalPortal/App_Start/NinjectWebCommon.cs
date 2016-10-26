@@ -99,6 +99,11 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IAccountInvoiceAPIRepository>().To<AccountInvoiceAPIRepository>();
                 kernel.Bind<IAccountInvoiceViewModelSelectListBuilder>().To<AccountInvoiceViewModelSelectListBuilder>();
 
+                kernel.Bind<IReceiptService>().To<ReceiptService>();
+                kernel.Bind<IReceiptRepository>().To<ReceiptRepository>();
+                kernel.Bind<IReceiptAPIRepository>().To<ReceiptAPIRepository>();
+                kernel.Bind<IReceiptViewModelSelectListBuilder>().To<ReceiptViewModelSelectListBuilder>();
+
 
                 kernel.Bind<IInventoryRepository>().To<InventoryRepository>();
 

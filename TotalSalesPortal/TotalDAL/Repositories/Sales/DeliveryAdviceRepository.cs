@@ -30,6 +30,9 @@ namespace TotalDAL.Repositories.Sales
             Helpers.SqlProgrammability.Accounts.AccountInvoice accountInvoice = new Helpers.SqlProgrammability.Accounts.AccountInvoice(totalSalesPortalEntities);
             accountInvoice.RestoreProcedure();
 
+            Helpers.SqlProgrammability.Accounts.Receipt receipt = new Helpers.SqlProgrammability.Accounts.Receipt(totalSalesPortalEntities);
+            receipt.RestoreProcedure();
+
             Helpers.SqlProgrammability.Inventories.Inventories inventories = new Helpers.SqlProgrammability.Inventories.Inventories(totalSalesPortalEntities);
             inventories.RestoreProcedure();
 

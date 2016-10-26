@@ -42,7 +42,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "       SELECT      GoodsIssues.GoodsIssueID, CAST(GoodsIssues.EntryDate AS DATE) AS EntryDate, GoodsIssues.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.AddressNo AS CustomerDescription, DeliveryAdvices.Reference AS DeliveryAdviceReference, DeliveryAdvices.EntryDate AS DeliveryAdviceEntryDate, GoodsIssues.TotalQuantity, GoodsIssues.TotalGrossAmount, GoodsIssues.Description " + "\r\n";
             queryString = queryString + "       FROM        GoodsIssues INNER JOIN" + "\r\n";
             queryString = queryString + "                   Locations ON GoodsIssues.EntryDate >= @FromDate AND GoodsIssues.EntryDate <= @ToDate AND GoodsIssues.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsIssue + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsIssues.LocationID INNER JOIN " + "\r\n";
-            queryString = queryString + "                   Customers Customers ON GoodsIssues.CustomerID = Customers.CustomerID INNER JOIN" + "\r\n";
+            queryString = queryString + "                   Customers Customers ON GoodsIssues.CustomerID = Customers.CustomerID LEFT JOIN" + "\r\n";
             queryString = queryString + "                   DeliveryAdvices ON GoodsIssues.DeliveryAdviceID = DeliveryAdvices.DeliveryAdviceID" + "\r\n";
             queryString = queryString + "       " + "\r\n";
 

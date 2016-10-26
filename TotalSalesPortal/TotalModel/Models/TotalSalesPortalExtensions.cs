@@ -49,6 +49,19 @@ namespace TotalModel.Models
     }
 
 
+    public partial class Receipt : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<ReceiptDetail>
+    {
+        public int GetID() { return this.ReceiptID; }
+
+        public ICollection<ReceiptDetail> GetDetails() { return this.ReceiptDetails; }
+    }
+
+
+    public partial class ReceiptDetail : IPrimitiveEntity
+    {
+        public int GetID() { return this.ReceiptDetailID; }
+    }
+
 
 
 

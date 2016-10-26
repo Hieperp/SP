@@ -325,7 +325,7 @@
           <Property Name="TotalVATAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalGrossAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="AverageDiscountPercent" Type="decimal" Precision="18" Scale="5" Nullable="false" />
-          <Property Name="ReceiptAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalReceiptAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -971,6 +971,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="EntryDate" Type="datetime" Mode="In" />
           <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetCustomerReceivables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="ReceiptID" Type="int" Mode="In" />
+          <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GetDeliveryAdviceIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
@@ -983,6 +988,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
           <Parameter Name="ToDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetGoodsIssueReceivables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="ReceiptID" Type="int" Mode="In" />
+          <Parameter Name="GoodsIssueReference" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetGoodsIssueViewDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
@@ -1012,6 +1022,17 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
         <Function Name="GetPromotionByCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetReceiptIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetReceiptViewDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ReceiptID" Type="int" Mode="In" />
+          <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
+          <Parameter Name="CustomerID" Type="int" Mode="In" />
+          <Parameter Name="IsReadonly" Type="bit" Mode="In" />
+        </Function>
         <Function Name="GetUnApprovalPermitted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="NMVNTaskID" Type="int" Mode="In" />
@@ -1024,6 +1045,16 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="EntityID" Type="int" Mode="In" />
         </Function>
         <Function Name="GoodsIssueSaveRelative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+          <Parameter Name="SaveRelativeOption" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ReceiptEditable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ReceiptPostSaveValidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ReceiptSaveRelative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EntityID" Type="int" Mode="In" />
           <Parameter Name="SaveRelativeOption" Type="int" Mode="In" />
         </Function>
@@ -1496,14 +1527,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="ReceiptDetail" EntitySet="ReceiptDetails" />
           </AssociationSet>
           <EntitySet Name="DeliveryAdvices" EntityType="TotalSalesPortalModel.DeliveryAdvice" />
-          <EntitySet Name="GoodsIssues" EntityType="TotalSalesPortalModel.GoodsIssue" />
           <AssociationSet Name="FK_DeliveryAdvices_Customers" Association="TotalSalesPortalModel.FK_DeliveryAdvices_Customers">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="DeliveryAdvice" EntitySet="DeliveryAdvices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsIssues_Customers" Association="TotalSalesPortalModel.FK_GoodsIssues_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="GoodsIssue" EntitySet="GoodsIssues" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryAdviceDetails_DeliveryAdvices" Association="TotalSalesPortalModel.FK_DeliveryAdviceDetails_DeliveryAdvices">
             <End Role="DeliveryAdvice" EntitySet="DeliveryAdvices" />
@@ -1529,6 +1555,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="Promotion" EntitySet="Promotions" />
             <End Role="DeliveryAdvice" EntitySet="DeliveryAdvices" />
           </AssociationSet>
+          <EntitySet Name="GoodsIssues" EntityType="TotalSalesPortalModel.GoodsIssue" />
+          <AssociationSet Name="FK_GoodsIssues_Customers" Association="TotalSalesPortalModel.FK_GoodsIssues_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="GoodsIssue" EntitySet="GoodsIssues" />
+          </AssociationSet>
           <AssociationSet Name="FK_GoodsIssues_DeliveryAdvices" Association="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices">
             <End Role="DeliveryAdvice" EntitySet="DeliveryAdvices" />
             <End Role="GoodsIssue" EntitySet="GoodsIssues" />
@@ -1549,6 +1580,37 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="GoodsIssue" EntitySet="GoodsIssues" />
             <End Role="Receipt" EntitySet="Receipts" />
           </AssociationSet>
+          <FunctionImport Name="GetCustomerReceivables" ReturnType="Collection(TotalSalesPortalModel.CustomerReceivable)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="ReceiptID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetGoodsIssueReceivables" ReturnType="Collection(TotalSalesPortalModel.GoodsIssueReceivable)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="ReceiptID" Mode="In" Type="Int32" />
+            <Parameter Name="GoodsIssueReference" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetReceiptIndexes" ReturnType="Collection(TotalSalesPortalModel.ReceiptIndex)">
+            <Parameter Name="AspUserID" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetReceiptViewDetails" ReturnType="Collection(TotalSalesPortalModel.ReceiptViewDetail)">
+            <Parameter Name="ReceiptID" Mode="In" Type="Int32" />
+            <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+            <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="ReceiptEditable" ReturnType="Collection(String)">
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReceiptPostSaveValidate" ReturnType="Collection(String)">
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReceiptSaveRelative">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="SaveRelativeOption" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -2401,44 +2463,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="Promotion" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Promotions" FromRole="DeliveryAdvice" ToRole="Promotion" />
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" FromRole="DeliveryAdvice" ToRole="GoodsIssue" />
         </EntityType>
-        <EntityType Name="GoodsIssue">
-          <Key>
-            <PropertyRef Name="GoodsIssueID" />
-          </Key>
-          <Property Name="GoodsIssueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryAdviceID" Type="Int32" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
-          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
-          <Property Name="LocationID" Type="Int32" Nullable="false" />
-          <Property Name="ApproverID" Type="Int32" Nullable="false" />
-          <Property Name="TotalQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="TotalVATAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="TotalGrossAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="AverageDiscountPercent" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
-          <Property Name="ReceiptAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Approved" Type="Boolean" Nullable="false" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="InActive" Type="Boolean" Nullable="false" />
-          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
-          <Property Name="InActiveDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers" FromRole="GoodsIssue" ToRole="Customer" />
-          <NavigationProperty Name="DeliveryAdvice" Relationship="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" FromRole="GoodsIssue" ToRole="DeliveryAdvice" />
-          <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="GoodsIssue" ToRole="Employee" />
-          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="GoodsIssueDetail" />
-          <NavigationProperty Name="ReceiptDetails" Relationship="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="ReceiptDetail" />
-          <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_GoodsIssues" FromRole="GoodsIssue" ToRole="Receipt" />
-        </EntityType>
         <Association Name="FK_DeliveryAdvices_Customers">
           <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="1" />
           <End Type="TotalSalesPortalModel.DeliveryAdvice" Role="DeliveryAdvice" Multiplicity="*" />
@@ -2447,18 +2471,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
               <PropertyRef Name="CustomerID" />
             </Principal>
             <Dependent Role="DeliveryAdvice">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsIssues_Customers">
-          <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="GoodsIssue">
               <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2535,6 +2547,56 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GoodsIssue">
+          <Key>
+            <PropertyRef Name="GoodsIssueID" />
+          </Key>
+          <Property Name="GoodsIssueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryAdviceID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PreparedPersonID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="ApproverID" Type="Int32" Nullable="false" />
+          <Property Name="TotalQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalVATAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalGrossAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="AverageDiscountPercent" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="TotalReceiptAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="InActive" Type="Boolean" Nullable="false" />
+          <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
+          <Property Name="InActiveDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers" FromRole="GoodsIssue" ToRole="Customer" />
+          <NavigationProperty Name="DeliveryAdvice" Relationship="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" FromRole="GoodsIssue" ToRole="DeliveryAdvice" />
+          <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="GoodsIssue" ToRole="Employee" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="GoodsIssueDetail" />
+          <NavigationProperty Name="ReceiptDetails" Relationship="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="ReceiptDetail" />
+          <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_GoodsIssues" FromRole="GoodsIssue" ToRole="Receipt" />
+        </EntityType>
+        <Association Name="FK_GoodsIssues_Customers">
+          <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="GoodsIssue">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GoodsIssues_DeliveryAdvices">
           <End Type="TotalSalesPortalModel.DeliveryAdvice" Role="DeliveryAdvice" Multiplicity="0..1" />
           <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="*" />
@@ -2595,6 +2657,52 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="CustomerReceivable">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GoodsIssueReceivable">
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ReceiptIndex">
+          <Property Type="Int32" Name="ReceiptID" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="CustomerDescription" Nullable="false" MaxLength="305" />
+          <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="TotalDepositAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalUnApplyAmount" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ReceiptViewDetail">
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="Int32" Name="ReceiptDetailID" Nullable="false" />
+          <Property Type="Int32" Name="ReceiptID" Nullable="false" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="AmountDue" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Decimal" Name="ReceiptAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="TotalGrossAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3297,7 +3405,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ReceiptAmount" ColumnName="ReceiptAmount" />
+                <ScalarProperty Name="TotalReceiptAmount" ColumnName="TotalReceiptAmount" />
                 <ScalarProperty Name="AverageDiscountPercent" ColumnName="AverageDiscountPercent" />
                 <ScalarProperty Name="TotalGrossAmount" ColumnName="TotalGrossAmount" />
                 <ScalarProperty Name="TotalVATAmount" ColumnName="TotalVATAmount" />
@@ -3318,6 +3426,71 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCustomerReceivables" FunctionName="TotalSalesPortalModel.Store.GetCustomerReceivables">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.CustomerReceivable">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerAttentionName" ColumnName="CustomerAttentionName" />
+                <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+                <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
+                <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGoodsIssueReceivables" FunctionName="TotalSalesPortalModel.Store.GetGoodsIssueReceivables">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueReceivable">
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
+                <ScalarProperty Name="GoodsIssueEntryDate" ColumnName="GoodsIssueEntryDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerAttentionName" ColumnName="CustomerAttentionName" />
+                <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+                <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
+                <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiptIndexes" FunctionName="TotalSalesPortalModel.Store.GetReceiptIndexes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.ReceiptIndex">
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="CustomerDescription" ColumnName="CustomerDescription" />
+                <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
+                <ScalarProperty Name="GoodsIssueEntryDate" ColumnName="GoodsIssueEntryDate" />
+                <ScalarProperty Name="TotalDepositAmount" ColumnName="TotalDepositAmount" />
+                <ScalarProperty Name="TotalUnApplyAmount" ColumnName="TotalUnApplyAmount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiptViewDetails" FunctionName="TotalSalesPortalModel.Store.GetReceiptViewDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.ReceiptViewDetail">
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="ReceiptDetailID" ColumnName="ReceiptDetailID" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="ReceiptAmount" ColumnName="ReceiptAmount" />
+                <ScalarProperty Name="TotalGrossAmount" ColumnName="TotalGrossAmount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="GoodsIssueEntryDate" ColumnName="GoodsIssueEntryDate" />
+                <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReceiptEditable" FunctionName="TotalSalesPortalModel.Store.ReceiptEditable" />
+          <FunctionImportMapping FunctionImportName="ReceiptPostSaveValidate" FunctionName="TotalSalesPortalModel.Store.ReceiptPostSaveValidate" />
+          <FunctionImportMapping FunctionImportName="ReceiptSaveRelative" FunctionName="TotalSalesPortalModel.Store.ReceiptSaveRelative" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

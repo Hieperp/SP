@@ -44,7 +44,7 @@
             ServiceContract = 8056,
 
             AccountInvoice = 8057,
-
+            Receipt = 8059,
 
 
             GoodsReceipt = 8077,
