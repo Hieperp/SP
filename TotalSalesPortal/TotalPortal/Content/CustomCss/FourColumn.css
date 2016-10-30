@@ -177,8 +177,9 @@
     margin-bottom:10px; 
 }
 
-#customer-div{
-    background-image: url("../Images/New/customer_div_bg.png");
+#customer-div {
+    /*background-image: url("../Images/New/customer_div_bg.png");*/
+    background-image: url('../Images/Mains/Navigate-right.png');
 }
 
 #supplier-div{

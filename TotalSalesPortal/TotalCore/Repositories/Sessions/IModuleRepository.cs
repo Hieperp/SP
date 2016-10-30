@@ -2,7 +2,7 @@
 
 using TotalModel.Models;
 
-namespace TotalCore.Helpers
+namespace TotalCore.Repositories.Sessions
 {
     public interface IModuleRepository
     {

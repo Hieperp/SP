@@ -191,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\GenericAPIsController.cs" />
+    <Compile Include="APIs\Sessions\MenuAPIsController.cs" />
     <Compile Include="APIs\Sessions\MenuSession.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -271,6 +272,8 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IWarehouseAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\Helpers\PrintViewModel.cs" />
     <Compile Include="Areas\Sales\ViewModels\DeliveryAdviceViewModel.cs" />
+    <Compile Include="ViewModels\Sessions\ModuleDetailViewModel.cs" />
+    <Compile Include="ViewModels\Sessions\ModuleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -290,6 +293,7 @@
     <Content Include="Content\Images\Logo\logo.png" />
     <Content Include="Content\Images\Logo\LogoTanThanh.ico" />
     <Content Include="Content\Images\Logo\LOGO_TANTHANH.png" />
+    <Content Include="Content\Images\Mains\Navigate-right.png" />
     <Content Include="Content\Images\Menu\Automatic-32.png" />
     <Content Include="Content\Images\Menu\Automotive-32.png" />
     <Content Include="Content\Images\Menu\Bullish-32.png" />
@@ -1209,6 +1213,8 @@
     <Content Include="Views\Helpers\Commons\_CustomerDescription.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Commons\Promotion.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\EmployeeBase.cshtml" />
+    <Content Include="Views\MenuAPIs\MainMenu.cshtml" />
+    <Content Include="Views\MenuAPIs\TaskMenu.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

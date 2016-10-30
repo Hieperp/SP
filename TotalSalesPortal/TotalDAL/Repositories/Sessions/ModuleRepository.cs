@@ -5,11 +5,10 @@ using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
-using TotalCore.Helpers;
-using TotalCore.Repositories;
 using TotalModel.Models;
+using TotalCore.Repositories.Sessions;
 
-namespace TotalData.Helpers
+namespace TotalDAL.Repositories.Sessions
 {   
     public class ModuleRepository : IModuleRepository
     {

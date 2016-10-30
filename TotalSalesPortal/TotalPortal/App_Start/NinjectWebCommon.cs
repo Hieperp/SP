@@ -18,6 +18,8 @@ namespace TotalPortal.App_Start
     using TotalCore.Repositories.Sales;
     using TotalCore.Repositories.Inventories;
     using TotalCore.Repositories.Accounts;
+    using TotalCore.Repositories.Sessions;
+
     using TotalCore.Services.Sales;
     using TotalCore.Services.Inventories;
     using TotalCore.Services.Accounts;
@@ -27,6 +29,7 @@ namespace TotalPortal.App_Start
     using TotalDAL.Repositories.Sales;
     using TotalDAL.Repositories.Inventories;
     using TotalDAL.Repositories.Accounts;
+    using TotalDAL.Repositories.Sessions;
 
 
     using TotalService.Sales;
@@ -80,6 +83,9 @@ namespace TotalPortal.App_Start
 
                 kernel.Bind<TotalSalesPortalEntities>().ToSelf().InRequestScope();
 
+
+                kernel.Bind<IModuleRepository>().To<ModuleRepository>();
+                kernel.Bind<IModuleDetailRepository>().To<ModuleDetailRepository>();
 
 
                 kernel.Bind<IDeliveryAdviceService>().To<DeliveryAdviceService>();

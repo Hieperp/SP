@@ -49,8 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityFrameworkExtension.cs" />
-    <Compile Include="Helpers\ModuleDetailRepository.cs" />
-    <Compile Include="Helpers\ModuleRepository.cs" />
+    <Compile Include="Repositories\Sessions\ModuleDetailRepository.cs" />
+    <Compile Include="Repositories\Sessions\ModuleRepository.cs" />
     <Compile Include="Helpers\SqlProgrammability\Accounts\AccountInvoice.cs" />
     <Compile Include="Helpers\SqlProgrammability\Accounts\Receipt.cs" />
     <Compile Include="Helpers\SqlProgrammability\Commons\Commons.cs" />

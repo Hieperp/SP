@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using TotalModel.Models;
-using TotalCore.Repositories;
+using TotalCore.Repositories.Sessions;
 
-namespace TotalData.Helpers
+namespace TotalDAL.Repositories.Sessions
 {    
     public class ModuleDetailRepository : IModuleDetailRepository
     {

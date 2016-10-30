@@ -4,10 +4,9 @@
 
 <div id="popupWindow" style="position: absolute"></div>
 
-@using (Html.BeginForm())
-{   
-    <div>
-        @(Html.Kendo().Grid<TotalModel.Models.DeliveryAdviceIndex>()
+
+<div>
+    @(Html.Kendo().Grid<TotalModel.Models.DeliveryAdviceIndex>()
             .Name("kendoGridIndex")
             .Columns(columns =>
             {
@@ -48,8 +47,8 @@
                 .Aggregates(a => a.Add(x => x.TotalGrossAmount).Sum())
                 )
             .HtmlAttributes(new { @class = "grid-class" }))
-    </div>
-}
+</div>
+
 
 
 <script type="text/javascript">

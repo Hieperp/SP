@@ -1,10 +1,11 @@
 ﻿body {
-    font-size: 13px;   
+    font-size: 13px;
+    /*font-weight: lighter;*/
 }
 
-#main-popup{
+/*#main-popup{
     width: inherit;
-}
+}*/
 /*.k-reset{
     font-size: 88%;
 }*/
