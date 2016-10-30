@@ -4,19 +4,61 @@
     border: none;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #FBF9EF;
-    /*background-color: white;*/
-    padding: 0px 0px;
-    /*padding: 0px 4%;*/
+@media (min-width: 1280px) {
+    .container {
+        width: 1190px;
+    }
 }
 
-@media (min-width: 1280px) {
-  .container {
-    width: 1250px;
-  }
+
+body {
+    font-size: 13px;
+    font-family: Cambria;
+    background-color: #FBF9EF;
+    /*background-color: white;           Arial, Helvetica, sans-serif*/
+    padding: 0px 0px;
+    /*padding: 0px 4%;*/
+    font-weight: lighter;
 }
+
+
+label {/*override bootstrap label css*/
+    font-weight: lighter;
+    margin-bottom: 1px;
+}
+
+#main-body {
+    margin-left: 70px;
+    padding-top: 15px;
+    padding-right: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #main {
     width: 100%;
@@ -31,9 +73,9 @@ body {
     float: left;
 }
 
-#container {
+/*#container {
     float: left;
-}
+}*/
 
 #header {
     float: left;
@@ -227,37 +269,8 @@ input[type=text], input[type=password], select {
     color: darkred;
 }
 
-#div-alert {
-    display: none;
-    text-align: right;
-    width: 1150px;
-    /*margin-top: 10px;*/
-    padding-right: 5px;
-}
 
-.validation-summary-errors {
-    display: none;
-    /*margin-left: 60px;*/
-    /*color: #ff0000;*/
-    /*margin-top: 10px;*/
-    margin-bottom: 25px;
-    background-color: #E0FFFF;
-    border: 1px solid #00688B;
-    border-radius: 8px 8px 8px 8px;
-    color: #00688B;
-    font-weight: bold;
-    width: 1150px;
-    float: left;
-    text-align: left;
-}
 
-    .validation-summary-errors ul {
-        margin-top: 5px;
-    }
-
-.validation-summary-valid {
-    display: none;
-}
 
 /* Tables */
 table {
@@ -284,11 +297,6 @@ th, td {
 }
 
 tr:hover {
-}
-
-label {
-    /*color: black;*/
-    font-weight: normal;
 }
 
 /*Below is the orinal site.css*/
@@ -398,7 +406,7 @@ label {
         animation: myfirst 2s;
     }
 
-#categories1 { /*This is for left menu*/
+#left-menu { /*This is for left menu*/
     /*font-family: Constantia, Georgia, serif;*/
     list-style-type: none;
     border-right: #5d5a53 0px dotted;
@@ -408,14 +416,14 @@ label {
 }
 
 
-    #categories1 a:link, #categories1 a:visited {
+    #left-menu a:link, #left-menu a:visited {
         color: white;
         text-decoration: none;
         font-weight: lighter;
         /*font-size: small;*/
     }
 
-    #categories1 a:hover {
+    #left-menu a:hover {
         /*background-color: forestgreen;*/
         background: none repeat scroll 0 0 forestgreen;
         box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.4) inset;
@@ -534,7 +542,7 @@ label {
     background-color: #AFC0D0;
 }
 
-#main-menu-container {
+#top-menu-container {
     width: 100%;
     min-width: 1150px;
     height: 55px;
@@ -599,7 +607,7 @@ label {
             color: slategrey;
             background: linear-gradient(#dc7171, #852809);
         }
-        
+
 
 #grouplist > .k-item > .k-link:hover {
     background-color: #ca0e0b;
@@ -643,19 +651,19 @@ label {
 }
 
 
-#detail-menu {
+#left-side-navigation {
     position: absolute;
     left: 1px;
-    margin-top: 42px;
+    margin-top: 0px;
     /*top: 170px;*/
 }
 
-    #detail-menu a {
+    #left-side-navigation a {
         padding: 5px;
         margin: 1px 0px 1px 0px;
     }
 
-        #detail-menu a img {
+        #left-side-navigation a img {
             padding-left: 12px;
         }
 
@@ -790,4 +798,164 @@ a[class^='info-bar'] {
 
 .isBonus {
     color: darkcyan;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Remove panelbar borders http://www.telerik.com/forums/styling-a-panelbar */
+ul.k-panelbar,
+ul.k-panelbar .k-group,
+ul.k-panelbar .k-content,
+ul.k-panelbar .k-link {
+    border-width: 0;
+    border-radius: 4px;
+}
+
+
+.k-panelbar .k-content /*.k-header*/ {
+    background-color: #FBF9EF; /*the same with body background-color*/
+}
+
+
+.k-grid-edit-row .k-callout, .k-grid-edit-row .k-callout-n {
+    left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*four column*/
+
+.left-panel {
+    float: left;
+    width: 20%;
+    padding-left: 6px;
+    padding-right: 3px;
+    box-sizing: border-box;
+}
+
+.right-panel {
+    float: left;
+    width: 80%;
+    padding-right: 3px;
+    box-sizing: border-box;
+}
+
+
+.right-first-panel {
+    float: left;
+    width: 55%;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.right-second-panel {
+    float: left;
+    width: 45%;
+    box-sizing: border-box;
+}
+
+.form-group {
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.left-panel-input {
+    width: 91%;
+}
+
+.right-panel-input {
+    width: 72%;
+    box-sizing: border-box;
+}
+
+.right-panel-label {
+    width: 28%;
+    float: left;
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 4px;
+    box-sizing: border-box;
+}
+
+
+.right-botton-panel {
+    float: right;
+    width: 100%;
+}
+
+
+
+
+
+
+.div-k-panel{
+    margin-top: 10px;
+}
+
+
+
+#div-alert {
+    /*float: right;*/
+    display: none;
+    text-align: right;
+}
+
+.validation-summary-errors {
+    display: none;
+    background-color: #E0FFFF;
+    border: 1px solid #00688B;
+    border-radius: 4px 4px 4px 4px;
+    color: #00688B;
+    width: 100%;
+    font-family: Monotype Corsiva;
+}
+
+    .validation-summary-errors ul {
+        margin-top: 5px;
+    }
+
+.validation-summary-valid {
+    display: none;
+}
+
+.text-danger {
+    font-family: Monotype Corsiva;
+    color: #0094ff;
+}
+
+
+.custom-button {
+    float: right;
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 10px;
 }

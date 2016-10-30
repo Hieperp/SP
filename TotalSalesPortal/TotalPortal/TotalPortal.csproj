@@ -289,7 +289,6 @@
     <Content Include="Content\CustomCss\GeneralCustomersAutoComplete.css" />
     <Content Include="Content\CustomCss\GeneralPopup.css" />
     <Content Include="Content\CustomCss\OneColumn.css" />
-    <Content Include="Content\GeneralLayout.css" />
     <Content Include="Content\Images\Logo\logo.png" />
     <Content Include="Content\Images\Logo\LogoTanThanh.ico" />
     <Content Include="Content\Images\Logo\LOGO_TANTHANH.png" />

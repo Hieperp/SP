@@ -97,7 +97,7 @@
             var url = '@Url.Action("TaskMenu", "MenuAPIs", new { moduleID = "module-id" })';
             url = url.replace("module-id", $(e.item).attr("NmvnModuleID"));
 
-            $('#detail-menu').load(url);
+            $('#left-side-navigation').load(url);
         }
     }
 

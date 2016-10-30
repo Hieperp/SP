@@ -6,7 +6,7 @@ namespace TotalPortal.Areas.Commons.ViewModels.Helpers
 {
     public interface IPaymentTermDropDownViewModel
     {
-        [Display(Name = "Phương thức thanh toán")]
+        [Display(Name = "Phương thức TT")]
         int PaymentTermID { get; set; }
         IEnumerable<SelectListItem> PaymentTermSelectList { get; set; }
     }
