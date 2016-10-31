@@ -25,13 +25,8 @@
 
         <div class="form-group">
             @Html.EditorFor(d => d.Employee)
-            @Html.ValidationMessageFor(model => model.Employee.Name, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.EditorFor(d => d.Promotion)
-        </div>
-
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.PromotionVouchers)
             <div class="div-input">
@@ -68,8 +63,12 @@
 
     <div class="right-panel">
 
-        <div style="clear: both; height: 130px;" >
+        <div style="clear: both; height: 136px;" >
             @Html.EditorFor(d => d.Customer)
+            
+
+            @Html.EditorFor(d => d.Promotion)
+
             @Html.Partial("~/Views/Helpers/Commons/_PriceCategory.cshtml")
         </div>
 

@@ -8,6 +8,6 @@ namespace TotalDTO.Helpers.Interfaces
         [Display(Name = "Bảng giá")]
         int PriceCategoryID { get; set; }
         [Display(Name = "Bảng giá")]
-        string PriceCategoryName { get; set; }
+        string PriceCategoryCode { get; set; }
     }
 }

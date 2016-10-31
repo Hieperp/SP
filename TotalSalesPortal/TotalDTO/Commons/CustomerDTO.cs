@@ -21,7 +21,7 @@ namespace TotalDTO.Commons
         int TerritoryID { get; set; }
         string EntireTerritoryEntireName { get; set; }
         int PriceCategoryID { get; set; }
-        string PriceCategoryName { get; set; }
+        string PriceCategoryCode { get; set; }
     }
 
     public class CustomerBaseDTO : BaseDTO, ICustomerBaseDTO
@@ -60,7 +60,7 @@ namespace TotalDTO.Commons
         [Display(Name = "Bảng giá")]
         public int PriceCategoryID { get; set; }
         [Display(Name = "Bảng giá")]
-        public string PriceCategoryName { get; set; }
+        public string PriceCategoryCode { get; set; }
     }
 
 

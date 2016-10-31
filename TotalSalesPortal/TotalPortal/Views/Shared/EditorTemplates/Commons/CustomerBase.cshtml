@@ -3,19 +3,13 @@
 @model TotalDTO.Commons.ICustomerBaseDTO
 
 @Html.HiddenFor(model => model.CustomerID)
-@*@Html.HiddenFor(model => model.Name)*@
 
 
 <div class="right-first-panel">
     <div class="form-group">
-
-        @*<a href="javascript:void(0)" class="right-panel-input" style="margin-left: 2px; color:black;"><img id="img-telephone" src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </a>*@
-        @*@Html.DisplayFor(a => a.Name, null, "LbTelephone")*@
-
-        <div class="right-panel-label" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Customer Blue 24.png" alt="" />  </div>
-        @*@Html.Label(" ", new { @class = "right-panel-label"})*@
+        <div class="right-panel-label" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Customer Blue 24.png" title="Khách hàng" />  </div>
         <div class="div-input">
-            @Html.Kendo().MaskedTextBoxFor(model => model.Name).HtmlAttributes(new { @class = "right-panel-input" })
+            @Html.Kendo().MaskedTextBoxFor(model => model.Name).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
         </div>
         <div class="div-validation-message">
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -25,10 +19,3 @@
 
 
 @Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")
-
-
-
-
-
-@*<label id="label_Customer_Name" class="label-description"> "Khách hàng: " + @(@Model != null && @Model.Name != null && @Model.Name != "" ? @Model.Name : "Không có thông tin khách hàng") </label>*@
-

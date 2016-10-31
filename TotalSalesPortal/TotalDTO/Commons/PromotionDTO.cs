@@ -20,11 +20,11 @@ namespace TotalDTO.Commons
         [Display(Name = "Chương trình khuyến mãi")]
         public string Code { get; set; }
         public string Name { get; set; }
-        public System.DateTime StartDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
         [Display(Name = "Ngày kết thúc")]
-        public System.DateTime EndDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
         [Display(Name = "Tỷ lệ chiết khấu")]
-        public decimal DiscountPercent { get; set; }
+        public Nullable<decimal> DiscountPercent { get; set; }
         public bool ApplyToAllCustomers { get; set; }
         public bool ApplyToAllCommodities { get; set; }
 

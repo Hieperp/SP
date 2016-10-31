@@ -9,12 +9,15 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.PriceCategoryID);
-    @Html.HiddenFor(model => model.PriceCategoryName);
+    @Html.HiddenFor(model => model.PriceCategoryCode);
 
     @Html.HiddenFor(model => model.Promotion.PromotionID);
     @Html.HiddenFor(model => model.Promotion.Name);
+    @Html.HiddenFor(model => model.Promotion.StartDate);
     @Html.HiddenFor(model => model.Promotion.EndDate);
     @Html.HiddenFor(model => model.Promotion.DiscountPercent);
+    @Html.HiddenFor(model => model.Promotion.ApplyToAllCustomers);
+    @Html.HiddenFor(model => model.Promotion.ApplyToAllCommodities);
     @Html.HiddenFor(model => model.Promotion.Remarks);
 
     @(Html.Kendo().TabStrip()
@@ -82,12 +85,17 @@
 
         function _setModelInput(selectedDataItem) {
             $("#PriceCategoryID").val($("#Customer_PriceCategoryID").val());
-            $("#PriceCategoryName").val($("#Customer_PriceCategoryName").val());
+            $("#PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
 
             $("#Promotion_PromotionID").val(selectedDataItem === undefined || selectedDataItem.PromotionID === undefined ? null : selectedDataItem.PromotionID);
             $("#Promotion_Name").val(selectedDataItem === undefined || selectedDataItem.Name === undefined ? null : selectedDataItem.Name);
+            $("#Promotion_StartDate").val(selectedDataItem === undefined || selectedDataItem.StartDate === undefined ? null : kendo.toString(selectedDataItem.StartDate, SettingsManager.DateTimeFormat));
             $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, SettingsManager.DateTimeFormat));
             $("#Promotion_DiscountPercent").val(selectedDataItem === undefined || selectedDataItem.DiscountPercent === undefined ? null : selectedDataItem.DiscountPercent);
+
+            $("#Promotion_ApplyToAllCustomers").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCustomers === undefined ? null : selectedDataItem.ApplyToAllCustomers);
+            $("#Promotion_ApplyToAllCommodities").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCommodities === undefined ? null : selectedDataItem.ApplyToAllCommodities);
+
             $("#Promotion_Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
         }
     }

@@ -28,7 +28,7 @@ namespace TotalDTO.Sales
         [Display(Name = "Bảng giá")]
         public int PriceCategoryID { get; set; }
         [Display(Name = "Bảng giá")]
-        public string PriceCategoryName { get; set; }
+        public string PriceCategoryCode { get; set; }
 
         [Display(Name = "Phương thức TT")]
         public int PaymentTermID { get; set; }

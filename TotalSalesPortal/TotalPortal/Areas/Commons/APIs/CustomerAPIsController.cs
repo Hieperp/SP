@@ -33,7 +33,7 @@ namespace TotalPortal.Areas.Commons.APIs
 
         public JsonResult SearchCustomers(string searchText)
         {
-            var result = customerRepository.SearchCustomers(searchText).Select(s => new { s.CustomerID, s.Name, s.Birthday, s.VATCode, s.Telephone, s.AddressNo, TerritoryID = s.TerritoryID, EntireTerritoryEntireName = s.EntireTerritory.EntireName, PriceCategoryID = s.PriceCategoryID, PriceCategoryName = s.PriceCategory.Name });
+            var result = customerRepository.SearchCustomers(searchText).Select(s => new { s.CustomerID, s.Name, s.Birthday, s.VATCode, s.Telephone, s.AddressNo, TerritoryID = s.TerritoryID, EntireTerritoryEntireName = s.EntireTerritory.EntireName, PriceCategoryID = s.PriceCategoryID, PriceCategoryCode = s.PriceCategory.Code });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

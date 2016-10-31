@@ -10,17 +10,9 @@
 @Html.HiddenFor(model => model.TerritoryID)
 @Html.HiddenFor(model => model.EntireTerritoryEntireName)
 @Html.HiddenFor(model => model.PriceCategoryID)
-@Html.HiddenFor(model => model.PriceCategoryName)
+@Html.HiddenFor(model => model.PriceCategoryCode)
 
-
-@*<div class="div-row3">
-    <div class="div-input" style="margin-left: 0px; margin-top: 4px;">*@
-@*@{string birthday = Model.Birthday != null && Model.Birthday.Value.Year > 1900 ? Model.Birthday.Value.ToShortDateString() : "";}*@
-
-@*<a href="javascript:void(0)" style="margin-left: 46px; color:black;"><img id="img-birthday" src="~/Content/Images/New/BirthdayIcon.png" title="Ngày sinh" /> <label id="label-Birthday" class="label-description" style="width:70px;">@birthday</label></a>*@
-@*<a href="javascript:void(0)" style="margin-left: 2px; color:black;"><img id="img-telephone" src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> @Html.DisplayFor(a => a.Telephone  <label id="label-Telephone" class="label-description">@(@Model != null ? @Model.Telephone : "")</label></a>*@
-
-<div class="right-second-panel">
+<div class="right-second-panel" style="width: 32%;">
     <div class="form-group">
         <div style="float:left; padding-top: 2px;"> <img src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </div> <div class="right-panel-label-unlimited-width">  @Html.DisplayFor(a => a.Telephone, null, "LbTelephone") </div>
     </div>

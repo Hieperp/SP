@@ -303,6 +303,8 @@
     <Content Include="Content\Images\Mains\Navigate-right.png" />
     <Content Include="Content\Images\Mains\Next-right.png" />
     <Content Include="Content\Images\Mains\Next-view.png" />
+    <Content Include="Content\Images\Mains\Sale-Discount.png" />
+    <Content Include="Content\Images\Mains\Sale-icon.png" />
     <Content Include="Content\Images\Menu\Automatic-32.png" />
     <Content Include="Content\Images\Menu\Automotive-32.png" />
     <Content Include="Content\Images\Menu\Bullish-32.png" />
@@ -1225,6 +1227,7 @@
     <Content Include="Views\MenuAPIs\MainMenu.cshtml" />
     <Content Include="Views\MenuAPIs\TaskMenu.cshtml" />
     <Content Include="Views\Helpers\Commons\_PriceCategory.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
