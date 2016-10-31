@@ -22,7 +22,7 @@ body {
 }
 
 
-label {/*override bootstrap label css*/
+label { /*override bootstrap label css*/
     font-weight: lighter;
     margin-bottom: 1px;
 }
@@ -848,6 +848,11 @@ ul.k-panelbar .k-link {
 
 
 
+.contract-separator {
+    height: 130px;
+    clear: both;
+    margin-left: 100px;
+}
 
 /*four column*/
 
@@ -864,6 +869,11 @@ ul.k-panelbar .k-link {
     width: 80%;
     padding-right: 3px;
     box-sizing: border-box;
+    /*background-image: url('Images/Mains/Blue-Right 48.png');*/
+    /*background-image: url('Images/Mains/Click_here_blue.png');*/
+    background-repeat: no-repeat;
+    background-position-x: -9px;
+    /*background-size: 60px 40px;*/
 }
 
 
@@ -905,6 +915,11 @@ ul.k-panelbar .k-link {
     box-sizing: border-box;
 }
 
+.right-panel-label-unlimited-width {
+    float: left;
+    padding-top: 5px;
+    padding-right: 4px;
+}
 
 .right-botton-panel {
     float: right;
@@ -916,14 +931,14 @@ ul.k-panelbar .k-link {
 
 
 
-.div-k-panel{
+.div-k-panel {
     margin-top: 10px;
 }
 
 
 
 #div-alert {
-    /*float: right;*/
+    float: right;
     display: none;
     text-align: right;
 }
