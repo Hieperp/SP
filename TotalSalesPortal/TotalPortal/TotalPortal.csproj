@@ -1224,6 +1224,7 @@
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\EmployeeBase.cshtml" />
     <Content Include="Views\MenuAPIs\MainMenu.cshtml" />
     <Content Include="Views\MenuAPIs\TaskMenu.cshtml" />
+    <Content Include="Views\Helpers\Commons\_PriceCategory.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

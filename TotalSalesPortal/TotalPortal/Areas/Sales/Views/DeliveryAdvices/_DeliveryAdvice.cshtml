@@ -64,33 +64,13 @@
             </div>
         </div>
 
-
-        @Html.HiddenFor(model => model.PriceCategoryID)
-        <div class="form-group">
-            @Html.LabelFor(model => model.PriceCategoryName)
-            <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.PriceCategoryName).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
-            </div>
-            <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.PriceCategoryName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
     </div>
 
     <div class="right-panel">
-        @*class="contract-separator" id="customer-div"*@
 
         <div style="clear: both; height: 130px;" >
             @Html.EditorFor(d => d.Customer)
-
-            <div id="vehiclesinvoice-background" class="vehiclesinvoice-background" style="float: right; margin-top: -33px; text-align: center;">
-                <div class="div-in-background">
-                    <a id="MinReference" style="color: #0026ff;" href="#" target="_blank"> </a>
-                    <div id="TotalPartsAmount"></div>
-                </div>
-            </div>
-
+            @Html.Partial("~/Views/Helpers/Commons/_PriceCategory.cshtml")
         </div>
 
         <div class="div-k-grid-detail">

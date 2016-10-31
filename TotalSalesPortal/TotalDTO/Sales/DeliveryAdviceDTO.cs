@@ -9,10 +9,11 @@ using TotalModel;
 using TotalBase.Enums;
 using TotalDTO.Helpers;
 using TotalDTO.Commons;
+using TotalDTO.Helpers.Interfaces;
 
 namespace TotalDTO.Sales
 {
-    public class DeliveryAdvicePrimitiveDTO : DiscountVATAmountDTO<DeliveryAdviceDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
+    public class DeliveryAdvicePrimitiveDTO : DiscountVATAmountDTO<DeliveryAdviceDetailDTO>, IPrimitiveEntity, IPrimitiveDTO, IPriceCategory
     {
         public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.DeliveryAdvice; } }
 
