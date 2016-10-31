@@ -11,9 +11,9 @@
             .Columns(columns =>
             {
                 columns.Bound(p => p.DeliveryAdviceID).DisplayNameTitle().Hidden();
-                columns.Bound(p => p.LocationCode).Title("CN").Width(3).HtmlAttributes(new { style = "color: # if (Approved) { #black# } else { #blue# } #" });
-                columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(40).HtmlAttributes(new { style = "color: # if (Approved) { #black# } else { #blue# } #" });
-                columns.Bound(p => p.CustomerDescription).Title("Khách hàng").Width(470).HtmlAttributes(new { style = "color: # if (Approved) { #black# } else { #blue# } #" });
+                columns.Bound(p => p.LocationCode).Title("CN").Width(3);
+                columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(40);
+                columns.Bound(p => p.CustomerDescription).Title("Khách hàng").Width(470);
                 columns.Bound(p => p.TotalGrossAmount).Title("Thành tiền").Format("{0:n0}").HtmlAttributes(new { @class = "grid-number-column", @style = "color: # if (Approved) { #black# } else { #blue# } #" }).Filterable(false).Width(115);//.ClientFooterTemplate("TC: #= kendo.format('{0:n0}', sum) #").FooterHtmlAttributes(new { @class = "grid-number-column" })
 
                 columns.Template(model => null).Width(120)

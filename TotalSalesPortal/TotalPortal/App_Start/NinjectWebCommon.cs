@@ -14,6 +14,7 @@ namespace TotalPortal.App_Start
 
     using TotalModel.Models;
 
+    using TotalCore.Repositories;
     using TotalCore.Repositories.Commons;
     using TotalCore.Repositories.Sales;
     using TotalCore.Repositories.Inventories;
@@ -23,8 +24,9 @@ namespace TotalPortal.App_Start
     using TotalCore.Services.Sales;
     using TotalCore.Services.Inventories;
     using TotalCore.Services.Accounts;
-    
-    
+
+
+    using TotalDAL.Repositories;
     using TotalDAL.Repositories.Commons;
     using TotalDAL.Repositories.Sales;
     using TotalDAL.Repositories.Inventories;
@@ -41,9 +43,7 @@ namespace TotalPortal.App_Start
     using TotalPortal.Areas.Inventories.Builders;
     using TotalPortal.Areas.Commons.Builders;
     using TotalPortal.Areas.Accounts.Builders;
-    
-        
-    
+                        
 
 
     public static class NinjectWebCommon 
@@ -83,6 +83,7 @@ namespace TotalPortal.App_Start
 
                 kernel.Bind<TotalSalesPortalEntities>().ToSelf().InRequestScope();
 
+                kernel.Bind<IBaseRepository>().To<BaseRepository>();
 
                 kernel.Bind<IModuleRepository>().To<ModuleRepository>();
                 kernel.Bind<IModuleDetailRepository>().To<ModuleDetailRepository>();

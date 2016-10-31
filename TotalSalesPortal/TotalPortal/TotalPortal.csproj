@@ -238,6 +238,7 @@
     <Compile Include="Controllers\GenericViewDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -272,6 +273,7 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IWarehouseAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\Helpers\PrintViewModel.cs" />
     <Compile Include="Areas\Sales\ViewModels\DeliveryAdviceViewModel.cs" />
+    <Compile Include="ViewModels\Home\OptionViewModel.cs" />
     <Compile Include="ViewModels\Sessions\ModuleDetailViewModel.cs" />
     <Compile Include="ViewModels\Sessions\ModuleViewModel.cs" />
   </ItemGroup>
@@ -289,6 +291,7 @@
     <Content Include="Content\CustomCss\GeneralCustomersAutoComplete.css" />
     <Content Include="Content\CustomCss\GeneralPopup.css" />
     <Content Include="Content\CustomCss\OneColumn.css" />
+    <Content Include="Content\Images\Logo\Logo-vcp.png" />
     <Content Include="Content\Images\Logo\logo.png" />
     <Content Include="Content\Images\Logo\LogoTanThanh.ico" />
     <Content Include="Content\Images\Logo\LOGO_TANTHANH.png" />
@@ -1228,6 +1231,10 @@
     <Content Include="Views\MenuAPIs\TaskMenu.cshtml" />
     <Content Include="Views\Helpers\Commons\_PriceCategory.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Home\Options.cshtml" />
+    <Content Include="Views\Home\UserGuide.cshtml" />
+    <Content Include="Views\Home\LockedDate.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

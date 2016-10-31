@@ -52,11 +52,13 @@
         taskController = $(e.item).attr("taskController");
         taskActions = $(e.item).attr("taskActions");
 
-        var url = '@Url.Action("taskActions", "taskController")';
-        url = url.replace("taskActions", taskActions);
-        url = url.replace("taskController", taskController);
+        if (taskController != "") {
+            var url = '@Url.Action("taskActions", "taskController")';
+            url = url.replace("taskActions", taskActions);
+            url = url.replace("taskController", taskController);
 
-        window.open(url, "_self");
+            window.open(url, "_self");
+        }
     }
 
     $(document).ready(function () {

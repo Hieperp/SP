@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,10 +9,10 @@
     
     @Scripts.Render("~/bundles/modernizr")
 
-
-
+    
     <!--This bundle was moved by the Telerik VS Extensions for compatibility reasons-->
     @Scripts.Render("~/bundles/jquery")
+
 
     <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.common.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/kendo/2014.3.1411/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
@@ -38,7 +40,7 @@
 </head>
 <body>
 
-    <div id="main-popup" class="container body-content">
+    <div id="main-popup" class="container body-content" style="width: 1024px;" >
         @RenderBody()
     </div>
 
@@ -49,5 +51,4 @@
 </html>
 
 
-<link href="@Url.Content("~/Content/GeneralLayout.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />
