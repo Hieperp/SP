@@ -4,9 +4,9 @@
 
 @Html.HiddenFor(model => model.EmployeeID)
 
-<div class="form-group1">
+<div class="form-group">
 
-    @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label-left" })
+    @Html.LabelFor(model => model.EmployeeName)
     <div class="div-input">
         @(Html.Kendo().AutoCompleteFor(model => model.EmployeeName)
             .Name("EmployeeName")

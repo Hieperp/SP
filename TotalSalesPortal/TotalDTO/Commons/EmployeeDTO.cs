@@ -12,6 +12,7 @@ namespace TotalDTO.Commons
     public interface IEmployeeBaseDTO
     {
         int EmployeeID { get; set; }
+        [Display(Name = "Tên nhân viên")]
         string Name { get; set; }        
     }
     public class EmployeeBaseDTO : BaseDTO, IEmployeeBaseDTO

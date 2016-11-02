@@ -21,9 +21,9 @@ namespace TotalPortal.Configuration
         public static int GridPopupHeight = 263;
         public static int GridPopupNoTabHeight = 330;
 
-        public static int PopupHeight = 482;
-        public static int PopupHeightSmall = 395;
-        public static int PopupHeightWithTab = 512;
+        public static int PopupHeight = 484;
+        public static int PopupHeightSmall = 397;
+        public static int PopupHeightWithTab = 514;
 
         public static int PopupWidth = 1024;
         public static int PopupWidthSmall = 900;

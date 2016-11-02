@@ -1,6 +1,10 @@
-﻿<div id="div-alert">
+﻿@model TotalDTO.BaseDTO
+
+@Html.HiddenFor(model => model.SubmitTypeOption)
+
+<div id="div-alert">
     <a href="javascript:void(0)" style="height: 32px;">
-        <img src="~/Content/Images/New/alert1.png" alt="Alert"/>
+        <img src="~/Content/Images/New/alert1.png" alt="Alert" />
         <label style="color: #0094ff; font-style: italic; font-family: Monotype Corsiva; " onclick=" alert_click()">Dữ liệu nhập vào chưa đầy đủ hoặc không hợp lệ. Vui lòng nhấn vào đây để xem chi tiết </label>
     </a>
 </div>

@@ -39,7 +39,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsIssues.GoodsIssueID, CAST(GoodsIssues.EntryDate AS DATE) AS EntryDate, GoodsIssues.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.AddressNo AS CustomerDescription, DeliveryAdvices.Reference AS DeliveryAdviceReference, DeliveryAdvices.EntryDate AS DeliveryAdviceEntryDate, GoodsIssues.TotalQuantity, GoodsIssues.TotalGrossAmount, GoodsIssues.Description " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsIssues.GoodsIssueID, CAST(GoodsIssues.EntryDate AS DATE) AS EntryDate, GoodsIssues.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.AddressNo AS CustomerDescription, DeliveryAdvices.Reference AS DeliveryAdviceReference, ISNULL(DeliveryAdvices.EntryDate, NULL) AS DeliveryAdviceEntryDate, GoodsIssues.TotalQuantity, GoodsIssues.TotalGrossAmount, GoodsIssues.Description " + "\r\n";
             queryString = queryString + "       FROM        GoodsIssues INNER JOIN" + "\r\n";
             queryString = queryString + "                   Locations ON GoodsIssues.EntryDate >= @FromDate AND GoodsIssues.EntryDate <= @ToDate AND GoodsIssues.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsIssue + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsIssues.LocationID INNER JOIN " + "\r\n";
             queryString = queryString + "                   Customers Customers ON GoodsIssues.CustomerID = Customers.CustomerID LEFT JOIN" + "\r\n";
@@ -126,16 +126,20 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
 
 
-            queryString = queryString + "       DECLARE     @EntryDate DateTime       DECLARE @LocationID varchar(35)      DECLARE @WarehouseIDList varchar(35)         DECLARE @CommodityIDList varchar(3999) " + "\r\n";
+            queryString = queryString + "       DECLARE     @EntryDate DateTime       DECLARE @WarehouseIDList varchar(35)         DECLARE @CommodityIDList varchar(3999) " + "\r\n";
 
             queryString = queryString + "       IF (@GoodsIssueID > 0) ";
-            queryString = queryString + "           SELECT  @EntryDate = EntryDate, @LocationID = LocationID FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID " + "\r\n";
+            queryString = queryString + "           SELECT  @EntryDate = EntryDate FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID " + "\r\n";
             queryString = queryString + "       IF (@EntryDate IS NULL) ";
-            queryString = queryString + "           SELECT  @EntryDate = EntryDate, @LocationID = LocationID FROM DeliveryAdvices WHERE DeliveryAdviceID = @DeliveryAdviceID " + "\r\n";
+            queryString = queryString + "           SELECT  @EntryDate = GetDate() " + "\r\n";
 
-            queryString = queryString + "       IF          @EntryDate IS NULL          SET @EntryDate = CONVERT(Datetime, '31/12/2000', 103)" + "\r\n";
-            queryString = queryString + "       SELECT      @WarehouseIDList = STUFF((SELECT ',' + CAST(WarehouseID AS varchar)  FROM DeliveryAdviceDetails WHERE DeliveryAdviceID = @DeliveryAdviceID FOR XML PATH('')) ,1,1,'') " + "\r\n";
-            queryString = queryString + "       SELECT      @CommodityIDList = STUFF((SELECT ',' + CAST(CommodityID AS varchar)  FROM DeliveryAdviceDetails WHERE DeliveryAdviceID = @DeliveryAdviceID FOR XML PATH('')) ,1,1,'') " + "\r\n";
+            queryString = queryString + "       IF (@DeliveryAdviceID > 0) ";
+            queryString = queryString + "           BEGIN " + "\r\n";
+            queryString = queryString + "               SELECT      @WarehouseIDList = STUFF((SELECT ',' + CAST(WarehouseID AS varchar)  FROM DeliveryAdviceDetails WHERE DeliveryAdviceID = @DeliveryAdviceID FOR XML PATH('')) ,1,1,'') " + "\r\n";
+            queryString = queryString + "               SELECT      @CommodityIDList = STUFF((SELECT ',' + CAST(CommodityID AS varchar)  FROM DeliveryAdviceDetails WHERE DeliveryAdviceID = @DeliveryAdviceID FOR XML PATH('')) ,1,1,'') " + "\r\n";
+            queryString = queryString + "           END " + "\r\n";
+            queryString = queryString + "       ELSE ";
+            queryString = queryString + "           SELECT      @WarehouseIDList = '', @CommodityIDList = '' " + "\r\n";
 
             queryString = queryString + "       " + inventories.GET_WarehouseJournal_BUILD_SQL("@WarehouseJournalTable", "@EntryDate", "@EntryDate", "@WarehouseIDList", "@CommodityIDList", "0", "0") + "\r\n";
 

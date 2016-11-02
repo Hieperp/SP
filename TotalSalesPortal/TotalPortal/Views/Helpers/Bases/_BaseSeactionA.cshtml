@@ -1,8 +1,5 @@
 ﻿@model TotalDTO.BaseDTO
 
-@Html.HiddenFor(model => model.SubmitTypeOption)
-
-
 <div class="form-group">
     @Html.LabelFor(model => model.EntryDate)
     <div class="div-input">
@@ -23,4 +20,3 @@
         @Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
     </div>
 </div>
-

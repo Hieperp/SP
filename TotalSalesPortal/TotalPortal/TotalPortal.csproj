@@ -1085,7 +1085,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDowns\Approver.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\PreparedPerson.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\CustomerAutoComplete.cshtml" />
-    <Content Include="Views\Helpers\Bases\_ViewHeader.cshtml" />
+    <Content Include="Views\Helpers\Bases\_BaseSubmit.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />

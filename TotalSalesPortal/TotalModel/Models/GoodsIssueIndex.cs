@@ -19,7 +19,7 @@ namespace TotalModel.Models
         public string LocationCode { get; set; }
         public string CustomerDescription { get; set; }
         public string DeliveryAdviceReference { get; set; }
-        public System.DateTime DeliveryAdviceEntryDate { get; set; }
+        public Nullable<System.DateTime> DeliveryAdviceEntryDate { get; set; }
         public decimal TotalQuantity { get; set; }
         public decimal TotalGrossAmount { get; set; }
         public string Description { get; set; }

@@ -2135,7 +2135,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="CustomerDescription" Nullable="false" MaxLength="305" />
           <Property Type="String" Name="DeliveryAdviceReference" Nullable="true" MaxLength="10" />
-          <Property Type="DateTime" Name="DeliveryAdviceEntryDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DeliveryAdviceEntryDate" Nullable="true" Precision="23" />
           <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="TotalGrossAmount" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />

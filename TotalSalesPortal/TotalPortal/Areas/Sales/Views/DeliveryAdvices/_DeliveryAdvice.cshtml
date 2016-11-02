@@ -17,8 +17,6 @@
     @Html.HiddenFor(model => model.TotalGrossAmount)
     @Html.HiddenFor(model => model.AverageDiscountPercent)
 
-    @Html.HiddenFor(model => model.SubmitTypeOption)
-
     <div class="left-panel">
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSeactionA.cshtml")
@@ -65,8 +63,6 @@
 
         <div style="clear: both; height: 136px;" >
             @Html.EditorFor(d => d.Customer)
-            
-
             @Html.EditorFor(d => d.Promotion)
 
             @Html.Partial("~/Views/Helpers/Commons/_PriceCategory.cshtml")
@@ -74,161 +70,161 @@
 
         <div class="div-k-grid-detail">
             @(Html.Kendo().Grid(Model.DeliveryAdviceViewDetails)
-            .Name("kendoGridDetails")
-            .Columns(columns =>
-            {
-                columns.Template(t => { }).Title("&nbsp;").ClientTemplate("#= RowNumber(data) #").Width(35);
-
-
-                columns.Bound(p => p.DeliveryAdviceDetailID).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= DeliveryAdviceDetailID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DeliveryAdviceDetailID' value='#= DeliveryAdviceDetailID #' />");
-                columns.Bound(p => p.DeliveryAdviceID).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= DeliveryAdviceID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DeliveryAdviceID' value='#= DeliveryAdviceID #' />");
-
-
-                columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
-                columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
-                    .ClientTemplate("#= CommodityCode #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
-                columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(200)
-                    .ClientFooterTemplate("Tổng cộng:")
-                    .ClientTemplate("<div class = 'multiline-grid'> #= CommodityName #</div>" +
-                            "<div> #= CommodityCode # #= '[' ##= WarehouseCode ##= ']' #</div>" +
-                            "<div class = 'isBonus'> #= (IsBonus == true) ? '[Quà tặng]' : '' #</div>" +
-                            "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
-
-                columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
-
-
-                columns.Bound(p => p.WarehouseID).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= WarehouseID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].WarehouseID' value='#= WarehouseID #' />");
-                columns.Bound(p => p.WarehouseCode).DisplayNameTitle().Filterable(false).Width(120).Hidden()
-                    .ClientTemplate("#= WarehouseCode #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].WarehouseCode' value='#= WarehouseCode #' />");
-
-
-                columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
-                    .Format("{0:n0}")
-                    .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
-                columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
-                    .Format("{0:n0}")
-                    .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                    .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
-                columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
-                    .Format("{0:n0}")
-                    .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
-
-                columns.Bound(p => p.DiscountPercent).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
-                    .Format("{0:n1}%")
-                    .ClientFooterTemplate("#= kendo.format('{0:n1}%', average) #")
-                    .ClientTemplate("#= kendo.format('{0:n1}%', DiscountPercent) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DiscountPercent' value='#= DiscountPercent #' />");
-
-                columns.Bound(p => p.UnitPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
-                    .Format("{0:n0}")
-                    .ClientTemplate("#= kendo.format('{0:n0}', UnitPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
-
-                columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
-                    .Format("{0:n0}")
-                    .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                    .ClientTemplate("#= kendo.format('{0:n0}', Amount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Amount' value='#= Amount #' />");
-
-                columns.Bound(p => p.VATPercent).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
-                    .Format("{0:n0}")
-                    .ClientTemplate("#= kendo.format('{0:n0}%', VATPercent) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATPercent' value='#= VATPercent #' />");
-                columns.Bound(p => p.VATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
-                    .Format("{0:n0}")
-                    .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                    .ClientTemplate("#= kendo.format('{0:n0}', VATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATAmount' value='#= VATAmount #' />");
-
-                columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
-                    .Format("{0:n0}")
-                    .ClientTemplate("#= kendo.format('{0:n0}', GrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossPrice' value='#= GrossPrice #' />");
-
-
-                columns.Bound(p => p.GrossAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
-                    .Format("{0:n0}")
-                    .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                    .ClientTemplate("#= kendo.format('{0:n0}', GrossAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossAmount' value='#= GrossAmount #' />");
-
-                columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
-
-                columns.Bound(p => p.IsBonus).DisplayNameTitle().Filterable(false).Hidden()
-                    .ClientTemplate("#= (IsBonus == null)? '' : IsBonus #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].IsBonus' value='#= (IsBonus == null) ? '' : IsBonus #' />");
-
-                columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50);
-                })
-                .Filterable()
-                .Navigatable()
-
-                .ToolBar(toolbar =>
+                .Name("kendoGridDetails")
+                .Columns(columns =>
                 {
-                    if (Model.Editable)
+                    columns.Template(t => { }).Title("&nbsp;").ClientTemplate("#= RowNumber(data) #").Width(35);
+
+
+                    columns.Bound(p => p.DeliveryAdviceDetailID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= DeliveryAdviceDetailID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DeliveryAdviceDetailID' value='#= DeliveryAdviceDetailID #' />");
+                    columns.Bound(p => p.DeliveryAdviceID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= DeliveryAdviceID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DeliveryAdviceID' value='#= DeliveryAdviceID #' />");
+
+
+                    columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
+                    columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Width(90).HtmlAttributes(new { style = "" }).Hidden()
+                        .ClientTemplate("#= CommodityCode #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
+                    columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(200)
+                        .ClientFooterTemplate("Tổng cộng:")
+                        .ClientTemplate("<div class = 'multiline-grid'> #= CommodityName #</div>" +
+                                "<div> #= CommodityCode # #= '[' ##= WarehouseCode ##= ']' #</div>" +
+                                "<div class = 'isBonus'> #= (IsBonus == true) ? '[Quà tặng]' : '' #</div>" +
+                                "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
+
+                    columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
+
+
+                    columns.Bound(p => p.WarehouseID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= WarehouseID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].WarehouseID' value='#= WarehouseID #' />");
+                    columns.Bound(p => p.WarehouseCode).DisplayNameTitle().Filterable(false).Width(120).Hidden()
+                        .ClientTemplate("#= WarehouseCode #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].WarehouseCode' value='#= WarehouseCode #' />");
+
+
+                    columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
+                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                    columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
+
+                    columns.Bound(p => p.DiscountPercent).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .Format("{0:n1}%")
+                        .ClientFooterTemplate("#= kendo.format('{0:n1}%', average) #")
+                        .ClientTemplate("#= kendo.format('{0:n1}%', DiscountPercent) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DiscountPercent' value='#= DiscountPercent #' />");
+
+                    columns.Bound(p => p.UnitPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', UnitPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
+
+                    columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', Amount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Amount' value='#= Amount #' />");
+
+                    columns.Bound(p => p.VATPercent).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}%', VATPercent) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATPercent' value='#= VATPercent #' />");
+                    columns.Bound(p => p.VATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', VATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATAmount' value='#= VATAmount #' />");
+
+                    columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', GrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossPrice' value='#= GrossPrice #' />");
+
+
+                    columns.Bound(p => p.GrossAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', GrossAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossAmount' value='#= GrossAmount #' />");
+
+                    columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
+
+                    columns.Bound(p => p.IsBonus).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (IsBonus == null)? '' : IsBonus #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].IsBonus' value='#= (IsBonus == null) ? '' : IsBonus #' />");
+
+                    columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50);
+                    })
+                    .Filterable()
+                    .Navigatable()
+
+                    .ToolBar(toolbar =>
                     {
-                        toolbar.Create();
-                        if (Model.SalesOrderID != null)
-                            toolbar.Custom().Text("Add From SalesOrder").Url("#").HtmlAttributes(new { onclick = "GetSalesOrderDetails()" });
-                    }
-                    else
-                    {//Add a functionless button for display purpose only
-                        toolbar.Template(
-                @<text>
-                    <div>
-                        @(Html.Kendo().Button()
-                                        .Name("iconButton")
-                                        .HtmlAttributes(new { type = "button" })
-                                        .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
-                        )
-                    </div>
-                </text>);
-                    }
-                })
-
-                .Editable(editable => { editable.Enabled(Model.Editable); editable.Mode(GridEditMode.InCell).DisplayDeleteConfirmation(true).CreateAt(GridInsertRowPosition.Bottom); })
-                .Selectable(settings =>
-                {
-                    settings.Mode(GridSelectionMode.Multiple);
-                    settings.Type(GridSelectionType.Row);
-                })
-                .Events(events =>
-                {
-                    events.DataBinding(@<text>
-                    function(e) {
-                    rowNumber = 0;
-                    }
+                        if (Model.Editable)
+                        {
+                            toolbar.Create();
+                            if (Model.SalesOrderID != null)
+                                toolbar.Custom().Text("Add From SalesOrder").Url("#").HtmlAttributes(new { onclick = "GetSalesOrderDetails()" });
+                        }
+                        else
+                        {//Add a functionless button for display purpose only
+                            toolbar.Template(
+                    @<text>
+                        <div>
+                            @(Html.Kendo().Button()
+                                            .Name("iconButton")
+                                            .HtmlAttributes(new { type = "button" })
+                                            .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
+                            )
+                        </div>
                     </text>);
-                    @*events.DataBound(@<text>
-                            function(e) {
-                                var grid = $("#kendoGridDetails").data("kendoGrid");
-                                var data = grid.dataSource.data();
-                                $.each(data, function (i, row) {
-                                    var isWarrantyClaim = row.IsWarrantyClaim;
-                                    if (isWarrantyClaim == true) {
-                                        $('tr[data-uid="' + row.uid + '"]').css("color", "darkred");
-                                    }
-                                });
-                            }
-                        </text>);*@
-                }).DataSource(dataSource => dataSource
-                    .Ajax()
-                    .Batch(true)
-                    .ServerOperation(false)
-                    .Model(model =>
+                        }
+                    })
+
+                    .Editable(editable => { editable.Enabled(Model.Editable); editable.Mode(GridEditMode.InCell).DisplayDeleteConfirmation(true).CreateAt(GridInsertRowPosition.Bottom); })
+                    .Selectable(settings =>
                     {
-                        model.Id(x => x.DeliveryAdviceDetailID);
-                        model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
-                        model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
+                        settings.Mode(GridSelectionMode.Multiple);
+                        settings.Type(GridSelectionType.Row);
                     })
                     .Events(events =>
                     {
-                        events.Error("kendGrid_ErrorHandler");
-                    })
-                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
-                    .Aggregates(a => a.Add(x => x.Amount).Sum())
-                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
-                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
-                )
+                        events.DataBinding(@<text>
+                        function(e) {
+                        rowNumber = 0;
+                        }
+                        </text>);
+                        @*events.DataBound(@<text>
+                                function(e) {
+                                    var grid = $("#kendoGridDetails").data("kendoGrid");
+                                    var data = grid.dataSource.data();
+                                    $.each(data, function (i, row) {
+                                        var isWarrantyClaim = row.IsWarrantyClaim;
+                                        if (isWarrantyClaim == true) {
+                                            $('tr[data-uid="' + row.uid + '"]').css("color", "darkred");
+                                        }
+                                    });
+                                }
+                            </text>);*@
+                    }).DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Batch(true)
+                        .ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(x => x.DeliveryAdviceDetailID);
+                            model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
+                            model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
+                        })
+                        .Events(events =>
+                        {
+                            events.Error("kendGrid_ErrorHandler");
+                        })
+                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                        .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                        .Aggregates(a => a.Add(x => x.Amount).Sum())
+                        .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                        .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                    )
             )
         </div>
 
@@ -283,13 +279,12 @@
             }
         </div>
 
-        @Html.Partial("~/Views/Helpers/Bases/_ViewHeader.cshtml")
+        @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
     </div>
 }
 
 
-<link href="@Url.Content("~/Content/CustomCss/FourColumn.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/Helpers/KendoGrid/gridHelper.js")"></script>
 
 <script type="text/javascript">
