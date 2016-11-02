@@ -12,22 +12,15 @@
 @Html.HiddenFor(model => model.PriceCategoryID)
 @Html.HiddenFor(model => model.PriceCategoryCode)
 
+@{var modelFullHtmlFieldName = @Html.ViewData.TemplateInfo.GetFullHtmlFieldName("Name"); modelFullHtmlFieldName = modelFullHtmlFieldName.Substring(0, modelFullHtmlFieldName.IndexOf("."));  }
+
 <div class="right-second-panel" style="width: 32%;">
     <div class="form-group">
-        <div style="float:left; padding-top: 2px;"> <img src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </div> <div class="right-panel-label-unlimited-width">  @Html.DisplayFor(a => a.Telephone, null, "LbTelephone") </div>
+        <div style="float:left; padding-top: 2px;"> <img src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </div> <div class="right-panel-label-unlimited-width"> <span id="@(modelFullHtmlFieldName + "_label_Telephone")"> @Html.DisplayFor(a => a.Telephone) </span> </div>
     </div>
 </div>
 
-
-
-
-@*<a href="javascript:void(0)" style="margin-left: 2px; color:black;"><img id="img-telephone" src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> @Html.DisplayFor(a => a.Telephone, null, "LbTelephone") </a>*@
-
-@*@Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })*@
-@*</div>
-    </div>*@
-@*<label id="label_Full_Customer_Description" class="label-description"> @(@Model != null && @Model.VATCode != null && @Model.VATCode != "" ? "MST: " + @Model.VATCode : "") Đ/C: @(@Model != null ? @Model.AddressNo : ""), @(@Model != null ? @Model.EntireTerritoryEntireName : "") </label>*@
 <div class="right-first-panel">
     <div class="right-panel-label" style="height: 39px;"> </div>
-    <div style="width: 160%;"> @Html.DisplayFor(m => m.VATCode) Đ/C: @Html.DisplayFor(m => m.AddressNo), @Html.DisplayFor(m => m.EntireTerritoryEntireName, new { @id = "LbEntireTerritoryEntireName" })</div>
+    <div style="width: 160%;"> <span id="@(modelFullHtmlFieldName + "_label_VATCode")"> @Html.DisplayFor(m => m.VATCode) </span id="@(modelFullHtmlFieldName + "_label_AddressNo")"> Đ/C: <span> @Html.DisplayFor(m => m.AddressNo) </span>, <span id="@(modelFullHtmlFieldName + "_label_EntireTerritoryEntireName")"> @Html.DisplayFor(m => m.EntireTerritoryEntireName) </span> </div>
 </div>

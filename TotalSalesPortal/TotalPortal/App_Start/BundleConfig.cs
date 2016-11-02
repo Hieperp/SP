@@ -29,7 +29,7 @@ namespace TotalPortal
         
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;  COMMENT OUT THIS ON DEBUG CSS ONLY 02/11/2016
         }
     }
 }

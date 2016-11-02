@@ -46,16 +46,16 @@
 
 
 @*Thay the tam thoi, vi cai partial view nay co van de voi popup css*@
-@*@Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")*@
-@Html.HiddenFor(model => model.OfficialName)
-@Html.HiddenFor(model => model.Birthday)
-@Html.HiddenFor(model => model.VATCode)
-@Html.HiddenFor(model => model.Telephone)
-@Html.HiddenFor(model => model.AddressNo)
-@Html.HiddenFor(model => model.TerritoryID)
-@Html.HiddenFor(model => model.EntireTerritoryEntireName)
-@Html.HiddenFor(model => model.PriceCategoryID)
-@Html.HiddenFor(model => model.PriceCategoryCode)
+@Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")
+@*@Html.HiddenFor(model => model.OfficialName)
+    @Html.HiddenFor(model => model.Birthday)
+    @Html.HiddenFor(model => model.VATCode)
+    @Html.HiddenFor(model => model.Telephone)
+    @Html.HiddenFor(model => model.AddressNo)
+    @Html.HiddenFor(model => model.TerritoryID)
+    @Html.HiddenFor(model => model.EntireTerritoryEntireName)
+    @Html.HiddenFor(model => model.PriceCategoryID)
+    @Html.HiddenFor(model => model.PriceCategoryCode)*@
 
 
 
@@ -77,7 +77,7 @@
     getModelID = function (modelID) {
         return modelID.substring(0, modelID.length - 4); //At first: Pass: modelID = this.element.attr('id') = 'Customer_Name', Then: Return: ('Customer_Name').substring(0, modelID.length - 4) = 'Customer_'
     }
-    
+
     customer_DataBound = function (e) {
         var modelID = getModelID(this.element.attr('id'));
         $(".k-animation-container:has(#" + modelID + "Name-list)").css("width", "743");
@@ -90,6 +90,7 @@
 
         var dataItem = e.sender.dataItem(e.item.index());
 
+        //Set input data to POST
         $("#" + modelID + "CustomerID").val(dataItem.CustomerID);
         $("#" + modelID + "OfficialName").val(dataItem.OfficialName);
         $("#" + modelID + "Birthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
@@ -101,13 +102,16 @@
         $("#" + modelID + "PriceCategoryID").val(dataItem.PriceCategoryID);
         $("#" + modelID + "PriceCategoryCode").val(dataItem.PriceCategoryCode);
 
-        //$("#label-Birthday").text($("#" + modelID + "Birthday").val());
-        //$("#label-Telephone").text(dataItem.Telephone);
-        //$("#label_Full_Customer_Description").text((dataItem.VATCode != null && dataItem.VATCode != "" ? "MST: " + dataItem.VATCode : "") + " Đ/C: " + dataItem.AddressNo + ", " + dataItem.EntireTerritoryEntireName);
+        //Set display label
+        $("#" + modelID + "label_Telephone").text(dataItem.Telephone);
+        $("#" + modelID + "label_VATCode").text(dataItem.VATCode);
+        $("#" + modelID + "label_AddressNo").text(dataItem.AddressNo);
+        $("#" + modelID + "label_EntireTerritoryEntireName").text(dataItem.EntireTerritoryEntireName);
 
-
+        //Remember last AutoComplete value
         $("#" + modelID + "TempName").val(dataItem.Name);
 
+        //Trigger change event. This event is not used in this editor template. It will be catch out side of this editor template (Currently, this event is used to load promotion list for selected customer)
         $("#" + modelID + "CustomerID").trigger("change");
     }
 
