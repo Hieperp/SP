@@ -17,7 +17,7 @@
         {
             toolbar.Template(@<text>
                 <div class="toolbar">
-                    @Html.EditorFor(d => d.Customer,"AutoCompletes/CustomerBase")
+                    @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase")
                 </div>
             </text>);
         })
@@ -36,7 +36,7 @@
             customerID: $("#Customer_CustomerID").val()
         };
     }
-    
+
     $("#Customer_CustomerID").change(function (e) {
         $("#gridPromotion").data("kendoGrid").dataSource.read();
     })
@@ -45,3 +45,46 @@
         okButton_Click();
     })
 </script>
+
+<style>
+    .form-group {
+        margin-top: 0px;
+    }
+
+    .right-first-panel {
+        width: 42%;
+    }
+
+    .right-second-panel-small {
+        width: 16%;
+    }
+
+
+    .right-panel-label-icon-only {
+        width: 28px;
+    }
+
+    .right-panel-label-larger-width {
+        width: 84%;
+    }
+
+    .right-panel-label-double-height {
+        width: 28px;
+        height: 100%;
+    }
+
+    .customer-description-label {
+        width: 92%;
+        padding-top: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #customer-description-icon {
+        visibility: visible;
+    }
+    .customerBase_AutoComplete {
+        width: 93%;
+    }
+</style>

@@ -3,70 +3,56 @@
 @model TotalDTO.Commons.ICustomerBaseDTO
 
 @Html.HiddenFor(model => model.CustomerID)
-
 @Html.Hidden("TempName", (@Model != null ? @Model.Name : ""))
 
-@(Html.Kendo().AutoCompleteFor(model => model.Name)
-    .DataTextField("Name")
-    .Filter("contains")
-    .MinLength(SettingsManager.AutoCompleteMinLenght)
-    .Placeholder("Chọn khách hàng, hoặc shift+ để thêm mới...")
-    .HeaderTemplate("<div class=\"dropdown-header custom-header\">" +
-            "<span class=\"k-widget k-header\">Tên</span>" +
-            "<span class=\"k-widget k-header\">Ngày sinh</span>" +
-            "<span class=\"k-widget k-header\">Điện thoại</span>" +
-            "<span class=\"k-widget k-header\">Địa chỉ</span>" +
-            "</div>")
-    .Template("<div class=\"dropdown-body\">" +
-            "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
-            "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
-            "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
-            "<span class=\"k-state-default\"><p>#: data.AddressNo + data.EntireTerritoryEntireName #</p></span>" +
-            "</div>")
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("SearchCustomers", "CustomerAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {searchText: e.filter.filters[0].value};} </text>);//Send parameter to controller search action
-        })
-        .ServerFiltering(true);
-    })
-    .Events(e =>
-    {
-        e.Select("customer_Select");
-        e.DataBound("customer_DataBound");
-    })
-    .HtmlAttributes(new { @class = "customerBase_AutoComplete" })
-)
+
+<div class="right-first-panel">
+    <div class="form-group">
+        <div class="right-panel-label right-panel-label-icon-only" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Customer Blue 24.png" title="Khách hàng" />  </div>
+        <div class="div-input">
+
+            @(Html.Kendo().AutoCompleteFor(model => model.Name)
+                .DataTextField("Name")
+                .Filter("contains")
+                .MinLength(SettingsManager.AutoCompleteMinLenght)
+                .Placeholder("Chọn khách hàng, hoặc shift+ để thêm mới...")
+                .HeaderTemplate("<div class=\"dropdown-header custom-header\">" +
+                        "<span class=\"k-widget k-header\">Tên</span>" +
+                        "<span class=\"k-widget k-header\">Ngày sinh</span>" +
+                        "<span class=\"k-widget k-header\">Điện thoại</span>" +
+                        "<span class=\"k-widget k-header\">Địa chỉ</span>" +
+                        "</div>")
+                .Template("<div class=\"dropdown-body\">" +
+                        "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: data.AddressNo + data.EntireTerritoryEntireName #</p></span>" +
+                        "</div>")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("SearchCustomers", "CustomerAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {searchText: e.filter.filters[0].value};} </text>);//Send parameter to controller search action
+                    })
+                    .ServerFiltering(true);
+                })
+                .Events(e =>
+                {
+                    e.Select("customer_Select");
+                    e.DataBound("customer_DataBound");
+                })
+                .HtmlAttributes(new { @class = "customerBase_AutoComplete" })
+            )
+
+        </div>
+        <div class="div-validation-message">
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
 
 
-
-
-
-
-
-@*Thay the tam thoi, vi cai partial view nay co van de voi popup css*@
 @Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")
-@*@Html.HiddenFor(model => model.OfficialName)
-    @Html.HiddenFor(model => model.Birthday)
-    @Html.HiddenFor(model => model.VATCode)
-    @Html.HiddenFor(model => model.Telephone)
-    @Html.HiddenFor(model => model.AddressNo)
-    @Html.HiddenFor(model => model.TerritoryID)
-    @Html.HiddenFor(model => model.EntireTerritoryEntireName)
-    @Html.HiddenFor(model => model.PriceCategoryID)
-    @Html.HiddenFor(model => model.PriceCategoryCode)*@
-
-
-
-
-
-
-
-
-
-
-
 
 
 <link href="@Url.Content("~/Content/CustomCss/GeneralCustomersAutoComplete.css")" rel="stylesheet" type="text/css" />
@@ -121,3 +107,9 @@
     });
 
 </script>
+
+<style>
+    .customerBase_AutoComplete {
+        width: 72%;
+    }
+</style>

@@ -14,13 +14,39 @@
 
 @{var modelFullHtmlFieldName = @Html.ViewData.TemplateInfo.GetFullHtmlFieldName("Name"); modelFullHtmlFieldName = modelFullHtmlFieldName.Substring(0, modelFullHtmlFieldName.IndexOf("."));  }
 
-<div class="right-second-panel" style="width: 32%;">
+<div class="right-second-panel right-second-panel-small">
     <div class="form-group">
-        <div style="float:left; padding-top: 2px;"> <img src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </div> <div class="right-panel-label-unlimited-width"> <span id="@(modelFullHtmlFieldName + "_label_Telephone")"> @Html.DisplayFor(a => a.Telephone) </span> </div>
+        <div style="float:left; padding-top: 2px; padding-right: 2px;"> <img src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </div>
+        <div class="right-panel-label right-panel-label-larger-width"> <span id="@(modelFullHtmlFieldName + "_label_Telephone")"> @Html.DisplayFor(a => a.Telephone) </span> </div>
     </div>
 </div>
 
 <div class="right-first-panel">
-    <div class="right-panel-label" style="height: 39px;"> </div>
-    <div style="width: 160%;"> <span id="@(modelFullHtmlFieldName + "_label_VATCode")"> @Html.DisplayFor(m => m.VATCode) </span id="@(modelFullHtmlFieldName + "_label_AddressNo")"> Đ/C: <span> @Html.DisplayFor(m => m.AddressNo) </span>, <span id="@(modelFullHtmlFieldName + "_label_EntireTerritoryEntireName")"> @Html.DisplayFor(m => m.EntireTerritoryEntireName) </span> </div>
+    <div class="right-panel-label right-panel-label-double-height" style="padding-top: 2px; padding-right: 2px;"> <span id="customer-description-icon"> <img src="~/Content/Images/New/Address-icon.png" title="Điện thoại" /> </span> </div>
+    <div class="customer-description-label"> <span id="@(modelFullHtmlFieldName + "_label_VATCode")"> @Html.DisplayFor(m => m.VATCode) </span> Đ/C: <span id="@(modelFullHtmlFieldName + "_label_AddressNo")"> @Html.DisplayFor(m => m.AddressNo) </span>, <span id="@(modelFullHtmlFieldName + "_label_EntireTerritoryEntireName")"> @Html.DisplayFor(m => m.EntireTerritoryEntireName) </span> </div>
 </div>
+
+
+<style>
+    .right-second-panel-small {
+        width: 32%;
+    }
+
+    .right-panel-label-larger-width {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .right-panel-label-double-height {
+        height: 39px; /*To reserve height for two line of customer VAT code and address*/
+    }
+
+    .customer-description-label {
+        width: 160%;
+    }
+
+    #customer-description-icon {
+        visibility: hidden;
+    }
+</style>

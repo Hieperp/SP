@@ -345,6 +345,8 @@
     <Content Include="Content\Images\New\1.png" />
     <Content Include="Content\Images\New\2.png" />
     <Content Include="Content\Images\New\Actions-ok-icon.png" />
+    <Content Include="Content\Images\New\Address-icon.png" />
+    <Content Include="Content\Images\New\Addressbook-icon.png" />
     <Content Include="Content\Images\New\alert1.png" />
     <Content Include="Content\Images\New\Alert32x32.png" />
     <Content Include="Content\Images\New\Apps-Live-Messenger-Metro-icon.png" />
@@ -407,6 +409,7 @@
     <Content Include="Content\Images\New\Telephone.png" />
     <Content Include="Content\Images\New\towels-icon.png" />
     <Content Include="Content\Images\New\Truck-32.png" />
+    <Content Include="Content\Images\New\Truck-icon.png" />
     <Content Include="Content\Images\New\Undo-icon32.png" />
     <Content Include="Content\Images\New\uparrow.png" />
     <Content Include="Content\Images\New\uparrow1.png" />
