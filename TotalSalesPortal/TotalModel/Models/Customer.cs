@@ -43,6 +43,7 @@ namespace TotalModel.Models
         public bool IsCustomer { get; set; }
         public bool IsSupplier { get; set; }
         public bool IsFemale { get; set; }
+        public string Code { get; set; }
     
         public virtual EntireTerritory EntireTerritory { get; set; }
         public virtual PriceCategory PriceCategory { get; set; }

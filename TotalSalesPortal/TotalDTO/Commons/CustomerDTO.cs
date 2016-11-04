@@ -30,6 +30,12 @@ namespace TotalDTO.Commons
 
         [Required(ErrorMessage = "Vui lòng nhập tên khách hàng")]
         [Display(Name = "Khách hàng")]
+        public string CodeAndName { get { return this.Code + "  -  " + this.Name; } }
+
+        [Display(Name = "Mã khách hàng")]
+        public string Code { get; set; }
+        
+        [Display(Name = "Khách hàng")]
         public string Name { get; set; }
 
         [Display(Name = "Tên đầy đủ")]

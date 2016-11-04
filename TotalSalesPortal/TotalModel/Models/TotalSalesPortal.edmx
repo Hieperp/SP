@@ -154,6 +154,7 @@
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="OfficialName" Type="nvarchar" MaxLength="150" />
           <Property Name="PriceCategoryID" Type="int" Nullable="false" />
@@ -2034,6 +2035,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_Customers" FromRole="Customer" ToRole="Receipt" />
           <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Customers" FromRole="Customer" ToRole="DeliveryAdvice" />
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers" FromRole="Customer" ToRole="GoodsIssue" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Customers_EntireTerritories">
           <End Type="TotalSalesPortalModel.EntireTerritory" Role="EntireTerritory" Multiplicity="1" />
@@ -3059,6 +3061,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="IsFemale" ColumnName="IsFemale" />
                 <ScalarProperty Name="IsSupplier" ColumnName="IsSupplier" />
                 <ScalarProperty Name="IsCustomer" ColumnName="IsCustomer" />
