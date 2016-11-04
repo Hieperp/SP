@@ -1,4 +1,4 @@
-﻿#CustomerName-list > .dropdown-header {    
+﻿#Customer_Name-list > .dropdown-header {    
     font-size: inherit;
     /*font-weight: 400;*/
     padding: 0px;
@@ -6,7 +6,7 @@
     margin-top: 5px;
 }
 
-    #CustomerName-list > .dropdown-header > span {
+    #Customer_Name-list > .dropdown-header > span {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
@@ -19,20 +19,20 @@
         color: #454545;
     }
 
-#CustomerName-list .k-item {
+#Customer_Name-list .k-item {
     padding-top: 0px;
     padding-bottom: 0px;
     white-space: nowrap;
     word-wrap: break-word;
 }
 
-    #CustomerName-list .k-item > .dropdown-body{
+    #Customer_Name-list .k-item > .dropdown-body{
         border-color: #ccc;       
         border-style: solid;
         border-width: 0 1px 1px 1px;        
     }
 
-        #CustomerName-list .k-item > .dropdown-body > span {
+        #Customer_Name-list .k-item > .dropdown-body > span {
             min-height: 10px;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -43,15 +43,18 @@
             vertical-align: top;   
             padding: 1px 0px 1px 2px;           
             /*padding: .6em 0 0 .6em;*/
+
+            overflow: hidden;
+        text-overflow: ellipsis;
         }
 
-#CustomerName-list h3 {
+#Customer_Name-list h3 {
     /*font-size: 1.6em;*/
     margin: 0;
     padding: 0;
 }
 
-#CustomerName-list p {
+#Customer_Name-list p {
     margin: 0;
     padding: 0;
 }
