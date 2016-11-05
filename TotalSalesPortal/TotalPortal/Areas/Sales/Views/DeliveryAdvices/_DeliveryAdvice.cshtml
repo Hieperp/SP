@@ -62,7 +62,8 @@
     <div class="right-panel">
 
         <div style="clear: both; height: 136px;" >
-            @Html.EditorFor(d => d.Customer)
+            @*@Html.EditorFor(d => d.Customer)*@
+            @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase")
             @Html.EditorFor(d => d.Promotion)
 
             @Html.Partial("~/Views/Helpers/Commons/_PriceCategory.cshtml")

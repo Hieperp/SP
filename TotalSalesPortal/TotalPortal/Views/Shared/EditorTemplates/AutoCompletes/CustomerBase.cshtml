@@ -16,13 +16,13 @@
                 .Filter("contains")
                 .MinLength(SettingsManager.AutoCompleteMinLenght)
                 .Placeholder("Chọn khách hàng, hoặc shift+ để thêm mới...")
-                .HeaderTemplate("<div class=\"dropdown-header custom-header\">" +
+                .HeaderTemplate("<div class=\"dropdown-header general-custom-header customer-custom-header\">" +
                         "<span class=\"k-widget k-header\">Tên</span>" +
                         "<span class=\"k-widget k-header\">Ngày sinh</span>" +
                         "<span class=\"k-widget k-header\">Điện thoại</span>" +
                         "<span class=\"k-widget k-header\">Địa chỉ</span>" +
                         "</div>")
-                .Template("<div class=\"dropdown-body custom-body\">" +
+                .Template("<div class=\"dropdown-body general-custom-body customer-custom-body\">" +
                         "<span class=\"k-state-default\"><p>#: data.CodeAndName #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
@@ -55,8 +55,7 @@
 @Html.Partial("~/Views/Helpers/Commons/_CustomerDescription.cshtml")
 
 
-<link href="@Url.Content("~/Content/CustomCss/GeneralCustomersAutoComplete.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/CustomCss/CustomersAutoComplete.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/CustomCss/CustomerBase.css")" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 

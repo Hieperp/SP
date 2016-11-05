@@ -22,6 +22,22 @@ body {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 label { /*override bootstrap label css*/
     font-weight: lighter;
     margin-bottom: 1px;
@@ -886,7 +902,20 @@ ul.k-panelbar .k-link {
     margin-left: 100px;
 }
 
-/*four column*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*#region FOUR COLUMN */
+
 
 .left-panel {
     float: left;
@@ -942,7 +971,7 @@ ul.k-panelbar .k-link {
     box-sizing: border-box;
 }
 
-.right-panel-label-larger-width { /*this css should be combine with: right-panel-label*/
+.right-panel-label-larger-width { /*this css should ALWAYS be combined with: right-panel-label*/
     width: 90%; 
     text-align: left;
 }
@@ -1000,3 +1029,72 @@ ul.k-panelbar .k-link {
     padding-right: 5px;
     margin-left: 10px;
 }
+
+
+
+/*#endregion */
+
+
+
+
+
+
+/*#region shared styles for popup list for AutoComplete, DropDownList*/
+
+/*#region   WHOLE PAGE SHARED STYLES  These css may effect whole page  (AutoComplete, DropDownList) */
+/*This is full path of css copy from firebug (Select 1 span -> then copy from style tab on the debug windows)
+.k-popup .k-list .k-state-hover, .k-popup .k-list .k-state-focused, .k-popup .k-list .k-state-selected, .k-overflow-container .k-state-hover, .k-overflow-container .k-state-focused, .k-overflow-container .k-state-selected, .k-fieldselector .k-list .k-item {
+    border-width: 0px;
+    box-shadow: 0 0 7px 0 #67afe9 inset;
+}*/
+
+.k-popup.k-list-container {
+    padding: 0px;
+}
+
+
+.k-popup .k-list .k-state-hover, .k-popup .k-list .k-state-focused {
+    border-width: 0px;
+    box-shadow: 0 0 7px 0 #67afe9 inset;
+}
+/*#endregion*/
+
+
+/*#region STYLES EFFECT ONLY ON AutoComplete WITH CLASS general-custom-header ON HeaderTemplate */
+
+.general-custom-header {
+    padding: 0px;
+}
+
+    .general-custom-header > span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: left;
+        display: inline-block;
+        border-style: solid;
+        border-width: 0px 0 0px 0px;
+        padding: 4px 0px 4px 4px;
+        background-color: #eee;
+        color: #808080;
+    }
+
+
+.k-item > .general-custom-body > span {
+    min-height: 10px;
+    height: 24px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 2px 2px 1px 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*#endregion */
+
+
+
+
+/*#endregion */
