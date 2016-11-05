@@ -1,60 +1,45 @@
-﻿#Customer_Name-list > .dropdown-header {    
-    font-size: inherit;
-    /*font-weight: 400;*/
-    padding: 0px;
-    margin-left: 5px;
-    margin-top: 5px;
+﻿.custom-header {
+    width: 723px;
 }
 
-    #Customer_Name-list > .dropdown-header > span {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        text-align: left;
-        display: inline-block;
-        border-style: solid;
-        border-width: 0 0 1px 1px;        
-        padding: 2px 0px 2px 3px;
-        background-color: #eee;
-        color: #454545;
+    .custom-header > span {
+        width: 75px;
     }
 
-#Customer_Name-list .k-item {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    white-space: nowrap;
-    word-wrap: break-word;
-}
-
-    #Customer_Name-list .k-item > .dropdown-body{
-        border-color: #ccc;       
-        border-style: solid;
-        border-width: 0 1px 1px 1px;        
-    }
-
-        #Customer_Name-list .k-item > .dropdown-body > span {
-            min-height: 10px;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            display: inline-block;
-            border-style: solid;
-            border-width: 0 0 0px 1px;
-            vertical-align: top;   
-            padding: 1px 0px 1px 2px;           
-            /*padding: .6em 0 0 .6em;*/
-
-            overflow: hidden;
-        text-overflow: ellipsis;
+        .custom-header > span:first-child {
+            width: 270px;
         }
 
-#Customer_Name-list h3 {
-    /*font-size: 1.6em;*/
-    margin: 0;
-    padding: 0;
+        .custom-header > span:nth-child(3) {
+            width: 115px;
+        }
+
+        .custom-header > span:last-child {
+            width: 254px;
+        }
+
+
+
+
+.custom-body {    /*NO NEED TO SET, IT WILL BE SUM OF ALL SPAN COLUMN*/
+    width: 713px;
 }
 
-#Customer_Name-list p {
-    margin: 0;
-    padding: 0;
+.k-item > .custom-body > span {
+    width: 75px;
+    height: 23px;
 }
+
+    .k-item > .custom-body > span:first-child {
+        width: 270px;
+    }
+
+    .k-item > .custom-body > span:nth-child(3) {
+        width: 115px;
+    }
+
+
+    .k-item > .custom-body > span:last-child {
+        padding-right: 2px;
+        width: 222px;
+    }

@@ -22,7 +22,7 @@
                         "<span class=\"k-widget k-header\">Điện thoại</span>" +
                         "<span class=\"k-widget k-header\">Địa chỉ</span>" +
                         "</div>")
-                .Template("<div class=\"dropdown-body\">" +
+                .Template("<div class=\"dropdown-body custom-body\">" +
                         "<span class=\"k-state-default\"><p>#: data.CodeAndName #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
@@ -66,9 +66,9 @@
 
     customer_DataBound = function (e) {
         var modelID = getModelID(this.element.attr('id'));
-        $(".k-animation-container:has(#" + modelID + "Name-list)").css("width", "743");
-        $("#" + modelID + "Name-list").css("width", "743");
-        $("#" + modelID + "Name-list").css("height", $("#" + modelID + "Name-list").height() + 1);
+        $(".k-animation-container:has(#" + modelID + "CodeAndName-list)").css("width", "743");
+        $("#" + modelID + "CodeAndName-list").css("width", "743");
+        $("#" + modelID + "CodeAndName-list").css("height", $("#" + modelID + "CodeAndName-list").height() + 1);
     }
 
     customer_Select = function (e) {
