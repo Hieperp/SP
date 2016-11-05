@@ -12,6 +12,8 @@ namespace TotalDTO.Commons
     public interface ICustomerBaseDTO
     {
         int CustomerID { get; set; }
+        string CodeAndName { get; }
+        string Code { get; set; }
         string Name { get; set; }
         string OfficialName { get; set; }
         Nullable<System.DateTime> Birthday { get; set; }
@@ -34,7 +36,7 @@ namespace TotalDTO.Commons
 
         [Display(Name = "Mã khách hàng")]
         public string Code { get; set; }
-        
+
         [Display(Name = "Khách hàng")]
         public string Name { get; set; }
 

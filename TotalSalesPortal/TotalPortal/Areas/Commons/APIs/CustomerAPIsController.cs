@@ -33,7 +33,7 @@ namespace TotalPortal.Areas.Commons.APIs
 
         public JsonResult SearchCustomers(string searchText)
         {
-            var result = customerRepository.SearchCustomers(searchText).Select(s => new { s.CustomerID, s.Name, s.Birthday, s.VATCode, s.Telephone, s.AddressNo, TerritoryID = s.TerritoryID, EntireTerritoryEntireName = s.EntireTerritory.EntireName, PriceCategoryID = s.PriceCategoryID, PriceCategoryCode = s.PriceCategory.Code });
+            var result = customerRepository.SearchCustomers(searchText).Select(s => new { s.CustomerID, CodeAndName = s.Code + "  -  " + s.Name, s.Code, s.Name, s.OfficialName, s.Birthday, s.VATCode, s.Telephone, s.AddressNo, TerritoryID = s.TerritoryID, EntireTerritoryEntireName = s.EntireTerritory.EntireName, PriceCategoryID = s.PriceCategoryID, PriceCategoryCode = s.PriceCategory.Code });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -45,14 +45,15 @@ namespace TotalPortal.Areas.Commons.APIs
             DataSourceResult response = customers.ToDataSourceResult(request, o => new CustomerPrimitiveDTO
             {
                 CustomerID = o.CustomerID,
+                Code = o.Code,
                 Name = o.Name,
+                OfficialName = o.OfficialName,
                 AttentionName = o.AttentionName,
                 AttentionTitle = o.AttentionTitle,
                 Birthday = o.Birthday,
                 AddressNo = o.AddressNo,
                 Telephone = o.Telephone,
-                Facsimile = o.Facsimile,
-                OfficialName = o.OfficialName,
+                Facsimile = o.Facsimile,                
                 Remarks = o.Remarks
             });
             return Json(response, JsonRequestBehavior.AllowGet);

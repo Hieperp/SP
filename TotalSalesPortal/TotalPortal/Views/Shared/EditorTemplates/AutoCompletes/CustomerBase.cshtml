@@ -3,7 +3,7 @@
 @model TotalDTO.Commons.ICustomerBaseDTO
 
 @Html.HiddenFor(model => model.CustomerID)
-@Html.Hidden("TempName", (@Model != null ? @Model.Name : ""))
+@Html.Hidden("TempCodeAndName", (@Model != null ? @Model.CodeAndName : ""))
 
 
 <div class="right-first-panel">
@@ -11,8 +11,8 @@
         <div class="right-panel-label right-panel-label-icon-only" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Customer Blue 24.png" title="Khách hàng" />  </div>
         <div class="div-input">
 
-            @(Html.Kendo().AutoCompleteFor(model => model.Name)
-                .DataTextField("Name")
+            @(Html.Kendo().AutoCompleteFor(model => model.CodeAndName)
+                .DataTextField("CodeAndName")
                 .Filter("contains")
                 .MinLength(SettingsManager.AutoCompleteMinLenght)
                 .Placeholder("Chọn khách hàng, hoặc shift+ để thêm mới...")
@@ -23,7 +23,7 @@
                         "<span class=\"k-widget k-header\">Địa chỉ</span>" +
                         "</div>")
                 .Template("<div class=\"dropdown-body\">" +
-                        "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: data.CodeAndName #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.AddressNo + data.EntireTerritoryEntireName #</p></span>" +
@@ -46,7 +46,7 @@
 
         </div>
         <div class="div-validation-message">
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.CodeAndName, "", new { @class = "text-danger" })
         </div>
     </div>
 </div>
@@ -61,7 +61,7 @@
 <script type="text/javascript">
 
     getModelID = function (modelID) {
-        return modelID.substring(0, modelID.length - 4); //At first: Pass: modelID = this.element.attr('id') = 'Customer_Name', Then: Return: ('Customer_Name').substring(0, modelID.length - 4) = 'Customer_'
+        return modelID.substring(0, modelID.length - 11); //At first: Pass: modelID = this.element.attr('id') = 'Customer_CodeAndName', Then: Return: ('Customer_CodeAndName').substring(0, modelID.length - 11) = 'Customer_'
     }
 
     customer_DataBound = function (e) {
@@ -78,6 +78,8 @@
 
         //Set input data to POST
         $("#" + modelID + "CustomerID").val(dataItem.CustomerID);
+        $("#" + modelID + "Code").val(dataItem.Code);
+        $("#" + modelID + "Name").val(dataItem.Name);
         $("#" + modelID + "OfficialName").val(dataItem.OfficialName);
         $("#" + modelID + "Birthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
         $("#" + modelID + "VATCode").val(dataItem.VATCode);
@@ -95,7 +97,7 @@
         $("#" + modelID + "label_EntireTerritoryEntireName").text(dataItem.EntireTerritoryEntireName);
 
         //Remember last AutoComplete value
-        $("#" + modelID + "TempName").val(dataItem.Name);
+        $("#" + modelID + "TempCodeAndName").val(dataItem.CodeAndName);
 
         //Trigger change event. This event is not used in this editor template. It will be catch out side of this editor template (Currently, this event is used to load promotion list for selected customer)
         $("#" + modelID + "CustomerID").trigger("change");
@@ -103,7 +105,7 @@
 
     $(".customerBase_AutoComplete").focusout(function (e) {
         var modelID = getModelID(this.id);
-        $(this).val($("#" + modelID + "TempName").val());
+        $(this).val($("#" + modelID + "TempCodeAndName").val());
     });
 
 </script>

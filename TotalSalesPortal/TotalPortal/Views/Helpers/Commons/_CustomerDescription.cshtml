@@ -2,6 +2,8 @@
 
 @model TotalDTO.Commons.ICustomerBaseDTO
 
+@Html.HiddenFor(model => model.Code)
+@Html.HiddenFor(model => model.Name)
 @Html.HiddenFor(model => model.OfficialName)
 @Html.HiddenFor(model => model.Birthday)
 @Html.HiddenFor(model => model.VATCode)
