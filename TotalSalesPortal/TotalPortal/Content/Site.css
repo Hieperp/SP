@@ -1051,10 +1051,7 @@ ul.k-panelbar .k-link {
 .k-popup.k-list-container {
     padding: 0px;
 }
-
-
 .k-popup .k-list .k-state-hover, .k-popup .k-list .k-state-focused {
-    border-width: 0px;
     box-shadow: 0 0 7px 0 #67afe9 inset;
 }
 /*#endregion*/
@@ -1074,7 +1071,7 @@ ul.k-panelbar .k-link {
         display: inline-block;
         border-style: solid;
         border-width: 0px 0 0px 0px;
-        padding: 4px 0px 4px 4px;
+        padding: 4px 0px 4px 10px;
         background-color: #eee;
         color: #808080;
     }

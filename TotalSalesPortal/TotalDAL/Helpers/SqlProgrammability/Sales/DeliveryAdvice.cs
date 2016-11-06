@@ -328,7 +328,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
         {
             string queryString = "                          BEGIN " + "\r\n";
 
-            queryString = queryString + "                       SELECT      CommodityID, Code AS CommodityCode, Name AS CommodityName, Commodities.CommodityTypeID, Commodities.GrossPrice, 0.0 AS DiscountPercent, 0.0 AS VATPercent, 0 AS WarehouseID, '' AS WarehouseCode, CAST(0 AS decimal(18, 2)) AS QuantityAvailable " + "\r\n";
+            queryString = queryString + "                       SELECT      CommodityID, Code AS CommodityCode, Name AS CommodityName, Commodities.CommodityTypeID, Commodities.GrossPrice, 0.0 AS DiscountPercent, 0.0 AS VATPercent, 0 AS WarehouseID, '' AS WarehouseCode, CAST(0 AS decimal(18, 2)) AS QuantityAvailable, CAST(0 AS bit) AS Bookable " + "\r\n";
             queryString = queryString + "                       FROM        @Commodities Commodities " + "\r\n";
             queryString = queryString + "                       WHERE       CommodityID IS NULL " + "\r\n"; //ALWAYS RETURN NOTHING
 

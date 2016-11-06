@@ -284,7 +284,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomCss\CommoditiesAutoComplete.css" />
     <Content Include="Content\CustomCss\CommonsIndex.css" />
-    <Content Include="Content\CustomCss\CustomerBase.css" />
     <Content Include="Content\CustomCss\FourColumn.css" />
     <Content Include="Content\CustomCss\FourColumn1.css" />
     <Content Include="Content\CustomCss\GeneralCommoditiesAutoComplete.css" />

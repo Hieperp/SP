@@ -11,10 +11,10 @@
     }
 
     commoditiesInWarehousesDataBound = function (e) {
-        $(".k-animation-container:has(#CommodityName-list)").css("width", "513");
-        $("#CommodityName-list").css("width", "513");
+        $(".k-animation-container:has(#CommodityName-list)").css("width", "382");
+        $("#CommodityName-list").css("width", "382");
         //$("#CommodityName-list").css("height", $(".k-animation-container:has(#CommodityName-list)").height());
-        $("#CommodityName-list").css("height", $("#CommodityName-list").height() + 1);
+        //$("#CommodityName-list").css("height", $("#CommodityName-list").height() + 1);
     }
 
 }));

@@ -37,12 +37,12 @@
 
 <script type="text/javascript">
 
-    getModelID = function (modelID) {
+    getEmployeeModelID = function (modelID) {
         return modelID.substring(0, modelID.length - 4); //At first: Pass: modelID = this.element.attr('id') = 'Employee_Name', Then: Return: ('Employee_Name').substring(0, modelID.length - 4) = 'Employee_'
     }
 
     employee_Select = function (e) {
-        var modelID = getModelID(this.element.attr('id'));
+        var modelID = getEmployeeModelID(this.element.attr('id'));
 
         var dataItem = e.sender.dataItem(e.item.index());
 
@@ -54,7 +54,7 @@
     }
 
     $(".employeeBase_AutoComplete").focusout(function (e) {
-        var modelID = getModelID(this.id);
+        var modelID = getEmployeeModelID(this.id);
         $(this).val($("#" + modelID + "TempName").val());
     });
 
