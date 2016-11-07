@@ -99,8 +99,8 @@
             $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, SettingsManager.DateTimeFormat));
             $("#Promotion_DiscountPercent").val(selectedDataItem === undefined || selectedDataItem.DiscountPercent === undefined ? null : selectedDataItem.DiscountPercent);
 
-            $("#Promotion_ApplyToAllCustomers").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCustomers === undefined ? null : selectedDataItem.ApplyToAllCustomers);
-            $("#Promotion_ApplyToAllCommodities").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCommodities === undefined ? null : selectedDataItem.ApplyToAllCommodities);
+            $("#Promotion_ApplyToAllCustomers").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCustomers === undefined ? false : selectedDataItem.ApplyToAllCustomers);
+            $("#Promotion_ApplyToAllCommodities").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCommodities === undefined ? false : selectedDataItem.ApplyToAllCommodities);
 
             $("#Promotion_Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
         }
