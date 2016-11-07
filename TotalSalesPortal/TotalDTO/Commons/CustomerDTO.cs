@@ -22,8 +22,11 @@ namespace TotalDTO.Commons
         string AddressNo { get; set; }
         int TerritoryID { get; set; }
         string EntireTerritoryEntireName { get; set; }
+        int EmployeeID { get; set; }
+        string EmployeeName { get; set; }
         int PriceCategoryID { get; set; }
         string PriceCategoryCode { get; set; }
+        
     }
 
     public class CustomerBaseDTO : BaseDTO, ICustomerBaseDTO
@@ -63,6 +66,12 @@ namespace TotalDTO.Commons
         [Required]
         [Display(Name = "Khu vực")]
         public string EntireTerritoryEntireName { get; set; }
+
+        [Required]
+        public int EmployeeID { get; set; }
+        [Display(Name = "Tên nhân viên")]
+        [Required(ErrorMessage = "Vui lòng nhập tên nhân viên")]
+        public string EmployeeName { get; set; }
 
         [Required]
         [Display(Name = "Bảng giá")]

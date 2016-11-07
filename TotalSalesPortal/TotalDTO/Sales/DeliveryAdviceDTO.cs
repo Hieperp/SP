@@ -41,7 +41,6 @@ namespace TotalDTO.Sales
 
         public virtual Nullable<int> PromotionID { get; set; }
         [Display(Name = "Chứng từ khuyến mãi")]
-        //[Required(ErrorMessage = "Nhập chứng từ khuyến mãi")]
         public string PromotionVouchers { get; set; }
 
         [Display(Name = "Ngày giao hàng")]

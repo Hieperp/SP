@@ -8,6 +8,9 @@
 {
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(model => model.Employee.EmployeeID);
+    @Html.HiddenFor(model => model.Employee.Name);
+
     @Html.HiddenFor(model => model.PriceCategoryID);
     @Html.HiddenFor(model => model.PriceCategoryCode);
 
@@ -86,6 +89,9 @@
         function _setModelInput(selectedDataItem) {
             $("#PriceCategoryID").val($("#Customer_PriceCategoryID").val());
             $("#PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
+
+            $("#Employee_EmployeeID").val($("#Customer_EmployeeID").val()); //INIT DEFAULT Employee_EmployeeID, Employee_Name FROM Customer_EmployeeID, Customer_EmployeeName
+            $("#Employee_Name").val($("#Customer_EmployeeName").val());
 
             $("#Promotion_PromotionID").val(selectedDataItem === undefined || selectedDataItem.PromotionID === undefined ? null : selectedDataItem.PromotionID);
             $("#Promotion_Name").val(selectedDataItem === undefined || selectedDataItem.Name === undefined ? null : selectedDataItem.Name);

@@ -44,6 +44,7 @@ namespace TotalModel.Models
         public bool IsSupplier { get; set; }
         public bool IsFemale { get; set; }
         public string Code { get; set; }
+        public int EmployeeID { get; set; }
     
         public virtual EntireTerritory EntireTerritory { get; set; }
         public virtual PriceCategory PriceCategory { get; set; }
@@ -55,5 +56,6 @@ namespace TotalModel.Models
         public virtual ICollection<DeliveryAdvice> DeliveryAdvices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

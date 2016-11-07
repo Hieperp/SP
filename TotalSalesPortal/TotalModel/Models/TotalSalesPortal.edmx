@@ -158,6 +158,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="OfficialName" Type="nvarchar" MaxLength="150" />
           <Property Name="PriceCategoryID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="CustomerCategoryID" Type="int" Nullable="false" />
           <Property Name="CustomerTypeID" Type="int" Nullable="false" />
           <Property Name="TerritoryID" Type="int" Nullable="false" />
@@ -602,6 +603,18 @@ warning 6035: The relationship 'FK_AccountInvoices_AspNetUsers2' has columns tha
             </Principal>
             <Dependent Role="CustomerCategories1">
               <PropertyRef Name="AncestorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1123,6 +1136,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="CustomerCategories" EntitySet="CustomerCategories" />
             <End Role="CustomerCategories1" EntitySet="CustomerCategories" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customers_Employees" Association="Self.FK_Customers_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customers_EntireTerritories" Association="Self.FK_Customers_EntireTerritories">
             <End Role="EntireTerritories" EntitySet="EntireTerritories" />
             <End Role="Customers" EntitySet="Customers" />
@@ -1612,6 +1629,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <Parameter Name="EntityID" Mode="In" Type="Int32" />
             <Parameter Name="SaveRelativeOption" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="FK_Customers_Employees" Association="TotalSalesPortalModel.FK_Customers_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -1764,6 +1785,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_Employees" FromRole="Employee" ToRole="Receipt" />
           <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Employees" FromRole="Employee" ToRole="DeliveryAdvice" />
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="Employee" ToRole="GoodsIssue" />
+          <NavigationProperty Name="Customers" Relationship="TotalSalesPortalModel.FK_Customers_Employees" FromRole="Employee" ToRole="Customer" />
         </EntityType>
         <EntityType Name="EntireTerritory">
           <Key>
@@ -2036,6 +2058,8 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Customers" FromRole="Customer" ToRole="DeliveryAdvice" />
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers" FromRole="Customer" ToRole="GoodsIssue" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_Customers_Employees" FromRole="Customer" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_Customers_EntireTerritories">
           <End Type="TotalSalesPortalModel.EntireTerritory" Role="EntireTerritory" Multiplicity="1" />
@@ -2709,6 +2733,18 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="false" Precision="23" />
           <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
         </ComplexType>
+        <Association Name="FK_Customers_Employees">
+          <End Type="TotalSalesPortalModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3065,6 +3101,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="IsFemale" ColumnName="IsFemale" />
                 <ScalarProperty Name="IsSupplier" ColumnName="IsSupplier" />
