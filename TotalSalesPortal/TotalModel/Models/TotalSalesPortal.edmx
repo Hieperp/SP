@@ -89,6 +89,10 @@
           <Property Name="CommodityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OfficialCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodePartA" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CodePartB" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CodePartC" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CodePartD" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="OfficialName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="OriginalName" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -1712,6 +1716,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="CommodityType" Relationship="TotalSalesPortalModel.FK_Commodities_CommodityTypes" FromRole="Commodity" ToRole="CommodityType" />
           <NavigationProperty Name="DeliveryAdviceDetails" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_Commodities" FromRole="Commodity" ToRole="DeliveryAdviceDetail" />
           <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities" FromRole="Commodity" ToRole="GoodsIssueDetail" />
+          <Property Name="CodePartA" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartB" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodePartD" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CommodityCategory">
           <Key>
@@ -2859,6 +2867,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="Commodities">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.Commodity">
               <MappingFragment StoreEntitySet="Commodities">
+                <ScalarProperty Name="CodePartD" ColumnName="CodePartD" />
+                <ScalarProperty Name="CodePartC" ColumnName="CodePartC" />
+                <ScalarProperty Name="CodePartB" ColumnName="CodePartB" />
+                <ScalarProperty Name="CodePartA" ColumnName="CodePartA" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Specifycation" ColumnName="Specifycation" />

@@ -914,6 +914,21 @@ ul.k-panelbar .k-link {
 
 
 
+
+/*#region ACCESSORIES */
+#show-current-PriceCategory {
+    background-image: url('Images/New/palette.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+/*#endregion */
+
+
+
+
+
+
+
 /*#region FOUR COLUMN */
 
 
@@ -972,7 +987,7 @@ ul.k-panelbar .k-link {
 }
 
 .right-panel-label-larger-width { /*this css should ALWAYS be combined with: right-panel-label*/
-    width: 90%; 
+    width: 90%;
     text-align: left;
 }
 
@@ -1051,6 +1066,7 @@ ul.k-panelbar .k-link {
 .k-popup.k-list-container {
     padding: 0px;
 }
+
 .k-popup .k-list .k-state-hover, .k-popup .k-list .k-state-focused {
     box-shadow: 0 0 7px 0 #67afe9 inset;
 }
