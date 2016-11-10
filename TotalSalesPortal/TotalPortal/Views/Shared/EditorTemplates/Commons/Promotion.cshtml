@@ -8,6 +8,7 @@
     //If the model is submited to controller, there is nothing wrong! Sure! This will be good! Sure! BUT: ... we now face with the problem of Null value of bool properties (ApplyToAllCustomers, ApplyToAllCommodities). We can have several way to handle this, but: don't waste time for it! Okey!
     @Html.HiddenFor(model => model.PromotionID)
     @Html.HiddenFor(model => model.DiscountPercent)
+    @Html.HiddenFor(model => model.ControlFreeQuantity)
     @Html.HiddenFor(model => model.StartDate)
     @Html.HiddenFor(model => model.EndDate)
     @Html.HiddenFor(model => model.ApplyToAllCustomers)
@@ -50,7 +51,7 @@
 {
     <div class="right-second-panel" style="width: 32%;">
         <div class="form-group" style="margin-top:0px;">
-            <div style="float:left; padding-top: 2px; padding-right: 2px;"> <img src="~/Content/Images/Mains/Sale-Discount.png" title="Tỷ lệ chiết khấu" /> </div> <div class="right-panel-label right-panel-label-larger-width">  @Html.DisplayFor(a => a.DiscountPercent)%</div>
+            <div style="float:left; padding-top: 2px; padding-right: 2px;"> <img src="~/Content/Images/Mains/Sale-Discount.png" title="Tỷ lệ chiết khấu" /> </div> <div class="right-panel-label right-panel-label-larger-width"> @Html.DisplayFor(a => a.DiscountPercent)% @if (@Model.ControlFreeQuantity > 0) { <span> [Mua @Model.ControlFreeQuantity.Value.ToString("N0") tặng 1] </span>} </div>
         </div>
         <div class="form-group" style="margin-top:0px;">
             <div style="float:left; padding-top: 2px; padding-right: 2px;"> <img src="~/Content/Images/New/BirthdayIcon.png" title="Thời hạn áp dụng" /> </div> <div class="right-panel-label right-panel-label-larger-width">  @Html.DisplayFor(a => a.StartDate) -> @Html.DisplayFor(a => a.EndDate) </div>

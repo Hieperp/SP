@@ -7,8 +7,8 @@ using TotalDTO.Helpers;
 
 namespace TotalDTO.Sales
 {
-    public class StockableDetailDTO : DiscountVATAmountDetailDTO, IHelperWarehouseID, IHelperCommodityID, IHelperCommodityTypeID
-    {                                     
+    public class StockableDetailDTO : FreeQuantityDiscountVATAmountDetailDTO, IHelperWarehouseID, IHelperCommodityID, IHelperCommodityTypeID
+    {
         public Nullable<int> WarehouseID { get; set; }
         public int GetWarehouseID() { return (int)this.WarehouseID; } //Purpose: for IHelperWarehouseID only
 
@@ -20,8 +20,10 @@ namespace TotalDTO.Sales
         [UIHint("DecimalReadonly")]
         public decimal QuantityAvailable { get; set; }
 
+        public override decimal Quantity { get; set; }
+
         [GenericCompare(CompareToPropertyName = "QuantityAvailable", OperatorName = GenericCompareOperator.LessThanOrEqual, ErrorMessage = "Số lượng không được lớn hơn số lượng còn lại")]
-        public override decimal Quantity { get; set; }        
+        public decimal BookingQuantity { get { return this.Quantity + this.FreeQuantity; } }
     }
 
     public class SaleDetailDTO : StockableDetailDTO

@@ -31,6 +31,7 @@ namespace TotalModel.Models
         public bool ApplyToAllCommodities { get; set; }
         public string Remarks { get; set; }
         public bool InActive { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryAdvice> DeliveryAdvices { get; set; }

@@ -206,6 +206,9 @@
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="QuantityIssue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ControlFreeQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FreeQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FreeQuantityIssue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ListedPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DiscountPercent" Type="decimal" Precision="18" Scale="5" Nullable="false" />
           <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -238,6 +241,7 @@
           <Property Name="ApproverID" Type="int" Nullable="false" />
           <Property Name="PaymentTermID" Type="int" Nullable="false" />
           <Property Name="TotalQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalFreeQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalVATAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalGrossAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -434,6 +438,7 @@
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="DiscountPercent" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="ControlFreeQuantity" Type="decimal" Precision="18" Scale="5" Nullable="false" />
           <Property Name="ApplyToAllCustomers" Type="bit" Nullable="false" />
           <Property Name="ApplyToAllCommodities" Type="bit" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
@@ -1959,6 +1964,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="Commodity" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_Commodities" FromRole="DeliveryAdviceDetail" ToRole="Commodity" />
           <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" FromRole="DeliveryAdviceDetail" ToRole="GoodsIssueDetail" />
           <NavigationProperty Name="DeliveryAdvice" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_DeliveryAdvices" FromRole="DeliveryAdviceDetail" ToRole="DeliveryAdvice" />
+          <Property Name="ControlFreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FreeQuantityIssue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_DeliveryAdviceDetails_Commodities">
           <End Type="TotalSalesPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -1992,7 +2000,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
           <Property Type="Int32" Name="WarehouseID" Nullable="false" />
           <Property Type="String" Name="WarehouseCode" Nullable="false" MaxLength="10" />
-          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="ListedPrice" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="5" />
@@ -2004,6 +2012,8 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Boolean" Name="IsBonus" Nullable="true" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="18" Scale="2" />
         </ComplexType>
         <ComplexType Name="CommodityAvailable">
           <Property Type="Int32" Name="CommodityID" Nullable="false" />
@@ -2017,6 +2027,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Decimal" Name="QuantityAvailable" Nullable="true" Precision="38" Scale="2" />
           <Property Type="Boolean" Name="Bookable" Nullable="true" />
           <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
         </ComplexType>
         <EntityType Name="Promotion">
           <Key>
@@ -2034,6 +2045,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="InActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Promotions" FromRole="Promotion" ToRole="DeliveryAdvice" />
+          <Property Name="ControlFreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -2500,6 +2512,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="PriceCategory" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_PriceCategories" FromRole="DeliveryAdvice" ToRole="PriceCategory" />
           <NavigationProperty Name="Promotion" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Promotions" FromRole="DeliveryAdvice" ToRole="Promotion" />
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" FromRole="DeliveryAdvice" ToRole="GoodsIssue" />
+          <Property Name="TotalFreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_DeliveryAdvices_Customers">
           <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="1" />
@@ -3004,6 +3017,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="DeliveryAdviceDetails">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.DeliveryAdviceDetail">
               <MappingFragment StoreEntitySet="DeliveryAdviceDetails">
+                <ScalarProperty Name="FreeQuantityIssue" ColumnName="FreeQuantityIssue" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
                 <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
@@ -3071,6 +3087,8 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
                 <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3088,6 +3106,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="QuantityAvailable" ColumnName="QuantityAvailable" />
                 <ScalarProperty Name="Bookable" ColumnName="Bookable" />
                 <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3096,6 +3115,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="Promotions">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.Promotion">
               <MappingFragment StoreEntitySet="Promotions">
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="ApplyToAllCommodities" ColumnName="ApplyToAllCommodities" />
@@ -3419,6 +3439,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="DeliveryAdvices">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.DeliveryAdvice">
               <MappingFragment StoreEntitySet="DeliveryAdvices">
+                <ScalarProperty Name="TotalFreeQuantity" ColumnName="TotalFreeQuantity" />
                 <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />

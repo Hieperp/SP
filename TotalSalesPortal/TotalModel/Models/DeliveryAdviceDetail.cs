@@ -43,6 +43,9 @@ namespace TotalModel.Models
         public decimal GrossAmount { get; set; }
         public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
+        public decimal FreeQuantity { get; set; }
+        public decimal FreeQuantityIssue { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

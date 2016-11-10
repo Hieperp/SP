@@ -5,6 +5,7 @@
         "commonEditWithDetail": "Controllers/Root/Shared/Edits/commonEditWithDetail",
 
 
+        //Base: gridDatasource => Next to: gridDatasourceQuantity, => then: gridDatasourceAmount, => then: gridDatasourceDiscount, => then: gridDatasourceFreeQuantity. The laster Exemplar inherit from it's super Exemplar
         "gridDatasource": "Controllers/Root/Shared/Edits/gridDatasource",
         "gridDatasourceQuantity": "Controllers/Root/Shared/Edits/gridDatasourceQuantity",
         "gridDatasourceQuantitySubscribe": "Controllers/Root/Shared/Edits/gridDatasourceQuantitySubscribe",
@@ -12,6 +13,9 @@
         "gridDatasourceAmountSubscribe": "Controllers/Root/Shared/Edits/gridDatasourceAmountSubscribe",
         "gridDatasourceDiscount": "Controllers/Root/Shared/Edits/gridDatasourceDiscount",
         "gridDatasourceDiscountSubscribe": "Controllers/Root/Shared/Edits/gridDatasourceDiscountSubscribe",
+        "gridDatasourceFreeQuantity": "Controllers/Root/Shared/Edits/gridDatasourceFreeQuantity",
+        "gridDatasourceFreeQuantitySubscribe": "Controllers/Root/Shared/Edits/gridDatasourceFreeQuantitySubscribe",
+
 
         "gridEditorTemplate": "Controllers/Root/Shared/Edits/gridEditorTemplate",
         "gridEditorCommodity": "Controllers/Root/Shared/Edits/gridEditorCommodity",

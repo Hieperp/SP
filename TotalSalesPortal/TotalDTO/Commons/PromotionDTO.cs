@@ -25,6 +25,8 @@ namespace TotalDTO.Commons
         public Nullable<System.DateTime> EndDate { get; set; }
         [Display(Name = "Tỷ lệ chiết khấu")]
         public Nullable<decimal> DiscountPercent { get; set; }
+        [Display(Name = "Tặng quà")]
+        public Nullable<decimal> ControlFreeQuantity { get; set; }
         public bool ApplyToAllCustomers { get; set; }
         public bool ApplyToAllCommodities { get; set; }
 

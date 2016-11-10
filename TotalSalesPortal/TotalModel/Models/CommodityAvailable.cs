@@ -24,5 +24,6 @@ namespace TotalModel.Models
         public Nullable<decimal> QuantityAvailable { get; set; }
         public Nullable<bool> Bookable { get; set; }
         public decimal DiscountPercent { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
     }
 }

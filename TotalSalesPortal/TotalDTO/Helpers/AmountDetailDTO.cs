@@ -13,7 +13,7 @@ namespace TotalDTO.Helpers
     public abstract class AmountDetailDTO : QuantityDetailDTO, IAmountDetailDTO
     {        
         [Display(Name = "Đơn giá")]
-        [UIHint("Decimal")]
+        [UIHint("DecimalReadonly")] //[UIHint("Decimal")]
         public virtual decimal UnitPrice { get; set; }
 
         [Display(Name = "Thành tiền")]

@@ -13,7 +13,7 @@ using TotalDTO.Helpers.Interfaces;
 
 namespace TotalDTO.Sales
 {
-    public class DeliveryAdvicePrimitiveDTO : DiscountVATAmountDTO<DeliveryAdviceDetailDTO>, IPrimitiveEntity, IPrimitiveDTO, IPriceCategory
+    public class DeliveryAdvicePrimitiveDTO : FreeQuantityDiscountVATAmountDTO<DeliveryAdviceDetailDTO>, IPrimitiveEntity, IPrimitiveDTO, IPriceCategory
     {
         public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.DeliveryAdvice; } }
 

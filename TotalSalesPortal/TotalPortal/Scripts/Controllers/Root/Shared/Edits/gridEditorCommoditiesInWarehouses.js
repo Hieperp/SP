@@ -24,6 +24,7 @@
                 currentDataSourceRow.set("WarehouseID", dataItem.WarehouseID);
                 currentDataSourceRow.set("WarehouseCode", dataItem.WarehouseCode);
                 currentDataSourceRow.set("QuantityAvailable", dataItem.QuantityAvailable);
+                currentDataSourceRow.set("ControlFreeQuantity", dataItem.ControlFreeQuantity);
                 currentDataSourceRow.set("Quantity", 1);
                 currentDataSourceRow.set("VATPercent", dataItem.VATPercent);
                 currentDataSourceRow.set("GrossPrice", dataItem.GrossPrice);

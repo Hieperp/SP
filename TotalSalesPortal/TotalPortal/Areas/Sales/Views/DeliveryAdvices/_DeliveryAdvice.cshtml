@@ -12,6 +12,7 @@
 
     @Html.HiddenFor(model => model.DeliveryAdviceID)
     @Html.HiddenFor(model => model.TotalQuantity)
+    @Html.HiddenFor(model => model.TotalFreeQuantity)
     @Html.HiddenFor(model => model.TotalAmount)
     @Html.HiddenFor(model => model.TotalVATAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
@@ -107,10 +108,23 @@
                     columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
+
+                    columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
+                    
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+
+
+                    columns.Bound(p => p.FreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
+                    
+                    
                     columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
@@ -221,6 +235,7 @@
                             events.Error("kendGrid_ErrorHandler");
                         })
                         .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                        .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
                         .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
                         .Aggregates(a => a.Add(x => x.Amount).Sum())
                         .Aggregates(a => a.Add(x => x.VATAmount).Sum())

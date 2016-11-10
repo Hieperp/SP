@@ -15,7 +15,7 @@ namespace TotalDTO.Helpers
         public decimal ListedPrice { get; set; }
 
         [Display(Name = "CK")]
-        [UIHint("Decimal")]
+        [UIHint("DecimalReadonly")] //[UIHint("Decimal")]
         public virtual decimal DiscountPercent { get; set; }
     }
 }

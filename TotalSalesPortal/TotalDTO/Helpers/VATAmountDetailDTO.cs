@@ -19,7 +19,7 @@ namespace TotalDTO.Helpers
         public decimal VATPercent { get; set; }
 
         [Display(Name = "Giá sau thuế")]
-        [UIHint("Decimal")]
+        [UIHint("DecimalReadonly")] //[UIHint("Decimal")]
         public virtual decimal GrossPrice { get; set; }
 
         [Display(Name = "Thuế VAT")]

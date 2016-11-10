@@ -825,6 +825,8 @@
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceAmountSubscribe.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceDiscount.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceDiscountSubscribe.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceFreeQuantity.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceFreeQuantitySubscribe.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceQuantity.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceQuantitySubscribe.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommoditiesInGoodsReceipts.js" />
