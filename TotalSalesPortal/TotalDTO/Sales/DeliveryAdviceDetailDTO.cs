@@ -46,5 +46,8 @@ namespace TotalDTO.Sales
 
         [UIHint("AutoCompletes/CommodityAvailable")]
         public override string CommodityName { get; set; }
+
+        [UIHint("DecimalReadonly")]
+        public override decimal FreeQuantity { get; set; }
     }
 }

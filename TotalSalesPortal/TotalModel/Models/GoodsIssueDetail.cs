@@ -44,6 +44,7 @@ namespace TotalModel.Models
         public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
         public Nullable<int> AccountInvoiceID { get; set; }
+        public decimal FreeQuantity { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }

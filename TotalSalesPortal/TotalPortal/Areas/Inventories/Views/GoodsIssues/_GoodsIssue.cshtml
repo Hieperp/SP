@@ -8,6 +8,7 @@
 
     @Html.HiddenFor(model => model.GoodsIssueID)
     @Html.HiddenFor(model => model.TotalQuantity)
+    @Html.HiddenFor(model => model.TotalFreeQuantity)
     @Html.HiddenFor(model => model.TotalAmount)
     @Html.HiddenFor(model => model.TotalVATAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
@@ -95,6 +96,7 @@
                     columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
+
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
@@ -102,6 +104,15 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+
+                    columns.Bound(p => p.FreeQuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= FreeQuantityRemains #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantityRemains' value='#= FreeQuantityRemains #' />");
+                    columns.Bound(p => p.FreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
+
                     columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
@@ -151,16 +162,23 @@
 
                 .ToolBar(toolbar =>
                 {
-                    toolbar.Template(//Add a functionless button for display purpose only
-                        @<text>
-                            <div>
-                                @(Html.Kendo().Button()
-                                    .Name("iconButton")
-                                    .HtmlAttributes(new { type = "button" })
-                                    .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
-                                )
-                            </div>
-                        </text>);
+                    if (Model.Editable)
+                    {
+                        toolbar.Custom().Text("Xuất tất cả theo đề nghị giao hàng").Url("#").HtmlAttributes(new { onclick = "ABC()" });
+                    }
+                    else
+                    {//Add a functionless button for display purpose only
+                        toolbar.Template(
+                            @<text>
+                                <div>
+                                    @(Html.Kendo().Button()
+                                                        .Name("iconButton")
+                                                        .HtmlAttributes(new { type = "button" })
+                                                        .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
+                                    )
+                                </div>
+                            </text>);
+                    }
                 })
 
                 .Editable(editable => { editable.Enabled(Model.Editable); editable.Mode(GridEditMode.InCell).DisplayDeleteConfirmation(true).CreateAt(GridInsertRowPosition.Bottom); })
@@ -190,7 +208,9 @@
                     })
                     .Aggregates(a => a.Add(x => x.QuantityAvailable).Sum())
                     .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                    .Aggregates(a => a.Add(x => x.FreeQuantityRemains).Sum())
                     .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
                     .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
                     .Aggregates(a => a.Add(x => x.Amount).Sum())
                     .Aggregates(a => a.Add(x => x.VATAmount).Sum())

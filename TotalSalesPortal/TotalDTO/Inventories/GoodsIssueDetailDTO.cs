@@ -15,5 +15,9 @@ namespace TotalDTO.Inventories
         [Display(Name = "SL ĐH")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityRemains { get; set; }
+
+        [Display(Name = "SL QT")]
+        [UIHint("DecimalReadonly")]
+        public decimal FreeQuantityRemains { get; set; }        
     }
 }    

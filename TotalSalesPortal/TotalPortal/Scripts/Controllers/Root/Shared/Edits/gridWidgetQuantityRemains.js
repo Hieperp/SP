@@ -13,7 +13,10 @@
         if (editingCellFieldName === "Quantity")
             dataItem.set(editingCellFieldName, dataItem["QuantityRemains"]);//Set all selected rows: the Quantity by QuantityRemains
         else
-            definedExemplar._super._setCellValue.call(this, dataItem, editingDataRow, editingCellFieldName);
+            if (editingCellFieldName === "FreeQuantity")
+                dataItem.set(editingCellFieldName, dataItem["FreeQuantityRemains"]);//Set all selected rows: the Quantity by QuantityRemains
+            else
+                definedExemplar._super._setCellValue.call(this, dataItem, editingDataRow, editingCellFieldName);
     }
 
     return definedExemplar;

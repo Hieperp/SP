@@ -12,7 +12,7 @@ using TotalDTO.Commons;
 
 namespace TotalDTO.Inventories
 {
-    public class GoodsIssuePrimitiveDTO : DiscountVATAmountDTO<GoodsIssueDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
+    public class GoodsIssuePrimitiveDTO : FreeQuantityDiscountVATAmountDTO<GoodsIssueDetailDTO>, IPrimitiveEntity, IPrimitiveDTO
     {
         public virtual GlobalEnums.NmvnTaskID NMVNTaskID { get { return GlobalEnums.NmvnTaskID.GoodsIssue; } }
 

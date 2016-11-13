@@ -14,8 +14,7 @@ namespace TotalDTO.Helpers
         [UIHint("DecimalReadonly")]
         public decimal ControlFreeQuantity { get; set; }
 
-        [Display(Name = "QT")]
-        [UIHint("DecimalReadonly")]
+        [Display(Name = "QT")]        
         public virtual decimal FreeQuantity { get; set; }
     }
 }

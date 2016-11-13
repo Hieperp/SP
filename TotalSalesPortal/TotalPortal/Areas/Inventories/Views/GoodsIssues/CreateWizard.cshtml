@@ -21,6 +21,8 @@
     @Html.HiddenFor(model => model.Customer.Telephone);
     @Html.HiddenFor(model => model.Customer.AddressNo);
     @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
+    @Html.HiddenFor(model => model.Customer.EmployeeID)
+    @Html.HiddenFor(model => model.Customer.EmployeeName)
 
 
     @(Html.Kendo().TabStrip()
@@ -99,6 +101,9 @@
             $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
             $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
             $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
+
+            $("#Customer_EmployeeID").val(99999999);
+            $("#Customer_EmployeeName").val("#######");
         }
     }
 
