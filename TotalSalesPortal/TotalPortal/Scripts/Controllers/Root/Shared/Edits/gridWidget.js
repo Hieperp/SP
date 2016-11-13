@@ -1,8 +1,31 @@
 ﻿define([], (function () {
 
     var definedExemplar = function () {
-        
+
     };
+
+
+
+
+    definedExemplar.prototype.copySourceToDestinationField = function (kenGrid, sourceField1, destinationField1, sourceField2, destinationField2, sourceField3, destinationField3, sourceField4, destinationField4, sourceField5, destinationField5) {
+        var allDataRows = kenGrid.dataSource.data();
+        for (var i = 0; i < allDataRows.length; i++) {
+            var dataItem = allDataRows[i];
+            if (sourceField1 != undefined && destinationField1 != undefined)
+                dataItem.set(destinationField1, dataItem[sourceField1]);
+            if (sourceField2 != undefined && destinationField2 != undefined)
+                dataItem.set(destinationField2, dataItem[sourceField2]);
+            if (sourceField3 != undefined && destinationField3 != undefined)
+                dataItem.set(destinationField3, dataItem[sourceField3]);
+            if (sourceField4 != undefined && destinationField4 != undefined)
+                dataItem.set(destinationField4, dataItem[sourceField4]);
+            if (sourceField5 != undefined && destinationField5 != undefined)
+                dataItem.set(destinationField5, dataItem[sourceField5]);
+        }
+    };
+
+
+
 
 
     //Important: This function run ok only when one cell in edit mode

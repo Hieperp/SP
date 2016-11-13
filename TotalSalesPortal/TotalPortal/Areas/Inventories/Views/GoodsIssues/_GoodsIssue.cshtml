@@ -97,6 +97,10 @@
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
 
+                    columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
+                    
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
@@ -164,7 +168,7 @@
                 {
                     if (Model.Editable)
                     {
-                        toolbar.Custom().Text("Xuất tất cả theo đề nghị giao hàng").Url("#").HtmlAttributes(new { onclick = "ABC()" });
+                        toolbar.Custom().Text("Xuất tất cả theo đề nghị giao hàng").Url("#").HtmlAttributes(new { onclick = "copyRemainsToQuantity()" });
                     }
                     else
                     {//Add a functionless button for display purpose only

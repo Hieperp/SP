@@ -22,7 +22,7 @@ namespace TotalDTO.Sales
 
         public override decimal Quantity { get; set; }
 
-        [GenericCompare(CompareToPropertyName = "QuantityAvailable", OperatorName = GenericCompareOperator.LessThanOrEqual, ErrorMessage = "Số lượng không được lớn hơn số lượng còn lại")]
+        [GenericCompare(CompareToPropertyName = "QuantityAvailable", OperatorName = GenericCompareOperator.LessThanOrEqual, ErrorMessage = "Số lượng xuất không được lớn hơn số lượng tồn kho")]
         public decimal BookingQuantity { get { return this.Quantity + this.FreeQuantity; } }
     }
 

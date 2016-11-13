@@ -39,5 +39,6 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public Nullable<decimal> FreeQuantityRemains { get; set; }
         public decimal FreeQuantity { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
     }
 }
