@@ -45,11 +45,13 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public Nullable<int> AccountInvoiceID { get; set; }
         public decimal FreeQuantity { get; set; }
+        public Nullable<int> GoodsIssueTypeID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         public virtual GoodsIssue GoodsIssue { get; set; }
+        public virtual GoodsIssueType GoodsIssueType { get; set; }
     }
 }

@@ -70,6 +70,8 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_Receipts_GoodsIssues" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_Customers_Employees" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.GoodsIssueType" Width="1.5" PointX="3.375" PointY="8.875" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

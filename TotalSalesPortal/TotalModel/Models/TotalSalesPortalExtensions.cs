@@ -65,6 +65,18 @@ namespace TotalModel.Models
 
 
 
+    public partial class GoodsIssueType : IPrimitiveEntity, IBaseEntity
+    {
+        public int GetID() { return this.GoodsIssueTypeID; }
+
+        public int UserID { get; set; }
+        public int PreparedPersonID { get; set; }
+        public int OrganizationalUnitID { get; set; }
+        public int LocationID { get; set; }
+
+        public System.DateTime CreatedDate { get; set; }
+        public System.DateTime EditedDate { get; set; }
+    }
 
     public partial class Employee : IPrimitiveEntity, IBaseEntity
     {

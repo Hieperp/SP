@@ -124,6 +124,7 @@ namespace TotalPortal.App_Start
                 kernel.Bind<ICommodityRepository>().To<CommodityRepository>();
                 kernel.Bind<ICustomerRepository>().To<CustomerRepository>();
                 kernel.Bind<IEmployeeRepository>().To<EmployeeRepository>();
+                kernel.Bind<IGoodsIssueTypeRepository>().To<GoodsIssueTypeRepository>();
                 kernel.Bind<IPromotionRepository>().To<PromotionRepository>();
                 kernel.Bind<IPaymentTermRepository>().To<PaymentTermRepository>();
                 

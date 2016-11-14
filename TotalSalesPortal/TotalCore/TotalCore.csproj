@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\Commons\IGoodsIssueTypeRepository.cs" />
     <Compile Include="Repositories\Sessions\IModuleDetailRepository.cs" />
     <Compile Include="Repositories\Sessions\IModuleRepository.cs" />
     <Compile Include="Helpers\ISqlRoutines.cs" />

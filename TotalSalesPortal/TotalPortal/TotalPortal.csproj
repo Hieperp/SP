@@ -212,6 +212,7 @@
     <Compile Include="Areas\Commons\APIs\CommodityAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\CustomerAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\EmployeeAPIsController.cs" />
+    <Compile Include="Areas\Commons\APIs\GoodsIssueTypeAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\PromotionAPIsController.cs" />
     <Compile Include="Areas\Commons\CommonsAreaRegistration.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsIssueAPIsController.cs" />
@@ -835,6 +836,8 @@
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommoditiesInWarehousesInvoked.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommodity.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommodityInvoked.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorGoodsIssueType.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorGoodsIssueTypeInvoked.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorTemplate.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorWarehouse.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorWarehouseInvoked.js" />
@@ -1239,6 +1242,7 @@
     <Content Include="Views\Home\UserGuide.cshtml" />
     <Content Include="Views\Home\LockedDate.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AutoCompletes\GoodsIssueType.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

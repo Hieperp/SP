@@ -293,6 +293,7 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="GoodsIssueID" Type="int" Nullable="false" />
+          <Property Name="GoodsIssueTypeID" Type="int" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="DeliveryAdviceID" Type="int" Nullable="false" />
           <Property Name="DeliveryAdviceDetailID" Type="int" Nullable="false" />
@@ -347,6 +348,16 @@
           <Property Name="InActive" Type="bit" Nullable="false" />
           <Property Name="InActivePartial" Type="bit" Nullable="false" />
           <Property Name="InActiveDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GoodsIssueTypes">
+          <Key>
+            <PropertyRef Name="GoodsIssueTypeID" />
+          </Key>
+          <Property Name="GoodsIssueTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GoodsIssueClassID" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Locations">
           <Key>
@@ -818,6 +829,18 @@ warning 6035: The relationship 'FK_DeliveryAdvices_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GoodsIssueDetails_GoodsIssueTypes">
+          <End Role="GoodsIssueTypes" Type="Self.GoodsIssueTypes" Multiplicity="0..1" />
+          <End Role="GoodsIssueDetails" Type="Self.GoodsIssueDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsIssueTypes">
+              <PropertyRef Name="GoodsIssueTypeID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetails">
+              <PropertyRef Name="GoodsIssueTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GoodsIssues_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="GoodsIssues" Type="Self.GoodsIssues" Multiplicity="*" />
@@ -1100,6 +1123,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySet Name="EntireTerritories" EntityType="Self.EntireTerritories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsIssueDetails" EntityType="Self.GoodsIssueDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsIssues" EntityType="Self.GoodsIssues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodsIssueTypes" EntityType="Self.GoodsIssueTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
@@ -1209,6 +1233,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           </AssociationSet>
           <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssues" Association="Self.FK_GoodsIssueDetails_GoodsIssues">
             <End Role="GoodsIssues" EntitySet="GoodsIssues" />
+            <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssueTypes" Association="Self.FK_GoodsIssueDetails_GoodsIssueTypes">
+            <End Role="GoodsIssueTypes" EntitySet="GoodsIssueTypes" />
             <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsIssues_Customers" Association="Self.FK_GoodsIssues_Customers">
@@ -1643,6 +1671,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <AssociationSet Name="FK_Customers_Employees" Association="TotalSalesPortalModel.FK_Customers_Employees">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="GoodsIssueTypes" EntityType="TotalSalesPortalModel.GoodsIssueType" />
+          <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssueTypes" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes">
+            <End Role="GoodsIssueType" EntitySet="GoodsIssueTypes" />
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
@@ -2152,6 +2185,8 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Name="AccountInvoiceID" Type="Int32" />
           <NavigationProperty Name="GoodsIssue" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssueDetail" ToRole="GoodsIssue" />
           <Property Name="FreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GoodsIssueTypeID" Type="Int32" />
+          <NavigationProperty Name="GoodsIssueType" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes" FromRole="GoodsIssueDetail" ToRole="GoodsIssueType" />
         </EntityType>
         <Association Name="FK_GoodsIssueDetails_Commodities">
           <End Type="TotalSalesPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -2218,6 +2253,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Decimal" Name="FreeQuantityRemains" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="1" Scale="1" />
           <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="GoodsIssueTypeID" Nullable="true" />
+          <Property Type="String" Name="GoodsIssueTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GoodsIssueTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="GoodsIssueClassID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="PendingDeliveryAdviceCustomer">
           <Property Type="Int32" Name="CustomerID" Nullable="false" />
@@ -2774,6 +2813,29 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GoodsIssueType">
+          <Key>
+            <PropertyRef Name="GoodsIssueTypeID" />
+          </Key>
+          <Property Name="GoodsIssueTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsIssueClassID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes" FromRole="GoodsIssueType" ToRole="GoodsIssueDetail" />
+        </EntityType>
+        <Association Name="FK_GoodsIssueDetails_GoodsIssueTypes">
+          <End Type="TotalSalesPortalModel.GoodsIssueType" Role="GoodsIssueType" Multiplicity="0..1" />
+          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsIssueType">
+              <PropertyRef Name="GoodsIssueTypeID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetail">
+              <PropertyRef Name="GoodsIssueTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3180,6 +3242,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="GoodsIssueDetails">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueDetail">
               <MappingFragment StoreEntitySet="GoodsIssueDetails">
+                <ScalarProperty Name="GoodsIssueTypeID" ColumnName="GoodsIssueTypeID" />
                 <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
                 <ScalarProperty Name="AccountInvoiceID" ColumnName="AccountInvoiceID" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
@@ -3255,6 +3318,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="FreeQuantityRemains" ColumnName="FreeQuantityRemains" />
                 <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
                 <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="GoodsIssueTypeID" ColumnName="GoodsIssueTypeID" />
+                <ScalarProperty Name="GoodsIssueTypeCode" ColumnName="GoodsIssueTypeCode" />
+                <ScalarProperty Name="GoodsIssueTypeName" ColumnName="GoodsIssueTypeName" />
+                <ScalarProperty Name="GoodsIssueClassID" ColumnName="GoodsIssueClassID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3586,6 +3653,17 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <FunctionImportMapping FunctionImportName="ReceiptEditable" FunctionName="TotalSalesPortalModel.Store.ReceiptEditable" />
           <FunctionImportMapping FunctionImportName="ReceiptPostSaveValidate" FunctionName="TotalSalesPortalModel.Store.ReceiptPostSaveValidate" />
           <FunctionImportMapping FunctionImportName="ReceiptSaveRelative" FunctionName="TotalSalesPortalModel.Store.ReceiptSaveRelative" />
+          <EntitySetMapping Name="GoodsIssueTypes">
+            <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueType">
+              <MappingFragment StoreEntitySet="GoodsIssueTypes">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="GoodsIssueClassID" ColumnName="GoodsIssueClassID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="GoodsIssueTypeID" ColumnName="GoodsIssueTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
