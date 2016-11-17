@@ -216,7 +216,7 @@ namespace TotalPortal.Controllers
                 if (this.GenericService.ToggleApproved(simpleViewModel))
                     return RedirectToAction("Index");
                 else
-                    throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
+                    throw new System.ArgumentException("Lỗi vô hiệu dữ liệu", "Dữ liệu này không thể vô hiệu.");
             }
             catch (Exception exception)
             {
@@ -306,35 +306,56 @@ namespace TotalPortal.Controllers
 
 
 
-        [AccessLevelAuthorize, ImportModelStateFromTempData]
+
+
+
+        #region Void/ UnVoid
+
+        [AccessLevelAuthorize(GlobalEnums.AccessLevel.Readable), ImportModelStateFromTempData]
         [OnResultExecutingFilterAttribute]
         public virtual ActionResult Void(int? id)
         {
-            TEntity entity = this.GetEntityAndCheckAccessLevel(id, GlobalEnums.AccessLevel.Editable);
+            TEntity entity = this.GetEntityAndCheckAccessLevel(id, GlobalEnums.AccessLevel.Readable);
             if (entity == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            return View(this.GetViewModel(entity));
-        }
+            TSimpleViewModel simpleViewModel = this.GetViewModel(entity, true);
 
+            if (!simpleViewModel.InActive)
+                if (this.GenericService.GetVoidablePermitted(entity.OrganizationalUnitID))
+                    simpleViewModel.Voidable = this.GenericService.Voidable(simpleViewModel);
+                else //USER DON'T HAVE PERMISSION TO DO
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+
+            if (simpleViewModel.InActive)
+                if (this.GenericService.GetUnVoidablePermitted(entity.OrganizationalUnitID))
+                    simpleViewModel.UnVoidable = this.GenericService.UnVoidable(simpleViewModel);
+                else //USER DON'T HAVE PERMISSION TO DO
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+
+            return View(simpleViewModel);
+        }
 
         [HttpPost, ActionName("Void")]
         [ValidateAntiForgeryToken, ExportModelStateToTempData]
-        public virtual ActionResult VoidConfirmed(int id, bool inActive)
+        public virtual ActionResult VoidConfirmed(TSimpleViewModel simpleViewModel)
         {
             try
             {
-                if (this.GenericService.Void(id, inActive))
+                if (this.GenericService.ToggleVoid(simpleViewModel))
                     return RedirectToAction("Index");
                 else
-                    throw new System.ArgumentException("Lỗi vô hiệu dữ liệu", "Dữ liệu này không thể vô hiệu.");
-
+                    throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
             }
             catch (Exception exception)
             {
                 ModelState.AddValidationErrors(exception);
-                return RedirectToAction("Void", id);
+                return RedirectToAction("Void", simpleViewModel.GetID());
             }
         }
+
+
+        #endregion Void/ UnVoid
+
 
 
 

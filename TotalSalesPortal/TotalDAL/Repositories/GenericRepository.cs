@@ -28,8 +28,8 @@ namespace TotalDAL.Repositories
 
         private readonly string functionNameEditable;
         private readonly string functionNameApproved;
-        private readonly string functionNameDeletable;        
-
+        private readonly string functionNameDeletable;
+        private readonly string functionNameVoidable;
 
         public GenericRepository(TotalSalesPortalEntities totalSalesPortalEntities)
             : this(totalSalesPortalEntities, null) { }
@@ -41,13 +41,17 @@ namespace TotalDAL.Repositories
             : this(totalSalesPortalEntities, functionNameEditable, functionNameApproved, null) { }
 
         public GenericRepository(TotalSalesPortalEntities totalSalesPortalEntities, string functionNameEditable, string functionNameApproved, string functionNameDeletable)
+            : this(totalSalesPortalEntities, functionNameEditable, functionNameApproved, functionNameDeletable, null) { }
+
+        public GenericRepository(TotalSalesPortalEntities totalSalesPortalEntities, string functionNameEditable, string functionNameApproved, string functionNameDeletable, string functionNameVoidable)
             : base(totalSalesPortalEntities)
         {
             modelDbSet = this.TotalSalesPortalEntities.Set<TEntity>();
 
             this.functionNameEditable = functionNameEditable;
             this.functionNameApproved = functionNameApproved;
-            this.functionNameDeletable = functionNameDeletable;            
+            this.functionNameDeletable = functionNameDeletable;
+            this.functionNameVoidable = functionNameVoidable;
         }
 
 
@@ -166,6 +170,21 @@ namespace TotalDAL.Repositories
             return unApprovalPermitted == null ? false : (bool)unApprovalPermitted;
         }
 
+        public bool GetVoidablePermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID)
+        {
+            if (userID == null || userID == 0 || (int)nmvnTaskID == 0) return false;
+
+            bool? voidablePermitted = this.TotalSalesPortalEntities.GetVoidablePermitted(userID, (int)nmvnTaskID, organizationalUnitID).Single();
+            return voidablePermitted == null ? false : (bool)voidablePermitted;
+        }
+
+        public bool GetUnVoidablePermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID)
+        {
+            if (userID == null || userID == 0 || (int)nmvnTaskID == 0) return false;
+
+            bool? unVoidablePermitted = this.TotalSalesPortalEntities.GetUnVoidablePermitted(userID, (int)nmvnTaskID, organizationalUnitID).Single();
+            return unVoidablePermitted == null ? false : (bool)unVoidablePermitted;
+        }
 
         public bool GetApproved(int id)
         {
@@ -182,6 +201,11 @@ namespace TotalDAL.Repositories
             return !this.CheckExisting(id, this.functionNameDeletable);
         }
 
+
+        public bool GetVoidable(int id)
+        {
+            return !this.CheckExisting(id, this.functionNameVoidable);
+        }
 
 
         public bool CheckExisting(int id, string functionName)

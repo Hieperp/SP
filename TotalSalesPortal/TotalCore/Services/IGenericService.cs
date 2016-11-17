@@ -17,14 +17,16 @@ namespace TotalCore.Services
         bool Editable(TDto dto);
         bool Approvable(TDto dto);
         bool UnApprovable(TDto dto);
+        bool Voidable(TDto dto);
+        bool UnVoidable(TDto dto);
         bool Deletable(TDto dto);
 
         bool Save(TDto dto);
         bool ToggleApproved(TDto dto);
+        bool ToggleVoid(TDto dto);
         bool Delete(int id);
 
         bool Alter(TDto dto);
-        bool Void(int id, bool inActive);
 
         void PreSaveRoutines(TDto dto);
     }

@@ -35,6 +35,7 @@ namespace TotalService
         private readonly string functionNamePostSaveValidate;
         private readonly string functionNameSaveRelative;
         private readonly string functionNameToggleApproved;
+        private readonly string functionNameToggleVoid;
 
         private readonly GlobalEnums.NmvnTaskID nmvnTaskID;
 
@@ -51,6 +52,10 @@ namespace TotalService
         { }
 
         public GenericService(IGenericRepository<TEntity> genericRepository, string functionNamePostSaveValidate, string functionNameSaveRelative, string functionNameToggleApproved)
+            : this(genericRepository, functionNamePostSaveValidate, functionNameSaveRelative, functionNameToggleApproved, null)
+        { }
+
+        public GenericService(IGenericRepository<TEntity> genericRepository, string functionNamePostSaveValidate, string functionNameSaveRelative, string functionNameToggleApproved, string functionNameToggleVoid)
             : base(genericRepository)
         {
             this.genericRepository = genericRepository;
@@ -58,6 +63,7 @@ namespace TotalService
             this.functionNamePostSaveValidate = functionNamePostSaveValidate;
             this.functionNameSaveRelative = functionNameSaveRelative;
             this.functionNameToggleApproved = functionNameToggleApproved;
+            this.functionNameToggleVoid = functionNameToggleVoid;
 
             this.nmvnTaskID = (new TPrimitiveDto()).NMVNTaskID;
         }
@@ -96,6 +102,15 @@ namespace TotalService
             return this.genericRepository.GetUnApprovalPermitted(this.UserID, this.nmvnTaskID, organizationalUnitID);
         }
 
+        public override bool GetVoidablePermitted(int? organizationalUnitID)
+        {
+            return this.genericRepository.GetVoidablePermitted(this.UserID, this.nmvnTaskID, organizationalUnitID);
+        }
+
+        public override bool GetUnVoidablePermitted(int? organizationalUnitID)
+        {
+            return this.genericRepository.GetUnVoidablePermitted(this.UserID, this.nmvnTaskID, organizationalUnitID);
+        }
 
 
         public virtual bool Approvable(TDto dto)
@@ -112,6 +127,22 @@ namespace TotalService
             if (!dto.Approved || !this.GetUnApprovalPermitted(dto.OrganizationalUnitID)) return false;
 
             return this.genericRepository.GetEditable(dto.GetID());
+        }
+
+        public virtual bool Voidable(TDto dto)
+        {
+            if (this.GlobalLocked(dto)) return false;
+            if (dto.InActive || !this.GetVoidablePermitted(dto.OrganizationalUnitID)) return false;
+
+            return this.genericRepository.GetVoidable(dto.GetID());
+        }
+
+        public virtual bool UnVoidable(TDto dto)
+        {
+            if (this.GlobalLocked(dto)) return false;
+            if (!dto.InActive || !this.GetUnVoidablePermitted(dto.OrganizationalUnitID)) return false;
+
+            return this.genericRepository.GetVoidable(dto.GetID());
         }
 
         public virtual bool Editable(TDto dto)
@@ -208,6 +239,30 @@ namespace TotalService
             }
         }
 
+        public virtual bool ToggleVoid(TDto dto)
+        {
+            using (var dbContextTransaction = this.genericRepository.BeginTransaction())
+            {
+                try
+                {
+                    if ((!dto.InActive && !this.Voidable(dto)) || (dto.InActive && !this.UnVoidable(dto))) throw new System.ArgumentException("Lỗi " + (dto.InActive ? "hủy " : "") + "duyệt dữ liệu", "Bạn không có quyền hoặc dữ liệu này đã bị khóa.");
+
+                    this.ToggleVoidMe(dto);
+
+                    this.genericRepository.SaveChanges();
+
+                    dbContextTransaction.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
         public virtual bool Delete(int id)
         {
             if (id <= 0) return false;
@@ -265,36 +320,7 @@ namespace TotalService
                 }
             }
         }
-
-
-        protected string EFFunctionNameVoid { get; set; }
-
-        public virtual bool Void(int id, bool inActive)
-        {
-            if (id <= 0 || this.EFFunctionNameVoid == null || this.EFFunctionNameVoid == "") return false;
-
-            using (var dbContextTransaction = this.genericRepository.BeginTransaction())
-            {
-                try
-                {
-                    TEntity entity = this.genericRepository.GetByID(id);
-                    if (this.GetAccessLevel(entity.OrganizationalUnitID) != GlobalEnums.AccessLevel.Editable) throw new System.ArgumentException("", "Lưu ý: Bạn không có quyền vô hiệu dữ liệu này.");
-
-                    ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", entity.GetID()), new ObjectParameter("InActive", !inActive) };
-                    this.genericRepository.ExecuteFunction(this.EFFunctionNameVoid, parameters);
-
-                    dbContextTransaction.Commit();
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    dbContextTransaction.Rollback();
-                    throw ex;
-                }
-            }
-        }
-
+       
 
 
         public virtual void PreSaveRoutines(TDto dto)
@@ -388,6 +414,17 @@ namespace TotalService
             {
                 ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("Approved", !dto.Approved) };
                 if (this.genericRepository.ExecuteFunction(this.functionNameToggleApproved, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.Approved ? "hủy" : "") + "duyệt");
+            }
+            else
+                throw new System.ArgumentException("Lỗi", "Hệ thống không cho phép thực hiện tác vụ này.");
+        }
+
+        protected virtual void ToggleVoidMe(TDto dto)
+        {
+            if (this.functionNameToggleVoid != null && this.functionNameToggleVoid != "")
+            {
+                ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("InActive", !dto.InActive) };
+                if (this.genericRepository.ExecuteFunction(this.functionNameToggleVoid, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.InActive ? "phục hồi lệnh" : "") + "hủy (vô hiệu)");
             }
             else
                 throw new System.ArgumentException("Lỗi", "Hệ thống không cho phép thực hiện tác vụ này.");

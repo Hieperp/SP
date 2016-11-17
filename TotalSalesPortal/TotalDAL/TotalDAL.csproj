@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityFrameworkExtension.cs" />
+    <Compile Include="Helpers\SqlProgrammability\Commons\AccessControl.cs" />
     <Compile Include="Repositories\Commons\GoodsIssueTypeRepository.cs" />
     <Compile Include="Repositories\Sessions\ModuleDetailRepository.cs" />
     <Compile Include="Repositories\Sessions\ModuleRepository.cs" />

@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d15db0f3b87b40d8a37bac669a0fa729" Name="Diagram1" ZoomLevel="42">
-        <EntityTypeShape EntityType="TotalSalesPortalModel.AccessControl" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.AspNetUser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.Location" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.ModuleDetail" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
@@ -72,6 +71,7 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_Customers_Employees" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.GoodsIssueType" Width="1.5" PointX="3.375" PointY="8.875" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.AccessControl" Width="1.5" PointX="9.375" PointY="11.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

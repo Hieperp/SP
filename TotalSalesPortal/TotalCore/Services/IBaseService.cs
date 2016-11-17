@@ -19,5 +19,11 @@ namespace TotalCore.Services
         bool GetUnApprovalPermitted();
         bool GetUnApprovalPermitted(int? organizationalUnitID);
 
+        bool GetVoidablePermitted();
+        bool GetVoidablePermitted(int? organizationalUnitID);
+
+        bool GetUnVoidablePermitted();
+        bool GetUnVoidablePermitted(int? organizationalUnitID);
+
     }
 }

@@ -47,10 +47,14 @@ namespace TotalCore.Repositories
         GlobalEnums.AccessLevel GetAccessLevel(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
         bool GetApprovalPermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
         bool GetUnApprovalPermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
+        bool GetVoidablePermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
+        bool GetUnVoidablePermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
 
         bool GetApproved(int id);
         bool GetEditable(int id);
         bool GetDeletable(int id);
+        bool GetVoidable(int id);
+
         bool CheckExisting(int id, string functionName);
         string GetExisting(int id, string functionName);
 
@@ -59,6 +63,10 @@ namespace TotalCore.Repositories
         TEntity Remove(TEntity entity);
 
         int SaveChanges();
+
+
+
+
 
     }
 }

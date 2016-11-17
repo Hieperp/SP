@@ -16,6 +16,8 @@
           <Property Name="AccessLevel" Type="int" Nullable="false" />
           <Property Name="ApprovalPermitted" Type="bit" Nullable="false" />
           <Property Name="UnApprovalPermitted" Type="bit" Nullable="false" />
+          <Property Name="VoidablePermitted" Type="bit" Nullable="false" />
+          <Property Name="UnVoidablePermitted" Type="bit" Nullable="false" />
           <Property Name="AccessLevelBACKUP" Type="int" />
           <Property Name="ApprovalPermittedBACKUP" Type="bit" />
           <Property Name="UnApprovalPermittedBACKUP" Type="bit" />
@@ -1086,6 +1088,16 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="NMVNTaskID" Type="int" Mode="In" />
           <Parameter Name="OrganizationalUnitID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetUnVoidablePermitted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="NMVNTaskID" Type="int" Mode="In" />
+          <Parameter Name="OrganizationalUnitID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetVoidablePermitted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="NMVNTaskID" Type="int" Mode="In" />
+          <Parameter Name="OrganizationalUnitID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GoodsIssueEditable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EntityID" Type="int" Mode="In" />
         </Function>
@@ -1288,21 +1300,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TotalSalesPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AccessControl">
-          <Key>
-            <PropertyRef Name="AccessControlID" />
-          </Key>
-          <Property Name="AccessControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="NMVNTaskID" Type="Int32" Nullable="false" />
-          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
-          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
-          <Property Name="ApprovalPermitted" Type="Boolean" Nullable="false" />
-          <Property Name="UnApprovalPermitted" Type="Boolean" Nullable="false" />
-          <Property Name="AccessLevelBACKUP" Type="Int32" />
-          <Property Name="ApprovalPermittedBACKUP" Type="Boolean" />
-          <Property Name="UnApprovalPermittedBACKUP" Type="Boolean" />
-        </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -1371,7 +1368,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Name="InActive" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="TotalSalesPortalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AccessControls" EntityType="Self.AccessControl" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetail" />
@@ -1677,6 +1673,17 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="GoodsIssueType" EntitySet="GoodsIssueTypes" />
             <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
           </AssociationSet>
+          <FunctionImport Name="GetUnVoidablePermitted" ReturnType="Collection(Boolean)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
+            <Parameter Name="OrganizationalUnitID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetVoidablePermitted" ReturnType="Collection(Boolean)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
+            <Parameter Name="OrganizationalUnitID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="AccessControls" EntityType="TotalSalesPortalModel.AccessControl" />
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -2836,28 +2843,29 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AccessControl">
+          <Key>
+            <PropertyRef Name="AccessControlID" />
+          </Key>
+          <Property Name="AccessControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="NMVNTaskID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizationalUnitID" Type="Int32" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <Property Name="ApprovalPermitted" Type="Boolean" Nullable="false" />
+          <Property Name="UnApprovalPermitted" Type="Boolean" Nullable="false" />
+          <Property Name="VoidablePermitted" Type="Boolean" Nullable="false" />
+          <Property Name="UnVoidablePermitted" Type="Boolean" Nullable="false" />
+          <Property Name="AccessLevelBACKUP" Type="Int32" />
+          <Property Name="ApprovalPermittedBACKUP" Type="Boolean" />
+          <Property Name="UnApprovalPermittedBACKUP" Type="Boolean" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TotalSalesPortalModelStoreContainer" CdmEntityContainer="TotalSalesPortalEntities">
-          <EntitySetMapping Name="AccessControls">
-            <EntityTypeMapping TypeName="TotalSalesPortalModel.AccessControl">
-              <MappingFragment StoreEntitySet="AccessControls">
-                <ScalarProperty Name="AccessControlID" ColumnName="AccessControlID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="NMVNTaskID" ColumnName="NMVNTaskID" />
-                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
-                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
-                <ScalarProperty Name="ApprovalPermitted" ColumnName="ApprovalPermitted" />
-                <ScalarProperty Name="UnApprovalPermitted" ColumnName="UnApprovalPermitted" />
-                <ScalarProperty Name="AccessLevelBACKUP" ColumnName="AccessLevelBACKUP" />
-                <ScalarProperty Name="ApprovalPermittedBACKUP" ColumnName="ApprovalPermittedBACKUP" />
-                <ScalarProperty Name="UnApprovalPermittedBACKUP" ColumnName="UnApprovalPermittedBACKUP" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
@@ -3664,7 +3672,27 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="GetUnVoidablePermitted" FunctionName="TotalSalesPortalModel.Store.GetUnVoidablePermitted" />
+          <FunctionImportMapping FunctionImportName="GetVoidablePermitted" FunctionName="TotalSalesPortalModel.Store.GetVoidablePermitted" />
+          <EntitySetMapping Name="AccessControls">
+            <EntityTypeMapping TypeName="TotalSalesPortalModel.AccessControl">
+              <MappingFragment StoreEntitySet="AccessControls">
+                <ScalarProperty Name="UnApprovalPermittedBACKUP" ColumnName="UnApprovalPermittedBACKUP" />
+                <ScalarProperty Name="ApprovalPermittedBACKUP" ColumnName="ApprovalPermittedBACKUP" />
+                <ScalarProperty Name="AccessLevelBACKUP" ColumnName="AccessLevelBACKUP" />
+                <ScalarProperty Name="UnVoidablePermitted" ColumnName="UnVoidablePermitted" />
+                <ScalarProperty Name="VoidablePermitted" ColumnName="VoidablePermitted" />
+                <ScalarProperty Name="UnApprovalPermitted" ColumnName="UnApprovalPermitted" />
+                <ScalarProperty Name="ApprovalPermitted" ColumnName="ApprovalPermitted" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+                <ScalarProperty Name="OrganizationalUnitID" ColumnName="OrganizationalUnitID" />
+                <ScalarProperty Name="NMVNTaskID" ColumnName="NMVNTaskID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AccessControlID" ColumnName="AccessControlID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

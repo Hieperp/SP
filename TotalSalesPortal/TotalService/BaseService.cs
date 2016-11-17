@@ -58,5 +58,17 @@ namespace TotalService
         { return false; }
 
 
+
+        public virtual bool GetVoidablePermitted()
+        { return this.GetVoidablePermitted(0); }
+        public virtual bool GetVoidablePermitted(int? organizationalUnitID)
+        { return false; }
+
+
+        public virtual bool GetUnVoidablePermitted()
+        { return this.GetUnVoidablePermitted(0); }
+        public virtual bool GetUnVoidablePermitted(int? organizationalUnitID)
+        { return false; }
+
     }
 }

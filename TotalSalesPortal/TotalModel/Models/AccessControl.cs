@@ -21,6 +21,8 @@ namespace TotalModel.Models
         public int AccessLevel { get; set; }
         public bool ApprovalPermitted { get; set; }
         public bool UnApprovalPermitted { get; set; }
+        public bool VoidablePermitted { get; set; }
+        public bool UnVoidablePermitted { get; set; }
         public Nullable<int> AccessLevelBACKUP { get; set; }
         public Nullable<bool> ApprovalPermittedBACKUP { get; set; }
         public Nullable<bool> UnApprovalPermittedBACKUP { get; set; }

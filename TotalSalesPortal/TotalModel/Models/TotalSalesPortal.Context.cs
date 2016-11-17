@@ -27,7 +27,6 @@ namespace TotalModel.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AccessControl> AccessControls { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<ModuleDetail> ModuleDetails { get; set; }
@@ -55,6 +54,7 @@ namespace TotalModel.Models
         public virtual DbSet<DeliveryAdvice> DeliveryAdvices { get; set; }
         public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
         public virtual DbSet<GoodsIssueType> GoodsIssueTypes { get; set; }
+        public virtual DbSet<AccessControl> AccessControls { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {
@@ -496,6 +496,40 @@ namespace TotalModel.Models
                 new ObjectParameter("SaveRelativeOption", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReceiptSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<bool>> GetUnVoidablePermitted(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var nMVNTaskIDParameter = nMVNTaskID.HasValue ?
+                new ObjectParameter("NMVNTaskID", nMVNTaskID) :
+                new ObjectParameter("NMVNTaskID", typeof(int));
+    
+            var organizationalUnitIDParameter = organizationalUnitID.HasValue ?
+                new ObjectParameter("OrganizationalUnitID", organizationalUnitID) :
+                new ObjectParameter("OrganizationalUnitID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetUnVoidablePermitted", userIDParameter, nMVNTaskIDParameter, organizationalUnitIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<bool>> GetVoidablePermitted(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var nMVNTaskIDParameter = nMVNTaskID.HasValue ?
+                new ObjectParameter("NMVNTaskID", nMVNTaskID) :
+                new ObjectParameter("NMVNTaskID", typeof(int));
+    
+            var organizationalUnitIDParameter = organizationalUnitID.HasValue ?
+                new ObjectParameter("OrganizationalUnitID", organizationalUnitID) :
+                new ObjectParameter("OrganizationalUnitID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("GetVoidablePermitted", userIDParameter, nMVNTaskIDParameter, organizationalUnitIDParameter);
         }
     }
 }

@@ -56,8 +56,9 @@ namespace TotalDTO
         public bool Editable { get; set; }
         public bool Approvable { get; set; }
         public bool UnApprovable { get; set; }
-        public bool Deletable { get; set; }        
-
+        public bool Deletable { get; set; }
+        public bool Voidable { get; set; }
+        public bool UnVoidable { get; set; }
 
 
         //These properties are used as an implementation preservation of ISimpleViewModel for these ________ViewModel class (Those class ________ViewModel which is BOTH inheritance from this BaseDTO AND implementation of ISimpleViewModel)
