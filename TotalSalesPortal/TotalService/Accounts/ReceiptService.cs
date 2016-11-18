@@ -17,7 +17,7 @@ namespace TotalService.Accounts
         private readonly IReceiptRepository receiptRepository;
 
         public ReceiptService(IReceiptRepository receiptRepository)
-            : base(receiptRepository, "ReceiptPostSaveValidate", "ReceiptSaveRelative", null, "GetReceiptViewDetails")
+            : base(receiptRepository, "ReceiptPostSaveValidate", "ReceiptSaveRelative", null, null, "GetReceiptViewDetails")
         {
             this.receiptRepository = receiptRepository;
         }

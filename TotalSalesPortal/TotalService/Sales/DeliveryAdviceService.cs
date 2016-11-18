@@ -27,7 +27,7 @@ namespace TotalService.Sales
 
 
         public DeliveryAdviceService(IDeliveryAdviceRepository deliveryAdviceRepository, IInventoryRepository inventoryRepository, IDeliveryAdviceHelperService deliveryAdviceHelperService)
-            : base(deliveryAdviceRepository, "DeliveryAdvicePostSaveValidate", "DeliveryAdviceSaveRelative", null, "GetDeliveryAdviceViewDetails")
+            : base(deliveryAdviceRepository, "DeliveryAdvicePostSaveValidate", "DeliveryAdviceSaveRelative", "DeliveryAdviceToggleApproved", "DeliveryAdviceToggleVoid", "GetDeliveryAdviceViewDetails")
         {
             this.inventoryRepository = inventoryRepository;
             this.deliveryAdviceHelperService = deliveryAdviceHelperService;

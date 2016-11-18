@@ -793,6 +793,7 @@
     <Content Include="Areas\Accounts\Views\Receipts\Delete.cshtml" />
     <Content Include="Areas\Accounts\Views\Receipts\Edit.cshtml" />
     <Content Include="Areas\Accounts\Views\Receipts\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\DeliveryAdvices\Void.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -855,6 +856,7 @@
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Edit.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Index.js" />
+    <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Void.js" />
     <Content Include="Scripts\Helpers\KendoGrid\gridHelper.js" />
     <Content Include="Scripts\Helpers\Purchases\purchasesCreateWizard.js" />
     <Content Include="Scripts\Helpers\Sales\accountInvoiceAddPendingSalesInvoice.js" />
@@ -1243,6 +1245,8 @@
     <Content Include="Views\Home\LockedDate.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\GoodsIssueType.cshtml" />
+    <Content Include="Views\Helpers\Commons\_ApproveConfirmed.cshtml" />
+    <Content Include="Views\Helpers\Commons\_VoidConfirmed.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

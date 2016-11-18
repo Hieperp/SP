@@ -33,7 +33,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
             this.DeliveryAdviceSaveRelative();
             this.DeliveryAdvicePostSaveValidate();
 
+            this.DeliveryAdviceApproved();
             this.DeliveryAdviceEditable();
+            this.DeliveryAdviceVoidable();
+
+            this.DeliveryAdviceToggleApproved();
+            this.DeliveryAdviceToggleVoid();
+
             this.DeliveryAdviceInitReference();
 
         }
@@ -424,21 +430,55 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
 
 
 
+        private void DeliveryAdviceApproved()
+        {
+            string[] queryArray = new string[1];
 
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM DeliveryAdvices WHERE DeliveryAdviceID = @EntityID AND Approved = 1";
+
+            this.totalSalesPortalEntities.CreateProcedureToCheckExisting("DeliveryAdviceApproved", queryArray);
+        }
 
 
         private void DeliveryAdviceEditable()
         {
-            string[] queryArray = new string[0];//BE CAUTION: DeliveryAdvice SHOULD BE NOT ALLOWED TO CHANGE ServiceInvoiceID BY USER, IN ORDER THIS Procedure CAN CONTROL DeliveryAdviceEditable VIA ServiceInvoiceID. IF USER REALLY NEED TO CHANGE: PLEASE USE THIS WORKARROUND INSTEAD: REQUEST USER TO DELETE THIS DeliveryAdvice, AND THEN CREATE NEW ONE WITH NEW FOREIGN KEY ServiceInvoiceID!
+            string[] queryArray = new string[1];
 
-            //queryArray[0] = "                 DECLARE @ServiceInvoiceID Int " + "\r\n";
-            //queryArray[0] = queryArray[0] + " SELECT TOP 1 @ServiceInvoiceID = ServiceInvoiceID FROM DeliveryAdvices WHERE DeliveryAdviceID = @EntityID " + "\r\n";
-            //queryArray[0] = queryArray[0] + " IF NOT @ServiceInvoiceID IS NULL" + "\r\n";
-            //queryArray[0] = queryArray[0] + "       SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM DeliveryAdvices WHERE DeliveryAdviceID = @ServiceInvoiceID AND IsFinished = 1 " + "\r\n";
-
-            //queryArray[1] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM DeliveryAdviceDetails WHERE DeliveryAdviceID = @EntityID AND NOT AccountInvoiceID IS NULL ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM GoodsIssueDetails WHERE DeliveryAdviceID = @EntityID ";
 
             this.totalSalesPortalEntities.CreateProcedureToCheckExisting("DeliveryAdviceEditable", queryArray);
+        }
+
+        private void DeliveryAdviceVoidable()
+        {
+            string[] queryArray = new string[1];
+
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM GoodsIssueDetails WHERE DeliveryAdviceID = @EntityID ";
+
+            this.totalSalesPortalEntities.CreateProcedureToCheckExisting("DeliveryAdviceVoidable", queryArray);
+        }
+
+
+        private void DeliveryAdviceToggleApproved()
+        {
+            string queryString = " @EntityID int, @Approved bit " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       UPDATE      DeliveryAdvices  SET Approved = @Approved, ApprovedDate = GetDate() WHERE DeliveryAdviceID = @EntityID AND Approved = ~@Approved" + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("DeliveryAdviceToggleApproved", queryString);
+        }
+
+        private void DeliveryAdviceToggleVoid()
+        {
+            string queryString = " @EntityID int, @InActive bit " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       UPDATE      DeliveryAdvices  SET InActive = @InActive, InActiveDate = GetDate() WHERE DeliveryAdviceID = @EntityID AND InActive = ~@InActive" + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("DeliveryAdviceToggleVoid", queryString);
         }
 
 

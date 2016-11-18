@@ -13,7 +13,7 @@ namespace TotalDAL.Repositories.Sales
     public class DeliveryAdviceRepository : GenericWithDetailRepository<DeliveryAdvice, DeliveryAdviceDetail>, IDeliveryAdviceRepository
     {
         public DeliveryAdviceRepository(TotalSalesPortalEntities totalSalesPortalEntities)
-            : base(totalSalesPortalEntities, "DeliveryAdviceEditable") 
+            : base(totalSalesPortalEntities, "DeliveryAdviceEditable", "DeliveryAdviceApproved", null, "DeliveryAdviceVoidable") 
         {
             return;
 

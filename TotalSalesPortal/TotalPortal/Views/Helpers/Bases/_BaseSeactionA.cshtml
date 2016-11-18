@@ -1,5 +1,8 @@
 ﻿@model TotalDTO.BaseDTO
 
+@Html.HiddenFor(model => model.Approved)
+@Html.HiddenFor(model => model.InActive)
+
 <div class="form-group">
     @Html.LabelFor(model => model.EntryDate)
     <div class="div-input">

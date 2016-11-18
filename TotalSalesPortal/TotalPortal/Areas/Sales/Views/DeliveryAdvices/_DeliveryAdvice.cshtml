@@ -3,8 +3,7 @@
 
 @model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MainForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -17,6 +16,7 @@
     @Html.HiddenFor(model => model.TotalVATAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
     @Html.HiddenFor(model => model.AverageDiscountPercent)
+        
 
     <div class="left-panel">
 

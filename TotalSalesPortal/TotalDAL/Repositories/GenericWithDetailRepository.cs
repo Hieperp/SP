@@ -31,7 +31,10 @@ namespace TotalDAL.Repositories
             : this(totalSalesPortalEntities, functionNameEditable, functionNameApproved, null) { }
 
         public GenericWithDetailRepository(TotalSalesPortalEntities totalSalesPortalEntities, string functionNameEditable, string functionNameApproved, string functionNameDeletable)
-            : base(totalSalesPortalEntities, functionNameEditable, functionNameApproved, functionNameDeletable)
+            : this(totalSalesPortalEntities, functionNameEditable, functionNameApproved, functionNameDeletable, null) { }
+
+        public GenericWithDetailRepository(TotalSalesPortalEntities totalSalesPortalEntities, string functionNameEditable, string functionNameApproved, string functionNameDeletable, string functionNameVoidable)
+            : base(totalSalesPortalEntities, functionNameEditable, functionNameApproved, functionNameDeletable, functionNameVoidable)
         {
             modelDetailDbSet = this.TotalSalesPortalEntities.Set<TEntityDetail>();
         }
