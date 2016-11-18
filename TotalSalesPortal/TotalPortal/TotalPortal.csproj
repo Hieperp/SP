@@ -794,6 +794,7 @@
     <Content Include="Areas\Accounts\Views\Receipts\Edit.cshtml" />
     <Content Include="Areas\Accounts\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Sales\Views\DeliveryAdvices\Void.cshtml" />
+    <Content Include="Areas\Sales\Views\DeliveryAdvices\VoidDetail.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

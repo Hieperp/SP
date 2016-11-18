@@ -19,6 +19,13 @@ namespace TotalPortal.Areas.Inventories
                 "Inventories/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "Inventories_default_Two_Parameters",
+                "Inventories/{controller}/{action}/{id}/{detailId}",
+                new { action = "Index", id = UrlParameter.Optional, detailId = UrlParameter.Optional }
+            );
+
         }
     }
 }

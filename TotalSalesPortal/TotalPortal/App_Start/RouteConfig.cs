@@ -18,6 +18,13 @@ namespace TotalPortal
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Default_Two_Parameters",
+                url: "{area}/{controller}/{action}/{id}/{detailId}",
+                defaults: new { area = "Inventories", controller = "GoodsIssues", action = "Index", id = UrlParameter.Optional, detailId = UrlParameter.Optional }
+            );
+
         }
     }
 }

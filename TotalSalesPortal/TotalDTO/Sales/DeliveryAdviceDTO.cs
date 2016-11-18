@@ -81,6 +81,12 @@ namespace TotalDTO.Sales
         public ICollection<DeliveryAdviceDetailDTO> GetDetails() { return this.DeliveryAdviceViewDetails; }
 
         protected override IEnumerable<DeliveryAdviceDetailDTO> DtoDetails() { return this.DeliveryAdviceViewDetails; }
+
+        public override void PrepareVoidDetail(int? detailID)
+        {
+            base.PrepareVoidDetail(detailID);
+            this.ViewDetails.RemoveAll(w => w.DeliveryAdviceDetailID != detailID);
+        }
     }
 
 }

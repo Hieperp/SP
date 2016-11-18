@@ -357,6 +357,50 @@ namespace TotalPortal.Controllers
         #endregion Void/ UnVoid
 
 
+        #region VoidDetail/ UnVoidDetail
+
+        [AccessLevelAuthorize(GlobalEnums.AccessLevel.Readable), ImportModelStateFromTempData]
+        [OnResultExecutingFilterAttribute]
+        public virtual ActionResult VoidDetail(int? id, int? detailID)
+        {
+            TEntity entity = this.GetEntityAndCheckAccessLevel(id, GlobalEnums.AccessLevel.Readable);
+            if (entity == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            return View(this.PrepareVoidDetail(this.GetViewModel(entity, true), detailID));
+        }
+
+        [HttpPost, ActionName("VoidDetail")]
+        [ValidateAntiForgeryToken, ExportModelStateToTempData]
+        public virtual ActionResult VoidDetailConfirmed(int? id, int? detailId, bool? inActivePartial, int? voidTypeID)
+        {
+            try
+            {
+                TEntity entity = this.GetEntityAndCheckAccessLevel(id, GlobalEnums.AccessLevel.Readable);
+                if (entity == null) throw new System.ArgumentException("Lỗi duyệt dữ liệu", "BadRequest.");
+
+                TDto dto = Mapper.Map<TDto>(entity);
+
+                if (this.GenericService.ToggleVoidDetail(dto, (int)detailId, (bool)inActivePartial))
+                    return RedirectToAction("VoidDetailSuccessfully", new { id = detailId });
+                else
+                    throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
+            }
+            catch (Exception exception)
+            {
+                ModelState.AddValidationErrors(exception);
+                return RedirectToAction("VoidDetail", new { @id = id, @detailId = detailId });
+            }
+        }
+
+        private TSimpleViewModel PrepareVoidDetail(TSimpleViewModel simpleViewModel, int? detailId)
+        {
+            simpleViewModel.PrepareVoidDetail(detailId);
+            return simpleViewModel;
+        }
+
+        #endregion VoidDetail/ UnVoidDetail
+
+
 
 
 

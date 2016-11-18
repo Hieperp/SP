@@ -19,6 +19,13 @@ namespace TotalPortal.Areas.Sales
                 "Sales/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "Sales_default_Two_Parameters",
+                "Sales/{controller}/{action}/{id}/{detailId}",
+                new { action = "Index", id = UrlParameter.Optional, detailId = UrlParameter.Optional }
+            );
+
         }
     }
 }

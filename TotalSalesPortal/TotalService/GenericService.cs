@@ -132,7 +132,7 @@ namespace TotalService
         public virtual bool Voidable(TDto dto)
         {
             if (this.GlobalLocked(dto)) return false;
-            if (dto.InActive || !this.GetVoidablePermitted(dto.OrganizationalUnitID)) return false;
+            if (!this.GetVoidablePermitted(dto.OrganizationalUnitID)) return false;
 
             return this.genericRepository.GetVoidable(dto.GetID());
         }
@@ -140,7 +140,7 @@ namespace TotalService
         public virtual bool UnVoidable(TDto dto)
         {
             if (this.GlobalLocked(dto)) return false;
-            if (!dto.InActive || !this.GetUnVoidablePermitted(dto.OrganizationalUnitID)) return false;
+            if (!this.GetUnVoidablePermitted(dto.OrganizationalUnitID)) return false;
 
             return this.genericRepository.GetVoidable(dto.GetID());
         }
@@ -261,6 +261,11 @@ namespace TotalService
                     throw ex;
                 }
             }
+        }
+
+        public virtual bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial)
+        {
+            return false;
         }
 
         public virtual bool Delete(int id)

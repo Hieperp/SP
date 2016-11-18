@@ -68,6 +68,8 @@ namespace TotalDTO
 
         
         public virtual void PerformPresaveRule() { }
+
+        public virtual void PrepareVoidDetail(int? detailID) { }
     }
 }
 

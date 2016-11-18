@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Data.Entity.Core.Objects;
 
 using AutoMapper;
@@ -23,6 +24,8 @@ namespace TotalService
 
         private readonly IGenericWithDetailRepository<TEntity, TEntityDetail> genericWithDetailRepository;
 
+        private readonly string functionNameToggleVoidDetail;
+
         public GenericWithDetailService(IGenericWithDetailRepository<TEntity, TEntityDetail> genericWithDetailRepository)
             : this(genericWithDetailRepository, null)
         {
@@ -44,9 +47,16 @@ namespace TotalService
         }
 
         public GenericWithDetailService(IGenericWithDetailRepository<TEntity, TEntityDetail> genericWithDetailRepository, string functionNamePostSaveValidate, string functionNameSaveRelative, string functionNameToggleApproved, string functionNameToggleVoid)
+            : this(genericWithDetailRepository, functionNamePostSaveValidate, functionNameSaveRelative, functionNameToggleApproved, functionNameToggleVoid, null)
+        {
+        }
+
+        public GenericWithDetailService(IGenericWithDetailRepository<TEntity, TEntityDetail> genericWithDetailRepository, string functionNamePostSaveValidate, string functionNameSaveRelative, string functionNameToggleApproved, string functionNameToggleVoid, string functionNameToggleVoidDetail)
             : base(genericWithDetailRepository, functionNamePostSaveValidate, functionNameSaveRelative, functionNameToggleApproved, functionNameToggleVoid)
         {
             this.genericWithDetailRepository = genericWithDetailRepository;
+
+            this.functionNameToggleVoidDetail = functionNameToggleVoidDetail;
         }
 
         protected IGenericWithDetailRepository<TEntity, TEntityDetail> GenericWithDetailRepository { get { return this.genericWithDetailRepository; } }
@@ -103,6 +113,58 @@ namespace TotalService
             base.DeleteMaster(dto, entity);
             this.UndoDetail(dto, entity, true);
         }
+
+
+
+
+
+
+
+
+
+
+
+        public override bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial)
+        {
+            using (var dbContextTransaction = this.genericWithDetailRepository.BeginTransaction())
+            {
+                try
+                {
+                    if ((!inActivePartial && !this.Voidable(dto)) || (inActivePartial && !this.UnVoidable(dto))) throw new System.ArgumentException("Lỗi " + (inActivePartial ? "hủy " : "") + "duyệt dữ liệu", "Bạn không có quyền hoặc dữ liệu này đã bị khóa.");
+
+                    this.ToggleVoidDetailMe(dto, detailID, inActivePartial);
+
+                    this.genericWithDetailRepository.SaveChanges();
+
+                    dbContextTransaction.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+
+        protected virtual void ToggleVoidDetailMe(TDto dto, int detailID, bool inActivePartial)
+        {
+            if (this.functionNameToggleVoidDetail != null && this.functionNameToggleVoidDetail != "")
+            {
+                ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("DetailEntityID", detailID), new ObjectParameter("InActivePartial", !inActivePartial) };
+                if (this.genericWithDetailRepository.ExecuteFunction(this.functionNameToggleVoidDetail, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (inActivePartial ? "phục hồi lệnh" : "") + "hủy (vô hiệu)");
+            }
+            else
+                throw new System.ArgumentException("Lỗi", "Hệ thống không cho phép thực hiện tác vụ này.");
+        }
+
+
+
+
+
+
 
     }
 }

@@ -19,6 +19,13 @@ namespace TotalPortal.Areas.Commons
                 "Commons/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "Commons_default_Two_Parameters",
+                "Commons/{controller}/{action}/{id}/{detailId}",
+                new { action = "Index", id = UrlParameter.Optional, detailId = UrlParameter.Optional }
+            );
+
         }
     }
 }

@@ -19,6 +19,13 @@ namespace TotalPortal.Areas.Accounts
                 "Accounts/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "Accounts_default_Two_Parameters",
+                "Accounts/{controller}/{action}/{id}/{detailId}",
+                new { action = "Index", id = UrlParameter.Optional, detailId = UrlParameter.Optional }
+            );
+
         }
     }
 }
