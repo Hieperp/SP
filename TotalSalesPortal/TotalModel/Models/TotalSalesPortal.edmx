@@ -221,6 +221,7 @@
           <Property Name="GrossAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="IsBonus" Type="bit" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="VoidTypeID" Type="int" />
           <Property Name="InActivePartial" Type="bit" Nullable="false" />
           <Property Name="InActivePartialDate" Type="datetime" />
         </EntityType>
@@ -257,6 +258,7 @@
           <Property Name="EditedDate" Type="datetime" Nullable="false" />
           <Property Name="Approved" Type="bit" Nullable="false" />
           <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="VoidTypeID" Type="int" />
           <Property Name="InActive" Type="bit" Nullable="false" />
           <Property Name="InActivePartial" Type="bit" Nullable="false" />
           <Property Name="InActiveDate" Type="datetime" />
@@ -297,7 +299,7 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="GoodsIssueID" Type="int" Nullable="false" />
-          <Property Name="GoodsIssueTypeID" Type="int" />
+          <Property Name="VoidTypeID" Type="int" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="DeliveryAdviceID" Type="int" Nullable="false" />
           <Property Name="DeliveryAdviceDetailID" Type="int" Nullable="false" />
@@ -352,16 +354,6 @@
           <Property Name="InActive" Type="bit" Nullable="false" />
           <Property Name="InActivePartial" Type="bit" Nullable="false" />
           <Property Name="InActiveDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="GoodsIssueTypes">
-          <Key>
-            <PropertyRef Name="GoodsIssueTypeID" />
-          </Key>
-          <Property Name="GoodsIssueTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="GoodsIssueClassID" Type="int" Nullable="false" />
-          <Property Name="Remarks" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Locations">
           <Key>
@@ -514,6 +506,17 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="AncestorID" Type="int" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="VoidTypes">
+          <Key>
+            <PropertyRef Name="VoidTypeID" />
+          </Key>
+          <Property Name="VoidTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VoidClassID" Type="int" Nullable="false" />
+          <Property Name="VoidCategoryID" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_AccountInvoiceDetails_AccountInvoices">
           <End Role="AccountInvoices" Type="Self.AccountInvoices" Multiplicity="1" />
@@ -704,6 +707,18 @@ warning 6035: The relationship 'FK_AccountInvoices_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryAdviceDetails_VoidTypes">
+          <End Role="VoidTypes" Type="Self.VoidTypes" Multiplicity="0..1" />
+          <End Role="DeliveryAdviceDetails" Type="Self.DeliveryAdviceDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidTypes">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="DeliveryAdviceDetails">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_DeliveryAdvices_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_DeliveryAdvices_AspNetUsers" />-->
@@ -785,6 +800,18 @@ warning 6035: The relationship 'FK_DeliveryAdvices_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryAdvices_VoidTypes">
+          <End Role="VoidTypes" Type="Self.VoidTypes" Multiplicity="0..1" />
+          <End Role="DeliveryAdvices" Type="Self.DeliveryAdvices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidTypes">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="DeliveryAdvices">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
           <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
@@ -833,15 +860,15 @@ warning 6035: The relationship 'FK_DeliveryAdvices_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GoodsIssueDetails_GoodsIssueTypes">
-          <End Role="GoodsIssueTypes" Type="Self.GoodsIssueTypes" Multiplicity="0..1" />
+        <Association Name="FK_GoodsIssueDetails_VoidTypes">
+          <End Role="VoidTypes" Type="Self.VoidTypes" Multiplicity="0..1" />
           <End Role="GoodsIssueDetails" Type="Self.GoodsIssueDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GoodsIssueTypes">
-              <PropertyRef Name="GoodsIssueTypeID" />
+            <Principal Role="VoidTypes">
+              <PropertyRef Name="VoidTypeID" />
             </Principal>
             <Dependent Role="GoodsIssueDetails">
-              <PropertyRef Name="GoodsIssueTypeID" />
+              <PropertyRef Name="VoidTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1156,7 +1183,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySet Name="EntireTerritories" EntityType="Self.EntireTerritories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsIssueDetails" EntityType="Self.GoodsIssueDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsIssues" EntityType="Self.GoodsIssues" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GoodsIssueTypes" EntityType="Self.GoodsIssueTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModuleDetails" EntityType="Self.ModuleDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
@@ -1168,6 +1194,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySet Name="ReceiptDetails" EntityType="Self.ReceiptDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Receipts" EntityType="Self.Receipts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territories" EntityType="Self.Territories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VoidTypes" EntityType="Self.VoidTypes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccountInvoiceDetails_AccountInvoices" Association="Self.FK_AccountInvoiceDetails_AccountInvoices">
             <End Role="AccountInvoices" EntitySet="AccountInvoices" />
             <End Role="AccountInvoiceDetails" EntitySet="AccountInvoiceDetails" />
@@ -1228,6 +1255,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
             <End Role="DeliveryAdviceDetails" EntitySet="DeliveryAdviceDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryAdviceDetails_VoidTypes" Association="Self.FK_DeliveryAdviceDetails_VoidTypes">
+            <End Role="VoidTypes" EntitySet="VoidTypes" />
+            <End Role="DeliveryAdviceDetails" EntitySet="DeliveryAdviceDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryAdvices_Customers" Association="Self.FK_DeliveryAdvices_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
@@ -1252,6 +1283,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="Promotions" EntitySet="Promotions" />
             <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryAdvices_VoidTypes" Association="Self.FK_DeliveryAdvices_VoidTypes">
+            <End Role="VoidTypes" EntitySet="VoidTypes" />
+            <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_Locations" Association="Self.FK_Employees_Locations">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="Employees" EntitySet="Employees" />
@@ -1268,8 +1303,8 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="GoodsIssues" EntitySet="GoodsIssues" />
             <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssueTypes" Association="Self.FK_GoodsIssueDetails_GoodsIssueTypes">
-            <End Role="GoodsIssueTypes" EntitySet="GoodsIssueTypes" />
+          <AssociationSet Name="FK_GoodsIssueDetails_VoidTypes" Association="Self.FK_GoodsIssueDetails_VoidTypes">
+            <End Role="VoidTypes" EntitySet="VoidTypes" />
             <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsIssues_Customers" Association="Self.FK_GoodsIssues_Customers">
@@ -1504,15 +1539,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="PriceCategory" EntitySet="PriceCategories" />
             <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
-          <EntitySet Name="GoodsIssueDetails" EntityType="TotalSalesPortalModel.GoodsIssueDetail" />
-          <AssociationSet Name="FK_GoodsIssueDetails_Commodities" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities">
-            <End Role="Commodity" EntitySet="Commodities" />
-            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsIssueDetails_DeliveryAdviceDetails" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails">
-            <End Role="DeliveryAdviceDetail" EntitySet="DeliveryAdviceDetails" />
-            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
-          </AssociationSet>
           <FunctionImport Name="GetGoodsIssueIndexes" ReturnType="Collection(TotalSalesPortalModel.GoodsIssueIndex)">
             <Parameter Name="AspUserID" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
@@ -1548,10 +1574,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySet Name="AccountInvoices" EntityType="TotalSalesPortalModel.AccountInvoice" />
           <AssociationSet Name="FK_AccountInvoiceDetails_AccountInvoices" Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_AccountInvoices">
             <End Role="AccountInvoice" EntitySet="AccountInvoices" />
-            <End Role="AccountInvoiceDetail" EntitySet="AccountInvoiceDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AccountInvoiceDetails_GoodsIssueDetails" Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails">
-            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
             <End Role="AccountInvoiceDetail" EntitySet="AccountInvoiceDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountInvoices_Customers" Association="TotalSalesPortalModel.FK_AccountInvoices_Customers">
@@ -1642,10 +1664,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="Employee" EntitySet="Employees" />
             <End Role="GoodsIssue" EntitySet="GoodsIssues" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssues" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues">
-            <End Role="GoodsIssue" EntitySet="GoodsIssues" />
-            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_ReceiptDetails_GoodsIssues" Association="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues">
             <End Role="GoodsIssue" EntitySet="GoodsIssues" />
             <End Role="ReceiptDetail" EntitySet="ReceiptDetails" />
@@ -1689,11 +1707,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
-          <EntitySet Name="GoodsIssueTypes" EntityType="TotalSalesPortalModel.GoodsIssueType" />
-          <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssueTypes" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes">
-            <End Role="GoodsIssueType" EntitySet="GoodsIssueTypes" />
-            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
-          </AssociationSet>
           <FunctionImport Name="GetUnVoidablePermitted" ReturnType="Collection(Boolean)">
             <Parameter Name="UserID" Mode="In" Type="Int32" />
             <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
@@ -1724,6 +1737,36 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <Parameter Name="EntityDetailID" Mode="In" Type="Int32" />
             <Parameter Name="InActivePartial" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <EntitySet Name="GoodsIssueDetails" EntityType="TotalSalesPortalModel.GoodsIssueDetail" />
+          <EntitySet Name="VoidTypes" EntityType="TotalSalesPortalModel.VoidType" />
+          <AssociationSet Name="FK_AccountInvoiceDetails_GoodsIssueDetails" Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails">
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
+            <End Role="AccountInvoiceDetail" EntitySet="AccountInvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssueDetails_Commodities" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities">
+            <End Role="Commodity" EntitySet="Commodities" />
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryAdviceDetails_VoidTypes" Association="TotalSalesPortalModel.FK_DeliveryAdviceDetails_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="DeliveryAdviceDetail" EntitySet="DeliveryAdviceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssueDetails_DeliveryAdviceDetails" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails">
+            <End Role="DeliveryAdviceDetail" EntitySet="DeliveryAdviceDetails" />
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryAdvices_VoidTypes" Association="TotalSalesPortalModel.FK_DeliveryAdvices_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="DeliveryAdvice" EntitySet="DeliveryAdvices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssueDetails_GoodsIssues" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues">
+            <End Role="GoodsIssue" EntitySet="GoodsIssues" />
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssueDetails_VoidTypes" Association="TotalSalesPortalModel.FK_GoodsIssueDetails_VoidTypes">
+            <End Role="VoidType" EntitySet="VoidTypes" />
+            <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -1802,11 +1845,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="CommodityCategory" Relationship="TotalSalesPortalModel.FK_Commodities_CommodityCategories" FromRole="Commodity" ToRole="CommodityCategory" />
           <NavigationProperty Name="CommodityType" Relationship="TotalSalesPortalModel.FK_Commodities_CommodityTypes" FromRole="Commodity" ToRole="CommodityType" />
           <NavigationProperty Name="DeliveryAdviceDetails" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_Commodities" FromRole="Commodity" ToRole="DeliveryAdviceDetail" />
-          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities" FromRole="Commodity" ToRole="GoodsIssueDetail" />
           <Property Name="CodePartA" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CodePartB" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CodePartC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CodePartD" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities" FromRole="Commodity" ToRole="GoodsIssueDetail" />
         </EntityType>
         <EntityType Name="CommodityCategory">
           <Key>
@@ -2044,13 +2087,15 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Name="IsBonus" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Commodity" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_Commodities" FromRole="DeliveryAdviceDetail" ToRole="Commodity" />
-          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" FromRole="DeliveryAdviceDetail" ToRole="GoodsIssueDetail" />
           <NavigationProperty Name="DeliveryAdvice" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_DeliveryAdvices" FromRole="DeliveryAdviceDetail" ToRole="DeliveryAdvice" />
           <Property Name="ControlFreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="FreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="FreeQuantityIssue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="InActivePartial" Type="Boolean" Nullable="false" />
           <Property Name="InActivePartialDate" Type="DateTime" Precision="3" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_VoidTypes" FromRole="DeliveryAdviceDetail" ToRole="VoidType" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" FromRole="DeliveryAdviceDetail" ToRole="GoodsIssueDetail" />
         </EntityType>
         <Association Name="FK_DeliveryAdviceDetails_Commodities">
           <End Type="TotalSalesPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -2203,66 +2248,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="GoodsIssueDetail">
-          <Key>
-            <PropertyRef Name="GoodsIssueDetailID" />
-          </Key>
-          <Property Name="GoodsIssueDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LocationID" Type="Int32" Nullable="false" />
-          <Property Name="GoodsIssueID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryAdviceID" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryAdviceDetailID" Type="Int32" Nullable="false" />
-          <Property Name="CommodityID" Type="Int32" Nullable="false" />
-          <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
-          <Property Name="WarehouseID" Type="Int32" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="QuantityIssue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="ListedPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="DiscountPercent" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
-          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="VATPercent" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="GrossPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="VATAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="GrossAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="IsBonus" Type="Boolean" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Commodity" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities" FromRole="GoodsIssueDetail" ToRole="Commodity" />
-          <NavigationProperty Name="DeliveryAdviceDetail" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" FromRole="GoodsIssueDetail" ToRole="DeliveryAdviceDetail" />
-          <NavigationProperty Name="AccountInvoiceDetails" Relationship="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails" FromRole="GoodsIssueDetail" ToRole="AccountInvoiceDetail" />
-          <Property Name="AccountInvoiceID" Type="Int32" />
-          <NavigationProperty Name="GoodsIssue" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssueDetail" ToRole="GoodsIssue" />
-          <Property Name="FreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="GoodsIssueTypeID" Type="Int32" />
-          <NavigationProperty Name="GoodsIssueType" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes" FromRole="GoodsIssueDetail" ToRole="GoodsIssueType" />
-        </EntityType>
-        <Association Name="FK_GoodsIssueDetails_Commodities">
-          <End Type="TotalSalesPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
-          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Commodity">
-              <PropertyRef Name="CommodityID" />
-            </Principal>
-            <Dependent Role="GoodsIssueDetail">
-              <PropertyRef Name="CommodityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsIssueDetails_DeliveryAdviceDetails">
-          <End Type="TotalSalesPortalModel.DeliveryAdviceDetail" Role="DeliveryAdviceDetail" Multiplicity="1" />
-          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryAdviceDetail">
-              <PropertyRef Name="DeliveryAdviceDetailID" />
-            </Principal>
-            <Dependent Role="GoodsIssueDetail">
-              <PropertyRef Name="DeliveryAdviceDetailID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="GoodsIssueIndex">
           <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
           <Property Type="DateTime" Name="EntryDate" Nullable="true" />
@@ -2304,11 +2289,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Decimal" Name="FreeQuantityRemains" Nullable="true" Precision="19" Scale="2" />
           <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="1" Scale="1" />
           <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="Int32" Name="GoodsIssueTypeID" Nullable="true" />
-          <Property Type="String" Name="GoodsIssueTypeCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="GoodsIssueTypeName" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="GoodsIssueClassID" Nullable="true" />
-        </ComplexType>
+          <Property Type="Int32" Name="VoidTypeID" Nullable="true" />
+          <Property Type="String" Name="VoidTypeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VoidTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="VoidClassID" Nullable="true" />
+          </ComplexType>
         <ComplexType Name="PendingDeliveryAdviceCustomer">
           <Property Type="Int32" Name="CustomerID" Nullable="false" />
           <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
@@ -2390,18 +2375,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Principal>
             <Dependent Role="AccountInvoiceDetail">
               <PropertyRef Name="AccountInvoiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AccountInvoiceDetails_GoodsIssueDetails">
-          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="1" />
-          <End Type="TotalSalesPortalModel.AccountInvoiceDetail" Role="AccountInvoiceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoodsIssueDetail">
-              <PropertyRef Name="GoodsIssueDetailID" />
-            </Principal>
-            <Dependent Role="AccountInvoiceDetail">
-              <PropertyRef Name="GoodsIssueDetailID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2610,6 +2583,8 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="Promotion" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Promotions" FromRole="DeliveryAdvice" ToRole="Promotion" />
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" FromRole="DeliveryAdvice" ToRole="GoodsIssue" />
           <Property Name="TotalFreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_VoidTypes" FromRole="DeliveryAdvice" ToRole="VoidType" />
         </EntityType>
         <Association Name="FK_DeliveryAdvices_Customers">
           <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="1" />
@@ -2729,10 +2704,10 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers" FromRole="GoodsIssue" ToRole="Customer" />
           <NavigationProperty Name="DeliveryAdvice" Relationship="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" FromRole="GoodsIssue" ToRole="DeliveryAdvice" />
           <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="GoodsIssue" ToRole="Employee" />
-          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="GoodsIssueDetail" />
           <NavigationProperty Name="ReceiptDetails" Relationship="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="ReceiptDetail" />
           <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_GoodsIssues" FromRole="GoodsIssue" ToRole="Receipt" />
           <Property Name="TotalFreeQuantity" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="GoodsIssueDetail" />
         </EntityType>
         <Association Name="FK_GoodsIssues_Customers">
           <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="1" />
@@ -2767,18 +2742,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Principal>
             <Dependent Role="GoodsIssue">
               <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsIssueDetails_GoodsIssues">
-          <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="1" />
-          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoodsIssue">
-              <PropertyRef Name="GoodsIssueID" />
-            </Principal>
-            <Dependent Role="GoodsIssueDetail">
-              <PropertyRef Name="GoodsIssueID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2864,29 +2827,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="GoodsIssueType">
-          <Key>
-            <PropertyRef Name="GoodsIssueTypeID" />
-          </Key>
-          <Property Name="GoodsIssueTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GoodsIssueClassID" Type="Int32" Nullable="false" />
-          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssueTypes" FromRole="GoodsIssueType" ToRole="GoodsIssueDetail" />
-        </EntityType>
-        <Association Name="FK_GoodsIssueDetails_GoodsIssueTypes">
-          <End Type="TotalSalesPortalModel.GoodsIssueType" Role="GoodsIssueType" Multiplicity="0..1" />
-          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoodsIssueType">
-              <PropertyRef Name="GoodsIssueTypeID" />
-            </Principal>
-            <Dependent Role="GoodsIssueDetail">
-              <PropertyRef Name="GoodsIssueTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AccessControl">
           <Key>
             <PropertyRef Name="AccessControlID" />
@@ -2904,6 +2844,140 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Name="ApprovalPermittedBACKUP" Type="Boolean" />
           <Property Name="UnApprovalPermittedBACKUP" Type="Boolean" />
         </EntityType>
+        <EntityType Name="GoodsIssueDetail">
+          <Key>
+            <PropertyRef Name="GoodsIssueDetailID" />
+          </Key>
+          <Property Name="GoodsIssueDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="GoodsIssueID" Type="Int32" Nullable="false" />
+          <Property Name="VoidTypeID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryAdviceID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryAdviceDetailID" Type="Int32" Nullable="false" />
+          <Property Name="AccountInvoiceID" Type="Int32" />
+          <Property Name="CommodityID" Type="Int32" Nullable="false" />
+          <Property Name="CommodityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseID" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="QuantityIssue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ListedPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DiscountPercent" Type="Decimal" Nullable="false" Precision="18" Scale="5" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="VATPercent" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GrossPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="VATAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GrossAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsBonus" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccountInvoiceDetails" Relationship="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails" FromRole="GoodsIssueDetail" ToRole="AccountInvoiceDetail" />
+          <NavigationProperty Name="Commodity" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities" FromRole="GoodsIssueDetail" ToRole="Commodity" />
+          <NavigationProperty Name="DeliveryAdviceDetail" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" FromRole="GoodsIssueDetail" ToRole="DeliveryAdviceDetail" />
+          <NavigationProperty Name="GoodsIssue" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" FromRole="GoodsIssueDetail" ToRole="GoodsIssue" />
+          <NavigationProperty Name="VoidType" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_VoidTypes" FromRole="GoodsIssueDetail" ToRole="VoidType" />
+        </EntityType>
+        <EntityType Name="VoidType">
+          <Key>
+            <PropertyRef Name="VoidTypeID" />
+          </Key>
+          <Property Name="VoidTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VoidClassID" Type="Int32" Nullable="false" />
+          <Property Name="VoidCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeliveryAdviceDetails" Relationship="TotalSalesPortalModel.FK_DeliveryAdviceDetails_VoidTypes" FromRole="VoidType" ToRole="DeliveryAdviceDetail" />
+          <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_VoidTypes" FromRole="VoidType" ToRole="DeliveryAdvice" />
+          <NavigationProperty Name="GoodsIssueDetails" Relationship="TotalSalesPortalModel.FK_GoodsIssueDetails_VoidTypes" FromRole="VoidType" ToRole="GoodsIssueDetail" />
+        </EntityType>
+        <Association Name="FK_AccountInvoiceDetails_GoodsIssueDetails">
+          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.AccountInvoiceDetail" Role="AccountInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsIssueDetail">
+              <PropertyRef Name="GoodsIssueDetailID" />
+            </Principal>
+            <Dependent Role="AccountInvoiceDetail">
+              <PropertyRef Name="GoodsIssueDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssueDetails_Commodities">
+          <End Type="TotalSalesPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commodity">
+              <PropertyRef Name="CommodityID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetail">
+              <PropertyRef Name="CommodityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryAdviceDetails_VoidTypes">
+          <End Type="TotalSalesPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSalesPortalModel.DeliveryAdviceDetail" Role="DeliveryAdviceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="DeliveryAdviceDetail">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssueDetails_DeliveryAdviceDetails">
+          <End Type="TotalSalesPortalModel.DeliveryAdviceDetail" Role="DeliveryAdviceDetail" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryAdviceDetail">
+              <PropertyRef Name="DeliveryAdviceDetailID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetail">
+              <PropertyRef Name="DeliveryAdviceDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryAdvices_VoidTypes">
+          <End Type="TotalSalesPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSalesPortalModel.DeliveryAdvice" Role="DeliveryAdvice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="DeliveryAdvice">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssueDetails_GoodsIssues">
+          <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsIssue">
+              <PropertyRef Name="GoodsIssueID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetail">
+              <PropertyRef Name="GoodsIssueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssueDetails_VoidTypes">
+          <End Type="TotalSalesPortalModel.VoidType" Role="VoidType" Multiplicity="0..1" />
+          <End Type="TotalSalesPortalModel.GoodsIssueDetail" Role="GoodsIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoidType">
+              <PropertyRef Name="VoidTypeID" />
+            </Principal>
+            <Dependent Role="GoodsIssueDetail">
+              <PropertyRef Name="VoidTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3139,6 +3213,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="DeliveryAdviceDetails">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.DeliveryAdviceDetail">
               <MappingFragment StoreEntitySet="DeliveryAdviceDetails">
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
                 <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
                 <ScalarProperty Name="FreeQuantityIssue" ColumnName="FreeQuantityIssue" />
@@ -3295,38 +3370,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GoodsIssueDetails">
-            <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueDetail">
-              <MappingFragment StoreEntitySet="GoodsIssueDetails">
-                <ScalarProperty Name="GoodsIssueTypeID" ColumnName="GoodsIssueTypeID" />
-                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
-                <ScalarProperty Name="AccountInvoiceID" ColumnName="AccountInvoiceID" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
-                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
-                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
-                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
-                <ScalarProperty Name="QuantityIssue" ColumnName="QuantityIssue" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
-                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
-                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
-                <ScalarProperty Name="DeliveryAdviceDetailID" ColumnName="DeliveryAdviceDetailID" />
-                <ScalarProperty Name="DeliveryAdviceID" ColumnName="DeliveryAdviceID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
-                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetGoodsIssueIndexes" FunctionName="TotalSalesPortalModel.Store.GetGoodsIssueIndexes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueIndex">
@@ -3374,11 +3417,11 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="FreeQuantityRemains" ColumnName="FreeQuantityRemains" />
                 <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
                 <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
-                <ScalarProperty Name="GoodsIssueTypeID" ColumnName="GoodsIssueTypeID" />
-                <ScalarProperty Name="GoodsIssueTypeCode" ColumnName="GoodsIssueTypeCode" />
-                <ScalarProperty Name="GoodsIssueTypeName" ColumnName="GoodsIssueTypeName" />
-                <ScalarProperty Name="GoodsIssueClassID" ColumnName="GoodsIssueClassID" />
-              </ComplexTypeMapping>
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="VoidTypeCode" ColumnName="VoidTypeCode" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
+                <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
+                </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPendingDeliveryAdviceCustomers" FunctionName="TotalSalesPortalModel.Store.GetPendingDeliveryAdviceCustomers">
@@ -3575,6 +3618,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="DeliveryAdvices">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.DeliveryAdvice">
               <MappingFragment StoreEntitySet="DeliveryAdvices">
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
                 <ScalarProperty Name="TotalFreeQuantity" ColumnName="TotalFreeQuantity" />
                 <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
@@ -3709,17 +3753,6 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <FunctionImportMapping FunctionImportName="ReceiptEditable" FunctionName="TotalSalesPortalModel.Store.ReceiptEditable" />
           <FunctionImportMapping FunctionImportName="ReceiptPostSaveValidate" FunctionName="TotalSalesPortalModel.Store.ReceiptPostSaveValidate" />
           <FunctionImportMapping FunctionImportName="ReceiptSaveRelative" FunctionName="TotalSalesPortalModel.Store.ReceiptSaveRelative" />
-          <EntitySetMapping Name="GoodsIssueTypes">
-            <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueType">
-              <MappingFragment StoreEntitySet="GoodsIssueTypes">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="GoodsIssueClassID" ColumnName="GoodsIssueClassID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="GoodsIssueTypeID" ColumnName="GoodsIssueTypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetUnVoidablePermitted" FunctionName="TotalSalesPortalModel.Store.GetUnVoidablePermitted" />
           <FunctionImportMapping FunctionImportName="GetVoidablePermitted" FunctionName="TotalSalesPortalModel.Store.GetVoidablePermitted" />
           <EntitySetMapping Name="AccessControls">
@@ -3745,6 +3778,50 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <FunctionImportMapping FunctionImportName="DeliveryAdviceToggleVoid" FunctionName="TotalSalesPortalModel.Store.DeliveryAdviceToggleVoid" />
           <FunctionImportMapping FunctionImportName="DeliveryAdviceVoidable" FunctionName="TotalSalesPortalModel.Store.DeliveryAdviceVoidable" />
           <FunctionImportMapping FunctionImportName="DeliveryAdviceToggleVoidDetail" FunctionName="TotalSalesPortalModel.Store.DeliveryAdviceToggleVoidDetail" />
+          <EntitySetMapping Name="GoodsIssueDetails">
+            <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueDetail">
+              <MappingFragment StoreEntitySet="GoodsIssueDetails">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
+                <ScalarProperty Name="QuantityIssue" ColumnName="QuantityIssue" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="WarehouseID" ColumnName="WarehouseID" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="AccountInvoiceID" ColumnName="AccountInvoiceID" />
+                <ScalarProperty Name="DeliveryAdviceDetailID" ColumnName="DeliveryAdviceDetailID" />
+                <ScalarProperty Name="DeliveryAdviceID" ColumnName="DeliveryAdviceID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VoidTypes">
+            <EntityTypeMapping TypeName="TotalSalesPortalModel.VoidType">
+              <MappingFragment StoreEntitySet="VoidTypes">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="VoidCategoryID" ColumnName="VoidCategoryID" />
+                <ScalarProperty Name="VoidClassID" ColumnName="VoidClassID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="VoidTypeID" ColumnName="VoidTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

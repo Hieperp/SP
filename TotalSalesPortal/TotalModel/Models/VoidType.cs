@@ -12,20 +12,27 @@ namespace TotalModel.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GoodsIssueType
+    public partial class VoidType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GoodsIssueType()
+        public VoidType()
         {
+            this.DeliveryAdviceDetails = new HashSet<DeliveryAdviceDetail>();
+            this.DeliveryAdvices = new HashSet<DeliveryAdvice>();
             this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
         }
     
-        public int GoodsIssueTypeID { get; set; }
+        public int VoidTypeID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public int GoodsIssueClassID { get; set; }
+        public int VoidClassID { get; set; }
+        public int VoidCategoryID { get; set; }
         public string Remarks { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryAdvice> DeliveryAdvices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
     }

@@ -116,14 +116,14 @@
                         .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
                     
 
-                    columns.Bound(p => p.GoodsIssueTypeID).DisplayNameTitle().Filterable(false).Hidden()                        
-                        .ClientTemplate("#= (GoodsIssueTypeID == null) ? '' : GoodsIssueTypeID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].GoodsIssueTypeID' value='#= (GoodsIssueTypeID == null) ? '' : GoodsIssueTypeID #' />");
-                    columns.Bound(p => p.GoodsIssueTypeCode).DisplayNameTitle().Filterable(false).Hidden()  
-                        .ClientTemplate("#= (GoodsIssueTypeCode == null) ? '' : GoodsIssueTypeCode #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].GoodsIssueTypeCode' value='#= (GoodsIssueTypeCode == null) ? '' : GoodsIssueTypeCode #' />");
-                    columns.Bound(p => p.GoodsIssueTypeName).DisplayNameTitle().Filterable(false).Width(250).HtmlAttributes(new { @class = "isBonus" })
-                        .ClientTemplate("#= (GoodsIssueTypeName == null) ? '' : GoodsIssueTypeName #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].GoodsIssueTypeName' value='#= (GoodsIssueTypeName == null) ? '' : GoodsIssueTypeName #' />");
-                    columns.Bound(p => p.GoodsIssueClassID).DisplayNameTitle().Filterable(false).Hidden()
-                        .ClientTemplate("#= (GoodsIssueClassID == null) ? '' : GoodsIssueClassID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].GoodsIssueClassID' value='#= (GoodsIssueClassID == null) ? '' : GoodsIssueClassID #' />");
+                    columns.Bound(p => p.VoidTypeID).DisplayNameTitle().Filterable(false).Hidden()                        
+                        .ClientTemplate("#= (VoidTypeID == null) ? '' : VoidTypeID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidTypeID' value='#= (VoidTypeID == null) ? '' : VoidTypeID #' />");
+                    columns.Bound(p => p.VoidTypeCode).DisplayNameTitle().Filterable(false).Hidden()  
+                        .ClientTemplate("#= (VoidTypeCode == null) ? '' : VoidTypeCode #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidTypeCode' value='#= (VoidTypeCode == null) ? '' : VoidTypeCode #' />");
+                    columns.Bound(p => p.VoidTypeName).DisplayNameTitle().Filterable(false).Width(250).HtmlAttributes(new { @class = "isBonus" })
+                        .ClientTemplate("#= (VoidTypeName == null) ? '' : VoidTypeName #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidTypeName' value='#= (VoidTypeName == null) ? '' : VoidTypeName #' />");
+                    columns.Bound(p => p.VoidClassID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (VoidClassID == null) ? '' : VoidClassID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidClassID' value='#= (VoidClassID == null) ? '' : VoidClassID #' />");
                     
                     columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")

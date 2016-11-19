@@ -31,12 +31,6 @@ namespace TotalService.Inventories
         {
             ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("GoodsIssueID", goodsIssueID), new ObjectParameter("DeliveryAdviceID", deliveryAdviceID), new ObjectParameter("CustomerID", customerID), new ObjectParameter("IsReadOnly", isReadOnly) };
             return this.GetViewDetails(parameters);
-        }
-
-        public override bool Save(GoodsIssueDTO goodsIssueDTO)
-        {
-            goodsIssueDTO.GoodsIssueViewDetails.RemoveAll(x => x.Quantity == 0);
-            return base.Save(goodsIssueDTO);
         }        
     }
 }

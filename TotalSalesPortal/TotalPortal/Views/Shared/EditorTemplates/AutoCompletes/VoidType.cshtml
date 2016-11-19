@@ -1,0 +1,29 @@
+﻿@model string
+
+@(Html.Kendo().AutoCompleteFor(m => m)
+        .Name("VoidTypeName")
+        .DataTextField("Name")
+        .Filter("contains")
+        .Placeholder("Lý do không xuất kho ...")
+        .DataSource(source =>
+        {
+            source.Read(read =>
+            {
+                read.Action("SearchVoidTypes", "VoidTypeAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {searchText: $("#VoidTypeName").data("kendoAutoComplete").value()};}</text>);//Send parameter to controller search action
+            })
+            .ServerFiltering(true);
+        })
+        .Events(e =>
+        {
+            e.Select("gridEditorVoidTypeSelect");
+            e.Change("gridEditorVoidTypeChange");
+        })
+        .Value(Model)
+        .HtmlAttributes(new { @class = "custom-control" })
+)
+
+<script type="text/javascript">
+    $("#VoidTypeName").focus(function (e) {
+        window.VoidTypeNameBeforeChange = $("#VoidTypeName").val();
+    });
+</script>

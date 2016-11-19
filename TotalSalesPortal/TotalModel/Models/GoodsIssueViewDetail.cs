@@ -40,9 +40,9 @@ namespace TotalModel.Models
         public Nullable<decimal> FreeQuantityRemains { get; set; }
         public decimal FreeQuantity { get; set; }
         public decimal ControlFreeQuantity { get; set; }
-        public Nullable<int> GoodsIssueTypeID { get; set; }
-        public string GoodsIssueTypeCode { get; set; }
-        public string GoodsIssueTypeName { get; set; }
-        public Nullable<int> GoodsIssueClassID { get; set; }
+        public Nullable<int> VoidTypeID { get; set; }
+        public string VoidTypeCode { get; set; }
+        public string VoidTypeName { get; set; }
+        public Nullable<int> VoidClassID { get; set; }
     }
 }

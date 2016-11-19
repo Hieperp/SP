@@ -128,9 +128,6 @@
     <Compile Include="Models\GoodsIssueReceivable.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GoodsIssueType.cs">
-      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\GoodsIssueViewDetail.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
@@ -199,6 +196,9 @@
     </Compile>
     <Compile Include="Models\TotalSalesPortalEntities.cs" />
     <Compile Include="Models\TotalSalesPortalExtensions.cs" />
+    <Compile Include="Models\VoidType.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validations\DatabaseConcurrencyException.cs" />
     <Compile Include="Validations\DatabaseValidationErrors.cs" />

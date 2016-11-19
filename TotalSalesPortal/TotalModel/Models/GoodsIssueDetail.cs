@@ -24,14 +24,17 @@ namespace TotalModel.Models
         public System.DateTime EntryDate { get; set; }
         public int LocationID { get; set; }
         public int GoodsIssueID { get; set; }
+        public Nullable<int> VoidTypeID { get; set; }
         public int CustomerID { get; set; }
         public int DeliveryAdviceID { get; set; }
         public int DeliveryAdviceDetailID { get; set; }
+        public Nullable<int> AccountInvoiceID { get; set; }
         public int CommodityID { get; set; }
         public int CommodityTypeID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
         public int EmployeeID { get; set; }
         public decimal Quantity { get; set; }
+        public decimal FreeQuantity { get; set; }
         public decimal QuantityIssue { get; set; }
         public decimal ListedPrice { get; set; }
         public decimal DiscountPercent { get; set; }
@@ -43,15 +46,12 @@ namespace TotalModel.Models
         public decimal GrossAmount { get; set; }
         public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
-        public Nullable<int> AccountInvoiceID { get; set; }
-        public decimal FreeQuantity { get; set; }
-        public Nullable<int> GoodsIssueTypeID { get; set; }
     
-        public virtual Commodity Commodity { get; set; }
-        public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
+        public virtual Commodity Commodity { get; set; }
+        public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }
         public virtual GoodsIssue GoodsIssue { get; set; }
-        public virtual GoodsIssueType GoodsIssueType { get; set; }
+        public virtual VoidType VoidType { get; set; }
     }
 }

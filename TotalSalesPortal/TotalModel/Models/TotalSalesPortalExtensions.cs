@@ -65,9 +65,9 @@ namespace TotalModel.Models
 
 
 
-    public partial class GoodsIssueType : IPrimitiveEntity, IBaseEntity
+    public partial class VoidType : IPrimitiveEntity, IBaseEntity
     {
-        public int GetID() { return this.GoodsIssueTypeID; }
+        public int GetID() { return this.VoidTypeID; }
 
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }

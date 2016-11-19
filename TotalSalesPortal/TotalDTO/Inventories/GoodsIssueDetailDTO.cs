@@ -17,12 +17,12 @@ namespace TotalDTO.Inventories
         [UIHint("StringReadonly")]
         public override string CommodityName { get; set; }
 
-        public Nullable<int> GoodsIssueTypeID { get; set; }
-        public string GoodsIssueTypeCode { get; set; }
+        public Nullable<int> VoidTypeID { get; set; }
+        public string VoidTypeCode { get; set; }
         [Display(Name = "Lý do")]
-        [UIHint("AutoCompletes/GoodsIssueType")]
-        public string GoodsIssueTypeName { get; set; }
-        public Nullable<int> GoodsIssueClassID { get; set; }
+        [UIHint("AutoCompletes/VoidType")]
+        public string VoidTypeName { get; set; }
+        public Nullable<int> VoidClassID { get; set; }
 
         [Display(Name = "SL ĐH")]
         [UIHint("DecimalReadonly")]
@@ -36,7 +36,7 @@ namespace TotalDTO.Inventories
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if ((this.Quantity != this.QuantityRemains || this.FreeQuantity != this.FreeQuantityRemains) && this.GoodsIssueTypeID == null) yield return new ValidationResult("Vui lòng chọn lý do không xuất kho [" + this.CommodityName + "]", new[] { "GoodsIssueTypeName" });
+            if ((this.Quantity != this.QuantityRemains || this.FreeQuantity != this.FreeQuantityRemains) && this.VoidTypeID == null) yield return new ValidationResult("Vui lòng chọn lý do không xuất kho [" + this.CommodityName + "]", new[] { "VoidTypeName" });
         }
 
     }

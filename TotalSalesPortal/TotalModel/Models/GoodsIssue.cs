@@ -17,9 +17,9 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GoodsIssue()
         {
-            this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
             this.ReceiptDetails = new HashSet<ReceiptDetail>();
             this.Receipts = new HashSet<Receipt>();
+            this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
         }
     
         public int GoodsIssueID { get; set; }
@@ -55,10 +55,10 @@ namespace TotalModel.Models
         public virtual DeliveryAdvice DeliveryAdvice { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Receipt> Receipts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
     }
 }
