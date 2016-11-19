@@ -1,0 +1,18 @@
+﻿@model TotalPortal.ViewModels.Helpers.VoidDetailSuccessViewModel
+
+@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
+
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.DetailID)
+@Html.HiddenFor(model => model.InActivePartial)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //if (window.parent.$("#DeliveryAdviceID") != undefined) window.parent.$("#DeliveryAdviceID").val($("#DeliveryAdviceID").val());
+        //if (window.parent.$("#DeliveryAdviceDetailID") != undefined) window.parent.$("#DeliveryAdviceDetailID").val($("#DeliveryAdviceDetailID").val());
+        //if (window.parent.$("#InActivePartial") != undefined) window.parent.$("#InActivePartial").val($("#InActivePartial").val());
+
+        window.parent.$("#myWindow").data("kendoWindow").close();
+    });
+</script>

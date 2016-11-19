@@ -169,6 +169,13 @@
                     columns.Bound(p => p.IsBonus).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (IsBonus == null)? '' : IsBonus #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].IsBonus' value='#= (IsBonus == null) ? '' : IsBonus #' />");
 
+                    columns.Bound(p => p.InActivePartial).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (InActivePartial == null)? '' : InActivePartial #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].InActivePartial' value='#= (InActivePartial == null) ? '' : InActivePartial #' />");
+
+                    columns.Bound(p => p.InActivePartialDate).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (InActivePartialDate == null)? '' : InActivePartialDate #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].InActivePartialDate' value='#= (InActivePartialDate == null) ? '' : InActivePartialDate #' />");
+                    
+
                     columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50).Hidden(!@Model.Editable);
                     
                     columns.Template(model => null).Hidden(!@Model.Voidable && !@Model.UnVoidable)
@@ -301,9 +308,7 @@
         </div>
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
-
-        <input id="cancelButton" type="button" value="Thoát" class="k-button" onclick="cancelButton_Click()" />
-
+        
     </div>
 }
 
@@ -322,7 +327,7 @@
     function callVoidDetail(deliveryAdviceDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "DeliveryAdvices")" + "/" + $("#DeliveryAdviceID").val() + "/" + deliveryAdviceDetailID, "Hủy một phần đơn hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "DeliveryAdvices")" + "/" + $("#DeliveryAdviceID").val() + "/" + deliveryAdviceDetailID, "Hủy/ phục hồi một phần đơn hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
         });
     }
 

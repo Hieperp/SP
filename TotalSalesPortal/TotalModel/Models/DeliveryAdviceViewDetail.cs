@@ -35,5 +35,7 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public decimal ControlFreeQuantity { get; set; }
         public decimal FreeQuantity { get; set; }
+        public bool InActivePartial { get; set; }
+        public Nullable<System.DateTime> InActivePartialDate { get; set; }
     }
 }

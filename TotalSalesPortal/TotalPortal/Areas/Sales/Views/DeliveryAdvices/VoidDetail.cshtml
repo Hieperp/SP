@@ -13,17 +13,22 @@
     if (Model.ViewDetails.Count > 0)
     {
         @Html.Hidden("DetailId", @Model.ViewDetails[0].DeliveryAdviceDetailID);
+        @Html.Hidden("InActivePartial", @Model.ViewDetails[0].InActivePartial);
+            
         @Html.Kendo().MaskedTextBoxFor(model => model.ViewDetails[0].CommodityName).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
 
 
         <div class="background-bar" style="height: 45px;">
             <div class="popup-button-bar">
-                <button type="submit" class="k-button custom-button"> <img src="~/Content/Images/New/Delete32m.png" alt="" /> Xác nhận @(Model.Voidable ? "vô hiệu" : "phục hồi") dữ liệu </button>
+                <button type="submit" class="k-button custom-button"> <img src="~/Content/Images/New/Delete32m.png" alt="" /> Xác nhận @(@Model.ViewDetails[0].InActivePartial ? "phục hồi" : "hủy") dữ liệu </button>
                 <input id="cancelButton" type="button" value="Thoát" class="k-button" onclick="cancelButton_Click()" />
             </div>
         </div>
     }
 }
+
+@Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
+
 
 <link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />
 

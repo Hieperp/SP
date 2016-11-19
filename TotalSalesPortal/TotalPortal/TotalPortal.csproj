@@ -274,6 +274,7 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IWarehouseAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\Helpers\PrintViewModel.cs" />
     <Compile Include="Areas\Sales\ViewModels\DeliveryAdviceViewModel.cs" />
+    <Compile Include="ViewModels\Helpers\VoidDetailSuccessViewModel.cs" />
     <Compile Include="ViewModels\Home\OptionViewModel.cs" />
     <Compile Include="ViewModels\Sessions\ModuleDetailViewModel.cs" />
     <Compile Include="ViewModels\Sessions\ModuleViewModel.cs" />
@@ -795,6 +796,7 @@
     <Content Include="Areas\Accounts\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Sales\Views\DeliveryAdvices\Void.cshtml" />
     <Content Include="Areas\Sales\Views\DeliveryAdvices\VoidDetail.cshtml" />
+    <Content Include="Areas\Sales\Views\DeliveryAdvices\VoidDetailSuccess.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1248,6 +1250,7 @@
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\GoodsIssueType.cshtml" />
     <Content Include="Views\Helpers\Commons\_ApproveConfirmed.cshtml" />
     <Content Include="Views\Helpers\Commons\_VoidConfirmed.cshtml" />
+    <Content Include="Views\Shared\_LayoutSimple.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

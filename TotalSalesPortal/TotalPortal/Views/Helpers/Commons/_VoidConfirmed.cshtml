@@ -3,7 +3,7 @@
 @if (Model.Voidable || Model.UnVoidable)
 {
     <div class="div-button">
-        <button type="submit" form="MainForm" class="k-button custom-button"> <img src="~/Content/Images/New/Delete32m.png" alt="" /> Xác nhận @(Model.Voidable ? "vô hiệu" : "phục hồi") dữ liệu </button>
+        <button type="submit" form="MainForm" class="k-button custom-button"> <img src="~/Content/Images/New/Delete32m.png" alt="" /> Xác nhận @(Model.InActive ? "phục hồi" : "hủy") dữ liệu </button>
     </div>
 }
 else

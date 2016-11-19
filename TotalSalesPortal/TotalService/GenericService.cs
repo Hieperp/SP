@@ -429,7 +429,7 @@ namespace TotalService
             if (this.functionNameToggleVoid != null && this.functionNameToggleVoid != "")
             {
                 ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("InActive", !dto.InActive) };
-                if (this.genericRepository.ExecuteFunction(this.functionNameToggleVoid, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.InActive ? "phục hồi lệnh" : "") + "hủy (vô hiệu)");
+                if (this.genericRepository.ExecuteFunction(this.functionNameToggleVoid, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.InActive ? "phục hồi lệnh" : "") + "hủy");
             }
             else
                 throw new System.ArgumentException("Lỗi", "Hệ thống không cho phép thực hiện tác vụ này.");

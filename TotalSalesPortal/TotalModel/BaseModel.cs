@@ -24,6 +24,9 @@ namespace TotalModel
         [Display(Name = "Ghi chú")]
         public string Remarks { get; set; }
 
+        public bool InActivePartial { get; set; }
+        public Nullable<System.DateTime> InActivePartialDate { get; set; }
+
         #region Implementation of IValidatableObject
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

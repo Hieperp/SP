@@ -381,7 +381,7 @@ namespace TotalPortal.Controllers
                 TDto dto = Mapper.Map<TDto>(entity);
 
                 if (this.GenericService.ToggleVoidDetail(dto, (int)detailId, (bool)inActivePartial))
-                    return RedirectToAction("VoidDetailSuccessfully", new { id = detailId });
+                    return RedirectToAction("VoidDetailSuccess", new { @id = id, @detailId = detailId, @inActivePartial = inActivePartial });
                 else
                     throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
             }
@@ -396,6 +396,11 @@ namespace TotalPortal.Controllers
         {
             simpleViewModel.PrepareVoidDetail(detailId);
             return simpleViewModel;
+        }
+
+        public ActionResult VoidDetailSuccess(int id, int detailId, bool inActivePartial)
+        {
+            return View(new VoidDetailSuccessViewModel() { ID = id, DetailID = detailId, InActivePartial = inActivePartial });
         }
 
         #endregion VoidDetail/ UnVoidDetail

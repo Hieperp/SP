@@ -47,8 +47,7 @@ namespace TotalDTO
 
         public bool Approved { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
-        public bool InActive { get; set; }
-        public bool InActivePartial { get; set; }
+        public bool InActive { get; set; }        
         public Nullable<System.DateTime> InActiveDate { get; set; }
 
 
