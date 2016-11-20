@@ -16,13 +16,7 @@ namespace TotalDTO.Inventories
 
         [UIHint("StringReadonly")]
         public override string CommodityName { get; set; }
-
-        public Nullable<int> VoidTypeID { get; set; }
-        public string VoidTypeCode { get; set; }
-        [Display(Name = "Lý do")]
-        [UIHint("AutoCompletes/VoidType")]
-        public string VoidTypeName { get; set; }
-        public Nullable<int> VoidClassID { get; set; }
+        
 
         [Display(Name = "SL ĐH")]
         [UIHint("DecimalReadonly")]

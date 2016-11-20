@@ -1,14 +1,35 @@
-﻿@model TotalPortal.ViewModels.Helpers.VoidDetailSuccessViewModel
+﻿@model TotalPortal.ViewModels.Helpers.VoidDetailViewModel
 
-@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
+@{Layout = "~/Views/Shared/_LayoutSimple.cshtml";}
 
-@Html.HiddenFor(model => model.ID)
-@Html.HiddenFor(model => model.DetailID)
-@Html.HiddenFor(model => model.InActivePartial)
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.DetailID)
+    @Html.HiddenFor(model => model.InActivePartial)
+}
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var kenGrid = window.parent.$("#kendoGridDetails").data("kendoGrid");
+        var data = kenGrid.dataSource.data();
+        //alert("X1");
+        $.each(data, function (i, row) {
+            //alert("X2");
+            if (row.DeliveryAdviceDetailID == $("#DetailID").val()) {
+                if ($("#InActivePartial").val() == 'True' && window.parent.$('tr[data-uid="' + row.uid + '"]').hasClass("isBonus") == false) {
+                    window.parent.$('tr[data-uid="' + row.uid + '"]').addClass("isBonus");
+                }
+                if ($("#InActivePartial").val() == 'False' && window.parent.$('tr[data-uid="' + row.uid + '"]').hasClass("isBonus") == true)
+                    window.parent.$('tr[data-uid="' + row.uid + '"]').removeClass("isBonus");
 
+
+                //window.parent.$('tr[data-uid="' + row.uid + '"]').css("color", "darkred");
+
+                return false;
+            }
+        });
+        //alert("Xe");
         //if (window.parent.$("#DeliveryAdviceID") != undefined) window.parent.$("#DeliveryAdviceID").val($("#DeliveryAdviceID").val());
         //if (window.parent.$("#DeliveryAdviceDetailID") != undefined) window.parent.$("#DeliveryAdviceDetailID").val($("#DeliveryAdviceDetailID").val());
         //if (window.parent.$("#InActivePartial") != undefined) window.parent.$("#InActivePartial").val($("#InActivePartial").val());

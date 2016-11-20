@@ -274,7 +274,7 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IWarehouseAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\Helpers\PrintViewModel.cs" />
     <Compile Include="Areas\Sales\ViewModels\DeliveryAdviceViewModel.cs" />
-    <Compile Include="ViewModels\Helpers\VoidDetailSuccessViewModel.cs" />
+    <Compile Include="ViewModels\Helpers\VoidDetailViewModel.cs" />
     <Compile Include="ViewModels\Home\OptionViewModel.cs" />
     <Compile Include="ViewModels\Sessions\ModuleDetailViewModel.cs" />
     <Compile Include="ViewModels\Sessions\ModuleViewModel.cs" />

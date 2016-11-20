@@ -1,6 +1,6 @@
 ﻿namespace TotalPortal.ViewModels.Helpers
 {
-    public class VoidDetailSuccessViewModel
+    public class VoidDetailViewModel
     {
         public int ID { get; set; }
         public int DetailID { get; set; }

@@ -35,6 +35,13 @@ namespace TotalDTO.Sales
         public int EmployeeID { get; set; }
 
         public Nullable<bool> IsBonus { get; set; }
+
+        public Nullable<int> VoidTypeID { get; set; }
+        public string VoidTypeCode { get; set; }
+        [Display(Name = "Lý do")]
+        [UIHint("AutoCompletes/VoidType")]
+        public string VoidTypeName { get; set; }
+        public Nullable<int> VoidClassID { get; set; }
     }
 
     public class DeliveryAdviceDetailDTO : SaleDetailDTO, IPrimitiveEntity

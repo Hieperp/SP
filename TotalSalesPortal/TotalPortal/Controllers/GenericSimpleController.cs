@@ -375,13 +375,13 @@ namespace TotalPortal.Controllers
         {
             try
             {
-                TEntity entity = this.GetEntityAndCheckAccessLevel(id, GlobalEnums.AccessLevel.Readable);
+                TEntity entity = this.GetEntityAndCheckAccessLevel(id+1, GlobalEnums.AccessLevel.Readable);
                 if (entity == null) throw new System.ArgumentException("Lỗi duyệt dữ liệu", "BadRequest.");
 
                 TDto dto = Mapper.Map<TDto>(entity);
 
                 if (this.GenericService.ToggleVoidDetail(dto, (int)detailId, (bool)inActivePartial))
-                    return RedirectToAction("VoidDetailSuccess", new { @id = id, @detailId = detailId, @inActivePartial = inActivePartial });
+                    return RedirectToAction("VoidDetailSuccess", new { @id = id, @detailId = detailId, @inActivePartial = !inActivePartial });
                 else
                     throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
             }
@@ -400,7 +400,7 @@ namespace TotalPortal.Controllers
 
         public ActionResult VoidDetailSuccess(int id, int detailId, bool inActivePartial)
         {
-            return View(new VoidDetailSuccessViewModel() { ID = id, DetailID = detailId, InActivePartial = inActivePartial });
+            return View(new VoidDetailViewModel() { ID = id, DetailID = detailId, InActivePartial = inActivePartial });
         }
 
         #endregion VoidDetail/ UnVoidDetail

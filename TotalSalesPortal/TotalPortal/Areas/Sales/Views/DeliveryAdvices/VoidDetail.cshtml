@@ -1,6 +1,6 @@
 ﻿@using TotalPortal.Configuration;
 
-@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
+@{Layout = "~/Views/Shared/_LayoutSimple.cshtml";}
 
 @model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
 
@@ -25,9 +25,11 @@
             </div>
         </div>
     }
+    
+    @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 }
 
-@Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
+
 
 
 <link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />

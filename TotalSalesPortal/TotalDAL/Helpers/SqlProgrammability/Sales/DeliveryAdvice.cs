@@ -443,18 +443,20 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
 
         private void DeliveryAdviceEditable()
         {
-            string[] queryArray = new string[1];
+            string[] queryArray = new string[2];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM GoodsIssueDetails WHERE DeliveryAdviceID = @EntityID ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM DeliveryAdvices WHERE DeliveryAdviceID = @EntityID AND (InActive = 1 OR InActivePartial = 1)"; //Don't allow approve after void
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM GoodsIssueDetails WHERE DeliveryAdviceID = @EntityID ";
 
             this.totalSalesPortalEntities.CreateProcedureToCheckExisting("DeliveryAdviceEditable", queryArray);
         }
 
         private void DeliveryAdviceVoidable()
         {
-            string[] queryArray = new string[1];
+            string[] queryArray = new string[2];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM GoodsIssueDetails WHERE DeliveryAdviceID = @EntityID ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM DeliveryAdvices WHERE DeliveryAdviceID = @EntityID AND Approved = 0"; //Must approve in order to allow void
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = DeliveryAdviceID FROM GoodsIssueDetails WHERE DeliveryAdviceID = @EntityID ";
 
             this.totalSalesPortalEntities.CreateProcedureToCheckExisting("DeliveryAdviceVoidable", queryArray);
         }
