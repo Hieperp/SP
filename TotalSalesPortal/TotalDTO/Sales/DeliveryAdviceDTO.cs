@@ -75,7 +75,11 @@ namespace TotalDTO.Sales
         public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
         [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO Employee { get; set; }
-        
+
+        public override Nullable<int> VoidTypeID { get { return (this.VoidType != null ? this.VoidType.VoidTypeID : null); } }
+        [UIHint("AutoCompletes/VoidType")]
+        public VoidTypeBaseDTO VoidType { get; set; }
+
         public List<DeliveryAdviceDetailDTO> DeliveryAdviceViewDetails { get; set; }
         public List<DeliveryAdviceDetailDTO> ViewDetails { get { return this.DeliveryAdviceViewDetails; } set { this.DeliveryAdviceViewDetails = value; } }
 
@@ -84,7 +88,8 @@ namespace TotalDTO.Sales
         protected override IEnumerable<DeliveryAdviceDetailDTO> DtoDetails() { return this.DeliveryAdviceViewDetails; }
 
         public override void PrepareVoidDetail(int? detailID)
-        {            
+        {
+            base.PrepareVoidDetail(detailID);
             this.ViewDetails.RemoveAll(w => w.DeliveryAdviceDetailID != detailID);
             if (this.ViewDetails.Count() > 0)
             {
@@ -93,8 +98,6 @@ namespace TotalDTO.Sales
                 this.VoidType.Name = this.ViewDetails[0].VoidTypeName;
                 this.VoidType.VoidClassID = this.ViewDetails[0].VoidClassID;
             }
-
-            base.PrepareVoidDetail(detailID);
         }
     }
 
