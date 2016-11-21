@@ -47,6 +47,7 @@ namespace TotalDTO.Sales
         public Nullable<System.DateTime> DeliveryDate { get; set; }
 
         public virtual int EmployeeID { get; set; }
+        public virtual Nullable<int> VoidTypeID { get; set; }
 
         public override void PerformPresaveRule()
         {
@@ -74,7 +75,7 @@ namespace TotalDTO.Sales
         public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
         [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO Employee { get; set; }
-
+        
         public List<DeliveryAdviceDetailDTO> DeliveryAdviceViewDetails { get; set; }
         public List<DeliveryAdviceDetailDTO> ViewDetails { get { return this.DeliveryAdviceViewDetails; } set { this.DeliveryAdviceViewDetails = value; } }
 
@@ -83,9 +84,17 @@ namespace TotalDTO.Sales
         protected override IEnumerable<DeliveryAdviceDetailDTO> DtoDetails() { return this.DeliveryAdviceViewDetails; }
 
         public override void PrepareVoidDetail(int? detailID)
-        {
-            base.PrepareVoidDetail(detailID);
+        {            
             this.ViewDetails.RemoveAll(w => w.DeliveryAdviceDetailID != detailID);
+            if (this.ViewDetails.Count() > 0)
+            {
+                this.VoidType.VoidTypeID = this.ViewDetails[0].VoidTypeID;
+                this.VoidType.Code = this.ViewDetails[0].VoidTypeCode;
+                this.VoidType.Name = this.ViewDetails[0].VoidTypeName;
+                this.VoidType.VoidClassID = this.ViewDetails[0].VoidClassID;
+            }
+
+            base.PrepareVoidDetail(detailID);
         }
     }
 

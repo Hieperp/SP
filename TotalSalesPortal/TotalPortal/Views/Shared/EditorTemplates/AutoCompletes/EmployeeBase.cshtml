@@ -11,23 +11,23 @@
 <div class="div-input">
 
     @(Html.Kendo().AutoCompleteFor(model => model.Name)
-    .DataTextField("Name")
-    .Filter("contains")
-    .MinLength(SettingsManager.AutoCompleteMinLenght)
-    .Placeholder("Chọn nhân viên...")
-    .DataSource(source =>
-    {
-        source.Read(read =>
+        .DataTextField("Name")
+        .Filter("contains")
+        .MinLength(SettingsManager.AutoCompleteMinLenght)
+        .Placeholder("Chọn nhân viên...")
+        .DataSource(source =>
         {
-            read.Action("SearchEmployees", "EmployeeAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {searchText: e.filter.filters[0].value};} </text>);//Send parameter to controller search action
-        })
-        .ServerFiltering(true);
-    })
-            .Events(e =>
+            source.Read(read =>
             {
-                e.Select("employee_Select");
+                read.Action("SearchEmployees", "EmployeeAPIs", new { area = "Commons" }).Data(@<text> function(e) {return {searchText: e.filter.filters[0].value};} </text>);//Send parameter to controller search action
             })
-                .HtmlAttributes(new { @class = "employeeBase_AutoComplete" })
+            .ServerFiltering(true);
+        })
+        .Events(e =>
+        {
+            e.Select("employee_Select");
+        })
+        .HtmlAttributes(new { @class = "employeeBase_AutoComplete" })
     )
 
 </div>
@@ -48,8 +48,10 @@
 
         $("#" + modelID + "EmployeeID").val(dataItem.EmployeeID);
 
+        //Remember last AutoComplete value
         $("#" + modelID + "TempName").val(dataItem.Name);
 
+        //Trigger change event. This event is not used in this editor template. It will be catch out side of this editor template
         $("#" + modelID + "EmployeeID").trigger("change");
     }
 

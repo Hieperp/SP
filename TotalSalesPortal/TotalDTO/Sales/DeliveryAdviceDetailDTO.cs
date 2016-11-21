@@ -39,7 +39,7 @@ namespace TotalDTO.Sales
         public Nullable<int> VoidTypeID { get; set; }
         public string VoidTypeCode { get; set; }
         [Display(Name = "Lý do")]
-        [UIHint("AutoCompletes/VoidType")]
+        [UIHint("AutoCompletes/VoidTypeBase")]
         public string VoidTypeName { get; set; }
         public Nullable<int> VoidClassID { get; set; }
     }

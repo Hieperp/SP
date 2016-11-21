@@ -98,7 +98,7 @@
         //Remember last AutoComplete value
         $("#" + modelID + "TempCodeAndName").val(dataItem.CodeAndName);
 
-        //Trigger change event. This event is not used in this editor template. It will be catch out side of this editor template (Currently, this event is used to load promotion list for selected customer)
+        //Trigger change event. This event is not used in this editor template. It will be catch out side of this editor template (Currently, this change event customerID is used to load promotion list for selected customer)
         $("#" + modelID + "CustomerID").trigger("change");
     }
 

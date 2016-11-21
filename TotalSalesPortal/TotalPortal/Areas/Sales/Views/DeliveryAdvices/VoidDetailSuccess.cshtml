@@ -1,6 +1,6 @@
 ﻿@model TotalPortal.ViewModels.Helpers.VoidDetailViewModel
 
-@{Layout = "~/Views/Shared/_LayoutSimple.cshtml";}
+@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
 
 @using (Html.BeginForm())
 {
@@ -13,9 +13,8 @@
     $(document).ready(function () {
         var kenGrid = window.parent.$("#kendoGridDetails").data("kendoGrid");
         var data = kenGrid.dataSource.data();
-        //alert("X1");
+        
         $.each(data, function (i, row) {
-            //alert("X2");
             if (row.DeliveryAdviceDetailID == $("#DetailID").val()) {
                 if ($("#InActivePartial").val() == 'True' && window.parent.$('tr[data-uid="' + row.uid + '"]').hasClass("isBonus") == false) {
                     window.parent.$('tr[data-uid="' + row.uid + '"]').addClass("isBonus");

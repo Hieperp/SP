@@ -1247,10 +1247,11 @@
     <Content Include="Views\Home\UserGuide.cshtml" />
     <Content Include="Views\Home\LockedDate.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\AutoCompletes\VoidType.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AutoCompletes\VoidTypeBase.cshtml" />
     <Content Include="Views\Helpers\Commons\_ApproveConfirmed.cshtml" />
     <Content Include="Views\Helpers\Commons\_VoidConfirmed.cshtml" />
     <Content Include="Views\Shared\_LayoutSimple.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AutoCompletes\VoidType.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

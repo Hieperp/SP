@@ -55,6 +55,7 @@ namespace TotalPortal.App_Start
                 cfg.CreateMap<Employee, EmployeeBaseDTO>();
                 cfg.CreateMap<Customer, CustomerBaseDTO>();
                 cfg.CreateMap<Promotion, PromotionDTO>();
+                cfg.CreateMap<VoidType, VoidTypeBaseDTO>();
 
                 //cfg.CreateMap<Module, ModuleViewModel>();
                 //cfg.CreateMap<ModuleDetail, ModuleDetailViewModel>();

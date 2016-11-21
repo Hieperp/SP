@@ -1,6 +1,6 @@
 ﻿@using TotalPortal.Configuration;
 
-@{Layout = "~/Views/Shared/_LayoutSimple.cshtml";}
+@{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
 
 @model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
 
@@ -15,8 +15,11 @@
         @Html.Hidden("DetailId", @Model.ViewDetails[0].DeliveryAdviceDetailID);
         @Html.Hidden("InActivePartial", @Model.ViewDetails[0].InActivePartial);
             
-        @Html.Kendo().MaskedTextBoxFor(model => model.ViewDetails[0].CommodityName).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
-
+        @Html.Kendo().MaskedTextBoxFor(model => model.ViewDetails[0].CommodityName).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" });
+        
+        @Html.EditorFor(d => d.VoidType)
+    
+        @*@Html.Partial("~/Views/Shared/EditorTemplates/AutoCompletes/VoidType.cshtml")*@
 
         <div class="background-bar" style="height: 45px;">
             <div class="popup-button-bar">
@@ -24,12 +27,10 @@
                 <input id="cancelButton" type="button" value="Thoát" class="k-button" onclick="cancelButton_Click()" />
             </div>
         </div>
-    }
-    
-    @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
+    }       
 }
 
-
+@Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
 
 
 <link href="@Url.Content("~/Content/CustomCss/GeneralPopup.css")" rel="stylesheet" type="text/css" />

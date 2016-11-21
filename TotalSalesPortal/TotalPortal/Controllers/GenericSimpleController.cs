@@ -371,24 +371,27 @@ namespace TotalPortal.Controllers
 
         [HttpPost, ActionName("VoidDetail")]
         [ValidateAntiForgeryToken, ExportModelStateToTempData]
-        public virtual ActionResult VoidDetailConfirmed(int? id, int? detailId, bool? inActivePartial, int? voidTypeID)
+        public virtual ActionResult VoidDetailConfirmed(TotalPortal.ViewModels.Helpers.VoidDetailViewModel voidDetailViewModel)
         {
             try
             {
-                TEntity entity = this.GetEntityAndCheckAccessLevel(id+1, GlobalEnums.AccessLevel.Readable);
+                TEntity entity = this.GetEntityAndCheckAccessLevel(voidDetailViewModel.ID, GlobalEnums.AccessLevel.Readable);
                 if (entity == null) throw new System.ArgumentException("Lỗi duyệt dữ liệu", "BadRequest.");
 
                 TDto dto = Mapper.Map<TDto>(entity);
 
-                if (this.GenericService.ToggleVoidDetail(dto, (int)detailId, (bool)inActivePartial))
-                    return RedirectToAction("VoidDetailSuccess", new { @id = id, @detailId = detailId, @inActivePartial = !inActivePartial });
+                if (this.GenericService.ToggleVoidDetail(dto, voidDetailViewModel.DetailID, voidDetailViewModel.InActivePartial))
+                {
+                    voidDetailViewModel.InActivePartial = !voidDetailViewModel.InActivePartial;
+                    return RedirectToAction("VoidDetailSuccess", voidDetailViewModel);
+                }
                 else
                     throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
             }
             catch (Exception exception)
             {
                 ModelState.AddValidationErrors(exception);
-                return RedirectToAction("VoidDetail", new { @id = id, @detailId = detailId });
+                return RedirectToAction("VoidDetail", new { @id = voidDetailViewModel.ID, @detailId = voidDetailViewModel.DetailID });
             }
         }
 
@@ -398,9 +401,9 @@ namespace TotalPortal.Controllers
             return simpleViewModel;
         }
 
-        public ActionResult VoidDetailSuccess(int id, int detailId, bool inActivePartial)
+        public ActionResult VoidDetailSuccess(TotalPortal.ViewModels.Helpers.VoidDetailViewModel voidDetailViewModel)
         {
-            return View(new VoidDetailViewModel() { ID = id, DetailID = detailId, InActivePartial = inActivePartial });
+            return View(voidDetailViewModel);
         }
 
         #endregion VoidDetail/ UnVoidDetail
