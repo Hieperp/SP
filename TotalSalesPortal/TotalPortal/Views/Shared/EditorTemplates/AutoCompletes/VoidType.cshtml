@@ -42,13 +42,7 @@
 
     $(".voidTypeBase_AutoComplete").focusout(function (e) { //Keep old selected value. This is used in master mode
         var modelID = getVoidTypeModelID(this.id);
-        $(this).val($("#" + modelID + "TempName").val());
+        $(this).val($("#" + modelID + "TempName").val());        
     });
 
 </script>
-
-<style>
-    .voidTypeBase_AutoComplete {
-        width: 91%;
-    }
-</style>

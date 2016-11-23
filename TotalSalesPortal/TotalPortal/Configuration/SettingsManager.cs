@@ -24,10 +24,12 @@ namespace TotalPortal.Configuration
         public static int PopupHeight = 484;
         public static int PopupHeightSmall = 397;
         public static int PopupHeightWithTab = 514;
+        public static int PopupHeightVoid = 200;
 
         public static int PopupWidth = 1024;
         public static int PopupWidthSmall = 900;
         public static int PopupWidthMedium = 900;
+        public static int PopupWidthVoid = 600;
 
         public static int PopupContentHeight = 367;
         public static int PopupContentHeightSmall = 281;

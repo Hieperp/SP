@@ -16,11 +16,13 @@ namespace TotalDAL.Repositories.Commons
 
         public IList<VoidType> SearchVoidTypes(string searchText)
         {
-            this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
-            List<VoidType> goodsIssueTypes = this.TotalSalesPortalEntities.VoidTypes.Where(w => (w.Code.Contains(searchText) || w.Name.Contains(searchText))).OrderByDescending(or => or.Name).Take(20).ToList();
-            this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = true;
+            
+                this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
+                List<VoidType> goodsIssueTypes = this.TotalSalesPortalEntities.VoidTypes.Where(w => (w.Code.Contains(searchText) || w.Name.Contains(searchText))).OrderByDescending(or => or.Name).Take(3).ToList();
+                this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = true;
 
-            return goodsIssueTypes;
+                return goodsIssueTypes;
+            
         }
     }
 }
