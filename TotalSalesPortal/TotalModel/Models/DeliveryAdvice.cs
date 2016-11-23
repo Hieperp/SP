@@ -54,6 +54,7 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActiveDate { get; set; }
         public decimal TotalFreeQuantity { get; set; }
         public Nullable<int> VoidTypeID { get; set; }
+        public int ReceiverID { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -66,5 +67,7 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
         public virtual VoidType VoidType { get; set; }
+        public virtual Customer Customer1 { get; set; }
+        public virtual Customer Customer2 { get; set; }
     }
 }

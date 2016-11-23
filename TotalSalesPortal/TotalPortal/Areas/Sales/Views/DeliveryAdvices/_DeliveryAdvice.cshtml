@@ -71,8 +71,9 @@
 
     <div class="right-panel">
 
-        <div style="clear: both; height: 136px;">
+        <div style="clear: both; height: 236px;">
             @Html.EditorFor(d => d.Customer)
+            @Html.EditorFor(d => d.Receiver)
             @Html.EditorFor(d => d.Promotion)
 
             @Html.Partial("~/Views/Helpers/Commons/_PriceCategory.cshtml")
@@ -335,7 +336,7 @@
     function callVoidDetail(deliveryAdviceDetailID) {
         require(["kpopupWindow"], function (kpopupWindow) {
             var voidDetailWindow = new kpopupWindow();
-            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "DeliveryAdvices")" + "/" + $("#DeliveryAdviceID").val() + "/" + deliveryAdviceDetailID, "Hủy/ phục hồi một phần đơn hàng", 600, 267);
+            voidDetailWindow.openWindow($("#popupWindow"), "@Url.Action("VoidDetail", "DeliveryAdvices")" + "/" + $("#DeliveryAdviceID").val() + "/" + deliveryAdviceDetailID, "Hủy/ phục hồi một phần đơn hàng", @SettingsManager.PopupWidthVoid,  @SettingsManager.PopupHeightVoid);
         });
     }
 

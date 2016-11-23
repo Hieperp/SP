@@ -18,8 +18,8 @@ namespace TotalModel.Models
         public string CustomerAttentionName { get; set; }
         public string CustomerTelephone { get; set; }
         public string CustomerAddressNo { get; set; }
-        public string CustomerEntireTerritoryEntireName { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerVATCode { get; set; }
+        public string ReceiverEntireTerritoryEntireName { get; set; }
     }
 }

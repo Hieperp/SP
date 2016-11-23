@@ -19,6 +19,9 @@
                 <div class="toolbar">
                     @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase")
                 </div>
+                <div class="toolbar">
+                    @Html.EditorFor(d => d.Receiver, "AutoCompletes/CustomerBase")
+                </div>
             </text>);
         })
     .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))

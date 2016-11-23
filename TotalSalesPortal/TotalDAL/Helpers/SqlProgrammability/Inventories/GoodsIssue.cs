@@ -57,9 +57,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "       SELECT          DeliveryAdvices.DeliveryAdviceID, DeliveryAdvices.Reference AS DeliveryAdviceReference, DeliveryAdvices.EntryDate AS DeliveryAdviceEntryDate, DeliveryAdvices.Description, DeliveryAdvices.Remarks, " + "\r\n";
-            queryString = queryString + "                       DeliveryAdvices.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "                       DeliveryAdvices.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "                       DeliveryAdvices.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
-            queryString = queryString + "       FROM            DeliveryAdvices INNER JOIN Customers ON (@DeliveryAdviceReference = '' OR DeliveryAdvices.Reference LIKE '%' + @DeliveryAdviceReference + '%') AND DeliveryAdvices.LocationID = @LocationID AND DeliveryAdvices.CustomerID = Customers.CustomerID INNER JOIN EntireTerritories ON Customers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "       FROM            DeliveryAdvices " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON (@DeliveryAdviceReference = '' OR DeliveryAdvices.Reference LIKE '%' + @DeliveryAdviceReference + '%') AND DeliveryAdvices.LocationID = @LocationID AND DeliveryAdvices.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers Receivers ON DeliveryAdvices.ReceiverID = Receivers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories ReceiverEntireTerritories ON Receivers.TerritoryID = ReceiverEntireTerritories.TerritoryID " + "\r\n";
 
             queryString = queryString + "       WHERE           DeliveryAdvices.DeliveryAdviceID IN  " + "\r\n";
 
@@ -75,15 +80,16 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString = " @LocationID int, @GoodsIssueID int, @CustomerName nvarchar(100) " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
-            queryString = queryString + "       FROM            Customers INNER JOIN EntireTerritories ON (@CustomerName = '' OR Customers.Code LIKE '%' + @CustomerName + '%' OR Customers.Name LIKE '%' + @CustomerName + '%') AND Customers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
-
-            queryString = queryString + "       WHERE           CustomerID IN   " + "\r\n";
-
-            queryString = queryString + "                      (SELECT CustomerID FROM DeliveryAdviceDetails WHERE LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
-            queryString = queryString + "                       UNION ALL " + "\r\n";
-            queryString = queryString + "                       SELECT CustomerID FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID) " + "\r\n";
+            queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID, ReceiverID FROM " + "\r\n";
+            queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM DeliveryAdviceDetails WHERE LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
+            queryString = queryString + "                               UNION ALL " + "\r\n";
+            queryString = queryString + "                               SELECT CustomerID, ReceiverID FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID) CustomerReceiverPENDING " + "\r\n";
+            queryString = queryString + "                      )CustomerReceiverUNION  " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON (@CustomerName = '' OR Customers.Code LIKE '%' + @CustomerName + '%' OR Customers.Name LIKE '%' + @CustomerName + '%') AND CustomerReceiverUNION.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers Receivers ON CustomerReceiverUNION.ReceiverID = Receivers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories ON Receivers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingDeliveryAdviceCustomers", queryString);
         }
@@ -101,9 +107,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryNew = queryNew + "     FROM            DeliveryAdviceDetails INNER JOIN " + "\r\n";
             queryNew = queryNew + "                     Commodities ON DeliveryAdviceDetails.CommodityID = Commodities.CommodityID AND (ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) > 0 OR ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) > 0)  INNER JOIN " + "\r\n";
             queryNew = queryNew + "                     Warehouses ON DeliveryAdviceDetails.WarehouseID = Warehouses.WarehouseID LEFT JOIN" + "\r\n";
-            queryNew = queryNew + "                     (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n"; 
+            queryNew = queryNew + "                     (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n";
 
-            queryNew = queryNew + "     WHERE           (@DeliveryAdviceID = 0 OR DeliveryAdviceDetails.DeliveryAdviceID = @DeliveryAdviceID) AND (@CustomerID = 0 OR DeliveryAdviceDetails.CustomerID = @CustomerID) " + "\r\n"; //AND DeliveryAdviceDetailMaster.Approved = 1 
+            queryNew = queryNew + "     WHERE           (@DeliveryAdviceID = 0 OR DeliveryAdviceDetails.DeliveryAdviceID = @DeliveryAdviceID) AND ((@CustomerID = 0 AND @ReceiverID = 0) OR (DeliveryAdviceDetails.CustomerID = @CustomerID AND DeliveryAdviceDetails.ReceiverID = @ReceiverID)) " + "\r\n"; //AND DeliveryAdviceDetailMaster.Approved = 1 
 
 
             queryEdit = "               SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, GoodsIssueDetails.GoodsIssueDetailID, GoodsIssueDetails.GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, VoidTypes.VoidTypeID, VoidTypes.Code AS VoidTypeCode, VoidTypes.Name AS VoidTypeName, VoidTypes.VoidClassID, " + "\r\n";
@@ -115,14 +121,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryEdit = queryEdit + "                   Commodities ON GoodsIssueDetails.CommodityID = Commodities.CommodityID INNER JOIN " + "\r\n";
             queryEdit = queryEdit + "                   Warehouses ON DeliveryAdviceDetails.WarehouseID = Warehouses.WarehouseID LEFT JOIN" + "\r\n";
             queryEdit = queryEdit + "                   VoidTypes ON GoodsIssueDetails.VoidTypeID = VoidTypes.VoidTypeID LEFT JOIN" + "\r\n";
-            queryEdit = queryEdit + "                   (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n"; 
+            queryEdit = queryEdit + "                   (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n";
 
-            queryEdit = queryEdit + "   WHERE           (@DeliveryAdviceID = 0 OR DeliveryAdviceDetails.DeliveryAdviceID = @DeliveryAdviceID) AND (@CustomerID = 0 OR DeliveryAdviceDetails.CustomerID = @CustomerID) " + "\r\n";
+            queryEdit = queryEdit + "   WHERE           (@DeliveryAdviceID = 0 OR DeliveryAdviceDetails.DeliveryAdviceID = @DeliveryAdviceID) AND ((@CustomerID = 0 AND @ReceiverID = 0) OR (DeliveryAdviceDetails.CustomerID = @CustomerID AND DeliveryAdviceDetails.ReceiverID = @ReceiverID)) " + "\r\n";
 
 
             SqlProgrammability.Inventories.Inventories inventories = new Inventories(this.totalSalesPortalEntities);
 
-            queryString = " @GoodsIssueID Int, @DeliveryAdviceID Int, @CustomerID Int, @IsReadonly bit " + "\r\n";
+            queryString = " @GoodsIssueID Int, @DeliveryAdviceID Int, @CustomerID Int, @ReceiverID Int, @IsReadonly bit " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 

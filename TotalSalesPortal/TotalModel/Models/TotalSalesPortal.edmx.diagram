@@ -74,6 +74,9 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_VoidTypes" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_VoidTypes" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Customers1" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Receivers" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_Customers1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

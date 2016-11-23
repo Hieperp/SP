@@ -32,6 +32,7 @@ namespace TotalDTO.Sales
         public int DeliveryAdviceID { get; set; }
 
         public int CustomerID { get; set; }
+        public int ReceiverID { get; set; }
         public int EmployeeID { get; set; }
 
         public Nullable<bool> IsBonus { get; set; }

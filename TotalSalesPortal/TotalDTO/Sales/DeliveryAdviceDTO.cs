@@ -23,6 +23,7 @@ namespace TotalDTO.Sales
         public int DeliveryAdviceID { get; set; }
 
         public virtual int CustomerID { get; set; }
+        public virtual int ReceiverID { get; set; }
 
         [Required]
         [Display(Name = "Bảng giá")]
@@ -52,7 +53,7 @@ namespace TotalDTO.Sales
         {
             base.PerformPresaveRule();
             this.Approved = true; this.ApprovedDate = this.EntryDate; //At DeliveryAdvice, Approve right after save. Surely, It can be UnApprove later for editing
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.PromotionID = this.PromotionID; e.EmployeeID = this.EmployeeID; });
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.PromotionID = this.PromotionID; e.EmployeeID = this.EmployeeID; });
         }
     }
 
@@ -67,6 +68,10 @@ namespace TotalDTO.Sales
         public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
+
+        public override int ReceiverID { get { return (this.Receiver != null ? this.Receiver.CustomerID : 0); } }
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Receiver { get; set; }
 
         public override Nullable<int> PromotionID { get { return (this.Promotion != null ? this.Promotion.PromotionID : null); } }
         [UIHint("Commons/Promotion")]

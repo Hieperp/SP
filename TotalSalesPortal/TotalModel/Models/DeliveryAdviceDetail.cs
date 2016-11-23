@@ -49,6 +49,7 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
         public Nullable<int> VoidTypeID { get; set; }
+        public int ReceiverID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdvice DeliveryAdvice { get; set; }
