@@ -21,5 +21,13 @@ namespace TotalModel.Models
         public string CustomerCode { get; set; }
         public string CustomerVATCode { get; set; }
         public string ReceiverEntireTerritoryEntireName { get; set; }
+        public string CustomerEntireTerritoryEntireName { get; set; }
+        public int ReceiverID { get; set; }
+        public string ReceiverCode { get; set; }
+        public string ReceiverName { get; set; }
+        public string ReceiverVATCode { get; set; }
+        public string ReceiverAttentionName { get; set; }
+        public string ReceiverTelephone { get; set; }
+        public string ReceiverAddressNo { get; set; }
     }
 }

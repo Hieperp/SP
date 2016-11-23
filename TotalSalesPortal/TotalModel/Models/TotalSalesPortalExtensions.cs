@@ -26,6 +26,8 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.GoodsIssueID; }
 
+        public virtual Customer Receiver { get { return this.Customer1; } }
+
         public ICollection<GoodsIssueDetail> GetDetails() { return this.GoodsIssueDetails; }
     }
 

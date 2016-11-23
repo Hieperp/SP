@@ -22,6 +22,7 @@ namespace TotalDTO.Inventories
         public int GoodsIssueID { get; set; }
 
         public virtual int CustomerID { get; set; }
+        public virtual int ReceiverID { get; set; }
 
         public Nullable<int> DeliveryAdviceID { get; set; }
         [Display(Name = "Đơn đặt hàng")]
@@ -37,7 +38,7 @@ namespace TotalDTO.Inventories
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.EmployeeID = this.EmployeeID; });
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.EmployeeID = this.EmployeeID; });
         }
     }
 
@@ -52,6 +53,10 @@ namespace TotalDTO.Inventories
         public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
+
+        public override int ReceiverID { get { return (this.Receiver != null ? this.Receiver.CustomerID : 0); } }
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Receiver { get; set; }
 
         public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
         [UIHint("AutoCompletes/EmployeeBase")]

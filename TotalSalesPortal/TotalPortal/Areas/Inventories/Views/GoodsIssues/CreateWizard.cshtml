@@ -23,6 +23,16 @@
     @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
     @Html.HiddenFor(model => model.Customer.EmployeeID)
     @Html.HiddenFor(model => model.Customer.EmployeeName)
+    
+    @Html.HiddenFor(model => model.Receiver.CustomerID);
+    @Html.HiddenFor(model => model.Receiver.Code);
+    @Html.HiddenFor(model => model.Receiver.Name);
+    @Html.HiddenFor(model => model.Receiver.VATCode);
+    @Html.HiddenFor(model => model.Receiver.Telephone);
+    @Html.HiddenFor(model => model.Receiver.AddressNo);
+    @Html.HiddenFor(model => model.Receiver.EntireTerritoryEntireName);
+    @Html.HiddenFor(model => model.Receiver.EmployeeID)
+    @Html.HiddenFor(model => model.Receiver.EmployeeName)
 
 
     @(Html.Kendo().TabStrip()
@@ -104,6 +114,20 @@
 
             $("#Customer_EmployeeID").val(99999999);
             $("#Customer_EmployeeName").val("#######");
+
+
+            $("#Receiver_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverID);
+            $("#Receiver_Code").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverCode);
+            $("#Receiver_Name").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverName);
+            $("#Receiver_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverVATCode);
+            $("#Receiver_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverTelephone);
+            $("#Receiver_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverAddressNo);
+            $("#Receiver_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.ReceiverEntireTerritoryEntireName);
+
+            $("#Receiver_EmployeeID").val(99999999);
+            $("#Receiver_EmployeeName").val("#######");
+
+
         }
     }
 

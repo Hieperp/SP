@@ -80,7 +80,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString = " @LocationID int, @GoodsIssueID int, @CustomerName nvarchar(100) " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "                       Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID, ReceiverID FROM " + "\r\n";
             queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM DeliveryAdviceDetails WHERE LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
@@ -89,7 +90,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                      )CustomerReceiverUNION  " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers ON (@CustomerName = '' OR Customers.Code LIKE '%' + @CustomerName + '%' OR Customers.Name LIKE '%' + @CustomerName + '%') AND CustomerReceiverUNION.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers Receivers ON CustomerReceiverUNION.ReceiverID = Receivers.CustomerID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories ON Receivers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories ReceiverEntireTerritories ON Receivers.TerritoryID = ReceiverEntireTerritories.TerritoryID " + "\r\n";
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingDeliveryAdviceCustomers", queryString);
         }
