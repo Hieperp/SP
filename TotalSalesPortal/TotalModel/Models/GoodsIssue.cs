@@ -53,7 +53,6 @@ namespace TotalModel.Models
         public int ReceiverID { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual DeliveryAdvice DeliveryAdvice { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
@@ -62,5 +61,6 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
         public virtual Customer Customer1 { get; set; }
+        public virtual DeliveryAdvice DeliveryAdvice { get; set; }
     }
 }

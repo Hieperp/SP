@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d15db0f3b87b40d8a37bac669a0fa729" Name="Diagram1" ZoomLevel="42">
+      <Diagram DiagramId="d15db0f3b87b40d8a37bac669a0fa729" Name="Diagram1" ZoomLevel="39">
         <EntityTypeShape EntityType="TotalSalesPortalModel.AspNetUser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.Location" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.ModuleDetail" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
@@ -49,17 +49,8 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_Receipts_Customers" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_Receipts_Employees" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_ReceiptDetails_Receipts" />
-        <EntityTypeShape EntityType="TotalSalesPortalModel.DeliveryAdvice" Width="1.5" PointX="13.625" PointY="6.625" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Customers" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdviceDetails_DeliveryAdvices" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Employees" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Locations" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_PaymentTerms" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_PriceCategories" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Promotions" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.GoodsIssue" Width="1.5" PointX="21.875" PointY="11" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_Customers" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_Employees" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_Receipts_GoodsIssues" />
@@ -71,12 +62,20 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_Commodities" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdviceDetails_VoidTypes" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_DeliveryAdviceDetails" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_VoidTypes" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_GoodsIssues" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssueDetails_VoidTypes" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Customers1" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Receivers" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_Customers1" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.DeliveryAdvice" Width="1.5" PointX="14.625" PointY="9.5" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Customers" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Customers1" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdviceDetails_DeliveryAdvices" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Employees" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Locations" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_PaymentTerms" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_PriceCategories" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_Promotions" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_DeliveryAdvices_VoidTypes" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_DeliveryAdvices" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
