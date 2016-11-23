@@ -1,3 +1,3 @@
-﻿require(["kendoWidgetReadonly", "gridHandleKeyboardSubscribe"], function (kendoWidgetReadonly, gridHandleKeyboardSubscribe) {
+﻿require(["kendoWidgetReadonly"], function (kendoWidgetReadonly) {
 
 });

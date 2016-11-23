@@ -37,5 +37,9 @@ namespace TotalModel.Models
         public decimal FreeQuantity { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
+        public Nullable<int> VoidTypeID { get; set; }
+        public string VoidTypeCode { get; set; }
+        public string VoidTypeName { get; set; }
+        public Nullable<int> VoidClassID { get; set; }
     }
 }

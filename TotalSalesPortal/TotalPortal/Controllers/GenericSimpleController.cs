@@ -15,6 +15,7 @@ using TotalCore.Services;
 
 using TotalPortal.Builders;
 using TotalPortal.ViewModels.Helpers;
+using TotalDTO.Commons;
 
 
 namespace TotalPortal.Controllers
@@ -322,7 +323,10 @@ namespace TotalPortal.Controllers
 
             if (!simpleViewModel.InActive)
                 if (this.GenericService.GetVoidablePermitted(entity.OrganizationalUnitID))
+                {
                     simpleViewModel.Voidable = this.GenericService.Voidable(simpleViewModel);
+                    RequireJsOptions.Add("Voidable", simpleViewModel.Voidable, RequireJsOptionsScope.Page);
+                }
                 else //USER DON'T HAVE PERMISSION TO DO
                     return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
 
@@ -341,6 +345,8 @@ namespace TotalPortal.Controllers
         {
             try
             {
+                if (simpleViewModel.VoidTypeID == null || simpleViewModel.VoidTypeID <= 0) throw new System.ArgumentException("Lỗi hủy dữ liệu", "Vui lòng nhập lý do hủy đơn hàng.");
+
                 if (this.GenericService.ToggleVoid(simpleViewModel))
                     return RedirectToAction("Index");
                 else
@@ -375,18 +381,25 @@ namespace TotalPortal.Controllers
         {
             try
             {
+                if (voidDetailViewModel.VoidTypeID == null || voidDetailViewModel.VoidTypeID <= 0) throw new System.ArgumentException("Lỗi hủy dữ liệu", "Vui lòng nhập lý do hủy đơn hàng.");
+
                 TEntity entity = this.GetEntityAndCheckAccessLevel(voidDetailViewModel.ID, GlobalEnums.AccessLevel.Readable);
-                if (entity == null) throw new System.ArgumentException("Lỗi duyệt dữ liệu", "BadRequest.");
+                if (entity == null) throw new System.ArgumentException("Lỗi hủy dữ liệu", "BadRequest.");
 
                 TDto dto = Mapper.Map<TDto>(entity);
 
-                if (this.GenericService.ToggleVoidDetail(dto, voidDetailViewModel.DetailID, voidDetailViewModel.InActivePartial))
+                if (this.GenericService.ToggleVoidDetail(dto, voidDetailViewModel.DetailID, voidDetailViewModel.InActivePartial, (int)voidDetailViewModel.VoidTypeID))
                 {
+                    ModelState.Clear(); ////https://weblog.west-wind.com/posts/2012/apr/20/aspnet-mvc-postbacks-and-htmlhelper-controls-ignoring-model-changes
+                    //IMPORTANT NOTES: ASP.NET MVC Postbacks and HtmlHelper Controls ignoring Model Changes
+                    //HtmlHelpers controls (like .TextBoxFor() etc.) don't bind to model values on Postback, but rather get their value directly out of the POST buffer from ModelState. Effectively it looks like you can't change the display value of a control via model value updates on a Postback operation. 
+                    //When MVC binds controls like @Html.TextBoxFor() or @Html.TextBox(), it always binds values on a GET operation. On a POST operation however, it'll always used the AttemptedValue to display the control. MVC binds using the ModelState on a POST operation, not the model's value
+                    //So, if you want the behavior that I was expecting originally you can actually get it by clearing the ModelState in the controller code: ModelState.Clear();
                     voidDetailViewModel.InActivePartial = !voidDetailViewModel.InActivePartial;
-                    return RedirectToAction("VoidDetailSuccess", voidDetailViewModel);
+                    return View("VoidDetailSuccess", voidDetailViewModel);
                 }
                 else
-                    throw new System.ArgumentException("Lỗi duyệt dữ liệu", "Dữ liệu này không thể duyệt được.");
+                    throw new System.ArgumentException("Lỗi hủy dữ liệu", "Dữ liệu này không thể hủy được.");
             }
             catch (Exception exception)
             {
@@ -401,10 +414,6 @@ namespace TotalPortal.Controllers
             return simpleViewModel;
         }
 
-        public ActionResult VoidDetailSuccess(TotalPortal.ViewModels.Helpers.VoidDetailViewModel voidDetailViewModel)
-        {
-            return View(voidDetailViewModel);
-        }
 
         #endregion VoidDetail/ UnVoidDetail
 

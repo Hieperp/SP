@@ -22,7 +22,7 @@
             e.Change("gridEditorVoidTypeChange");
         })
         .Value(Model)
-        .HtmlAttributes(new { @class = "voidTypeBase_AutoComplete" })
+        .HtmlAttributes(new { @class = "voidTypeBase_AutoComplete" + (ViewData["VoidTypeClassSpecialEditable"] != null ? (" " + ViewData["VoidTypeClassSpecialEditable"]) : "") })
 )
 
 <script type="text/javascript">

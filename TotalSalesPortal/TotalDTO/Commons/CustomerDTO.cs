@@ -12,6 +12,9 @@ namespace TotalDTO.Commons
     public interface ICustomerBaseDTO
     {
         int CustomerID { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tên khách hàng")]
+        [Display(Name = "Khách hàng")]
         string CodeAndName { get; }
         string Code { get; set; }
         string Name { get; set; }
@@ -26,16 +29,14 @@ namespace TotalDTO.Commons
         string EmployeeName { get; set; }
         int PriceCategoryID { get; set; }
         string PriceCategoryCode { get; set; }
-        
+
     }
 
     public class CustomerBaseDTO : BaseDTO, ICustomerBaseDTO
     {
         public int CustomerID { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập tên khách hàng")]
-        [Display(Name = "Khách hàng")]
-        public string CodeAndName { get { return this.Code + "  -  " + this.Name; } }
+        public string CodeAndName { get { return this.Code + (this.Code != "" && this.Name != "" ? "  -  " : "") + this.Name; } }
 
         [Display(Name = "Mã khách hàng")]
         public string Code { get; set; }

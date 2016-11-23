@@ -124,7 +124,7 @@ namespace TotalService
 
 
 
-        public override bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial)
+        public override bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial, int voidTypeID)
         {
             using (var dbContextTransaction = this.genericWithDetailRepository.BeginTransaction())
             {
@@ -132,7 +132,7 @@ namespace TotalService
                 {
                     if ((!inActivePartial && !this.Voidable(dto)) || (inActivePartial && !this.UnVoidable(dto))) throw new System.ArgumentException("Lỗi " + (inActivePartial ? "hủy " : "") + "duyệt dữ liệu", "Bạn không có quyền hoặc dữ liệu này đã bị khóa.");
 
-                    this.ToggleVoidDetailMe(dto, detailID, inActivePartial);
+                    this.ToggleVoidDetailMe(dto, detailID, inActivePartial, voidTypeID);
 
                     this.genericWithDetailRepository.SaveChanges();
 
@@ -149,11 +149,11 @@ namespace TotalService
         }
 
 
-        protected virtual void ToggleVoidDetailMe(TDto dto, int detailID, bool inActivePartial)
+        protected virtual void ToggleVoidDetailMe(TDto dto, int detailID, bool inActivePartial, int voidTypeID)
         {
             if (this.functionNameToggleVoidDetail != null && this.functionNameToggleVoidDetail != "")
             {
-                ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("EntityDetailID", detailID), new ObjectParameter("InActivePartial", !inActivePartial) };
+                ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("EntityDetailID", detailID), new ObjectParameter("InActivePartial", !inActivePartial), new ObjectParameter("VoidTypeID", voidTypeID) };
                 if (this.genericWithDetailRepository.ExecuteFunction(this.functionNameToggleVoidDetail, parameters) != 2) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (inActivePartial ? "phục hồi lệnh" : "") + "hủy");
             }
             else

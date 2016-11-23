@@ -13,15 +13,14 @@ namespace TotalDTO.Commons
     {
         int EmployeeID { get; set; }
         [Display(Name = "Tên nhân viên")]
+        [Required(ErrorMessage = "Vui lòng nhập tên nhân viên")]
         string Name { get; set; }        
     }
     public class EmployeeBaseDTO : BaseDTO, IEmployeeBaseDTO
     {
         public int EmployeeID { get; set; }
         
-        [DefaultValue("#")]
-        [Display(Name = "Tên nhân viên")]
-        [Required(ErrorMessage = "Vui lòng nhập tên nhân viên")]
+        [Display(Name = "Tên nhân viên")]        
         public string Name { get ; set; }
     }
 

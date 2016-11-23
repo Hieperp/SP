@@ -45,11 +45,11 @@ namespace TotalDTO
         [Display(Name = "Diễn giải")]
         public string Description { get; set; }
 
-        public bool Approved { get; set; }
+        public virtual bool Approved { get; set; }
         public Nullable<System.DateTime> ApprovedDate { get; set; }
-        public bool InActive { get; set; }        
+        public virtual bool InActive { get; set; }        
         public Nullable<System.DateTime> InActiveDate { get; set; }
-
+        public virtual Nullable<int> VoidTypeID { get; set; }
 
         public bool GlobalLocked { get; set; }
         public bool Editable { get; set; }

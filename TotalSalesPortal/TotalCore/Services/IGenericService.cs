@@ -25,7 +25,7 @@ namespace TotalCore.Services
         
         bool ToggleApproved(TDto dto);
         bool ToggleVoid(TDto dto);
-        bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial);
+        bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial, int voidTypeID);
 
         bool Delete(int id);
 

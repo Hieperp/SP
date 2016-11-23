@@ -554,7 +554,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeliveryAdviceToggleApproved", entityIDParameter, approvedParameter);
         }
     
-        public virtual int DeliveryAdviceToggleVoid(Nullable<int> entityID, Nullable<bool> inActive)
+        public virtual int DeliveryAdviceToggleVoid(Nullable<int> entityID, Nullable<bool> inActive, Nullable<int> voidTypeID)
         {
             var entityIDParameter = entityID.HasValue ?
                 new ObjectParameter("EntityID", entityID) :
@@ -564,7 +564,11 @@ namespace TotalModel.Models
                 new ObjectParameter("InActive", inActive) :
                 new ObjectParameter("InActive", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeliveryAdviceToggleVoid", entityIDParameter, inActiveParameter);
+            var voidTypeIDParameter = voidTypeID.HasValue ?
+                new ObjectParameter("VoidTypeID", voidTypeID) :
+                new ObjectParameter("VoidTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeliveryAdviceToggleVoid", entityIDParameter, inActiveParameter, voidTypeIDParameter);
         }
     
         public virtual ObjectResult<string> DeliveryAdviceVoidable(Nullable<int> entityID)
@@ -576,7 +580,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("DeliveryAdviceVoidable", entityIDParameter);
         }
     
-        public virtual int DeliveryAdviceToggleVoidDetail(Nullable<int> entityID, Nullable<int> entityDetailID, Nullable<bool> inActivePartial)
+        public virtual int DeliveryAdviceToggleVoidDetail(Nullable<int> entityID, Nullable<int> entityDetailID, Nullable<bool> inActivePartial, Nullable<int> voidTypeID)
         {
             var entityIDParameter = entityID.HasValue ?
                 new ObjectParameter("EntityID", entityID) :
@@ -590,7 +594,11 @@ namespace TotalModel.Models
                 new ObjectParameter("InActivePartial", inActivePartial) :
                 new ObjectParameter("InActivePartial", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeliveryAdviceToggleVoidDetail", entityIDParameter, entityDetailIDParameter, inActivePartialParameter);
+            var voidTypeIDParameter = voidTypeID.HasValue ?
+                new ObjectParameter("VoidTypeID", voidTypeID) :
+                new ObjectParameter("VoidTypeID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeliveryAdviceToggleVoidDetail", entityIDParameter, entityDetailIDParameter, inActivePartialParameter, voidTypeIDParameter);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace TotalDTO.Sales
         public int DeliveryAdviceID { get; set; }
 
         public virtual int CustomerID { get; set; }
-        
+
         [Required]
         [Display(Name = "Bảng giá")]
         public int PriceCategoryID { get; set; }
@@ -47,11 +47,11 @@ namespace TotalDTO.Sales
         public Nullable<System.DateTime> DeliveryDate { get; set; }
 
         public virtual int EmployeeID { get; set; }
-        public virtual Nullable<int> VoidTypeID { get; set; }
 
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();
+            this.Approved = true; this.ApprovedDate = this.EntryDate; //At DeliveryAdvice, Approve right after save. Surely, It can be UnApprove later for editing
             this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.PromotionID = this.PromotionID; e.EmployeeID = this.EmployeeID; });
         }
     }
@@ -92,12 +92,7 @@ namespace TotalDTO.Sales
             base.PrepareVoidDetail(detailID);
             this.ViewDetails.RemoveAll(w => w.DeliveryAdviceDetailID != detailID);
             if (this.ViewDetails.Count() > 0)
-            {
-                this.VoidType.VoidTypeID = this.ViewDetails[0].VoidTypeID;
-                this.VoidType.Code = this.ViewDetails[0].VoidTypeCode;
-                this.VoidType.Name = this.ViewDetails[0].VoidTypeName;
-                this.VoidType.VoidClassID = this.ViewDetails[0].VoidClassID;
-            }
+                this.VoidType = new VoidTypeBaseDTO() { VoidTypeID = this.ViewDetails[0].VoidTypeID, Code = this.ViewDetails[0].VoidTypeCode, Name = this.ViewDetails[0].VoidTypeName, VoidClassID = this.ViewDetails[0].VoidClassID };
         }
     }
 

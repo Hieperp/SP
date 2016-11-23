@@ -263,7 +263,7 @@ namespace TotalService
             }
         }
 
-        public virtual bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial)
+        public virtual bool ToggleVoidDetail(TDto dto, int detailID, bool inActivePartial, int voidTypeID)
         {
             return false;
         }
@@ -428,7 +428,7 @@ namespace TotalService
         {
             if (this.functionNameToggleVoid != null && this.functionNameToggleVoid != "")
             {
-                ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("InActive", !dto.InActive) };
+                ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("InActive", !dto.InActive), new ObjectParameter("VoidTypeID", dto.VoidTypeID) };
                 if (this.genericRepository.ExecuteFunction(this.functionNameToggleVoid, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.InActive ? "phục hồi lệnh" : "") + "hủy");
             }
             else

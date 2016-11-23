@@ -9,6 +9,7 @@ namespace TotalDTO.Commons
         string Code { get; set; }
         [Display(Name = "Lý do hủy toàn bộ đơn hàng")]
         [UIHint("AutoCompletes/VoidTypeBase")]
+        [Required(ErrorMessage = "Vui lòng nhập lý do hủy đơn hàng")]
         string Name { get; set; }
         Nullable<int> VoidClassID { get; set; }
     }

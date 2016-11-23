@@ -13,6 +13,12 @@ namespace TotalPortal.ViewModels.Helpers
 
         public Nullable<int> VoidTypeID { get { return (this.VoidType != null ? this.VoidType.VoidTypeID : null); } }
         [UIHint("AutoCompletes/VoidType")]
-        public VoidTypeBaseDTO VoidType { get; set; }        
+        public VoidTypeBaseDTO VoidType { get; set; }
+
+        public VoidDetailViewModel()
+        {
+            this.VoidType = new VoidTypeBaseDTO();
+        }
+
     }
 }
