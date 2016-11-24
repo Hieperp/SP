@@ -23,7 +23,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
             this.GetPromotionByCustomers();
 
             //this.GetCommoditiesInWarehouses("GetVehicleAvailables", true, false, false, false);
-            this.GetCommoditiesInWarehouses("GetCommodityAvailables", false, true, false, false, false); //GetPartAvailables
+            this.GetCommoditiesInWarehouses("GetCommodityAvailables", false, true, true, false, false, false); //GetPartAvailables
             //this.GetCommoditiesInWarehouses("GetCommoditiesInWarehouses", false, true, true, false);
             //this.GetCommoditiesInWarehouses("GetCommoditiesAvailables", true, true, false, false);
 
@@ -103,7 +103,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
         /// <summary>
         /// Get QuantityAvailable (Remaining) Commodities BY EVERY (WarehouseID, CommodityID)
         /// </summary>
-        private void GetCommoditiesInWarehouses(string storedProcedureName, bool withCommoditiesInGoodsReceipts, bool withCommoditiesInWarehouses, bool getSavedData, bool includeCommoditiesOutOfStock, bool isUsingWarehouseBalancePrice)
+        private void GetCommoditiesInWarehouses(string storedProcedureName, bool withCommoditiesInGoodsReceipts, bool withCommoditiesInWarehouses, bool withCommodityTypeServices, bool getSavedData, bool includeCommoditiesOutOfStock, bool isUsingWarehouseBalancePrice)
         {
             //HIEN TAI, SU DUNG CHUNG CAC CAU SQL DE TAO RA NHIEU PHIEN BAN StoredProcedure, MUC DICH: NHAM DE QUAN LY CODE TUONG TU NHAU
             //VI VAY, CODE NAY TUAN THEO QUY UOC SAU: (CHI LA QUY UOC THOI, KHONG PHAI DIEU KIEN RANG BUOC GI CA)
@@ -127,7 +127,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
             queryString = queryString + "       DECLARE @CommoditiesAvailable TABLE (WarehouseID int NOT NULL, CommodityID int NOT NULL, QuantityAvailable decimal(18, 2) NOT NULL, Bookable bit NULL)" + "\r\n";
             queryString = queryString + "       DECLARE @HasCommoditiesAvailable int SET @HasCommoditiesAvailable = 0" + "\r\n";
 
-            queryString = queryString + "       INSERT INTO @Commodities SELECT CommodityID, Code, CodePartA, CodePartB, Name, 0 AS GrossPrice, 0 AS DiscountPercent, 0 AS ControlFreeQuantity, CommodityTypeID, CommodityCategoryID FROM Commodities WHERE CommodityTypeID IN (" + (withCommoditiesInGoodsReceipts ? "" + (int)GlobalEnums.CommodityTypeID.Vehicles : "") + (withCommoditiesInGoodsReceipts && withCommoditiesInWarehouses ? ", " : "") + (withCommoditiesInWarehouses ? (int)GlobalEnums.CommodityTypeID.Parts + ", " + (int)GlobalEnums.CommodityTypeID.Consumables : "") + ") AND (Code LIKE '%' + @SearchText + '%' OR Name LIKE '%' + @SearchText + '%') " + "\r\n";
+            queryString = queryString + "       INSERT INTO @Commodities SELECT CommodityID, Code, CodePartA, CodePartB, Name, 0 AS GrossPrice, 0 AS DiscountPercent, 0 AS ControlFreeQuantity, CommodityTypeID, CommodityCategoryID FROM Commodities WHERE CommodityTypeID IN (" + (withCommoditiesInGoodsReceipts ? "" + (int)GlobalEnums.CommodityTypeID.Vehicles : "") + (withCommoditiesInGoodsReceipts && withCommoditiesInWarehouses ? ", " : "") + (withCommoditiesInWarehouses ? (int)GlobalEnums.CommodityTypeID.Parts + ", " + (int)GlobalEnums.CommodityTypeID.Consumables : "") + (withCommodityTypeServices & (withCommoditiesInGoodsReceipts || withCommoditiesInWarehouses) ? ", " : "") + (withCommodityTypeServices ? "" + (int)GlobalEnums.CommodityTypeID.Services : "") + ") AND (Code LIKE '%' + @SearchText + '%' OR Name LIKE '%' + @SearchText + '%') " + "\r\n";
 
 
             queryString = queryString + "       IF (@@ROWCOUNT > 0) " + "\r\n";
@@ -230,7 +230,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
 
                 }
 
-                queryString = queryString + "       " + this.GetCommoditiesInWarehousesBuildSQL(withCommoditiesInGoodsReceipts, withCommoditiesInWarehouses, getSavedData, includeCommoditiesOutOfStock, isUsingWarehouseBalancePrice) + "\r\n";
+                queryString = queryString + "       " + this.GetCommoditiesInWarehousesBuildSQL(withCommoditiesInGoodsReceipts, withCommoditiesInWarehouses, withCommodityTypeServices, getSavedData, includeCommoditiesOutOfStock, isUsingWarehouseBalancePrice) + "\r\n";
                 queryString = queryString + "       END ";
             }
             queryString = queryString + "       ELSE " + "\r\n";
@@ -239,7 +239,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
             this.totalSalesPortalEntities.CreateStoredProcedure(storedProcedureName, queryString);
         }
 
-        private string GetCommoditiesInWarehousesGETAvailable(bool withCommoditiesInGoodsReceipts, bool withCommoditiesInWarehouses, bool getSavedData)
+        private string GetCommoditiesInWarehousesGETAvailable(bool withCommoditiesInGoodsReceipts, bool withCommoditiesInWarehouses, bool withCommodityTypeServices, bool getSavedData)
         {
             string queryString = "";
 
@@ -305,17 +305,27 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
                 queryString = queryString + "                   END " + "\r\n";
             }
 
+            if (withCommodityTypeServices)  //GET SERVICE ITEM
+            {
+                queryString = queryString + "                               INSERT INTO     @CommoditiesAvailable (WarehouseID, CommodityID, QuantityAvailable) " + "\r\n";
+                queryString = queryString + "                               SELECT          (SELECT TOP 1 WarehouseID FROM CustomerWarehouses WHERE CustomerID = @CustomerID AND InActive = 0) AS WarehouseID, CommodityID, 100000000000 AS QuantityAvailable " + "\r\n";
+                queryString = queryString + "                               FROM            @Commodities " + "\r\n";
+                queryString = queryString + "                               WHERE           CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + "\r\n";
+
+                queryString = queryString + "                               SET             @HasCommoditiesAvailable = @HasCommoditiesAvailable + @@ROWCOUNT " + "\r\n";
+            }
+
             queryString = queryString + "               UPDATE @CommoditiesAvailable SET Bookable = 1 WHERE WarehouseID IN (SELECT WarehouseID FROM CustomerWarehouses WHERE CustomerID = @CustomerID AND InActive = 0)" + "\r\n";
 
 
             return queryString;
         }
 
-        private string GetCommoditiesInWarehousesBuildSQL(bool withCommoditiesInGoodsReceipts, bool withCommoditiesInWarehouses, bool getSavedData, bool includeCommoditiesOutOfStock, bool isUsingWarehouseBalancePrice)
+        private string GetCommoditiesInWarehousesBuildSQL(bool withCommoditiesInGoodsReceipts, bool withCommoditiesInWarehouses, bool withCommodityTypeServices, bool getSavedData, bool includeCommoditiesOutOfStock, bool isUsingWarehouseBalancePrice)
         {
             string queryString = "                  BEGIN " + "\r\n";
 
-            queryString = queryString + "               " + this.GetCommoditiesInWarehousesGETAvailable(withCommoditiesInGoodsReceipts, withCommoditiesInWarehouses, getSavedData) + "\r\n";
+            queryString = queryString + "               " + this.GetCommoditiesInWarehousesGETAvailable(withCommoditiesInGoodsReceipts, withCommoditiesInWarehouses, withCommodityTypeServices, getSavedData) + "\r\n";
 
 
             if (isUsingWarehouseBalancePrice)
