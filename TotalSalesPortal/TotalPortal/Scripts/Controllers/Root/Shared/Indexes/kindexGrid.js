@@ -6,23 +6,24 @@
     };
 
 
-    definedExemplar.prototype.setSelectedRow = function (idName, idValue) {
-        if (idValue <= 0) return;
+    definedExemplar.prototype.setSelectedRow = function (idName, idValue) {        
         var that = this;
         $.each(this._kenGrid.dataSource.data(), function (idx, elem) {
-            if (elem[idName] == idValue) {
-                
+            if (idValue > 0 && elem[idName] == idValue) {                
                 $('[data-uid=' + elem.uid + ']').addClass('k-state-selected');
 
-                var pageIndex = Math.floor(idx / that._kenGrid.dataSource.pageSize() + 1);
-
+                //var pageIndex = Math.floor(idx / that._kenGrid.dataSource.pageSize() + 1);
                 //if (pageIndex >= 0) {
                 //    that._kenGrid.dataSource.fetch(function () {
                 //        that._kenGrid.dataSource.page(pageIndex);
                 //    });
                 //}
-                return false;
+                
+                //return false;
             }
+
+            if (decoratingKindex != undefined)
+                decoratingKindex(idx, elem);
         });
     };
 

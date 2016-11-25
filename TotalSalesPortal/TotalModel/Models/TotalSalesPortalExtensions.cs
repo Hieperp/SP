@@ -132,4 +132,14 @@ namespace TotalModel.Models
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime EditedDate { get; set; }
     }
+
+
+
+
+    public partial class DeliveryAdviceIndex
+    {
+        public decimal GrandTotalQuantity { get { return this.TotalQuantity + this.TotalFreeQuantity; } }
+        public decimal GrandTotalQuantityIssue { get { return this.TotalQuantityIssue + this.TotalFreeQuantityIssue; } }
+    }
+
 }

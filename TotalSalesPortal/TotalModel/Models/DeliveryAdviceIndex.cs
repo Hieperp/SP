@@ -22,5 +22,11 @@ namespace TotalModel.Models
         public string SalesOrderReference { get; set; }
         public decimal TotalGrossAmount { get; set; }
         public bool Approved { get; set; }
+        public decimal TotalQuantity { get; set; }
+        public decimal TotalQuantityIssue { get; set; }
+        public decimal TotalFreeQuantity { get; set; }
+        public decimal TotalFreeQuantityIssue { get; set; }
+        public bool InActive { get; set; }
+        public bool InActivePartial { get; set; }
     }
 }

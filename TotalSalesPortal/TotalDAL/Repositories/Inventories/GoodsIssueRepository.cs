@@ -11,7 +11,7 @@ namespace TotalDAL.Repositories.Inventories
     public class GoodsIssueRepository : GenericWithDetailRepository<GoodsIssue, GoodsIssueDetail>, IGoodsIssueRepository
     {
         public GoodsIssueRepository(TotalSalesPortalEntities totalSalesPortalEntities)
-            : base(totalSalesPortalEntities, "GoodsIssueEditable")
+            : base(totalSalesPortalEntities, "GoodsIssueEditable", "GoodsIssueApproved")
         {
         }
 
