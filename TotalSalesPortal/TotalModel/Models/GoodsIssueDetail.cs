@@ -47,6 +47,10 @@ namespace TotalModel.Models
         public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
         public int ReceiverID { get; set; }
+        public bool Approved { get; set; }
+        public bool InActive { get; set; }
+        public bool InActivePartial { get; set; }
+        public Nullable<System.DateTime> InActivePartialDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }

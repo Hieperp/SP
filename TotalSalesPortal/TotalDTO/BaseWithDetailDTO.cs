@@ -16,7 +16,7 @@ namespace TotalDTO
         {
             base.PerformPresaveRule();
 
-            this.DtoDetails().ToList().ForEach(e => { e.LocationID = this.LocationID; e.EntryDate = this.EntryDate; });
+            this.DtoDetails().ToList().ForEach(e => { e.LocationID = this.LocationID; e.EntryDate = this.EntryDate; e.Approved = this.Approved; e.ApprovedDate = this.ApprovedDate; e.InActive = this.InActive; e.InActiveDate = this.InActiveDate; });
         }
     }
 }

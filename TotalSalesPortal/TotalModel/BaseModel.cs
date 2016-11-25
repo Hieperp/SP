@@ -8,6 +8,19 @@ namespace TotalModel
     {
         DateTime? EntryDate { get; set; }
         int LocationID { get; set; }
+
+
+        bool Approved { get; set; }
+        Nullable<System.DateTime> ApprovedDate { get; set; }
+
+        bool InActive { get; set; }
+        Nullable<System.DateTime> InActiveDate { get; set; }
+
+        bool InActivePartial { get; set; }
+        Nullable<System.DateTime> InActivePartialDate { get; set; }
+
+        Nullable<int> VoidTypeID { get; set; }
+
     }
 
     public abstract class BaseModel : IBaseModel
@@ -24,8 +37,16 @@ namespace TotalModel
         [Display(Name = "Ghi chú")]
         public string Remarks { get; set; }
 
+        public virtual bool Approved { get; set; }
+        public Nullable<System.DateTime> ApprovedDate { get; set; }
+        
+        public virtual bool InActive { get; set; }
+        public Nullable<System.DateTime> InActiveDate { get; set; }
+        
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
+
+        public virtual Nullable<int> VoidTypeID { get; set; }
 
         #region Implementation of IValidatableObject
 

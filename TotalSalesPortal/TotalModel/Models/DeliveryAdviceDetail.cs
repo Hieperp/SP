@@ -50,6 +50,8 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
         public Nullable<int> VoidTypeID { get; set; }
         public int ReceiverID { get; set; }
+        public bool Approved { get; set; }
+        public bool InActive { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual VoidType VoidType { get; set; }

@@ -21,6 +21,7 @@ namespace TotalModel.Models
         public int CustomerID { get; set; }
         public int GoodsIssueDetailID { get; set; }
         public string Remarks { get; set; }
+        public Nullable<int> GoodsIssueID { get; set; }
     
         public virtual AccountInvoice AccountInvoice { get; set; }
         public virtual GoodsIssueDetail GoodsIssueDetail { get; set; }

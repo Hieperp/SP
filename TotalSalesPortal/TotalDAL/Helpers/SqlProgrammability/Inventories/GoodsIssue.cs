@@ -26,7 +26,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.GoodsIssuePostSaveValidate();
 
             this.GoodsIssueEditable();
-
+            this.GoodsIssueApproved();
+                       
+            this.GoodsIssueToggleApproved();
+                       
             this.GoodsIssueInitReference();
         }
 
@@ -68,7 +71,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
             queryString = queryString + "       WHERE           DeliveryAdvices.DeliveryAdviceID IN  " + "\r\n";
 
-            queryString = queryString + "                      (SELECT DeliveryAdviceID FROM DeliveryAdviceDetails WHERE ROUND(Quantity - QuantityIssue, 0) > 0 OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0 " + "\r\n";
+            queryString = queryString + "                      (SELECT DeliveryAdviceID FROM DeliveryAdviceDetails WHERE InActive = 0 AND InActivePartial = 0 AND ROUND(Quantity - QuantityIssue, 0) > 0 OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0 " + "\r\n";
             queryString = queryString + "                       UNION ALL " + "\r\n";
             queryString = queryString + "                       SELECT DeliveryAdviceID FROM GoodsIssueDetails WHERE GoodsIssueID = @GoodsIssueID)  " + "\r\n";
 
@@ -84,7 +87,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                       Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID, ReceiverID FROM " + "\r\n";
-            queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM DeliveryAdviceDetails WHERE LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
+            queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM DeliveryAdviceDetails WHERE InActive = 0 AND InActivePartial = 0 AND LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
             queryString = queryString + "                               UNION ALL " + "\r\n";
             queryString = queryString + "                               SELECT CustomerID, ReceiverID FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID) CustomerReceiverPENDING " + "\r\n";
             queryString = queryString + "                      )CustomerReceiverUNION  " + "\r\n";
@@ -103,11 +106,11 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString; string queryEdit; string queryNew;
 
             queryNew = "                SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, 0 AS GoodsIssueDetailID, 0 AS GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, NULL AS VoidTypeID, CAST(NULL AS nvarchar(50)) AS VoidTypeCode, CAST(NULL AS nvarchar(50)) AS VoidTypeName, NULL AS VoidClassID, " + "\r\n";
-            queryNew = queryNew + "                     DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) AS FreeQuantityRemains, CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2)) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
+            queryNew = queryNew + "                     DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) AS FreeQuantityRemains, IIF(Commodities.CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + ", DeliveryAdviceDetails.Quantity + DeliveryAdviceDetails.FreeQuantity, CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2))) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
             queryNew = queryNew + "                     0.0 AS Quantity, 0.0 AS FreeQuantity, DeliveryAdviceDetails.ListedPrice, DeliveryAdviceDetails.DiscountPercent, DeliveryAdviceDetails.UnitPrice, DeliveryAdviceDetails.VATPercent, DeliveryAdviceDetails.GrossPrice, 0.0 AS Amount, 0.0 AS VATAmount, 0.0 AS GrossAmount, DeliveryAdviceDetails.IsBonus, DeliveryAdviceDetails.Remarks " + "\r\n";
 
             queryNew = queryNew + "     FROM            DeliveryAdviceDetails INNER JOIN " + "\r\n";
-            queryNew = queryNew + "                     Commodities ON DeliveryAdviceDetails.CommodityID = Commodities.CommodityID AND (ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) > 0 OR ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) > 0)  INNER JOIN " + "\r\n";
+            queryNew = queryNew + "                     Commodities ON DeliveryAdviceDetails.CommodityID = Commodities.CommodityID AND DeliveryAdviceDetails.InActive = 0 AND DeliveryAdviceDetails.InActivePartial = 0 AND (ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) > 0 OR ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) > 0)  INNER JOIN " + "\r\n";
             queryNew = queryNew + "                     Warehouses ON DeliveryAdviceDetails.WarehouseID = Warehouses.WarehouseID LEFT JOIN" + "\r\n";
             queryNew = queryNew + "                     (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n";
 
@@ -115,7 +118,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
 
             queryEdit = "               SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, GoodsIssueDetails.GoodsIssueDetailID, GoodsIssueDetails.GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, VoidTypes.VoidTypeID, VoidTypes.Code AS VoidTypeCode, VoidTypes.Name AS VoidTypeName, VoidTypes.VoidClassID, " + "\r\n";
-            queryEdit = queryEdit + "                   DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue + GoodsIssueDetails.Quantity, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue + GoodsIssueDetails.FreeQuantity, 0) AS FreeQuantityRemains, ROUND(CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2)) + GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity, 0) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
+            queryEdit = queryEdit + "                   DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue + GoodsIssueDetails.Quantity, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue + GoodsIssueDetails.FreeQuantity, 0) AS FreeQuantityRemains, IIF(Commodities.CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + ", DeliveryAdviceDetails.Quantity + DeliveryAdviceDetails.FreeQuantity, ROUND(CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2)) + GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity, 0)) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
             queryEdit = queryEdit + "                   GoodsIssueDetails.Quantity, GoodsIssueDetails.FreeQuantity, GoodsIssueDetails.ListedPrice, GoodsIssueDetails.DiscountPercent, GoodsIssueDetails.UnitPrice, GoodsIssueDetails.VATPercent, GoodsIssueDetails.GrossPrice, GoodsIssueDetails.Amount, GoodsIssueDetails.VATAmount, GoodsIssueDetails.GrossAmount, GoodsIssueDetails.IsBonus, GoodsIssueDetails.Remarks " + "\r\n";
 
             queryEdit = queryEdit + "   FROM            DeliveryAdviceDetails INNER JOIN " + "\r\n";
@@ -188,7 +191,16 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "       UPDATE          DeliveryAdviceDetails " + "\r\n";
             queryString = queryString + "       SET             DeliveryAdviceDetails.QuantityIssue = ROUND(DeliveryAdviceDetails.QuantityIssue + GoodsIssueDetails.Quantity * @SaveRelativeOption, 0), DeliveryAdviceDetails.FreeQuantityIssue = ROUND(DeliveryAdviceDetails.FreeQuantityIssue + GoodsIssueDetails.FreeQuantity * @SaveRelativeOption, 0) " + "\r\n";
             queryString = queryString + "       FROM            GoodsIssueDetails INNER JOIN " + "\r\n";
-            queryString = queryString + "                       DeliveryAdviceDetails ON GoodsIssueDetails.GoodsIssueID = @EntityID AND GoodsIssueDetails.DeliveryAdviceDetailID = DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
+            queryString = queryString + "                       DeliveryAdviceDetails ON DeliveryAdviceDetails.InActive = 0 AND DeliveryAdviceDetails.InActivePartial = 0 AND GoodsIssueDetails.GoodsIssueID = @EntityID AND GoodsIssueDetails.DeliveryAdviceDetailID = DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
+
+            queryString = queryString + "       IF @@ROWCOUNT = (SELECT COUNT(*) FROM GoodsIssueDetails WHERE GoodsIssueID = @EntityID) " + "\r\n";
+            queryString = queryString + "           UPDATE      DeliveryAdvices SET DeliveryAdvices.TotalQuantityIssue = TotalDeliveryAdviceDetails.TotalQuantityIssue, DeliveryAdvices.TotalFreeQuantityIssue = TotalDeliveryAdviceDetails.TotalFreeQuantityIssue FROM DeliveryAdvices INNER JOIN (SELECT DeliveryAdviceID, SUM(QuantityIssue) AS TotalQuantityIssue, SUM(FreeQuantityIssue) AS TotalFreeQuantityIssue FROM DeliveryAdviceDetails WHERE DeliveryAdviceID IN (SELECT DeliveryAdviceID FROM GoodsIssueDetails WHERE GoodsIssueID = @EntityID) GROUP BY DeliveryAdviceID) TotalDeliveryAdviceDetails ON DeliveryAdvices.DeliveryAdviceID = TotalDeliveryAdviceDetails.DeliveryAdviceID; " + "\r\n";           
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           BEGIN " + "\r\n";
+            queryString = queryString + "               DECLARE     @msg NVARCHAR(300) = 'Đề nghị giao hàng không tồn tại hoặc đã hủy' ; " + "\r\n";
+            queryString = queryString + "               THROW       61001,  @msg, 1; " + "\r\n";
+            queryString = queryString + "           END " + "\r\n";
+
 
             //queryString = queryString + "       SET             @SaveRelativeOption = -@SaveRelativeOption" + "\r\n";
             //queryString = queryString + "       EXEC            UpdateWarehouseBalance @SaveRelativeOption, 0, 0, @EntityID, 0 ";
@@ -208,14 +220,46 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         }
 
 
-        private void GoodsIssueEditable()
+        private void GoodsIssueApproved()
         {
             string[] queryArray = new string[1];
 
-            //queryArray[0] = " SELECT TOP 1 @FoundEntity = VoucherID FROM GoodsReceipts WHERE GoodsReceiptTypeID = " + (int)GlobalEnums.GoodsReceiptTypeID.GoodsIssue + " AND VoucherID = @EntityID ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = GoodsIssueID FROM GoodsIssues WHERE GoodsIssueID = @EntityID AND Approved = 1";
+
+            this.totalSalesPortalEntities.CreateProcedureToCheckExisting("GoodsIssueApproved", queryArray);
+        }
+
+
+        private void GoodsIssueEditable()
+        {
+            string[] queryArray = new string[2];
+
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = GoodsIssueID FROM ReceiptDetails WHERE GoodsIssueID = @EntityID ";
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = GoodsIssueID FROM AccountInvoiceDetails WHERE GoodsIssueID = @EntityID ";
 
             this.totalSalesPortalEntities.CreateProcedureToCheckExisting("GoodsIssueEditable", queryArray);
         }
+
+
+        private void GoodsIssueToggleApproved()
+        {
+            string queryString = " @EntityID int, @Approved bit " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       UPDATE      GoodsIssues  SET Approved = @Approved, ApprovedDate = GetDate() WHERE GoodsIssueID = @EntityID AND Approved = ~@Approved" + "\r\n";
+
+            queryString = queryString + "       IF @@ROWCOUNT = 1 " + "\r\n";
+            queryString = queryString + "           UPDATE          GoodsIssueDetails  SET Approved = @Approved WHERE GoodsIssueID = @EntityID ; " + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           BEGIN " + "\r\n";
+            queryString = queryString + "               DECLARE     @msg NVARCHAR(300) = 'Dữ liệu không tồn tại hoặc đã ' + iif(@Approved = 0, 'hủy', '')  + ' duyệt' ; " + "\r\n";
+            queryString = queryString + "               THROW       61001,  @msg, 1; " + "\r\n";
+            queryString = queryString + "           END " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GoodsIssueToggleApproved", queryString);
+        }
+
 
         private void GoodsIssueInitReference()
         {

@@ -117,7 +117,7 @@
 
                     columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
-                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityAvailable) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', (CommodityTypeID == 6? 0: QuantityAvailable) ) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");
 
                     columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")

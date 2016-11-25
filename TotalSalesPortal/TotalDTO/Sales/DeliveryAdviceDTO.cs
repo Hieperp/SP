@@ -50,10 +50,10 @@ namespace TotalDTO.Sales
         public virtual int EmployeeID { get; set; }
 
         public override void PerformPresaveRule()
-        {
-            base.PerformPresaveRule();
+        {            
             this.Approved = true; this.ApprovedDate = this.EntryDate; //At DeliveryAdvice, Approve right after save. Surely, It can be UnApprove later for editing
             this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.PromotionID = this.PromotionID; e.EmployeeID = this.EmployeeID; });
+            base.PerformPresaveRule();
         }
     }
 
@@ -93,11 +93,11 @@ namespace TotalDTO.Sales
         protected override IEnumerable<DeliveryAdviceDetailDTO> DtoDetails() { return this.DeliveryAdviceViewDetails; }
 
         public override void PrepareVoidDetail(int? detailID)
-        {
-            base.PrepareVoidDetail(detailID);
+        {            
             this.ViewDetails.RemoveAll(w => w.DeliveryAdviceDetailID != detailID);
             if (this.ViewDetails.Count() > 0)
                 this.VoidType = new VoidTypeBaseDTO() { VoidTypeID = this.ViewDetails[0].VoidTypeID, Code = this.ViewDetails[0].VoidTypeCode, Name = this.ViewDetails[0].VoidTypeName, VoidClassID = this.ViewDetails[0].VoidClassID };
+            base.PrepareVoidDetail(detailID);
         }
     }
 
