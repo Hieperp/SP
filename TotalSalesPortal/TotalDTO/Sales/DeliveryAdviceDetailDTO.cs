@@ -57,5 +57,7 @@ namespace TotalDTO.Sales
 
         [UIHint("DecimalReadonly")]
         public override decimal FreeQuantity { get; set; }
+
+        public bool InActiveIssue { get; set; }
     }
 }

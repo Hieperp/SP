@@ -28,6 +28,7 @@ namespace TotalModel.Models
         public int VoidClassID { get; set; }
         public int VoidCategoryID { get; set; }
         public string Remarks { get; set; }
+        public bool InActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }

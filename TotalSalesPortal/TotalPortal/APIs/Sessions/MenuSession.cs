@@ -20,7 +20,7 @@ namespace TotalPortal.APIs.Sessions
             context.Session["GlobalFromDate"] = globalFromDate;
         }
 
-        
+
 
         public static DateTime GetGlobalToDate(HttpContextBase context)
         {
@@ -35,6 +35,38 @@ namespace TotalPortal.APIs.Sessions
             context.Session["GlobalToDate"] = globalToDate;
         }
 
+
+
+
+
+
+
+        public static Nullable<int> GetSessionCash(HttpContextBase context, string cacheName, int anyIntValue)
+        {
+            if (context.Session[cacheName] == null)
+                return null;
+            else
+                return (int)context.Session[cacheName];
+        }
+
+        public static void SetSessionCash(HttpContextBase context, string cacheName, int cacheValue)
+        {
+            context.Session[cacheName] = cacheValue;
+        }
+
+
+        public static string GetSessionCash(HttpContextBase context, string cacheName)
+        {
+            if (context.Session[cacheName] == null)
+                return null;
+            else
+                return (string)context.Session[cacheName];
+        }
+
+        public static void SetSessionCash(HttpContextBase context, string cacheName, string cacheValue)
+        {
+            context.Session[cacheName] = cacheValue;
+        }
     }
 
     public class MenuSession
@@ -114,7 +146,7 @@ namespace TotalPortal.APIs.Sessions
         {
             if (!string.IsNullOrWhiteSpace(taskController))
             {
-                context.Session["TaskController"] =  taskController;
+                context.Session["TaskController"] = taskController;
             }
             else
                 context.Session["TaskController"] = "";

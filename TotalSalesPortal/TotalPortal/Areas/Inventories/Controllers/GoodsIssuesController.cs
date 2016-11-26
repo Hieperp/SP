@@ -30,6 +30,14 @@ namespace TotalPortal.Areas.Inventories.Controllers
             return goodsIssueViewDetails;
         }
 
+        //protected override GoodsIssueViewModel TailorViewModel(GoodsIssueViewModel simpleViewModel)
+        //{
+        //    return base.TailorViewModel(simpleViewModel);
 
+        //    if (simpleViewModel.Employee.EmployeeID == null && simpleViewModel.Employee.Name == null)
+        //    {
+
+        //    }
+        //}
     }
 }
