@@ -830,6 +830,7 @@
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Delete.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Index.js" />
+    <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Print.js" />
     <Content Include="Scripts\Controllers\Root\Home\Index.js" />
     <Content Include="Scripts\Controllers\Root\Home\LockedDate.js" />
     <Content Include="Scripts\Controllers\Root\Home\Options.js" />
@@ -874,6 +875,7 @@
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Edit.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Index.js" />
+    <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Print.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Void.js" />
     <Content Include="Scripts\Helpers\KendoGrid\gridHelper.js" />
     <Content Include="Scripts\Helpers\Purchases\purchasesCreateWizard.js" />
