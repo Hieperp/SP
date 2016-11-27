@@ -810,6 +810,7 @@
     <Content Include="Areas\Sales\Views\DeliveryAdvices\VoidDetailSuccess.cshtml" />
     <Content Include="Areas\Inventories\Views\GoodsIssues\Approve.cshtml" />
     <Content Include="Areas\Sales\Views\DeliveryAdvices\Print.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsIssues\Print.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

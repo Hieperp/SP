@@ -31,6 +31,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.GoodsIssueToggleApproved();
                        
             this.GoodsIssueInitReference();
+
+            this.GoodsIssueSheet();
         }
 
         private void GetGoodsIssueIndexes()
@@ -276,6 +278,32 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.totalSalesPortalEntities.CreateTrigger("GoodsIssueInitReference", simpleInitReference.CreateQuery());
         }
 
+
+        private void GoodsIssueSheet()
+        {
+            string queryString = " @GoodsIssueID int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+            queryString = queryString + "    BEGIN " + "\r\n";
+
+            queryString = queryString + "       DECLARE         @LocalGoodsIssueID int    SET @LocalGoodsIssueID = @GoodsIssueID" + "\r\n";
+
+            queryString = queryString + "       SELECT          GoodsIssues.GoodsIssueID, GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.Remarks, " + "\r\n";
+            queryString = queryString + "                       Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.AttentionName AS ReceiverAttentionName, Receivers.AddressNo AS ReceiverAddressNo, " + "\r\n";
+            queryString = queryString + "                       Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.CodePartA, Commodities.CodePartB, Commodities.CodePartC, Commodities.CodePartD, Commodities.Name AS CommodityName, " + "\r\n";
+            queryString = queryString + "                       GoodsIssueDetails.Quantity, GoodsIssueDetails.FreeQuantity, GoodsIssueDetails.GrossPrice, GoodsIssueDetails.GrossAmount " + "\r\n";
+            
+            queryString = queryString + "       FROM            GoodsIssues " + "\r\n";
+            queryString = queryString + "                       INNER JOIN GoodsIssueDetails ON GoodsIssues.GoodsIssueID = @LocalGoodsIssueID AND GoodsIssues.GoodsIssueID = GoodsIssueDetails.GoodsIssueID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Commodities ON GoodsIssueDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON GoodsIssues.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers AS Receivers ON GoodsIssues.ReceiverID = Receivers.CustomerID " + "\r\n";
+
+            queryString = queryString + "    END " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GoodsIssueSheet", queryString);
+
+        }
 
     }
 }
