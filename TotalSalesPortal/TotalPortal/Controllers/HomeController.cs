@@ -48,7 +48,10 @@ namespace TotalPortal.Controllers
         }
 
 
-
+        public ActionResult Print()
+        {
+            return View();
+        }
 
 
 
