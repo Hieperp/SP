@@ -11,6 +11,8 @@ namespace TotalPortal.Areas.Inventories.ViewModels
     public class GoodsIssueViewModel : GoodsIssueDTO, IOrderInvoiceViewModel, IViewDetailViewModel<GoodsIssueDetailDTO>, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel
     {
         public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
+
+        public override bool PrintAfterClosedSubmit { get { return true; } }
     }
 
 }

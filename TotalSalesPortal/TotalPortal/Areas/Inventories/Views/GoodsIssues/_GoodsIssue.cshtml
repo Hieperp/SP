@@ -80,7 +80,7 @@
                     columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(180)
                         .ClientFooterTemplate("Tổng cộng:")
                         .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
-                    
+
 
                     columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
@@ -99,7 +99,7 @@
                     columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
-                    
+
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
@@ -115,17 +115,17 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
-                    
 
-                    columns.Bound(p => p.VoidTypeID).DisplayNameTitle().Filterable(false).Hidden()                        
+
+                    columns.Bound(p => p.VoidTypeID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (VoidTypeID == null) ? '' : VoidTypeID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidTypeID' value='#= (VoidTypeID == null) ? '' : VoidTypeID #' />");
-                    columns.Bound(p => p.VoidTypeCode).DisplayNameTitle().Filterable(false).Hidden()  
+                    columns.Bound(p => p.VoidTypeCode).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (VoidTypeCode == null) ? '' : VoidTypeCode #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidTypeCode' value='#= (VoidTypeCode == null) ? '' : VoidTypeCode #' />");
                     columns.Bound(p => p.VoidTypeName).DisplayNameTitle().Filterable(false).Width(250).HtmlAttributes(new { @class = "isBonus" })
                         .ClientTemplate("#= (VoidTypeName == null) ? '' : VoidTypeName #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidTypeName' value='#= (VoidTypeName == null) ? '' : VoidTypeName #' />");
                     columns.Bound(p => p.VoidClassID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (VoidClassID == null) ? '' : VoidClassID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].VoidClassID' value='#= (VoidClassID == null) ? '' : VoidClassID #' />");
-                    
+
                     columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
@@ -278,8 +278,18 @@
         <div class="right-botton-panel">
             @if (Model.Editable)
             {
-                <button id="closedSubmitButton" type="submit" formaction="@Url.Action("Edit", "GoodsIssues")" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu phiếu </button>
+                <button id="submitButton" type="submit" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(false);" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" /> Lưu </button>
+                <button id="closedSubmitButton_NMVN" type="submit" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(false);" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In phiếu xuất kho </button>
+                <button id="closedSubmitButton" type="submit" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(true);" class="k-button custom-button"> <img src="~/Content/Images/New/payment-icon.png" /> Hoàn tất xuất kho </button>
             }
+            else
+            {
+                if (Model.Approved && !Model.Approvable && !Model.UnApprovable)
+                {
+                    <button type="button" onclick="location.href='@Url.Action("Approve", "GoodsIssues", new {id = @Model.GoodsIssueID })'" class="k-button custom-button"> <img src="~/Content/Images/Mains/Cross-icon-cancel32.png" /> Hủy duyệt phiếu xuất kho </button>
+                }
+                <button type="button" onclick="location.href='@Url.Action("Print", "GoodsIssues", new { id = @Model.GoodsIssueID })'" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In phiếu xuất kho </button>
+            }            
         </div>
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")
