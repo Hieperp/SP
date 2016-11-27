@@ -1266,6 +1266,7 @@
     <Content Include="Views\Helpers\Commons\_VoidConfirmed.cshtml" />
     <Content Include="Views\Shared\_LayoutSimple.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\VoidType.cshtml" />
+    <Content Include="Views\Home\Print.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
