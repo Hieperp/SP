@@ -546,7 +546,7 @@ namespace TotalPortal.Controllers
 
 
 
-
+        [OnResultExecutingFilterAttribute]
         public ActionResult Print(int? id)
         {
             return View(InitPrintViewModel(id));
