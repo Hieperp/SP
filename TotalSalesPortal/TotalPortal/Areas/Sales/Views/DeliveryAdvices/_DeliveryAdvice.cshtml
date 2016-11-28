@@ -72,8 +72,8 @@
     <div class="right-panel">
 
         <div style="clear: both; height: 236px;">
-            @Html.EditorFor(d => d.Customer)
-            @Html.EditorFor(d => d.Receiver)
+            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true" })
+            @Html.EditorFor(d => d.Receiver, new { CustomerDescriptionHidden = "false" })
             @Html.EditorFor(d => d.Promotion)
 
             @Html.Partial("~/Views/Helpers/Commons/_PriceCategory.cshtml")
@@ -244,26 +244,26 @@
                     }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                                                                        .Ajax()
-                                                                        .Batch(true)
-                                                                        .ServerOperation(false)
-                                                                        .Model(model =>
-                                                                        {
-                                                                            model.Id(x => x.DeliveryAdviceDetailID);
-                                                                            model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
-                                                                            model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
-                                                                        })
-                                                                        .Events(events =>
-                                                                        {
-                                                                            events.Error("kendGrid_ErrorHandler");
-                                                                        })
-                                                                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                                        .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
-                                                                        .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
-                                                                        .Aggregates(a => a.Add(x => x.Amount).Sum())
-                                                                        .Aggregates(a => a.Add(x => x.VATAmount).Sum())
-                                                                        .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
-                                                                    )
+                        .Ajax()
+                        .Batch(true)
+                        .ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(x => x.DeliveryAdviceDetailID);
+                            model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
+                            model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
+                        })
+                        .Events(events =>
+                        {
+                            events.Error("kendGrid_ErrorHandler");
+                        })
+                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                        .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
+                        .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                        .Aggregates(a => a.Add(x => x.Amount).Sum())
+                        .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                        .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                    )
             )
         </div>
 
@@ -303,18 +303,13 @@
 
         <div class="right-botton-panel">
             @if (Model.Editable)
-            {
-                @Html.HiddenFor(model => model.PrintAfterClosedSubmit)
+            {                
                 <button id="closedSubmitButton" type="submit" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu phiếu </button>
                 <button id="closedSubmitButton_NMVN" type="submit" onclick="$('#PrintAfterClosedSubmit').val(true);" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In HĐ bán lẻ</button>
-
-                <input id="submitCreateWizard" style="display:none" type="submit" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button cancel" />
-
-                <input id="submitEditServiceContract" style="display:none" type="submit" formaction="@Url.Action("EditServiceContract", "ServicesInvoices")" class="k-button custom-button" />
             }
             else
             {
-                <button formaction="@Url.Action("Print", "DeliveryAdvices", new { id = @Model.DeliveryAdviceID })" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In HĐ bán lẻ </button>
+                <button type="button" onclick="location.href='@Url.Action("Print", "DeliveryAdvices", new { id = @Model.DeliveryAdviceID })'" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
             }
         </div>
 

@@ -19,6 +19,7 @@
     @Html.HiddenFor(model => model.Promotion.StartDate);
     @Html.HiddenFor(model => model.Promotion.EndDate);
     @Html.HiddenFor(model => model.Promotion.DiscountPercent);
+    @Html.HiddenFor(model => model.Promotion.ControlFreeQuantity);
     @Html.HiddenFor(model => model.Promotion.ApplyToAllCustomers);
     @Html.HiddenFor(model => model.Promotion.ApplyToAllCommodities);
     @Html.HiddenFor(model => model.Promotion.Remarks);
@@ -98,6 +99,7 @@
             $("#Promotion_StartDate").val(selectedDataItem === undefined || selectedDataItem.StartDate === undefined ? null : kendo.toString(selectedDataItem.StartDate, SettingsManager.DateTimeFormat));
             $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, SettingsManager.DateTimeFormat));
             $("#Promotion_DiscountPercent").val(selectedDataItem === undefined || selectedDataItem.DiscountPercent === undefined ? null : selectedDataItem.DiscountPercent);
+            $("#Promotion_ControlFreeQuantity").val(selectedDataItem === undefined || selectedDataItem.ControlFreeQuantity === undefined ? null : selectedDataItem.ControlFreeQuantity);            
 
             $("#Promotion_ApplyToAllCustomers").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCustomers === undefined ? false : selectedDataItem.ApplyToAllCustomers);
             $("#Promotion_ApplyToAllCommodities").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCommodities === undefined ? false : selectedDataItem.ApplyToAllCommodities);
