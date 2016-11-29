@@ -66,10 +66,12 @@ namespace TotalDTO.Sales
         }
 
         public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
+        [Display(Name = "Khách hàng")]
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
 
         public override int ReceiverID { get { return (this.Receiver != null ? this.Receiver.CustomerID : 0); } }
+        [Display(Name = "Đơn vị, người nhận hàng")]
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Receiver { get; set; }
 
@@ -78,6 +80,7 @@ namespace TotalDTO.Sales
         public PromotionDTO Promotion { get; set; }
 
         public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
+        [Display(Name = "Nhân viên tiếp thị")]
         [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO Employee { get; set; }
 

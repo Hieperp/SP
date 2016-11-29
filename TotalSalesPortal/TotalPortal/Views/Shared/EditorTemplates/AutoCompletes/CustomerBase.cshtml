@@ -8,14 +8,14 @@
 
 <div class="right-first-panel">
     <div class="form-group">
-        <div class="right-panel-label right-panel-label-icon-only" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Customer Blue 24.png" title="Khách hàng" />  </div>
+        <div class="right-panel-label right-panel-label-icon-only" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/@(ViewData["CustomerIcon"] != null ? ViewData["CustomerIcon"] : "Customer Blue 24.png")" title="@(ViewData["CustomerDisplayName"] != null ? ViewData["CustomerDisplayName"] : "Khách hàng")" />  </div>
         <div class="div-input">
 
             @(Html.Kendo().AutoCompleteFor(model => model.CodeAndName)
                 .DataTextField("CodeAndName")
                 .Filter("contains")
                 .MinLength(SettingsManager.AutoCompleteMinLenght)
-                .Placeholder("Chọn khách hàng ...")
+                .Placeholder((ViewData["CustomerDisplayName"] != null? (ViewData["CustomerDisplayName"]).ToString(): "Vui lòng chọn khách hàng"))
                 .HeaderTemplate("<div class=\"dropdown-header general-custom-header customer-custom-header\">" +
                         "<span class=\"k-widget k-header\">Tên</span>" +
                         "<span class=\"k-widget k-header\">Ngày sinh</span>" +

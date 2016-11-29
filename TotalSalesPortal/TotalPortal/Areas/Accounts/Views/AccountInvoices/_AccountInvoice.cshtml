@@ -83,12 +83,7 @@
                         .ClientTemplate("#= CommodityCode #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
                     columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientFooterTemplate("Tổng cộng:")
-                        .ClientTemplate("<div class = 'multiline-grid'> #= CommodityName #</div>" +
-                                "<div> #= CommodityCode #</div>" +
-                        //"<div> #= ChassisCode #</div>" +
-                        //"<div class = 'multiline-grid'> #= EngineCode #</div>" +
-                        //"<div class = 'multiline-grid'> #= ColorCode #</div>" +
-                                "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
+                        .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
 
                     columns.Bound(p => p.CommodityTypeID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");

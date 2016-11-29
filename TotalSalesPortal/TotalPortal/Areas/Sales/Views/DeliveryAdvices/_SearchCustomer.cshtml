@@ -17,10 +17,10 @@
         {
             toolbar.Template(@<text>
                 <div class="toolbar">
-                    @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase")
+                    @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
                 </div>
                 <div class="toolbar">
-                    @Html.EditorFor(d => d.Receiver, "AutoCompletes/CustomerBase")
+                    @Html.EditorFor(d => d.Receiver, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
                 </div>
             </text>);
         })
@@ -60,6 +60,7 @@
 
     .right-second-panel-small {
         width: 16%;
+        display: none; /*//Tam thoi khong hien thi, se chinh sua sau*/
     }
 
 

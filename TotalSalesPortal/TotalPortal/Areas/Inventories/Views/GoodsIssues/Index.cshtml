@@ -16,7 +16,7 @@
             columns.Bound(p => p.Reference).Title("Phiếu").Width(70);
             columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(40);
             columns.Bound(p => p.DeliveryAdviceReference).Title("Đặt hàng").Width(70);
-            columns.Bound(p => p.CustomerDescription).Title("Nhà cung cấp").Width(240);
+            columns.Bound(p => p.CustomerDescription).Title("Khách hàng").Width(240);
             columns.Bound(p => p.TotalQuantity).Title("Số lượng").Format("{0:n0}").Width(60).HtmlAttributes(new { @class = "grid-number-column" }).Filterable(false);
             columns.Bound(p => p.TotalGrossAmount).Title("Thành tiền").Format("{0:n0}").Width(80).HtmlAttributes(new { @class = "grid-number-column" }).Filterable(false);
 

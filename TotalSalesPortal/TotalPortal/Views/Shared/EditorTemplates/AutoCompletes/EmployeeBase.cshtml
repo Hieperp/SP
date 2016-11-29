@@ -7,7 +7,7 @@
 @Html.Hidden("TempName", (@Model != null ? @Model.Name : ""))
 
 
-@Html.LabelFor(model => model.Name)
+@Html.Label((ViewData["EmployeeDisplayName"]).ToString())
 <div class="div-input">
 
     @(Html.Kendo().AutoCompleteFor(model => model.Name)

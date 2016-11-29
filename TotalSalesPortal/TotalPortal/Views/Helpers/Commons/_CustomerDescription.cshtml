@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="right-first-panel">
+<div class="right-first-panel" style="@(ViewData["CustomerDescriptionHidden"] == "true" ? "display: none" : "")">
     <div class="right-panel-label right-panel-label-double-height" style="padding-top: 2px; padding-right: 2px;"> <span id="customer-description-icon"> <img src="~/Content/Images/New/Address-icon.png" title="Điện thoại" /> </span> </div>
     <div class="customer-description-label"> <span id="@(modelFullHtmlFieldName + "_label_VATCode")"> @Html.DisplayFor(m => m.VATCode) </span> Đ/C: <span id="@(modelFullHtmlFieldName + "_label_AddressNo")"> @Html.DisplayFor(m => m.AddressNo) </span>, <span id="@(modelFullHtmlFieldName + "_label_EntireTerritoryEntireName")"> @Html.DisplayFor(m => m.EntireTerritoryEntireName) </span> </div>
 </div>
