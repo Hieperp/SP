@@ -15,11 +15,14 @@
     @Html.HiddenFor(model => model.Remarks);
 
     @Html.HiddenFor(model => model.Customer.CustomerID);
+    @Html.HiddenFor(model => model.Customer.Code);
     @Html.HiddenFor(model => model.Customer.Name);
     @Html.HiddenFor(model => model.Customer.VATCode);
     @Html.HiddenFor(model => model.Customer.Telephone);
     @Html.HiddenFor(model => model.Customer.AddressNo);
     @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
+    @Html.HiddenFor(model => model.Customer.EmployeeID)
+    @Html.HiddenFor(model => model.Customer.EmployeeName)
 
 
     @(Html.Kendo().TabStrip()
@@ -27,13 +30,13 @@
         .Name("tabStrip")
         .Items(tabStrip =>
         {
-            tabStrip.Add().Text("Chọn phiếu đặt hàng")
+            tabStrip.Add().Text("Chọn phiếu xuất kho")
                 .Selected(true)
                 .Content(@<text>
                     @Html.Partial("~/Areas/Accounts/Views/Receipts/_GetGoodsIssueReceivable.cshtml")
                 </text>);
 
-            tabStrip.Add().Text("Chọn nhà cung cấp")
+            tabStrip.Add().Text("Chọn nhà khách hàng")
                 .Content(@<text>
                     @Html.Partial("~/Areas/Accounts/Views/Receipts/_GetCustomerReceivable.cshtml")
                 </text>);
@@ -92,11 +95,15 @@
             $("#Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
 
             $("#Customer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerID);
+            $("#Customer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerCode);
             $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
-            //$("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
+            $("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
             $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
             $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
             $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
+
+            $("#Customer_EmployeeID").val(99999999);
+            $("#Customer_EmployeeName").val("#######");
         }
     }
 

@@ -7,7 +7,7 @@
 @Html.Hidden("TempName", (@Model != null ? @Model.Name : ""))
 
 
-@Html.Label((ViewData["EmployeeDisplayName"]).ToString())
+@Html.Label((ViewData["EmployeeDisplayName"] != null ? (ViewData["EmployeeDisplayName"]).ToString() : "Tên nhân viên"))
 <div class="div-input">
 
     @(Html.Kendo().AutoCompleteFor(model => model.Name)
@@ -23,11 +23,11 @@
             })
             .ServerFiltering(true);
         })
-        .Events(e =>
-        {
-            e.Select("employee_Select");
-        })
-        .HtmlAttributes(new { @class = "employeeBase_AutoComplete" })
+                .Events(e =>
+                {
+                    e.Select("employee_Select");
+                })
+                .HtmlAttributes(new { @class = "employeeBase_AutoComplete" })
     )
 
 </div>

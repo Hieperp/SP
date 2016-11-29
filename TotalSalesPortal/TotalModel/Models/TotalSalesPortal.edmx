@@ -1118,6 +1118,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
           <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="CommodityTypeID" Type="int" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
           <Parameter Name="ToDate" Type="datetime" Mode="In" />
           <Parameter Name="AccountInvoiceID" Type="int" Mode="In" />
@@ -1613,6 +1614,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
             <Parameter Name="AspUserID" Mode="In" Type="String" />
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="CommodityTypeID" Mode="In" Type="Int32" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
             <Parameter Name="AccountInvoiceID" Mode="In" Type="Int32" />
@@ -2511,6 +2513,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Boolean" Name="IsBonus" Nullable="true" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <EntityType Name="ReceiptDetail">
           <Key>
@@ -2695,6 +2698,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="GoodsIssueReceivable">
           <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
@@ -2708,6 +2712,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="ReceiptIndex">
           <Property Type="Int32" Name="ReceiptID" Nullable="false" />
@@ -3692,6 +3697,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
                 <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3786,6 +3792,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
                 <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3803,6 +3810,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
                 <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

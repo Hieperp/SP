@@ -8,12 +8,12 @@
     .Name("gridPendingGoodsIssues")
     .Columns(columns =>
     {
-        columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(15);
-        columns.Bound(c => c.CommodityCode).Title("Mã xe, phụ tùng, dv").Width(15);
-        columns.Bound(c => c.CommodityName).Title("Tên xe, phụ tùng, dv").Width(22);
+        columns.Bound(c => c.CustomerCode).Title("Khách hàng").Width(10);
+        columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(30);
+        columns.Bound(c => c.CommodityName).Title("Mã hàng").Width(16);
         columns.Bound(c => c.Quantity).Title("SL").Format("{0:n0}").Width(5).HtmlAttributes(new { @class = "grid-number-column" });
-        columns.Bound(c => c.GrossPrice).Title("Đơn giá").Format("{0:n0}").Width(10).HtmlAttributes(new { @class = "grid-number-column" });
-        columns.Bound(c => c.GrossAmount).Title("Thành tiền").Format("{0:n0}").Width(10).HtmlAttributes(new { @class = "grid-number-column" });
+        columns.Bound(c => c.GrossPrice).Title("Đơn giá").Format("{0:n0}").Width(8).HtmlAttributes(new { @class = "grid-number-column" });
+        columns.Bound(c => c.GrossAmount).Title("Thành tiền").Format("{0:n0}").Width(8).HtmlAttributes(new { @class = "grid-number-column" });
 
         columns.Template(t => { }).Title("&nbsp;").ClientTemplate("<input class='IsSelected' #= IsSelected ? checked='checked':'' #  type='checkbox' />").Width(3);
     })
@@ -21,21 +21,20 @@
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
-                <label class="category-label" for="category">Tìm khách hàng, xe, phụ tùng, hoặc số khung, số máy:</label>
+                <label class="category-label" for="category">Lọc khách hàng hoặc mặt hàng:</label>
                 <input id="filterText" class="k-textbox" style="text-align: center;" onkeyup="onFilterTextKeyUp()" />
                 @Html.Kendo().DatePicker().Name("EntryDate").Value(DateTime.Today).Events(e => e.Change("reReadPendingGoodsIssues")).HtmlAttributes(new { @class = "input-class", style = "text-align: center; width:105px" })
 
                 @(Html.Kendo().DropDownList()
-                    .Name("GoodsIssueTypeID")
+                    .Name("CommodityTypeID")
                     .DataTextField("Text")
                     .DataValueField("Value")
                     .HtmlAttributes(new { @style = "width: 125px; text-align: center; " })
                     .BindTo(new List<SelectListItem>()
                       {
-                            new SelectListItem { Text = "[Tất cả]", Value = "1"},
-                            new SelectListItem { Text = "Xe máy", Value = "10"},
-                            new SelectListItem { Text = "Phụ tùng", Value = "20"},
-                            new SelectListItem { Text = "Dịch vụ", Value = "30"}
+                            new SelectListItem { Text = "[Tất cả]", Value = "0"},
+                            new SelectListItem { Text = "Hàng hóa", Value = "2"},
+                            new SelectListItem { Text = "Phí dịch vụ", Value = "6"}
                       })
                     .Events(e => e.Change("reReadPendingGoodsIssues"))
                 )
@@ -53,6 +52,7 @@
                 return {
                     goodsIssueID: 0,
                     locationID: window.parent.requireConfig.pageOptions.LocationID,
+                    commodityTypeID: $("#CommodityTypeID").val(),
                     entryDate: $("#EntryDate").val(),
                     accountInvoiceID: window.parent.$("#AccountInvoiceID").val(),                    
                     goodsIssueDetailIDs : accountInvoiceJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(",")
@@ -99,6 +99,7 @@
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
+                    { field: "CustomerCode", operator: "contains", value: filterText },
                     { field: "CustomerName", operator: "contains", value: filterText },
                     { field: "CommodityCode", operator: "contains", value: filterText },
                     { field: "CommodityName", operator: "contains", value: filterText },

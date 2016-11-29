@@ -366,7 +366,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AccountInvoiceViewDetail>("GetAccountInvoiceViewDetails", accountInvoiceIDParameter);
         }
     
-        public virtual ObjectResult<PendingGoodsIssue> GetPendingGoodsIssues(Nullable<int> goodsIssueID, string aspUserID, Nullable<int> locationID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> accountInvoiceID, string goodsIssueDetailIDs)
+        public virtual ObjectResult<PendingGoodsIssue> GetPendingGoodsIssues(Nullable<int> goodsIssueID, string aspUserID, Nullable<int> locationID, Nullable<int> commodityTypeID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> accountInvoiceID, string goodsIssueDetailIDs)
         {
             var goodsIssueIDParameter = goodsIssueID.HasValue ?
                 new ObjectParameter("GoodsIssueID", goodsIssueID) :
@@ -379,6 +379,10 @@ namespace TotalModel.Models
             var locationIDParameter = locationID.HasValue ?
                 new ObjectParameter("LocationID", locationID) :
                 new ObjectParameter("LocationID", typeof(int));
+    
+            var commodityTypeIDParameter = commodityTypeID.HasValue ?
+                new ObjectParameter("CommodityTypeID", commodityTypeID) :
+                new ObjectParameter("CommodityTypeID", typeof(int));
     
             var fromDateParameter = fromDate.HasValue ?
                 new ObjectParameter("FromDate", fromDate) :
@@ -396,7 +400,7 @@ namespace TotalModel.Models
                 new ObjectParameter("GoodsIssueDetailIDs", goodsIssueDetailIDs) :
                 new ObjectParameter("GoodsIssueDetailIDs", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", goodsIssueIDParameter, aspUserIDParameter, locationIDParameter, fromDateParameter, toDateParameter, accountInvoiceIDParameter, goodsIssueDetailIDsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", goodsIssueIDParameter, aspUserIDParameter, locationIDParameter, commodityTypeIDParameter, fromDateParameter, toDateParameter, accountInvoiceIDParameter, goodsIssueDetailIDsParameter);
         }
     
         public virtual ObjectResult<CustomerReceivable> GetCustomerReceivables(Nullable<int> locationID, Nullable<int> receiptID, string customerName)

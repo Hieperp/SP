@@ -7,9 +7,10 @@
     {
         columns.Bound(c => c.DeliveryAdviceReference).Title("Số phiếu").Width(40);
         columns.Bound(c => c.DeliveryAdviceEntryDate).Title("Ngày").Width(90).Format("{0:" + SettingsManager.DateTimeFormat + "}");
-        columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(180);
-        columns.Bound(c => c.ReceiverName).Title("Đơn vị nhận").Width(180);
-        columns.Bound(c => c.Description).Title("Ghi chú").Width(80);
+        columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(150);
+        columns.Bound(c => c.ReceiverCode).Title("Mã ĐVN").Width(90);
+        columns.Bound(c => c.ReceiverName).Title("Đơn vị nhận").Width(150);
+        columns.Bound(c => c.Description).Title("Ghi chú").Width(50);
     })
     .ToolBar(toolbar =>
     {

@@ -56,7 +56,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "       SELECT          GoodsIssues.GoodsIssueID, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.EntryDate AS GoodsIssueEntryDate, GoodsIssues.Description, GoodsIssues.Remarks, " + "\r\n";
-            queryString = queryString + "                       GoodsIssues.CustomerID, Customers.Name AS CustomerName, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "                       GoodsIssues.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM            GoodsIssues INNER JOIN Customers ON (@GoodsIssueReference = '' OR GoodsIssues.Reference LIKE '%' + @GoodsIssueReference + '%') AND GoodsIssues.LocationID = @LocationID AND GoodsIssues.CustomerID = Customers.CustomerID INNER JOIN EntireTerritories ON Customers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
@@ -70,7 +70,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             string queryString = " @LocationID int, @ReceiptID int, @CustomerName nvarchar(100) " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Name AS CustomerName, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, EntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM            Customers INNER JOIN EntireTerritories ON (@CustomerName = '' OR Customers.Name LIKE '%' + @CustomerName + '%') AND Customers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
