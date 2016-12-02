@@ -7,12 +7,10 @@
 
     .Columns(columns =>
     {
-        columns.Bound(c => c.CustomerName).Title("Nhà cung cấp").Width(120);
-        columns.Bound(c => c.CustomerAttentionName).Title("Người liên hệ").Width(100);
-        columns.Bound(c => c.CustomerTelephone).Title("Điện thoại").Width(80);
-        columns.Bound(c => c.CustomerAddressNo).Title("Địa chỉ").Width(160);
-        columns.Bound(c => c.ReceiverName).Title("Nhà cung cấp").Width(120);
-        columns.Bound(c => c.ReceiverEntireTerritoryEntireName).Title("Tỉnh thành").Width(160);
+        columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(160);
+        columns.Bound(c => c.ReceiverCode).Title("Mã ĐVN").Width(80);
+        columns.Bound(c => c.ReceiverName).Title("Đơn vị nhận").Width(160);
+        columns.Bound(c => c.ReceiverAddressNo).Title("Địa chỉ").Width(190);
     })
     .ToolBar(toolbar =>
     {

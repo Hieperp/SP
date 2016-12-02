@@ -42,6 +42,30 @@
 
     $("#Customer_CustomerID").change(function (e) {
         $("#gridPromotion").data("kendoGrid").dataSource.read();
+
+        //if ($("#Receiver_CustomerID") == undefined) { //If using this condition, it will be set for the first time only        
+        $("#Receiver_CustomerID").val($("#Customer_CustomerID").val());
+        $("#Receiver_Code").val($("#Customer_Code").val());
+        $("#Receiver_Name").val($("#Customer_Name").val());
+        $("#Receiver_CodeAndName").val($("#Customer_TempCodeAndName").val());
+        $("#Receiver_OfficialName").val($("#Customer_OfficialName").val());
+        $("#Receiver_Birthday").val($("#Customer_Birthday").val());
+        $("#Receiver_VATCode").val($("#Customer_VATCode").val());
+        $("#Receiver_Telephone").val($("#Customer_Telephone").val());
+        $("#Receiver_AddressNo").val($("#Customer_AddressNo").val());
+        $("#Receiver_TerritoryID").val($("#Customer_TerritoryID").val());
+        $("#Receiver_EntireTerritoryEntireName").val($("#Customer_EntireTerritoryEntireName").val());
+        $("#Receiver_EmployeeID").val($("#Customer_EmployeeID").val());
+        $("#Receiver_EmployeeName").val($("#Customer_EmployeeName").val());
+        $("#Receiver_PriceCategoryID").val($("#Customer_PriceCategoryID").val());
+        $("#Receiver_PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
+
+        //Set display label
+        $("#Receiver_label_Telephone").text($("#Customer_label_Telephone").val());
+        $("#Receiver_label_VATCode").text($("#Customer_label_VATCode").val());
+        $("#Receiver_label_AddressNo").text($("#Customer_label_AddressNo").val());
+        $("#Receiver_label_EntireTerritoryEntireName").text($("#Customer_label_EntireTerritoryEntireName").val());
+        //}
     })
 
     $("#gridPromotion").dblclick(function (e) {
