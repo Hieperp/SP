@@ -135,7 +135,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Sales
                 queryString = queryString + "       BEGIN ";
                 if (!isUsingWarehouseBalancePrice) //GET 
                 {
-                    queryString = queryString + "   UPDATE  Commodities SET Commodities.GrossPrice = CommodityPrices.GrossPrice FROM @Commodities Commodities INNER JOIN CommodityPrices ON Commodities.CommodityID = CommodityPrices.CommodityID AND CommodityPrices.PriceCategoryID = @PriceCategoryID "; //UPDATE GrossPrice BY @PriceCategoryID
+                    queryString = queryString + "   UPDATE  Commodities SET Commodities.GrossPrice = CommodityPrices.GrossPrice FROM @Commodities Commodities INNER JOIN CommodityPrices ON CommodityPrices.PriceCategoryID = @PriceCategoryID AND Commodities.CodePartA = CommodityPrices.CodePartA AND Commodities.CodePartC = CommodityPrices.CodePartC AND CommodityPrices.CodePartB IS NULL "; //UPDATE GrossPrice BY @PriceCategoryID
+                    queryString = queryString + "   UPDATE  Commodities SET Commodities.GrossPrice = CommodityPrices.GrossPrice FROM @Commodities Commodities INNER JOIN CommodityPrices ON CommodityPrices.PriceCategoryID = @PriceCategoryID AND Commodities.CodePartA = CommodityPrices.CodePartA AND Commodities.CodePartC = CommodityPrices.CodePartC AND Commodities.CodePartB = CommodityPrices.CodePartB "; //UPDATE GrossPrice BY @PriceCategoryID
 
                     queryString = queryString + "   IF (NOT @PromotionID IS NULL) ";
                     queryString = queryString + "       BEGIN ";
