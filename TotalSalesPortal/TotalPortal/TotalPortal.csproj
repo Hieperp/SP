@@ -797,7 +797,7 @@
     <Content Include="Areas\Accounts\Views\AccountInvoices\Create.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Delete.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Edit.cshtml" />
-    <Content Include="Areas\Accounts\Views\AccountInvoices\GetPendingGoodsIssues.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountInvoices\GetPendingGoodsIssueDetails.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Index.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\Print.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\PrintDetail.cshtml" />
@@ -819,7 +819,7 @@
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Controllers\Accounts\AccountInvoices\AddPendingGoodsIssue.js" />
+    <Content Include="Scripts\Controllers\Accounts\AccountInvoices\AddPendingGoodsIssueDetail.js" />
     <Content Include="Scripts\Controllers\Accounts\AccountInvoices\Create.js" />
     <Content Include="Scripts\Controllers\Accounts\AccountInvoices\Delete.js" />
     <Content Include="Scripts\Controllers\Accounts\AccountInvoices\Edit.js" />

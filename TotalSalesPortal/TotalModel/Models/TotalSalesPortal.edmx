@@ -1153,6 +1153,18 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
           <Parameter Name="DeliveryAdviceReference" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetPendingGoodsIssueDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AccountInvoiceID" Type="int" Mode="In" />
+          <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
+          <Parameter Name="CustomerID" Type="int" Mode="In" />
+          <Parameter Name="CommodityTypeID" Type="int" Mode="In" />
+          <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
+          <Parameter Name="GoodsIssueDetailIDs" Type="varchar" Mode="In" />
+          <Parameter Name="IsReadonly" Type="bit" Mode="In" />
+        </Function>
         <Function Name="GetPromotionByCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustomerID" Type="int" Mode="In" />
         </Function>
@@ -1823,6 +1835,18 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="GoodsIssueDetail" EntitySet="GoodsIssueDetails" />
             <End Role="AccountInvoiceDetail" EntitySet="AccountInvoiceDetails" />
           </AssociationSet>
+          <FunctionImport Name="GetPendingGoodsIssueDetails" ReturnType="Collection(TotalSalesPortalModel.PendingGoodsIssueDetail)">
+            <Parameter Name="AccountInvoiceID" Mode="In" Type="Int32" />
+            <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+            <Parameter Name="CommodityTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="AspUserID" Mode="In" Type="String" />
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+            <Parameter Name="GoodsIssueDetailIDs" Mode="In" Type="String" />
+            <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -3105,6 +3129,33 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="PendingGoodsIssueDetail">
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsIssueDetailID" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="AddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Decimal" Name="FreeQuantityRemains" Nullable="true" Precision="19" Scale="2" />
+          <Property Type="Decimal" Name="ControlFreeQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="FreeQuantity" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="ListedPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountPercent" Nullable="false" Precision="18" Scale="5" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="VATPercent" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrossPrice" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="VATAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Boolean" Name="IsBonus" Nullable="true" />
+          <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3990,6 +4041,37 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPendingGoodsIssueDetails" FunctionName="TotalSalesPortalModel.Store.GetPendingGoodsIssueDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.PendingGoodsIssueDetail">
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="AddressNo" ColumnName="AddressNo" />
+                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
+                <ScalarProperty Name="FreeQuantityRemains" ColumnName="FreeQuantityRemains" />
+                <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="FreeQuantity" ColumnName="FreeQuantity" />
+                <ScalarProperty Name="ListedPrice" ColumnName="ListedPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="GrossPrice" ColumnName="GrossPrice" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+                <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
+                <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
