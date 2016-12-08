@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TotalDTO.Helpers
 {
@@ -6,6 +7,7 @@ namespace TotalDTO.Helpers
     {
         decimal ControlFreeQuantity { get; set; }
         decimal FreeQuantity { get; set; }
+        Nullable<bool> IsBonus { get; set; }
     }
 
     public abstract class FreeQuantityDiscountVATAmountDetailDTO : DiscountVATAmountDetailDTO, IFreeQuantityDiscountVATAmountDetailDTO
@@ -16,6 +18,8 @@ namespace TotalDTO.Helpers
 
         [Display(Name = "QT")]        
         public virtual decimal FreeQuantity { get; set; }
+
+        public Nullable<bool> IsBonus { get; set; }
     }
 }
 

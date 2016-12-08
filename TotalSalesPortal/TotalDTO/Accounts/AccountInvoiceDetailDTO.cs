@@ -7,7 +7,7 @@ using TotalDTO.Helpers;
 
 namespace TotalDTO.Accounts
 {
-    public class AccountInvoiceDetailDTO : DiscountVATAmountDetailDTO, IPrimitiveEntity
+    public class AccountInvoiceDetailDTO : FreeQuantityDiscountVATAmountDetailDTO, IPrimitiveEntity
     {
         public int GetID() { return this.AccountInvoiceDetailID; }
 
@@ -15,19 +15,23 @@ namespace TotalDTO.Accounts
         public int AccountInvoiceID { get; set; }
 
         public int CustomerID { get; set; }
-        [Range(1, 99999999999, ErrorMessage = "Lỗi bắt buộc phải có id hóa đơn bán hàng")]
+        public int GoodsIssueID { get; set; }
         public int GoodsIssueDetailID { get; set; }
 
+
+        [Display(Name = "SL ĐH")]
         [UIHint("DecimalReadonly")]
-        public override decimal Quantity { get; set; }
+        public decimal QuantityRemains { get; set; }
+
+        [Display(Name = "SL QT")]
+        [UIHint("DecimalReadonly")]
+        public decimal FreeQuantityRemains { get; set; }
+
         [UIHint("DecimalReadonly")]
         public override decimal DiscountPercent { get; set; }
         [UIHint("DecimalReadonly")]
         public override decimal UnitPrice { get; set; }
         [UIHint("DecimalReadonly")]
-        public override decimal GrossPrice { get; set; }
-
-
-        public Nullable<bool> IsBonus { get; set; }        
+        public override decimal GrossPrice { get; set; }        
     }
 }

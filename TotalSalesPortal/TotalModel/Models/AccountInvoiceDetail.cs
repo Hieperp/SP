@@ -19,9 +19,22 @@ namespace TotalModel.Models
         public int LocationID { get; set; }
         public int AccountInvoiceID { get; set; }
         public int CustomerID { get; set; }
+        public int GoodsIssueID { get; set; }
         public int GoodsIssueDetailID { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal FreeQuantity { get; set; }
+        public decimal QuantityInvoice { get; set; }
+        public decimal FreeQuantityInvoice { get; set; }
+        public decimal ListedPrice { get; set; }
+        public decimal DiscountPercent { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal VATPercent { get; set; }
+        public decimal GrossPrice { get; set; }
+        public decimal Amount { get; set; }
+        public decimal VATAmount { get; set; }
+        public decimal GrossAmount { get; set; }
+        public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
-        public Nullable<int> GoodsIssueID { get; set; }
     
         public virtual AccountInvoice AccountInvoice { get; set; }
         public virtual GoodsIssueDetail GoodsIssueDetail { get; set; }

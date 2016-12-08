@@ -25,10 +25,10 @@ namespace TotalDAL.Repositories.Accounts
             : base(totalSalesPortalEntities, "GetAccountInvoiceIndexes")
         {
         }
-        public IEnumerable<PendingGoodsIssue> GetPendingGoodsIssues(int goodsIssueID, string aspUserID, int locationID, int commodityTypeID, DateTime fromDate, DateTime toDate, int accountInvoiceID, string goodsIssueDetailIDs)
+        public IEnumerable<PendingGoodsIssue> GetPendingGoodsIssues(int? accountInvoiceID, int? goodsIssueID, int? customerID, int? commodityTypeID, string aspUserID, int? locationID, DateTime fromDate, DateTime toDate, string goodsIssueDetailIDs, bool isReadonly)
         {
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
-            IEnumerable<PendingGoodsIssue> pendingGoodsIssues = base.TotalSalesPortalEntities.GetPendingGoodsIssues(goodsIssueID, aspUserID, locationID, commodityTypeID, fromDate, toDate, accountInvoiceID, goodsIssueDetailIDs).ToList();
+            IEnumerable<PendingGoodsIssue> pendingGoodsIssues = base.TotalSalesPortalEntities.GetPendingGoodsIssues(accountInvoiceID, goodsIssueID, customerID, commodityTypeID, aspUserID, locationID, fromDate, toDate, goodsIssueDetailIDs, isReadonly).ToList();
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = true;
 
             return pendingGoodsIssues;

@@ -43,6 +43,7 @@ function handleOKEvent(accountInvoiceGridDataSource, pendingGoodsIssueGridDataSo
         dataRow.LocationID = null;
         dataRow.Remarks = null;
 
+        dataRow.GoodsIssueID = goodsIssueGridDataItem.GoodsIssueID;
         dataRow.GoodsIssueDetailID = goodsIssueGridDataItem.GoodsIssueDetailID;
 
         dataRow.CustomerID = goodsIssueGridDataItem.CustomerID;
@@ -51,9 +52,11 @@ function handleOKEvent(accountInvoiceGridDataSource, pendingGoodsIssueGridDataSo
         dataRow.CommodityCode = goodsIssueGridDataItem.CommodityCode;
         dataRow.CommodityTypeID = goodsIssueGridDataItem.CommodityTypeID;
 
-
-
+        dataRow.ControlFreeQuantity = goodsIssueGridDataItem.ControlFreeQuantity;
+        dataRow.QuantityRemains = goodsIssueGridDataItem.QuantityRemains;
         dataRow.Quantity = goodsIssueGridDataItem.Quantity;
+        dataRow.FreeQuantityRemains = goodsIssueGridDataItem.FreeQuantityRemains;
+        dataRow.FreeQuantity = goodsIssueGridDataItem.FreeQuantity;
         dataRow.ListedPrice = goodsIssueGridDataItem.ListedPrice;
         dataRow.DiscountPercent = goodsIssueGridDataItem.DiscountPercent;
         dataRow.UnitPrice = goodsIssueGridDataItem.UnitPrice;

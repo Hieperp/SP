@@ -43,9 +43,9 @@ namespace TotalPortal.Areas.Accounts.APIs
         }
 
 
-        public JsonResult GetPendingGoodsIssues([DataSourceRequest] DataSourceRequest dataSourceRequest, int goodsIssueID, int locationID, int commodityTypeID, DateTime entryDate, int accountInvoiceID, string goodsIssueDetailIDs)
+        public JsonResult GetPendingGoodsIssues([DataSourceRequest] DataSourceRequest dataSourceRequest, int? accountInvoiceID, int? goodsIssueID, int? customerID, int? commodityTypeID, int? locationID, DateTime fromDate, DateTime toDate, string goodsIssueDetailIDs, bool isReadonly)
         {
-            var result = this.accountInvoiceAPIRepository.GetPendingGoodsIssues(goodsIssueID, User.Identity.GetUserId(), locationID, commodityTypeID, entryDate, entryDate.AddHours(23).AddMinutes(59).AddSeconds(59), accountInvoiceID, goodsIssueDetailIDs);
+            var result = this.accountInvoiceAPIRepository.GetPendingGoodsIssues(accountInvoiceID, goodsIssueID, customerID, commodityTypeID, User.Identity.GetUserId(), locationID, fromDate, toDate.AddHours(23).AddMinutes(59).AddSeconds(59), goodsIssueDetailIDs, false);
             return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 

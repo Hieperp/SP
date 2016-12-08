@@ -46,15 +46,15 @@ namespace TotalModel.Models
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<PriceCategory> PriceCategories { get; set; }
-        public virtual DbSet<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
-        public virtual DbSet<AccountInvoice> AccountInvoices { get; set; }
         public virtual DbSet<ReceiptDetail> ReceiptDetails { get; set; }
         public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
         public virtual DbSet<AccessControl> AccessControls { get; set; }
-        public virtual DbSet<GoodsIssueDetail> GoodsIssueDetails { get; set; }
         public virtual DbSet<VoidType> VoidTypes { get; set; }
         public virtual DbSet<DeliveryAdvice> DeliveryAdvices { get; set; }
+        public virtual DbSet<GoodsIssueDetail> GoodsIssueDetails { get; set; }
+        public virtual DbSet<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
+        public virtual DbSet<AccountInvoice> AccountInvoices { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {
@@ -366,11 +366,23 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AccountInvoiceViewDetail>("GetAccountInvoiceViewDetails", accountInvoiceIDParameter);
         }
     
-        public virtual ObjectResult<PendingGoodsIssue> GetPendingGoodsIssues(Nullable<int> goodsIssueID, string aspUserID, Nullable<int> locationID, Nullable<int> commodityTypeID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> accountInvoiceID, string goodsIssueDetailIDs)
+        public virtual ObjectResult<PendingGoodsIssue> GetPendingGoodsIssues(Nullable<int> accountInvoiceID, Nullable<int> goodsIssueID, Nullable<int> customerID, Nullable<int> commodityTypeID, string aspUserID, Nullable<int> locationID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string goodsIssueDetailIDs, Nullable<bool> isReadonly)
         {
+            var accountInvoiceIDParameter = accountInvoiceID.HasValue ?
+                new ObjectParameter("AccountInvoiceID", accountInvoiceID) :
+                new ObjectParameter("AccountInvoiceID", typeof(int));
+    
             var goodsIssueIDParameter = goodsIssueID.HasValue ?
                 new ObjectParameter("GoodsIssueID", goodsIssueID) :
                 new ObjectParameter("GoodsIssueID", typeof(int));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            var commodityTypeIDParameter = commodityTypeID.HasValue ?
+                new ObjectParameter("CommodityTypeID", commodityTypeID) :
+                new ObjectParameter("CommodityTypeID", typeof(int));
     
             var aspUserIDParameter = aspUserID != null ?
                 new ObjectParameter("AspUserID", aspUserID) :
@@ -380,10 +392,6 @@ namespace TotalModel.Models
                 new ObjectParameter("LocationID", locationID) :
                 new ObjectParameter("LocationID", typeof(int));
     
-            var commodityTypeIDParameter = commodityTypeID.HasValue ?
-                new ObjectParameter("CommodityTypeID", commodityTypeID) :
-                new ObjectParameter("CommodityTypeID", typeof(int));
-    
             var fromDateParameter = fromDate.HasValue ?
                 new ObjectParameter("FromDate", fromDate) :
                 new ObjectParameter("FromDate", typeof(System.DateTime));
@@ -392,15 +400,15 @@ namespace TotalModel.Models
                 new ObjectParameter("ToDate", toDate) :
                 new ObjectParameter("ToDate", typeof(System.DateTime));
     
-            var accountInvoiceIDParameter = accountInvoiceID.HasValue ?
-                new ObjectParameter("AccountInvoiceID", accountInvoiceID) :
-                new ObjectParameter("AccountInvoiceID", typeof(int));
-    
             var goodsIssueDetailIDsParameter = goodsIssueDetailIDs != null ?
                 new ObjectParameter("GoodsIssueDetailIDs", goodsIssueDetailIDs) :
                 new ObjectParameter("GoodsIssueDetailIDs", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", goodsIssueIDParameter, aspUserIDParameter, locationIDParameter, commodityTypeIDParameter, fromDateParameter, toDateParameter, accountInvoiceIDParameter, goodsIssueDetailIDsParameter);
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", accountInvoiceIDParameter, goodsIssueIDParameter, customerIDParameter, commodityTypeIDParameter, aspUserIDParameter, locationIDParameter, fromDateParameter, toDateParameter, goodsIssueDetailIDsParameter, isReadonlyParameter);
         }
     
         public virtual ObjectResult<CustomerReceivable> GetCustomerReceivables(Nullable<int> locationID, Nullable<int> receiptID, string customerName)

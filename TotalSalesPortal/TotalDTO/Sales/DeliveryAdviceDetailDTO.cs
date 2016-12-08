@@ -35,7 +35,7 @@ namespace TotalDTO.Sales
         public int ReceiverID { get; set; }
         public int EmployeeID { get; set; }
 
-        public Nullable<bool> IsBonus { get; set; }
+        
 
         public Nullable<int> VoidTypeID { get; set; }
         public string VoidTypeCode { get; set; }

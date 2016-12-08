@@ -32,5 +32,11 @@ namespace TotalModel.Models
         public Nullable<bool> IsBonus { get; set; }
         public Nullable<bool> IsSelected { get; set; }
         public string CustomerCode { get; set; }
+        public System.DateTime EntryDate { get; set; }
+        public int GoodsIssueID { get; set; }
+        public Nullable<decimal> QuantityRemains { get; set; }
+        public Nullable<decimal> FreeQuantityRemains { get; set; }
+        public decimal FreeQuantity { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
     }
 }

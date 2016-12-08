@@ -31,5 +31,10 @@ namespace TotalModel.Models
         public decimal GrossAmount { get; set; }
         public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
+        public Nullable<decimal> QuantityRemains { get; set; }
+        public Nullable<decimal> FreeQuantityRemains { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
+        public decimal FreeQuantity { get; set; }
+        public int GoodsIssueID { get; set; }
     }
 }

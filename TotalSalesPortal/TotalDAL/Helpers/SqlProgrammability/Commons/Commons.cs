@@ -23,7 +23,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
 
         private void SplitToIntList()
         {
-            string queryString = " (@strString varchar(3900)) " + "\r\n";
+            string queryString = " (@strString varchar(max)) " + "\r\n";
             queryString = queryString + " RETURNS @Result TABLE(Id int) " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
@@ -464,6 +464,172 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
 
 
         //        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void GetPendingGoodsIssues()
+        {
+            string queryString; string queryEdit; string queryNew;
+
+            queryNew = "                SELECT          GoodsIssueDetails.GoodsIssueDetailID, GoodsIssueDetails.EntryDate AS GoodsIssueDetailEntryDate, GoodsIssueDetails.Reference AS GoodsIssueDetailReference, 0 AS AccountInvoiceDetailID, 0 AS AccountInvoiceID, " + "\r\n";
+            queryNew = queryNew + "                     GoodsIssueDetails.CustomerID, Customers.Name AS CustomerName, ROUND(GoodsIssueDetails.Quantity - GoodsIssueDetails.QuantityInvoice, 0) AS QuantityRemains, " + "\r\n";
+            queryNew = queryNew + "                     0.0 AS AccountInvoiceAmount, GoodsIssueDetails.Quantity, GoodsIssueDetails.Remarks " + "\r\n";
+
+            queryNew = queryNew + "     FROM            GoodsIssueDetails INNER JOIN " + "\r\n";
+            queryNew = queryNew + "                     Customers ON GoodsIssueDetails.CustomerID = Customers.CustomerID AND ROUND(GoodsIssueDetails.Quantity - GoodsIssueDetails.QuantityInvoice, 0) > 0 " + "\r\n";
+            queryNew = queryNew + "     WHERE           (@GoodsIssueID = 0 OR GoodsIssueDetails.GoodsIssueDetailID = @GoodsIssueID) AND (@CustomerID = 0 OR GoodsIssueDetails.CustomerID = @CustomerID) " + "\r\n";
+
+
+            queryEdit = "               SELECT          GoodsIssueDetails.GoodsIssueDetailID, GoodsIssueDetails.EntryDate AS GoodsIssueDetailEntryDate, GoodsIssueDetails.Reference AS GoodsIssueDetailReference, AccountInvoiceDetails.AccountInvoiceDetailID, AccountInvoiceDetails.AccountInvoiceID, " + "\r\n";
+            queryEdit = queryEdit + "                   GoodsIssueDetails.CustomerID, Customers.Name AS CustomerName, ROUND(GoodsIssueDetails.Quantity - GoodsIssueDetails.QuantityInvoice + AccountInvoiceDetails.AccountInvoiceAmount, 0) AS QuantityRemains, " + "\r\n";
+            queryEdit = queryEdit + "                   AccountInvoiceDetails.AccountInvoiceAmount, GoodsIssueDetails.Quantity, AccountInvoiceDetails.Remarks " + "\r\n";
+
+            queryEdit = queryEdit + "   FROM            GoodsIssueDetails INNER JOIN " + "\r\n";
+            queryEdit = queryEdit + "                   AccountInvoiceDetails ON AccountInvoiceDetails.AccountInvoiceID = @AccountInvoiceID AND GoodsIssueDetails.GoodsIssueDetailID = AccountInvoiceDetails.GoodsIssueDetailID INNER JOIN " + "\r\n";
+            queryEdit = queryEdit + "                   Customers ON AccountInvoiceDetails.CustomerID = Customers.CustomerID " + "\r\n";
+            queryEdit = queryEdit + "   WHERE           (@GoodsIssueID = 0 OR GoodsIssueDetails.GoodsIssueDetailID = @GoodsIssueID) AND (@CustomerID = 0 OR GoodsIssueDetails.CustomerID = @CustomerID) " + "\r\n";
+
+
+            queryString = " @AccountInvoiceID Int, @GoodsIssueID Int, @CustomerID Int, @CommodityTypeID int, @AspUserID nvarchar(128), @LocationID Int, @FromDate DateTime, @ToDate DateTime, @GoodsIssueDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + " IF (@AccountInvoiceID <= 0) " + "\r\n";
+            queryString = queryString + "       BEGIN " + "\r\n";
+            queryString = queryString + "           " + queryNew + "\r\n";
+            queryString = queryString + "           ORDER BY GoodsIssueDetails.EntryDate, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
+            queryString = queryString + "       END " + "\r\n";
+            queryString = queryString + " ELSE " + "\r\n";
+
+            queryString = queryString + "       IF (@IsReadonly = 1) " + "\r\n";
+            queryString = queryString + "           BEGIN " + "\r\n";
+            queryString = queryString + "               " + queryEdit + "\r\n";
+            queryString = queryString + "               ORDER BY GoodsIssueDetails.EntryDate, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
+            queryString = queryString + "           END " + "\r\n";
+
+            queryString = queryString + "       ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
+
+            queryString = queryString + "           BEGIN " + "\r\n";
+            queryString = queryString + "               " + queryNew + " AND GoodsIssueDetails.GoodsIssueDetailID NOT IN (SELECT GoodsIssueDetailID FROM AccountInvoiceDetails WHERE AccountInvoiceID = @AccountInvoiceID) " + "\r\n";
+            queryString = queryString + "               UNION ALL " + "\r\n";
+            queryString = queryString + "               " + queryEdit + "\r\n";
+            queryString = queryString + "               ORDER BY GoodsIssueDetails.EntryDate, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
+            queryString = queryString + "           END " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssues", queryString);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void GetPendingGoodsIssues1()
+        {
+            string queryString;
+
+            queryString = " @GoodsIssueID Int, @AspUserID nvarchar(128), @LocationID Int, @CommodityTypeID int, @FromDate DateTime, @ToDate DateTime, @AccountInvoiceID Int, @GoodsIssueDetailIDs varchar(3999) " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+            queryString = queryString + "    BEGIN " + "\r\n";
+
+            queryString = queryString + "       IF  (@GoodsIssueID <> 0) " + "\r\n"; //IF @GoodsIssueID <> 0 THEN ALL OTHER Filter Parameters WILL BE NoNeeded. THIS CASE IS only USED TO MAKE ACCOUNTINVOICE AUTOMATICALLY FROM VEHICLEINVOICE
+            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQL(true) + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQL(false) + "\r\n";
+
+            queryString = queryString + "    END " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssues", queryString);
+        }
+
+        private string GetPendingGoodsIssuesBuildSQL(bool isGoodsIssueID)
+        {
+            string queryString = "";
+            queryString = queryString + "   BEGIN " + "\r\n";
+            queryString = queryString + "       IF  (@AccountInvoiceID <> 0) " + "\r\n";
+            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLA(isGoodsIssueID, true) + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLA(isGoodsIssueID, false) + "\r\n";
+            queryString = queryString + "   END " + "\r\n";
+
+            return queryString;
+        }
+
+        private string GetPendingGoodsIssuesBuildSQLA(bool isGoodsIssueID, bool isAccountInvoiceID)
+        {
+            string queryString = "";
+            queryString = queryString + "   BEGIN " + "\r\n";
+            queryString = queryString + "       IF  (@GoodsIssueDetailIDs <> '') " + "\r\n";
+            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLB(isGoodsIssueID, isAccountInvoiceID, true) + "\r\n";
+            queryString = queryString + "       ELSE " + "\r\n";
+            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLB(isGoodsIssueID, isAccountInvoiceID, false) + "\r\n";
+            queryString = queryString + "   END " + "\r\n";
+
+            return queryString;
+        }
+
+        /// <summary>
+        /// KTRA: SAVE UPDATE -- IsFinished KTRA: SAVE UPDATE -- IsFinishedKTRA: SAVE UPDATE -- IsFinishedKTRA: SAVE UPDATE -- IsFinishedKTRA: SAVE UPDATE -- IsFinishedKTRA: SAVE UPDATE -- IsFinishedKTRA: SAVE UPDATE -- IsFinished
+        /// </summary>
+        /// <param name="isGoodsIssueID"></param>
+        /// <param name="isAccountInvoiceID"></param>
+        /// <param name="isGoodsIssueDetailIDs"></param>
+        /// <returns></returns>
+        private string GetPendingGoodsIssuesBuildSQLB(bool isGoodsIssueID, bool isAccountInvoiceID, bool isGoodsIssueDetailIDs)
+        {
+            string queryString = "";
+
+            queryString = queryString + "   BEGIN " + "\r\n";
+
+            queryString = queryString + "       SELECT      GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.AddressNo, " + "\r\n";
+            queryString = queryString + "                   GoodsIssueDetails.Quantity, GoodsIssueDetails.ListedPrice, GoodsIssueDetails.DiscountPercent, GoodsIssueDetails.UnitPrice, GoodsIssueDetails.VATPercent, GoodsIssueDetails.GrossPrice, GoodsIssueDetails.Amount, GoodsIssueDetails.VATAmount, GoodsIssueDetails.GrossAmount, GoodsIssueDetails.IsBonus, CAST(1 AS bit) AS IsSelected " + "\r\n";
+            queryString = queryString + "       FROM        GoodsIssueDetails INNER JOIN" + "\r\n";
+            queryString = queryString + "                   Commodities ON GoodsIssueDetails.GoodsIssueID " + (isGoodsIssueID ? " = @GoodsIssueID " : " IN (SELECT GoodsIssues.GoodsIssueID FROM                  GoodsIssues              WHERE GoodsIssues.EntryDate >= @FromDate AND GoodsIssues.EntryDate <= @ToDate AND GoodsIssues.LocationID = @LocationID AND GoodsIssues.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsIssue + " AND AccessControls.AccessLevel = 2))      AND (GoodsIssueDetails.AccountInvoiceID IS NULL " + (isAccountInvoiceID ? " OR GoodsIssueDetails.AccountInvoiceID = @AccountInvoiceID" : "") + ")" + (isGoodsIssueDetailIDs ? " AND GoodsIssueDetails.GoodsIssueDetailID NOT IN (SELECT Id FROM dbo.SplitToIntList (@GoodsIssueDetailIDs))" : "")) + " AND GoodsIssueDetails.CommodityID = Commodities.CommodityID AND Commodities.IsRegularCheckUps = 0 AND (@CommodityTypeID = 0 OR Commodities.CommodityTypeID = @CommodityTypeID) INNER JOIN " + "\r\n";
+            queryString = queryString + "                   Customers ON GoodsIssueDetails.CustomerID = Customers.CustomerID " + "\r\n";
+
+            queryString = queryString + "   END " + "\r\n";
+
+            return queryString;
+
+        }
+
 
     }
 

@@ -9,6 +9,7 @@
 
     @Html.HiddenFor(model => model.AccountInvoiceID)
     @Html.HiddenFor(model => model.TotalQuantity)
+    @Html.HiddenFor(model => model.TotalFreeQuantity)
     @Html.HiddenFor(model => model.TotalAmount)
     @Html.HiddenFor(model => model.TotalVATAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
@@ -73,6 +74,8 @@
                         .ClientTemplate("#= AccountInvoiceID #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].AccountInvoiceID' value='#= AccountInvoiceID #' />");
 
 
+                    columns.Bound(p => p.GoodsIssueID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= GoodsIssueID #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].GoodsIssueID' value='#= GoodsIssueID #' />");
                     columns.Bound(p => p.GoodsIssueDetailID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= GoodsIssueDetailID #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].GoodsIssueDetailID' value='#= GoodsIssueDetailID #' />");
 
@@ -89,10 +92,26 @@
                         .ClientTemplate("#= CommodityTypeID #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].CommodityTypeID' value='#= CommodityTypeID #' />");
 
 
-                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                    columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
+                    
+                    columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                    columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+
+                    columns.Bound(p => p.FreeQuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= FreeQuantityRemains #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].FreeQuantityRemains' value='#= FreeQuantityRemains #' />");
+                    columns.Bound(p => p.FreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
+                    
                     columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
@@ -131,6 +150,9 @@
 
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
+
+                    columns.Bound(p => p.IsBonus).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= (IsBonus == null)? '' : IsBonus #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].IsBonus' value='#= (IsBonus == null) ? '' : IsBonus #' />");
 
                     columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50);
                 })
@@ -184,7 +206,10 @@
                     {
                         events.Error("kendGrid_ErrorHandler");
                     })
+                    .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
                     .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    .Aggregates(a => a.Add(x => x.FreeQuantityRemains).Sum())
+                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
                     .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
                     .Aggregates(a => a.Add(x => x.Amount).Sum())
                     .Aggregates(a => a.Add(x => x.VATAmount).Sum())

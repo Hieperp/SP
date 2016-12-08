@@ -26,6 +26,7 @@ namespace TotalModel.Models
         public int GoodsIssueID { get; set; }
         public Nullable<int> VoidTypeID { get; set; }
         public int CustomerID { get; set; }
+        public int ReceiverID { get; set; }
         public int DeliveryAdviceID { get; set; }
         public int DeliveryAdviceDetailID { get; set; }
         public Nullable<int> AccountInvoiceID { get; set; }
@@ -35,7 +36,8 @@ namespace TotalModel.Models
         public int EmployeeID { get; set; }
         public decimal Quantity { get; set; }
         public decimal FreeQuantity { get; set; }
-        public decimal QuantityIssue { get; set; }
+        public decimal QuantityInvoice { get; set; }
+        public decimal FreeQuantityInvoice { get; set; }
         public decimal ListedPrice { get; set; }
         public decimal DiscountPercent { get; set; }
         public decimal UnitPrice { get; set; }
@@ -46,17 +48,17 @@ namespace TotalModel.Models
         public decimal GrossAmount { get; set; }
         public Nullable<bool> IsBonus { get; set; }
         public string Remarks { get; set; }
-        public int ReceiverID { get; set; }
         public bool Approved { get; set; }
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }
         public virtual GoodsIssue GoodsIssue { get; set; }
         public virtual VoidType VoidType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
     }
 }

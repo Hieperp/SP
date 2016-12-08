@@ -50,12 +50,15 @@
                 var accountInvoiceJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
                 
                 return {
+                    accountInvoiceID: window.parent.$("#AccountInvoiceID").val(),                       
                     goodsIssueID: 0,
-                    locationID: window.parent.requireConfig.pageOptions.LocationID,
+                    customerID: 0,
                     commodityTypeID: $("#CommodityTypeID").val(),
-                    entryDate: $("#EntryDate").val(),
-                    accountInvoiceID: window.parent.$("#AccountInvoiceID").val(),                    
-                    goodsIssueDetailIDs : accountInvoiceJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(",")
+                    locationID: window.parent.requireConfig.pageOptions.LocationID,                    
+                    fromDate: $("#EntryDate").val(),
+                    toDate: $("#EntryDate").val(),
+                    goodsIssueDetailIDs : accountInvoiceJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(","),
+                    isReadOnly: false
             };}
 
     </text>))
