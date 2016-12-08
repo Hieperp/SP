@@ -37,6 +37,7 @@
                             new SelectListItem { Text = "Phí dịch vụ", Value = "6"}
                       })
                     .Events(e => e.Change("reReadPendingGoodsIssues"))
+                    .HtmlAttributes(new { @style = "padding-right: 12px;" })
                 )
 
             </div>
@@ -47,21 +48,21 @@
             .Read(read => read.Action("GetPendingGoodsIssues", "AccountInvoiceApi", new { area = "Accounts" }).Data(@<text>
             function(e) {
 
-                var accountInvoiceJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
-                
-                return {
-                    accountInvoiceID: window.parent.$("#AccountInvoiceID").val(),                       
-                    goodsIssueID: 0,
-                    customerID: 0,
-                    commodityTypeID: $("#CommodityTypeID").val(),
-                    locationID: window.parent.requireConfig.pageOptions.LocationID,                    
-                    fromDate: $("#EntryDate").val(),
-                    toDate: $("#EntryDate").val(),
-                    goodsIssueDetailIDs : accountInvoiceJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(","),
-                    isReadOnly: false
+            var accountInvoiceJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
+
+            return {
+            accountInvoiceID: window.parent.$("#AccountInvoiceID").val(),
+            goodsIssueID: 0,
+            customerID: 0,
+            commodityTypeID: $("#CommodityTypeID").val(),
+            locationID: window.parent.requireConfig.pageOptions.LocationID,
+            fromDate: $("#EntryDate").val(),
+            toDate: $("#EntryDate").val(),
+            goodsIssueDetailIDs : accountInvoiceJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(","),
+            isReadOnly: false
             };}
 
-    </text>))
+            </text>))
     .ServerOperation(false)) //If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
     .Selectable()
 )
@@ -118,4 +119,3 @@
         }
     }
 </script>
-
