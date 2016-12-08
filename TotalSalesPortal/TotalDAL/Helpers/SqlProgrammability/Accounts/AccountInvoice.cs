@@ -18,7 +18,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             this.GetAccountInvoiceIndexes();
 
             this.GetAccountInvoiceViewDetails();
-            this.GetPendingGoodsIssues();
+            this.GetPendingGoodsIssueDetails();
 
             this.AccountInvoiceSaveRelative();
             this.AccountInvoicePostSaveValidate();
@@ -68,7 +68,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             this.totalSalesPortalEntities.CreateStoredProcedure("GetAccountInvoiceViewDetails", queryString);
         }
 
-        private void GetPendingGoodsIssues()
+        private void GetPendingGoodsIssueDetails()
         {
             string queryString;
             
@@ -78,78 +78,78 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
 
             queryString = queryString + "   BEGIN " + "\r\n";
             queryString = queryString + "       IF  (@GoodsIssueID <> 0) " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssue(true) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssue(true) + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssue(false) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssue(false) + "\r\n";
             queryString = queryString + "   END " + "\r\n";
 
-            this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssues", queryString);
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssueDetails", queryString);
         }
         
 
-        private string GetPendingGoodsIssuesBuildSQLGoodsIssue(bool isGoodsIssueID)
+        private string GetPGIDsBuildSQLGoodsIssue(bool isGoodsIssueID)
         {
             string queryString = "";
             queryString = queryString + "   BEGIN " + "\r\n";
             queryString = queryString + "       IF  (@CustomerID <> 0) " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssueCustomer(isGoodsIssueID, true) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssueCustomer(isGoodsIssueID, true) + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssueCustomer(isGoodsIssueID, false) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssueCustomer(isGoodsIssueID, false) + "\r\n";
             queryString = queryString + "   END " + "\r\n";
 
             return queryString;
         }
 
-        private string GetPendingGoodsIssuesBuildSQLGoodsIssueCustomer(bool isGoodsIssueID, bool isCustomerID)
+        private string GetPGIDsBuildSQLGoodsIssueCustomer(bool isGoodsIssueID, bool isCustomerID)
         {
             string queryString = "";
             queryString = queryString + "   BEGIN " + "\r\n";
             queryString = queryString + "       IF  (@CommodityTypeID <> 0) " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssueCustomerCommodityType(isGoodsIssueID, isCustomerID, true) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssueCustomerCommodityType(isGoodsIssueID, isCustomerID, true) + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssueCustomerCommodityType(isGoodsIssueID, isCustomerID, false) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssueCustomerCommodityType(isGoodsIssueID, isCustomerID, false) + "\r\n";
             queryString = queryString + "   END " + "\r\n";
 
             return queryString;
         }
 
-        private string GetPendingGoodsIssuesBuildSQLGoodsIssueCustomerCommodityType(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID)
+        private string GetPGIDsBuildSQLGoodsIssueCustomerCommodityType(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID)
         {
             string queryString = "";
             queryString = queryString + "   BEGIN " + "\r\n";
             queryString = queryString + "       IF  (@GoodsIssueDetailIDs <> '') " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssueCustomerCommodityTypeGoodsIssueDetailIDs(isGoodsIssueID, isCustomerID, isCommodityTypeID, true) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssueCustomerCommodityTypeGoodsIssueDetailIDs(isGoodsIssueID, isCustomerID, isCommodityTypeID, true) + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
-            queryString = queryString + "           " + this.GetPendingGoodsIssuesBuildSQLGoodsIssueCustomerCommodityTypeGoodsIssueDetailIDs(isGoodsIssueID, isCustomerID, isCommodityTypeID, false) + "\r\n";
+            queryString = queryString + "           " + this.GetPGIDsBuildSQLGoodsIssueCustomerCommodityTypeGoodsIssueDetailIDs(isGoodsIssueID, isCustomerID, isCommodityTypeID, false) + "\r\n";
             queryString = queryString + "   END " + "\r\n";
 
             return queryString;
         }
 
-        private string GetPendingGoodsIssuesBuildSQLGoodsIssueCustomerCommodityTypeGoodsIssueDetailIDs(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID, bool isGoodsIssueDetailIDs)
+        private string GetPGIDsBuildSQLGoodsIssueCustomerCommodityTypeGoodsIssueDetailIDs(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID, bool isGoodsIssueDetailIDs)
         {
             string queryString = "";
             queryString = queryString + "   BEGIN " + "\r\n";
 
             queryString = queryString + "       IF (@AccountInvoiceID <= 0) " + "\r\n";
             queryString = queryString + "               BEGIN " + "\r\n";
-            queryString = queryString + "                   " + this.GetPendingGoodsIssuesBuildSQLNew (isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + "\r\n";
+            queryString = queryString + "                   " + this.GetPGIDsBuildSQLNew (isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + "\r\n";
             queryString = queryString + "                   ORDER BY GoodsIssueDetails.EntryDate, GoodsIssueDetails.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
             queryString = queryString + "               END " + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
 
             queryString = queryString + "               IF (@IsReadonly = 1) " + "\r\n";
             queryString = queryString + "                   BEGIN " + "\r\n";
-            queryString = queryString + "                       " + this.GetPendingGoodsIssuesBuildSQLEdit(isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + "\r\n";
+            queryString = queryString + "                       " + this.GetPGIDsBuildSQLEdit(isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + "\r\n";
             queryString = queryString + "                       ORDER BY GoodsIssueDetails.EntryDate, GoodsIssueDetails.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
             queryString = queryString + "                   END " + "\r\n";
 
             queryString = queryString + "               ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
 
             queryString = queryString + "                   BEGIN " + "\r\n";
-            queryString = queryString + "                       " + this.GetPendingGoodsIssuesBuildSQLNew(isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + " AND GoodsIssueDetails.GoodsIssueDetailID NOT IN (SELECT GoodsIssueDetailID FROM AccountInvoiceDetails WHERE AccountInvoiceID = @AccountInvoiceID) " + "\r\n";
+            queryString = queryString + "                       " + this.GetPGIDsBuildSQLNew(isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + " AND GoodsIssueDetails.GoodsIssueDetailID NOT IN (SELECT GoodsIssueDetailID FROM AccountInvoiceDetails WHERE AccountInvoiceID = @AccountInvoiceID) " + "\r\n";
             queryString = queryString + "                       UNION ALL " + "\r\n";
-            queryString = queryString + "                       " + this.GetPendingGoodsIssuesBuildSQLEdit(isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + "\r\n";
+            queryString = queryString + "                       " + this.GetPGIDsBuildSQLEdit(isGoodsIssueID, isCustomerID, isCommodityTypeID, isGoodsIssueDetailIDs) + "\r\n";
             queryString = queryString + "                       ORDER BY GoodsIssueDetails.EntryDate, GoodsIssueDetails.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
             queryString = queryString + "                   END " + "\r\n";
             
@@ -158,7 +158,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             return queryString;
         }
 
-        private string GetPendingGoodsIssuesBuildSQLNew(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID, bool isGoodsIssueDetailIDs)
+        private string GetPGIDsBuildSQLNew(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID, bool isGoodsIssueDetailIDs)
         {
             string queryString = "";
 
@@ -172,7 +172,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             return queryString;
         }
 
-        private string GetPendingGoodsIssuesBuildSQLEdit(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID, bool isGoodsIssueDetailIDs)
+        private string GetPGIDsBuildSQLEdit(bool isGoodsIssueID, bool isCustomerID, bool isCommodityTypeID, bool isGoodsIssueDetailIDs)
         {
             string queryString = "";
 

@@ -22,7 +22,7 @@ namespace TotalPortal.Areas.Accounts.Controllers
             return View(InitPrintViewModel(id));
         }
 
-        public virtual ActionResult GetPendingGoodsIssues()
+        public virtual ActionResult GetPendingGoodsIssueDetails()
         {
             return View();
         }

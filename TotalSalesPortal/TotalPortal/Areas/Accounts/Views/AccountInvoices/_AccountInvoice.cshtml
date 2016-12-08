@@ -162,7 +162,7 @@
                 {
                     if (Model.Editable)
                     {
-                        toolbar.Custom().Text("Chọn phiếu xuất kho").Url("#").HtmlAttributes(new { onclick = "GetPendingGoodsIssues()" });
+                        toolbar.Custom().Text("Chọn phiếu xuất kho").Url("#").HtmlAttributes(new { onclick = "GetPendingGoodsIssueDetails()" });
                     }
                     else
                     {//Add a functionless button for display purpose only
@@ -286,10 +286,10 @@
 
 <script type="text/javascript">
 
-    function GetPendingGoodsIssues() {
+    function GetPendingGoodsIssueDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssues", "AccountInvoices", new { area = "Accounts" })", "Chọn phiếu bán hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeight");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "AccountInvoices", new { area = "Accounts" })", "Chọn phiếu bán hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeight");
         });
     }
 
