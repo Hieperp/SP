@@ -23,6 +23,7 @@ namespace TotalModel.Models
             this.DeliveryAdvices = new HashSet<DeliveryAdvice>();
             this.DeliveryAdvices1 = new HashSet<DeliveryAdvice>();
             this.AccountInvoices = new HashSet<AccountInvoice>();
+            this.AccountInvoices1 = new HashSet<AccountInvoice>();
         }
     
         public int CustomerID { get; set; }
@@ -63,5 +64,7 @@ namespace TotalModel.Models
         public virtual ICollection<DeliveryAdvice> DeliveryAdvices1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountInvoice> AccountInvoices1 { get; set; }
     }
 }

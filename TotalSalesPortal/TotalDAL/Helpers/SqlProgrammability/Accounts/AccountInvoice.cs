@@ -18,6 +18,9 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             this.GetAccountInvoiceIndexes();
 
             this.GetAccountInvoiceViewDetails();
+
+            this.GetPendingGoodsIssues();
+            this.GetPendingGoodsIssueConsumers();
             this.GetPendingGoodsIssueDetails();
 
             this.AccountInvoiceSaveRelative();
@@ -67,6 +70,59 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GetAccountInvoiceViewDetails", queryString);
         }
+
+
+
+
+
+
+
+
+
+
+        private void GetPendingGoodsIssues()
+        {
+            string queryString = " @LocationID int, @AccountInvoiceID int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+            queryString = queryString + "       SELECT          Consumers.CustomerID AS ConsumerID, Consumers.Code AS ConsumerCode, Consumers.Name AS ConsumerName, Consumers.VATCode AS ConsumerVATCode, Consumers.AttentionName AS ConsumerAttentionName, Consumers.Telephone AS ConsumerTelephone, Consumers.AddressNo AS ConsumerAddressNo, ConsumerEntireTerritories.EntireName AS ConsumerEntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "                       GoodsIssues.GoodsIssueID, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.EntryDate AS GoodsIssueEntryDate, GoodsIssues.Description, GoodsIssues.Remarks, " + "\r\n";
+            queryString = queryString + "                       Receivers.Code AS GoodsIssueReceiverCode, Receivers.Name AS GoodsIssueReceiverName " + "\r\n";
+
+            queryString = queryString + "       FROM            GoodsIssues " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers Consumers ON GoodsIssues.LocationID = @LocationID AND GoodsIssues.CustomerID = Consumers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories ConsumerEntireTerritories ON Consumers.TerritoryID = ConsumerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers Receivers ON GoodsIssues.ReceiverID = Receivers.CustomerID " + "\r\n";
+
+            queryString = queryString + "       WHERE           GoodsIssues.GoodsIssueID IN  " + "\r\n";
+
+            queryString = queryString + "                      (SELECT GoodsIssueID FROM GoodsIssueDetails WHERE ROUND(Quantity - QuantityInvoice, 0) > 0 OR ROUND(FreeQuantity - FreeQuantityInvoice, 0) > 0 " + "\r\n";
+            queryString = queryString + "                       UNION ALL " + "\r\n";
+            queryString = queryString + "                       SELECT GoodsIssueID FROM AccountInvoiceDetails WHERE AccountInvoiceID = @AccountInvoiceID)  " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssues", queryString);
+        }
+
+        private void GetPendingGoodsIssueConsumers()
+        {
+            string queryString = " @LocationID int, @AccountInvoiceID int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT          Consumers.CustomerID AS ConsumerID, Consumers.Code AS ConsumerCode, Consumers.Name AS ConsumerName, Consumers.VATCode AS ConsumerVATCode, Consumers.AttentionName AS ConsumerAttentionName, Consumers.Telephone AS ConsumerTelephone, Consumers.AddressNo AS ConsumerAddressNo, ConsumerEntireTerritories.EntireName AS ConsumerEntireTerritoryEntireName " + "\r\n";
+
+            queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID FROM " + "\r\n";
+            queryString = queryString + "                              (SELECT CustomerID FROM GoodsIssueDetails WHERE LocationID = @LocationID AND (ROUND(Quantity - QuantityInvoice, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityInvoice, 0) > 0) " + "\r\n";
+            queryString = queryString + "                               UNION ALL " + "\r\n";
+            queryString = queryString + "                               SELECT CustomerID FROM AccountInvoices WHERE AccountInvoiceID = @AccountInvoiceID) CustomerReceiverPENDING " + "\r\n";
+            queryString = queryString + "                      )ConsumerUNION " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers Consumers ON ConsumerUNION.CustomerID = Consumers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories ConsumerEntireTerritories ON Consumers.TerritoryID = ConsumerEntireTerritories.TerritoryID " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssueConsumers", queryString);
+        }
+
+
 
         private void GetPendingGoodsIssueDetails()
         {

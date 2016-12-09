@@ -638,5 +638,31 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssueDetail>("GetPendingGoodsIssueDetails", accountInvoiceIDParameter, goodsIssueIDParameter, customerIDParameter, commodityTypeIDParameter, aspUserIDParameter, locationIDParameter, fromDateParameter, toDateParameter, goodsIssueDetailIDsParameter, isReadonlyParameter);
         }
+    
+        public virtual ObjectResult<PendingGoodsIssueConsumer> GetPendingGoodsIssueConsumers(Nullable<int> locationID, Nullable<int> accountInvoiceID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var accountInvoiceIDParameter = accountInvoiceID.HasValue ?
+                new ObjectParameter("AccountInvoiceID", accountInvoiceID) :
+                new ObjectParameter("AccountInvoiceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssueConsumer>("GetPendingGoodsIssueConsumers", locationIDParameter, accountInvoiceIDParameter);
+        }
+    
+        public virtual ObjectResult<PendingGoodsIssue> GetPendingGoodsIssues(Nullable<int> locationID, Nullable<int> accountInvoiceID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var accountInvoiceIDParameter = accountInvoiceID.HasValue ?
+                new ObjectParameter("AccountInvoiceID", accountInvoiceID) :
+                new ObjectParameter("AccountInvoiceID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", locationIDParameter, accountInvoiceIDParameter);
+        }
     }
 }

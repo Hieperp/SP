@@ -76,6 +76,8 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoices_Locations" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_AccountInvoices" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoices_Customers1" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_AccountInvoices_GoodsIssues" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

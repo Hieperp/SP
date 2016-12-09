@@ -45,10 +45,14 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActiveDate { get; set; }
+        public Nullable<int> ConsumerID { get; set; }
+        public Nullable<int> GoodsIssueID { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
+        public virtual Customer Customer1 { get; set; }
+        public virtual GoodsIssue GoodsIssue { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace TotalModel.Models
             this.ReceiptDetails = new HashSet<ReceiptDetail>();
             this.Receipts = new HashSet<Receipt>();
             this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
+            this.AccountInvoices = new HashSet<AccountInvoice>();
         }
     
         public int GoodsIssueID { get; set; }
@@ -62,5 +63,7 @@ namespace TotalModel.Models
         public virtual DeliveryAdvice DeliveryAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
     }
 }
