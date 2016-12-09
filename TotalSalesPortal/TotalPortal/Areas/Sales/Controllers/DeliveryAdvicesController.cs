@@ -24,7 +24,7 @@ namespace TotalPortal.Areas.Sales.Controllers
     public class DeliveryAdvicesController : GenericViewDetailController<DeliveryAdvice, DeliveryAdviceDetail, DeliveryAdviceViewDetail, DeliveryAdviceDTO, DeliveryAdvicePrimitiveDTO, DeliveryAdviceDetailDTO, DeliveryAdviceViewModel>
     {
         public DeliveryAdvicesController(IDeliveryAdviceService deliveryAdviceService, IDeliveryAdviceViewModelSelectListBuilder deliveryAdviceViewModelSelectListBuilder)
-            : base(deliveryAdviceService, deliveryAdviceViewModelSelectListBuilder, true, true)
+            : base(deliveryAdviceService, deliveryAdviceViewModelSelectListBuilder, true)
         {
         }
 

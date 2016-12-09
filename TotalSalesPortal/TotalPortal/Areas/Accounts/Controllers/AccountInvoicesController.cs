@@ -13,7 +13,7 @@ namespace TotalPortal.Areas.Accounts.Controllers
     public class AccountInvoicesController : GenericViewDetailController<AccountInvoice, AccountInvoiceDetail, AccountInvoiceViewDetail, AccountInvoiceDTO, AccountInvoicePrimitiveDTO, AccountInvoiceDetailDTO, AccountInvoiceViewModel>
     {
         public AccountInvoicesController(IAccountInvoiceService accountInvoiceService, IAccountInvoiceViewModelSelectListBuilder accountInvoiceViewModelSelectListBuilder)
-            : base(accountInvoiceService, accountInvoiceViewModelSelectListBuilder)
+            : base(accountInvoiceService, accountInvoiceViewModelSelectListBuilder, true)
         {
         }
 

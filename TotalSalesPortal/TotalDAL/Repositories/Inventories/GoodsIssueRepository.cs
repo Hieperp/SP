@@ -14,6 +14,15 @@ namespace TotalDAL.Repositories.Inventories
             : base(totalSalesPortalEntities, "GoodsIssueEditable", "GoodsIssueApproved")
         {
         }
+    }
+
+
+    public class GoodsIssueAPIRepository : GenericAPIRepository, IGoodsIssueAPIRepository
+    {
+        public GoodsIssueAPIRepository(TotalSalesPortalEntities totalSalesPortalEntities)
+            : base(totalSalesPortalEntities, "GetGoodsIssueIndexes")
+        {
+        }
 
         public ICollection<PendingDeliveryAdvice> GetDeliveryAdvices(int locationID, int? goodsIssueID, string deliveryAdviceReference)
         {
@@ -23,15 +32,6 @@ namespace TotalDAL.Repositories.Inventories
         public ICollection<PendingDeliveryAdviceCustomer> GetCustomers(int locationID, int? goodsIssueID, string customerName)
         {
             return this.TotalSalesPortalEntities.GetPendingDeliveryAdviceCustomers(locationID, goodsIssueID, customerName).ToList();
-        }
-    }
-
-
-    public class GoodsIssueAPIRepository : GenericAPIRepository, IGoodsIssueAPIRepository
-    {
-        public GoodsIssueAPIRepository(TotalSalesPortalEntities totalSalesPortalEntities)
-            : base(totalSalesPortalEntities, "GetGoodsIssueIndexes")
-        {
         }
     }
 }

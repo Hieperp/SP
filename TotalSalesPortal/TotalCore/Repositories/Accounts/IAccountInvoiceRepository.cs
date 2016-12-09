@@ -14,6 +14,9 @@ namespace TotalCore.Repositories.Accounts
 
     public interface IAccountInvoiceAPIRepository : IGenericAPIRepository
     {
+        IEnumerable<PendingGoodsIssueConsumer> GetConsumers(int? locationID, int? accountInvoiceID);
+        IEnumerable<PendingGoodsIssue> GetGoodsIssues(int? locationID, int? accountInvoiceID);
+
         IEnumerable<PendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? accountInvoiceID, int? goodsIssueID, int? customerID, int? commodityTypeID, string aspUserID, int? locationID, DateTime fromDate, DateTime toDate, string goodsIssueDetailIDs, bool isReadonly);
     }
 }

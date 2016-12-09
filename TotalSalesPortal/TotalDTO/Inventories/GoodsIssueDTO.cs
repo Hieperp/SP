@@ -74,6 +74,38 @@ namespace TotalDTO.Inventories
     }
 
 
+
+
+
+
+
+
+    public interface IGoodsIssueBoxDTO //This DTO is used to display related GoodsIssue data only
+    {
+        int GoodsIssueID { get; set; }
+        [Display(Name = "Số phiếu xuất kho")]
+        string Reference { get; set; }
+        [Display(Name = "Ngày xuất kho")]
+        DateTime? EntryDate { get; set; }
+
+        [Display(Name = "Mã đơn vị, người nhận hàng")]
+        string ReceiverCode { get; set; }
+        [Display(Name = "Tên đơn vị, người nhận hàng")]
+        string ReceiverName { get; set; }
+    }
+
+    public class GoodsIssueBoxDTO : IGoodsIssueBoxDTO
+    {
+        public int GoodsIssueID { get; set; }
+        public string Reference { get; set; }
+        public DateTime? EntryDate { get; set; }
+
+        public string ReceiverCode { get; set; }
+        public string ReceiverName { get; set; }
+    }
+
+
+
 }
 
 

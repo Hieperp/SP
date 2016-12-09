@@ -15,15 +15,7 @@ namespace TotalDAL.Repositories.Accounts
         {
         }
 
-        public ICollection<GoodsIssueReceivable> GetGoodsIssueReceivables(int locationID, int? receiptID, string goodsIssueReference)
-        {
-            return this.TotalSalesPortalEntities.GetGoodsIssueReceivables(locationID, receiptID, goodsIssueReference).ToList();
-        }
-
-        public ICollection<CustomerReceivable> GetCustomerReceivables(int locationID, int? receiptID, string customerName)
-        {
-            return this.TotalSalesPortalEntities.GetCustomerReceivables(locationID, receiptID, customerName).ToList();
-        }
+        
     }
 
 
@@ -32,6 +24,16 @@ namespace TotalDAL.Repositories.Accounts
         public ReceiptAPIRepository(TotalSalesPortalEntities totalSalesPortalEntities)
             : base(totalSalesPortalEntities, "GetReceiptIndexes")
         {
+        }
+
+        public ICollection<GoodsIssueReceivable> GetGoodsIssueReceivables(int locationID, int? receiptID, string goodsIssueReference)
+        {
+            return this.TotalSalesPortalEntities.GetGoodsIssueReceivables(locationID, receiptID, goodsIssueReference).ToList();
+        }
+
+        public ICollection<CustomerReceivable> GetCustomerReceivables(int locationID, int? receiptID, string customerName)
+        {
+            return this.TotalSalesPortalEntities.GetCustomerReceivables(locationID, receiptID, customerName).ToList();
         }
     }
 }

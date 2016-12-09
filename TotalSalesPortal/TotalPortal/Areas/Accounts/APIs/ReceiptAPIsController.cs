@@ -22,12 +22,10 @@ namespace TotalPortal.Areas.Accounts.APIs
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class ReceiptAPIsController : Controller
     {
-        private readonly IReceiptRepository receiptRepository;
         private readonly IReceiptAPIRepository receiptAPIRepository;
 
-        public ReceiptAPIsController(IReceiptRepository receiptRepository, IReceiptAPIRepository receiptAPIRepository)
+        public ReceiptAPIsController(IReceiptAPIRepository receiptAPIRepository)
         {
-            this.receiptRepository = receiptRepository;
             this.receiptAPIRepository = receiptAPIRepository;
         }
 
@@ -42,13 +40,13 @@ namespace TotalPortal.Areas.Accounts.APIs
 
         public JsonResult GetGoodsIssueReceivables([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? receiptID, string goodsIssueReference)
         {
-            ICollection<GoodsIssueReceivable> ReceiptGetGoodsIssueReceivables = this.receiptRepository.GetGoodsIssueReceivables(locationID, receiptID, goodsIssueReference);
+            ICollection<GoodsIssueReceivable> ReceiptGetGoodsIssueReceivables = this.receiptAPIRepository.GetGoodsIssueReceivables(locationID, receiptID, goodsIssueReference);
             return Json(ReceiptGetGoodsIssueReceivables.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCustomerReceivables([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? receiptID, string customerName)
         {
-            ICollection<CustomerReceivable> pendingGoodsIssueCustomers = this.receiptRepository.GetCustomerReceivables(locationID, receiptID, customerName);
+            ICollection<CustomerReceivable> pendingGoodsIssueCustomers = this.receiptAPIRepository.GetCustomerReceivables(locationID, receiptID, customerName);
             return Json(pendingGoodsIssueCustomers.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 

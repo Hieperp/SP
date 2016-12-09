@@ -1,0 +1,49 @@
+﻿@using TotalPortal.Configuration
+@using TotalModel.Models;
+
+@(Html.Kendo().Grid<PendingGoodsIssueConsumer>()
+    .Name("pendingGoodsIssueConsumerGrid")
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.ConsumerCode).Title("Mã khách hàng").Width(160);
+        columns.Bound(c => c.ConsumerName).Title("Tên khách hàng").Width(80);
+        columns.Bound(c => c.ConsumerVATCode).Title("MST").Width(160);
+        columns.Bound(c => c.ConsumerAddressNo).Title("Địa chỉ").Width(190);
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar" style="float: right;">
+                <label>Nhập tên khách hàng:</label>
+                <input id="filterTextBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="filterTextBox_KeyUp()" />
+            </div>
+        </text>);
+    })
+    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .DataSource(ds => ds.Ajax()
+        .Read(read => read.Action("GetConsumers", "AccountInvoiceAPIs", new { area = "Accounts" }).Data("onAdditionalGetConsumers"))
+        .ServerOperation(true)
+    )
+    .Selectable()
+)
+
+<script type="text/javascript">
+    function onAdditionalGetConsumers(e) {
+        return {
+            locationID: 1,
+            accountInvoiceID: $("#AccountInvoiceID").val()
+        };
+    }
+
+    function filterTextBox_KeyUp() {
+        if ($("#filterTextBox").val().length === 0 || $("#filterTextBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
+            $("#pendingGoodsIssueConsumerGrid").data("kendoGrid").dataSource.read();
+        }
+    }
+
+
+    $("#pendingGoodsIssueConsumerGrid").dblclick(function (e) {
+        okButton_Click();
+    })
+</script>

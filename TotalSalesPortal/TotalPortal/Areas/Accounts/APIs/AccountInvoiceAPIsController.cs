@@ -24,11 +24,11 @@ using TotalPortal.APIs.Sessions;
 namespace TotalPortal.Areas.Accounts.APIs
 {
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-    public class AccountInvoiceApiController : Controller
+    public class AccountInvoiceAPIsController : Controller
     {
         private readonly IAccountInvoiceAPIRepository accountInvoiceAPIRepository;
 
-        public AccountInvoiceApiController(IAccountInvoiceAPIRepository accountInvoiceAPIRepository)
+        public AccountInvoiceAPIsController(IAccountInvoiceAPIRepository accountInvoiceAPIRepository)
         {
             this.accountInvoiceAPIRepository = accountInvoiceAPIRepository;
         }
@@ -40,6 +40,21 @@ namespace TotalPortal.Areas.Accounts.APIs
             DataSourceResult response = accountInvoiceIndexes.ToDataSourceResult(request);
 
             return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        public JsonResult GetConsumers([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? accountInvoiceID)
+        {
+            var result = this.accountInvoiceAPIRepository.GetConsumers(locationID, accountInvoiceID);
+            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetGoodsIssues([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? accountInvoiceID)
+        {
+            var result = this.accountInvoiceAPIRepository.GetGoodsIssues(locationID, accountInvoiceID);
+            return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
 

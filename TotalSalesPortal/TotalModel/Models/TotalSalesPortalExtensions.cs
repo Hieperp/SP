@@ -43,6 +43,8 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.AccountInvoiceID; }
 
+        public virtual Customer Consumer { get { return this.Customer1; } }
+
         public ICollection<AccountInvoiceDetail> GetDetails() { return this.AccountInvoiceDetails; }
     }
 

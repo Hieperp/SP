@@ -9,6 +9,7 @@ using TotalModel;
 using TotalBase.Enums;
 using TotalDTO.Helpers;
 using TotalDTO.Commons;
+using TotalDTO.Inventories;
 
 namespace TotalDTO.Accounts
 {
@@ -22,15 +23,17 @@ namespace TotalDTO.Accounts
         public int AccountInvoiceID { get; set; }
 
         public virtual int CustomerID { get; set; }
+        public virtual Nullable<int> ConsumerID { get; set; }
+        public virtual Nullable<int> GoodsIssueID { get; set; }
 
         [Display(Name = "Số hóa đơn")]
-        [Required(ErrorMessage = "Vui lòng nhập Số hóa đơn")]
+        [Required(ErrorMessage = "Vui lòng nhập số hóa đơn")]
         public string VATInvoiceNo { get; set; }
         [Display(Name = "Số seri")]
-        [Required(ErrorMessage = "Vui lòng nhập Số seri")]
+        [Required(ErrorMessage = "Vui lòng nhập số seri")]
         public string VATInvoiceSeries { get; set; }
         [Display(Name = "Ngày hóa đơn")]
-        [Required(ErrorMessage = "Vui lòng Ngày hóa đơn")]
+        [Required(ErrorMessage = "Vui lòng nhập ngày hóa đơn")]
         public Nullable<System.DateTime> VATInvoiceDate { get; set; }
 
         public override void PerformPresaveRule()
@@ -48,9 +51,16 @@ namespace TotalDTO.Accounts
         }
 
         public override int CustomerID { get { return (this.Customer != null ? this.Customer.CustomerID : 0); } }
-        [UIHint("Commons/CustomerBase")]
+        [UIHint("AutoCompletes/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
 
+        public override Nullable<int> ConsumerID { get { return (this.Consumer != null ? (Nullable<int>)this.Consumer.CustomerID : null); } }
+        [UIHint("Commons/CustomerBase")]
+        public CustomerBaseDTO Consumer { get; set; }
+
+        public override Nullable<int> GoodsIssueID { get { return (this.GoodsIssue != null ? (Nullable<int>)this.GoodsIssue.GoodsIssueID : null); } }
+        [UIHint("Commons/GoodsIssue")]
+        public GoodsIssueBoxDTO GoodsIssue { get; set; }
 
         public List<AccountInvoiceDetailDTO> AccountInvoiceViewDetails { get; set; }
         public List<AccountInvoiceDetailDTO> ViewDetails { get { return this.AccountInvoiceViewDetails; } set { this.AccountInvoiceViewDetails = value; } }
