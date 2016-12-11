@@ -11,6 +11,16 @@
     @Html.HiddenFor(model => model.Description);
     @Html.HiddenFor(model => model.Remarks);
 
+    @Html.HiddenFor(model => model.Customer.CustomerID);
+    @Html.HiddenFor(model => model.Customer.Code);
+    @Html.HiddenFor(model => model.Customer.Name);
+    @Html.HiddenFor(model => model.Customer.VATCode);
+    @Html.HiddenFor(model => model.Customer.Telephone);
+    @Html.HiddenFor(model => model.Customer.AddressNo);
+    @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
+    @Html.HiddenFor(model => model.Customer.EmployeeID)
+    @Html.HiddenFor(model => model.Customer.EmployeeName)
+
     @Html.HiddenFor(model => model.Consumer.CustomerID);
     @Html.HiddenFor(model => model.Consumer.Code);
     @Html.HiddenFor(model => model.Consumer.Name);
@@ -98,6 +108,17 @@
 
             $("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
             $("#Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
+
+            $("#Customer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerID);
+            $("#Customer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerCode);
+            $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerName);
+            $("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerVATCode);
+            $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerTelephone);
+            $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerAddressNo);
+            $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerEntireTerritoryEntireName);
+
+            $("#Customer_EmployeeID").val(99999999);
+            $("#Customer_EmployeeName").val("#######");
 
             $("#Consumer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerID);
             $("#Consumer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerCode);

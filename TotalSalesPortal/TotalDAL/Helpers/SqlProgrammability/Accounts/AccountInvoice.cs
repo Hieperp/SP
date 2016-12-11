@@ -85,13 +85,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             string queryString = " @LocationID int, @AccountInvoiceID int " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Consumers.CustomerID AS ConsumerID, Consumers.Code AS ConsumerCode, Consumers.Name AS ConsumerName, Consumers.VATCode AS ConsumerVATCode, Consumers.AttentionName AS ConsumerAttentionName, Consumers.Telephone AS ConsumerTelephone, Consumers.AddressNo AS ConsumerAddressNo, ConsumerEntireTerritories.EntireName AS ConsumerEntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
             queryString = queryString + "                       GoodsIssues.GoodsIssueID, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.EntryDate AS GoodsIssueEntryDate, GoodsIssues.Description, GoodsIssues.Remarks, " + "\r\n";
             queryString = queryString + "                       Receivers.Code AS GoodsIssueReceiverCode, Receivers.Name AS GoodsIssueReceiverName " + "\r\n";
 
             queryString = queryString + "       FROM            GoodsIssues " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Customers Consumers ON GoodsIssues.LocationID = @LocationID AND GoodsIssues.CustomerID = Consumers.CustomerID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories ConsumerEntireTerritories ON Consumers.TerritoryID = ConsumerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON GoodsIssues.LocationID = @LocationID AND GoodsIssues.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers Receivers ON GoodsIssues.ReceiverID = Receivers.CustomerID " + "\r\n";
 
             queryString = queryString + "       WHERE           GoodsIssues.GoodsIssueID IN  " + "\r\n";
@@ -109,15 +109,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
-            queryString = queryString + "       SELECT          Consumers.CustomerID AS ConsumerID, Consumers.Code AS ConsumerCode, Consumers.Name AS ConsumerName, Consumers.VATCode AS ConsumerVATCode, Consumers.AttentionName AS ConsumerAttentionName, Consumers.Telephone AS ConsumerTelephone, Consumers.AddressNo AS ConsumerAddressNo, ConsumerEntireTerritories.EntireName AS ConsumerEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID FROM " + "\r\n";
             queryString = queryString + "                              (SELECT CustomerID FROM GoodsIssueDetails WHERE LocationID = @LocationID AND (ROUND(Quantity - QuantityInvoice, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityInvoice, 0) > 0) " + "\r\n";
             queryString = queryString + "                               UNION ALL " + "\r\n";
             queryString = queryString + "                               SELECT CustomerID FROM AccountInvoices WHERE AccountInvoiceID = @AccountInvoiceID) CustomerReceiverPENDING " + "\r\n";
-            queryString = queryString + "                      )ConsumerUNION " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Customers Consumers ON ConsumerUNION.CustomerID = Consumers.CustomerID " + "\r\n";
-            queryString = queryString + "                       INNER JOIN EntireTerritories ConsumerEntireTerritories ON Consumers.TerritoryID = ConsumerEntireTerritories.TerritoryID " + "\r\n";
+            queryString = queryString + "                      )CustomerUNION " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers Customers ON CustomerUNION.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GetPendingGoodsIssueConsumers", queryString);
         }
