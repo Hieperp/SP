@@ -59,6 +59,9 @@
         <div style="clear: both; height: 136px;">
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
             @Html.EditorFor(d => d.Consumer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Consumer), CustomerIcon = "Customer Red 24.png" })
+            <div style="float: right; margin-top: -100px; " title="Bảng giá áp dụng cho đơn hàng">
+                @Html.DisplayFor(d => d.GoodsIssue)
+            </div>
         </div>
 
         <div class="div-k-grid-detail">
@@ -267,8 +270,8 @@
             @if (Model.Editable)
             {
                 @Html.HiddenFor(model => model.PrintAfterClosedSubmit)
-                <button id="closedSubmitButton" type="submit" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu hóa đơn </button>
-                <button id="closedSubmitButton_NMVN" type="submit" onclick="$('#PrintAfterClosedSubmit').val(true);" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In hóa đơn</button>
+                <button id="closedSubmitButton" type="submit" formaction="@Url.Action("Edit", "AccountInvoices")" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu hóa đơn </button>
+                <button id="closedSubmitButton_NMVN" type="submit" formaction="@Url.Action("Edit", "AccountInvoices")" onclick="$('#PrintAfterClosedSubmit').val(true);" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In hóa đơn</button>
             }
             else
             {

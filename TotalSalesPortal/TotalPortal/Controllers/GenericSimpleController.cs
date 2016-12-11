@@ -135,7 +135,9 @@ namespace TotalPortal.Controllers
         public virtual ActionResult CreateWizard(TSimpleViewModel simpleViewModel)
         {
             if (!this.isCreateWizard) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
+            
+            ModelState.Clear(); //Add this on 10-Dec-2016: When using Required attribute for a Nullable<System.DateTime>, the Kendo().DateTimePickerFor can not pass when submit. Don't know why!!!
+            //This ModelState.Clear(): may be a very good idea -may be very very good :), because: we don't need to pre check model error here (Note ... Note: right here then, we always to return Edit view to input data, the: the model will be check by edit view)
 
             return View("Edit", this.TailorViewModel(this.DecorateViewModel(simpleViewModel)));
         }

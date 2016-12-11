@@ -59,7 +59,7 @@ namespace TotalDTO.Accounts
         public CustomerBaseDTO Consumer { get; set; }
 
         public override Nullable<int> GoodsIssueID { get { return (this.GoodsIssue != null ? (Nullable<int>)this.GoodsIssue.GoodsIssueID : null); } }
-        [UIHint("Commons/GoodsIssue")]
+        [UIHint("Commons/GoodsIssueBox")]
         public GoodsIssueBoxDTO GoodsIssue { get; set; }
 
         public List<AccountInvoiceDetailDTO> AccountInvoiceViewDetails { get; set; }

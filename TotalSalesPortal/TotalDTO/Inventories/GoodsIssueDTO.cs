@@ -82,7 +82,7 @@ namespace TotalDTO.Inventories
 
     public interface IGoodsIssueBoxDTO //This DTO is used to display related GoodsIssue data only
     {
-        int GoodsIssueID { get; set; }
+        Nullable<int> GoodsIssueID { get; set; }
         [Display(Name = "Số phiếu xuất kho")]
         string Reference { get; set; }
         [Display(Name = "Ngày xuất kho")]
@@ -96,7 +96,7 @@ namespace TotalDTO.Inventories
 
     public class GoodsIssueBoxDTO : IGoodsIssueBoxDTO
     {
-        public int GoodsIssueID { get; set; }
+        public Nullable<int> GoodsIssueID { get; set; }
         public string Reference { get; set; }
         public DateTime? EntryDate { get; set; }
 

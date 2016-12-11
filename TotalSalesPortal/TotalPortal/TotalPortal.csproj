@@ -308,6 +308,7 @@
     <Content Include="Content\Images\Mains\Blue-Right 48.png" />
     <Content Include="Content\Images\Mains\Blue-Right 64.png" />
     <Content Include="Content\Images\Mains\Blue-Right.png" />
+    <Content Include="Content\Images\Mains\Box_Grey.png" />
     <Content Include="Content\Images\Mains\Click_here_blue.png" />
     <Content Include="Content\Images\Mains\Cross-icon-cancel32.png" />
     <Content Include="Content\Images\Mains\Cross-icon-cancel64.png" />
@@ -318,6 +319,11 @@
     <Content Include="Content\Images\Mains\Navigate-right.png" />
     <Content Include="Content\Images\Mains\Next-right.png" />
     <Content Include="Content\Images\Mains\Next-view.png" />
+    <Content Include="Content\Images\Mains\RectangleBlue.jpg" />
+    <Content Include="Content\Images\Mains\RectangleGray.jpg" />
+    <Content Include="Content\Images\Mains\RectangleOrange.jpg" />
+    <Content Include="Content\Images\Mains\RectangleRed.jpg" />
+    <Content Include="Content\Images\Mains\RectangleYellow.jpg" />
     <Content Include="Content\Images\Mains\red-cross-icon32.png" />
     <Content Include="Content\Images\Mains\red-cross-icon64.png" />
     <Content Include="Content\Images\Mains\Sale-Discount.png" />
@@ -1279,6 +1285,7 @@
     <Content Include="Views\Shared\EditorTemplates\AutoCompletes\VoidType.cshtml" />
     <Content Include="Views\Home\Print.cshtml" />
     <Content Include="Views\Helpers\Commons\_DeleteConfirm.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Commons\GoodsIssueBox.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
