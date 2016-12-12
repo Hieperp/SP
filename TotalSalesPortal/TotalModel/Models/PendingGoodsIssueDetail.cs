@@ -38,5 +38,8 @@ namespace TotalModel.Models
         public decimal GrossAmount { get; set; }
         public Nullable<bool> IsBonus { get; set; }
         public Nullable<bool> IsSelected { get; set; }
+        public string ReceiverCode { get; set; }
+        public string ReceiverName { get; set; }
+        public string Reference { get; set; }
     }
 }

@@ -8,22 +8,25 @@
     .Name("gridPendingGoodsIssueDetails")
     .Columns(columns =>
     {
-        columns.Bound(c => c.CustomerCode).Title("Khách hàng").Width(10);
-        columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(30);
-        columns.Bound(c => c.CommodityName).Title("Mã hàng").Width(16);
-        columns.Bound(c => c.Quantity).Title("SL").Format("{0:n0}").Width(5).HtmlAttributes(new { @class = "grid-number-column" });
-        columns.Bound(c => c.GrossPrice).Title("Đơn giá").Format("{0:n0}").Width(8).HtmlAttributes(new { @class = "grid-number-column" });
-        columns.Bound(c => c.GrossAmount).Title("Thành tiền").Format("{0:n0}").Width(8).HtmlAttributes(new { @class = "grid-number-column" });
+        columns.Bound(c => c.Reference).Title("PXK").Width(35);
+        columns.Bound(c => c.EntryDate).Title("Ngày, giờ xuất kho").Width(80).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.CustomerCode).Title("Mã khách hàng").Width(80);
+        columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(132);
+        columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(132);
+        columns.Bound(c => c.CommodityName).Title("Mã hàng").Width(90);
+        columns.Bound(c => c.QuantityRemains).Title("SLXK").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" });
+        columns.Bound(c => c.FreeQuantityRemains).Title("SLQT").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" });
 
-        columns.Template(t => { }).Title("&nbsp;").ClientTemplate("<input class='IsSelected' #= IsSelected ? checked='checked':'' #  type='checkbox' />").Width(3);
+        columns.Template(t => { }).Title("&nbsp;").ClientTemplate("<input class='IsSelected' #= IsSelected ? checked='checked':'' #  type='checkbox' />").Width(15);
     })
     .ToolBar(toolbar =>
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
-                <label class="category-label" for="category">Lọc khách hàng hoặc mặt hàng:</label>
-                <input id="filterText" class="k-textbox" style="text-align: center;" onkeyup="onFilterTextKeyUp()" />
-                @Html.Kendo().DatePicker().Name("EntryDate").Value(DateTime.Today).Events(e => e.Change("reReadPendingGoodsIssueDetails")).HtmlAttributes(new { @class = "input-class", style = "text-align: center; width:105px" })
+                <label>Nhập số phiếu xuất kho/ hoặc mã, tên khách hàng hay đơn vị, người nhận hàng/ hoặc mã hàng hóa</label>
+                <input id="filterText" class="k-textbox" style="text-align: center;" onkeyup="filterText_KeyUp()" />
+                @Html.Kendo().DatePicker().Name("FromDate").Value(DateTime.Today).Events(e => e.Change("reReadPendingGoodsIssueDetails")).HtmlAttributes(new { @class = "input-class", style = "text-align: center; width:105px" })
+                @Html.Kendo().DatePicker().Name("ToDate").Value(DateTime.Today).Events(e => e.Change("reReadPendingGoodsIssueDetails")).HtmlAttributes(new { @class = "input-class", style = "text-align: center; width:105px" })
 
                 @(Html.Kendo().DropDownList()
                     .Name("CommodityTypeID")
@@ -37,13 +40,13 @@
                             new SelectListItem { Text = "Phí dịch vụ", Value = "6"}
                       })
                     .Events(e => e.Change("reReadPendingGoodsIssueDetails"))
-                    .HtmlAttributes(new { @style = "padding-right: 12px;" })
+                    .HtmlAttributes(new { @style = "padding-right: 13px;" })
                 )
 
             </div>
         </text>);
     })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .Scrollable(s => s.Height(SettingsManager.PopupContentHeightLarge))
     .DataSource(ds => ds.Ajax()
             .Read(read => read.Action("GetPendingGoodsIssueDetails", "AccountInvoiceAPIs", new { area = "Accounts" }).Data(@<text>
                 function(e) {
@@ -56,8 +59,8 @@
                     customerID: window.parent.$("#Consumer_CustomerID").val(),
                     commodityTypeID: $("#CommodityTypeID").val(),
                     locationID: window.parent.requireConfig.pageOptions.LocationID,
-                    fromDate: $("#EntryDate").val(),
-                    toDate: $("#EntryDate").val(),
+                    fromDate: $("#FromDate").val(),
+                    toDate: $("#ToDate").val(),
                     goodsIssueDetailIDs : accountInvoiceJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(","),
                     isReadOnly: false
                 };}
@@ -69,8 +72,8 @@
 
 <div class="background-bar" style="height: 45px;">
     <div class="popup-button-bar">
-        <input id="okButton" type="button" value="OK" class="k-button" onclick="okButton_Click()" />
-        <input id="cancelButton" type="button" value="Cancel" class="k-button" onclick="cancelButton_Click()" />
+        <button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Thêm măt hàng đang chọn vào HĐ</button>
+        <button type="button" class="k-button" onclick="cancelButton_Click()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png" /> Thoát </button>
     </div>
 </div>
 
@@ -94,27 +97,30 @@
 <script>
     function reReadPendingGoodsIssueDetails() { $("#gridPendingGoodsIssueDetails").data("kendoGrid").dataSource.read() }
 
-    function onFilterTextKeyUp() {
+    function filterText_KeyUp() {
         var filterText = $("#filterText").val(), gridDetails = $("#gridPendingGoodsIssueDetails").data("kendoGrid");
 
         if (filterText && filterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
-
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
+                    { field: "Reference", operator: "contains", value: filterText },
+
                     { field: "CustomerCode", operator: "contains", value: filterText },
                     { field: "CustomerName", operator: "contains", value: filterText },
+
+                    { field: "ReceiverCode", operator: "contains", value: filterText },
+                    { field: "ReceiverName", operator: "contains", value: filterText },
+
                     { field: "CommodityCode", operator: "contains", value: filterText },
-                    { field: "CommodityName", operator: "contains", value: filterText },
-                    { field: "ChassisCode", operator: "contains", value: filterText },
-                    { field: "EngineCode", operator: "contains", value: filterText }
-                  //{ field: "IsSelected", operator: "eq", value: true }
+                    { field: "CommodityName", operator: "contains", value: filterText }
                 ]
             });
 
 
         } else {
-            gridDetails.dataSource.filter({});
+            if (gridDetails.dataSource.filter() != undefined)
+                gridDetails.dataSource.filter({});
         }
     }
 </script>

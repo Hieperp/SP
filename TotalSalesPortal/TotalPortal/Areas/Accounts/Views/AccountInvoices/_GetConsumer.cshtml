@@ -6,17 +6,19 @@
 
     .Columns(columns =>
     {
-        columns.Bound(c => c.ConsumerCode).Title("Mã khách hàng").Width(160);
-        columns.Bound(c => c.ConsumerName).Title("Tên khách hàng").Width(80);
-        columns.Bound(c => c.ConsumerVATCode).Title("MST").Width(160);
-        columns.Bound(c => c.ConsumerAddressNo).Title("Địa chỉ").Width(190);
+        columns.Bound(c => c.CustomerCode).Title("Mã khách hàng").Width(80);
+        columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(160);
+        columns.Bound(c => c.CustomerVATCode).Title("MST").Width(50);
+        columns.Bound(c => c.CustomerTelephone).Title("Điện thoại").Width(56);
+        columns.Bound(c => c.CustomerAddressNo).Title("Địa chỉ").Width(180);
+        columns.Bound(c => c.CustomerEntireTerritoryEntireName).Title("Địa bàn").Width(70);
     })
     .ToolBar(toolbar =>
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
-                <label>Nhập tên khách hàng:</label>
-                <input id="filterTextBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="filterTextBox_KeyUp()" />
+                <label>Nhập mã, tên, MST, địa chỉ, hoặc địa bàn khách hàng</label>
+                <input id="pendingGoodsIssueConsumerFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="pendingGoodsIssueConsumerFilter_KeyUp()" />
             </div>
         </text>);
     })
@@ -36,9 +38,26 @@
         };
     }
 
-    function filterTextBox_KeyUp() {
-        if ($("#filterTextBox").val().length === 0 || $("#filterTextBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
-            $("#pendingGoodsIssueConsumerGrid").data("kendoGrid").dataSource.read();
+    function pendingGoodsIssueConsumerFilter_KeyUp() {
+        var pendingGoodsIssueConsumerFilter = $("#pendingGoodsIssueConsumerFilter").val(), gridDetails = $("#pendingGoodsIssueConsumerGrid").data("kendoGrid");
+
+        if (pendingGoodsIssueConsumerFilter && pendingGoodsIssueConsumerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+            gridDetails.dataSource.filter({
+                logic: "or",
+                filters: [
+                    { field: "CustomerCode", operator: "contains", value: pendingGoodsIssueConsumerFilter },
+                    { field: "CustomerName", operator: "contains", value: pendingGoodsIssueConsumerFilter },
+                    { field: "CustomerVATCode", operator: "contains", value: pendingGoodsIssueConsumerFilter },
+                    { field: "CustomerTelephone", operator: "contains", value: pendingGoodsIssueConsumerFilter },
+                    { field: "CustomerAddressNo", operator: "contains", value: pendingGoodsIssueConsumerFilter },
+                    { field: "CustomerEntireTerritoryEntireName", operator: "contains", value: pendingGoodsIssueConsumerFilter }
+                ]
+            });
+
+
+        } else {
+            if (gridDetails.dataSource.filter() != undefined)
+                gridDetails.dataSource.filter({});
         }
     }
 

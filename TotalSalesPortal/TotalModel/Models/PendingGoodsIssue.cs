@@ -13,14 +13,6 @@ namespace TotalModel.Models
     
     public partial class PendingGoodsIssue
     {
-        public int ConsumerID { get; set; }
-        public string ConsumerCode { get; set; }
-        public string ConsumerName { get; set; }
-        public string ConsumerVATCode { get; set; }
-        public string ConsumerAttentionName { get; set; }
-        public string ConsumerTelephone { get; set; }
-        public string ConsumerAddressNo { get; set; }
-        public string ConsumerEntireTerritoryEntireName { get; set; }
         public int GoodsIssueID { get; set; }
         public string GoodsIssueReference { get; set; }
         public System.DateTime GoodsIssueEntryDate { get; set; }
@@ -28,5 +20,13 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public string GoodsIssueReceiverCode { get; set; }
         public string GoodsIssueReceiverName { get; set; }
+        public int CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerVATCode { get; set; }
+        public string CustomerAttentionName { get; set; }
+        public string CustomerTelephone { get; set; }
+        public string CustomerAddressNo { get; set; }
+        public string CustomerEntireTerritoryEntireName { get; set; }
     }
 }

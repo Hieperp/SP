@@ -1,3 +1,3 @@
-﻿require(["kendoWidgetReadonly", "commonEditBasic", "gridDatasourceFreeQuantitySubscribe"], function (kendoWidgetReadonly, commonEditBasic, gridDatasourceFreeQuantitySubscribe) {
+﻿require(["kendoWidgetReadonly", "commonEditBasic", "gridWidgetQuantityRemainsSubscribeChange", "gridDatasourceFreeQuantitySubscribe"], function (kendoWidgetReadonly, commonEditBasic, gridWidgetQuantityRemainsSubscribeChange, gridDatasourceFreeQuantitySubscribe) {
 
 });

@@ -3219,6 +3219,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="Decimal" Name="GrossAmount" Nullable="false" Precision="1" Scale="1" />
           <Property Type="Boolean" Name="IsBonus" Nullable="true" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+          <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
         </ComplexType>
         <Association Name="FK_AccountInvoices_Customers1">
           <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="0..1" />
@@ -3245,24 +3248,16 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           </ReferentialConstraint>
         </Association>
         <ComplexType Name="PendingGoodsIssueConsumer">
-          <Property Type="Int32" Name="ConsumerID" Nullable="false" />
-          <Property Type="String" Name="ConsumerCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="ConsumerName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ConsumerVATCode" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="ConsumerAttentionName" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="ConsumerTelephone" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ConsumerAddressNo" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="ConsumerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerVATCode" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
         </ComplexType>
         <ComplexType Name="PendingGoodsIssue">
-          <Property Type="Int32" Name="ConsumerID" Nullable="false" />
-          <Property Type="String" Name="ConsumerCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="ConsumerName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ConsumerVATCode" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="ConsumerAttentionName" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="ConsumerTelephone" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ConsumerAddressNo" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="ConsumerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
           <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
           <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="false" Precision="23" />
@@ -3270,6 +3265,14 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="GoodsIssueReceiverCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="GoodsIssueReceiverName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerVATCode" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4186,34 +4189,29 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
                 <ScalarProperty Name="IsBonus" ColumnName="IsBonus" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPendingGoodsIssueConsumers" FunctionName="TotalSalesPortalModel.Store.GetPendingGoodsIssueConsumers">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSalesPortalModel.PendingGoodsIssueConsumer">
-                <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
-                <ScalarProperty Name="ConsumerCode" ColumnName="ConsumerCode" />
-                <ScalarProperty Name="ConsumerName" ColumnName="ConsumerName" />
-                <ScalarProperty Name="ConsumerVATCode" ColumnName="ConsumerVATCode" />
-                <ScalarProperty Name="ConsumerAttentionName" ColumnName="ConsumerAttentionName" />
-                <ScalarProperty Name="ConsumerTelephone" ColumnName="ConsumerTelephone" />
-                <ScalarProperty Name="ConsumerAddressNo" ColumnName="ConsumerAddressNo" />
-                <ScalarProperty Name="ConsumerEntireTerritoryEntireName" ColumnName="ConsumerEntireTerritoryEntireName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerVATCode" ColumnName="CustomerVATCode" />
+                <ScalarProperty Name="CustomerAttentionName" ColumnName="CustomerAttentionName" />
+                <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+                <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
+                <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPendingGoodsIssues" FunctionName="TotalSalesPortalModel.Store.GetPendingGoodsIssues">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSalesPortalModel.PendingGoodsIssue">
-                <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
-                <ScalarProperty Name="ConsumerCode" ColumnName="ConsumerCode" />
-                <ScalarProperty Name="ConsumerName" ColumnName="ConsumerName" />
-                <ScalarProperty Name="ConsumerVATCode" ColumnName="ConsumerVATCode" />
-                <ScalarProperty Name="ConsumerAttentionName" ColumnName="ConsumerAttentionName" />
-                <ScalarProperty Name="ConsumerTelephone" ColumnName="ConsumerTelephone" />
-                <ScalarProperty Name="ConsumerAddressNo" ColumnName="ConsumerAddressNo" />
-                <ScalarProperty Name="ConsumerEntireTerritoryEntireName" ColumnName="ConsumerEntireTerritoryEntireName" />
                 <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
                 <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
                 <ScalarProperty Name="GoodsIssueEntryDate" ColumnName="GoodsIssueEntryDate" />
@@ -4221,6 +4219,14 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="GoodsIssueReceiverCode" ColumnName="GoodsIssueReceiverCode" />
                 <ScalarProperty Name="GoodsIssueReceiverName" ColumnName="GoodsIssueReceiverName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerVATCode" ColumnName="CustomerVATCode" />
+                <ScalarProperty Name="CustomerAttentionName" ColumnName="CustomerAttentionName" />
+                <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+                <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
+                <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

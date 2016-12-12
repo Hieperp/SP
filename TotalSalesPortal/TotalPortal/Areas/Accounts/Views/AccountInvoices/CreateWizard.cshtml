@@ -61,8 +61,9 @@
         <div class="popup-button-bar">
             <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "AccountInvoices")" formtarget="_top" style="display:none" />
 
-            <input id="okButton" type="button" value="Ok" class="k-button" onclick="okButton_Click()" />
-            <input id="cancelButton" type="button" value="Cancel" class="k-button" onclick="cancelButton_Click()" />
+            <button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png"/> Xuất hóa đơn khách hàng đang chọn </button>
+            <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png"/> Xuất hóa đơn tổng hợp </button>            
+            <button type="button" class="k-button" onclick="window.parent.$('#myWindow').data('kendoWindow').close()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png"/> Thoát </button>
         </div>
     </div>
 }
@@ -79,12 +80,7 @@
         handleOKEvent();
     }
 
-
-    function cancelButton_Click() {
-        $("#myWindow").data("kendoWindow").close();
-    }
-
-
+    
     function handleOKEvent(tabIndex) {
         if (tabIndex === undefined)
             _setModelInput();
@@ -109,24 +105,24 @@
             $("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
             $("#Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
 
-            $("#Customer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerID);
-            $("#Customer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerCode);
-            $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerName);
-            $("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerVATCode);
-            $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerTelephone);
-            $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerAddressNo);
-            $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerEntireTerritoryEntireName);
+            $("#Customer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerID);
+            $("#Customer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerCode);
+            $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
+            $("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
+            $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
+            $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+            $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
 
             $("#Customer_EmployeeID").val(99999999);
             $("#Customer_EmployeeName").val("#######");
 
-            $("#Consumer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerID);
-            $("#Consumer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerCode);
-            $("#Consumer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerName);
-            $("#Consumer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerVATCode);
-            $("#Consumer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerTelephone);
-            $("#Consumer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerAddressNo);
-            $("#Consumer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.ConsumerEntireTerritoryEntireName);
+            $("#Consumer_CustomerID").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerID);
+            $("#Consumer_Code").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerCode);
+            $("#Consumer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
+            $("#Consumer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
+            $("#Consumer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
+            $("#Consumer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+            $("#Consumer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
 
             $("#Consumer_EmployeeID").val(99999999);
             $("#Consumer_EmployeeName").val("#######");

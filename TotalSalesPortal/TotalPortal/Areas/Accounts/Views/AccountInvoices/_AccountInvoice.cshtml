@@ -99,7 +99,7 @@
                     columns.Bound(p => p.ControlFreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
-                    
+
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
@@ -115,7 +115,7 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantity) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].FreeQuantity' value='#= FreeQuantity #' />");
-                    
+
                     columns.Bound(p => p.ListedPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
@@ -125,7 +125,7 @@
                         .ClientFooterTemplate("#= kendo.format('{0:n1}%', average) #")
                         .ClientTemplate("#= kendo.format('{0:n1}%', DiscountPercent) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].DiscountPercent' value='#= DiscountPercent #' />");
 
-                    columns.Bound(p => p.UnitPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                    columns.Bound(p => p.UnitPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden()
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', UnitPrice) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
 
@@ -143,7 +143,7 @@
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', VATAmount) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].VATAmount' value='#= VATAmount #' />");
 
-                    columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                    columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden()
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', GrossPrice) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].GrossPrice' value='#= GrossPrice #' />");
 
@@ -166,7 +166,10 @@
                 {
                     if (Model.Editable)
                     {
-                        toolbar.Custom().Text("Chọn phiếu xuất kho").Url("#").HtmlAttributes(new { onclick = "GetPendingGoodsIssueDetails()" });
+                        toolbar.Template(@<text> 
+                            <button type="button" class="k-button" onclick="GetPendingGoodsIssueDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng xuất HĐ </button> 
+                            <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Xuất HĐ theo số lượng xuất kho </button>
+                        </text>);                        
                     }
                     else
                     {//Add a functionless button for display purpose only
@@ -293,7 +296,7 @@
     function GetPendingGoodsIssueDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "AccountInvoices", new { area = "Accounts" })", "Chọn phiếu bán hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeight");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "AccountInvoices", new { area = "Accounts" })", "Chọn phiếu bán hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
         });
     }
 
