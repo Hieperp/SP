@@ -38,15 +38,15 @@ namespace TotalPortal.Areas.Inventories.APIs
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDeliveryAdvices([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? goodsIssueID, string deliveryAdviceReference)
+        public JsonResult GetDeliveryAdvices([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? goodsIssueID, string searchText)
         {
-            ICollection<PendingDeliveryAdvice> GoodsIssueGetDeliveryAdvices = this.goodsIssueAPIRepository.GetDeliveryAdvices(locationID, goodsIssueID, deliveryAdviceReference);
+            ICollection<PendingDeliveryAdvice> GoodsIssueGetDeliveryAdvices = this.goodsIssueAPIRepository.GetDeliveryAdvices(locationID, goodsIssueID, searchText);
             return Json(GoodsIssueGetDeliveryAdvices.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? goodsIssueID, string customerName)
+        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? goodsIssueID, string searchText)
         {
-            ICollection<PendingDeliveryAdviceCustomer> pendingDeliveryAdviceCustomers = this.goodsIssueAPIRepository.GetCustomers(locationID, goodsIssueID, customerName);
+            ICollection<PendingDeliveryAdviceCustomer> pendingDeliveryAdviceCustomers = this.goodsIssueAPIRepository.GetCustomers(locationID, goodsIssueID, searchText);
             return Json(pendingDeliveryAdviceCustomers.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 

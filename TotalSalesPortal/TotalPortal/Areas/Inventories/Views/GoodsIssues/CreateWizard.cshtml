@@ -40,7 +40,7 @@
         .Name("tabStrip")
         .Items(tabStrip =>
         {
-            tabStrip.Add().Text("Chọn phiếu đặt hàng")
+            tabStrip.Add().Text("Chọn phiếu đề nghị giao hàng")
                 .Selected(true)
                 .Content(@<text>
             @Html.Partial("~/Areas/Inventories/Views/GoodsIssues/_GetDeliveryAdvice.cshtml")
@@ -58,8 +58,8 @@
         <div class="popup-button-bar">
             <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "GoodsIssues")" formtarget="_top" style="display:none" />
 
-            <input id="okButton" type="button" value="Ok" class="k-button" onclick="okButton_Click()" />
-            <input id="cancelButton" type="button" value="Cancel" class="k-button" onclick="cancelButton_Click()" />
+            <button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Xuất kho cho khách hàng đang chọn </button>
+            <button type="button" class="k-button" onclick="window.parent.$('#myWindow').data('kendoWindow').close()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png" /> Thoát </button>
         </div>
     </div>
 }
@@ -72,21 +72,12 @@
         handleOKEvent($("#tabStrip").data("kendoTabStrip").select().index());
     }
 
-    function okWOSelectButton_Click() {
-        handleOKEvent();
-    }
-
-
-    function cancelButton_Click() {
-        $("#myWindow").data("kendoWindow").close();
-    }
-
 
     function handleOKEvent(tabIndex) {
         if (tabIndex === undefined)
             _setModelInput();
         else {
-            var selectedGrid = $(tabIndex === 0 ? "#getDeliveryAdvicesGrid" : "#getCustomersGrid").data("kendoGrid");
+            var selectedGrid = $(tabIndex === 0 ? "#pendingDeliveryAdviceGrid" : "#pendingDeliveryAdviceCustomerGrid").data("kendoGrid");
             var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
             if (selectedDataItem === undefined)
                 return false;

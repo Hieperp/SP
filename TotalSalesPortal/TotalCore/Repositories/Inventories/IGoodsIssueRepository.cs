@@ -10,7 +10,7 @@ namespace TotalCore.Repositories.Inventories
 
     public interface IGoodsIssueAPIRepository : IGenericAPIRepository
     {
-        ICollection<PendingDeliveryAdvice> GetDeliveryAdvices(int locationID, int? goodsIssueID, string deliveryAdviceReference);
-        ICollection<PendingDeliveryAdviceCustomer> GetCustomers(int locationID, int? goodsIssueID, string customerName);
+        ICollection<PendingDeliveryAdvice> GetDeliveryAdvices(int locationID, int? goodsIssueID, string searchText);
+        ICollection<PendingDeliveryAdviceCustomer> GetCustomers(int locationID, int? goodsIssueID, string searchText);
     }
 }

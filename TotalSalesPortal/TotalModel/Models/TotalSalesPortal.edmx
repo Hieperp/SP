@@ -1172,12 +1172,12 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
         <Function Name="GetPendingDeliveryAdviceCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
-          <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetPendingDeliveryAdvices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
-          <Parameter Name="DeliveryAdviceReference" Type="nvarchar" Mode="In" />
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetPendingGoodsIssueConsumers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
@@ -1655,12 +1655,12 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <FunctionImport Name="GetPendingDeliveryAdviceCustomers" ReturnType="Collection(TotalSalesPortalModel.PendingDeliveryAdviceCustomer)">
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
-            <Parameter Name="CustomerName" Mode="In" Type="String" />
+            <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetPendingDeliveryAdvices" ReturnType="Collection(TotalSalesPortalModel.PendingDeliveryAdvice)">
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
-            <Parameter Name="DeliveryAdviceReference" Mode="In" Type="String" />
+            <Parameter Name="SearchText" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GoodsIssueEditable" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />

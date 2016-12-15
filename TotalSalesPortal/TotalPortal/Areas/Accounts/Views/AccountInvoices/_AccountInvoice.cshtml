@@ -166,10 +166,10 @@
                 {
                     if (Model.Editable)
                     {
-                        toolbar.Template(@<text> 
-                            <button type="button" class="k-button" onclick="GetPendingGoodsIssueDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng xuất HĐ </button> 
+                        toolbar.Template(@<text>
+                            <button type="button" class="k-button" onclick="GetPendingGoodsIssueDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng xuất HĐ </button>
                             <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Xuất HĐ theo số lượng xuất kho </button>
-                        </text>);                        
+                        </text>);
                     }
                     else
                     {//Add a functionless button for display purpose only
@@ -197,31 +197,31 @@
                 {
                     events.DataBinding(@<text> function(e) {rowNumber = 0;} </text>);
                 })
-                .DataSource(dataSource => dataSource
-                    .Ajax()
-                    .Batch(true)
-                    .ServerOperation(false)
-                    .Model(model =>
-                    {
-                        model.Id(x => x.AccountInvoiceDetailID);
-                        model.Field(m => m.AccountInvoiceDetailID).DefaultValue(0);
-                        model.Field(m => m.AccountInvoiceID).DefaultValue(@Model.AccountInvoiceID);
-                        model.Field(m => m.Quantity).DefaultValue(0);
-                        model.Field(m => m.DiscountPercent).DefaultValue(0);
-                    })
-                    .Events(events =>
-                    {
-                        events.Error("kendGrid_ErrorHandler");
-                    })
-                    .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
-                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                    .Aggregates(a => a.Add(x => x.FreeQuantityRemains).Sum())
-                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
-                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
-                    .Aggregates(a => a.Add(x => x.Amount).Sum())
-                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
-                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
-                )
+                                                .DataSource(dataSource => dataSource
+                                                    .Ajax()
+                                                    .Batch(true)
+                                                    .ServerOperation(false)
+                                                    .Model(model =>
+                                                    {
+                                                        model.Id(x => x.AccountInvoiceDetailID);
+                                                        model.Field(m => m.AccountInvoiceDetailID).DefaultValue(0);
+                                                        model.Field(m => m.AccountInvoiceID).DefaultValue(@Model.AccountInvoiceID);
+                                                        model.Field(m => m.Quantity).DefaultValue(0);
+                                                        model.Field(m => m.DiscountPercent).DefaultValue(0);
+                                                    })
+                                                    .Events(events =>
+                                                    {
+                                                        events.Error("kendGrid_ErrorHandler");
+                                                    })
+                                                    .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                                    .Aggregates(a => a.Add(x => x.FreeQuantityRemains).Sum())
+                                                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
+                                                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                                                    .Aggregates(a => a.Add(x => x.Amount).Sum())
+                                                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                                                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                                                )
             )
 
         </div>
@@ -237,32 +237,32 @@
                         .Expanded(false)
                         .Content(@<text>
 
-                <div class="right-first-panel">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Description, new { @class = "right-panel-label" })
-                        <div class="div-input">
-                            @Html.Kendo().MaskedTextBoxFor(model => model.Description).HtmlAttributes(new { @class = "right-panel-input" })
-                        </div>
-                        <div class="div-validation-message">
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                            <div class="right-first-panel">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, new { @class = "right-panel-label" })
+                                    <div class="div-input">
+                                        @Html.Kendo().MaskedTextBoxFor(model => model.Description).HtmlAttributes(new { @class = "right-panel-input" })
+                                    </div>
+                                    <div class="div-validation-message">
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Remarks, new { @class = "right-panel-label" })
-                        <div class="div-input">
-                            @Html.Kendo().MaskedTextBoxFor(model => model.Remarks).HtmlAttributes(new { @class = "right-panel-input" })
-                        </div>
-                        <div class="div-validation-message">
-                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Remarks, new { @class = "right-panel-label" })
+                                    <div class="div-input">
+                                        @Html.Kendo().MaskedTextBoxFor(model => model.Remarks).HtmlAttributes(new { @class = "right-panel-input" })
+                                    </div>
+                                    <div class="div-validation-message">
+                                        @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="right-second-panel">
-                    @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/PreparedPerson.cshtml")
-                    @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/Approver.cshtml")
-                </div>
+                            <div class="right-second-panel">
+                                @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/PreparedPerson.cshtml")
+                                @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/Approver.cshtml")
+                            </div>
 
                         </text>).HtmlAttributes(new { @class = "panel-class" });
                 })
@@ -273,13 +273,13 @@
             @if (Model.Editable)
             {
                 @Html.HiddenFor(model => model.PrintAfterClosedSubmit)
-                <button id="closedSubmitButton" type="submit" formaction="@Url.Action("Edit", "AccountInvoices")" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu hóa đơn </button>
-                <button id="closedSubmitButton_NMVN" type="submit" formaction="@Url.Action("Edit", "AccountInvoices")" onclick="$('#PrintAfterClosedSubmit').val(true);" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In hóa đơn</button>
+                <button type="submit" class="k-button custom-button" id="closedSubmitButton" formaction="@Url.Action("Edit", "AccountInvoices")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu hóa đơn </button>
+                <button type="submit" class="k-button custom-button" id="closedSubmitButton_NMVN" formaction="@Url.Action("Edit", "AccountInvoices")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
             }
             else
             {
-                <button formaction="@Url.Action("PrintDetail", "AccountInvoices", new { id = @Model.AccountInvoiceID })" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In bảng kê</button>
-                <button formaction="@Url.Action("Print", "AccountInvoices", new { id = @Model.AccountInvoiceID })" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In hóa đơn</button>
+                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("PrintDetail", "AccountInvoices", new { id = @Model.AccountInvoiceID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In bảng kê</button>
+                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "AccountInvoices", new { id = @Model.AccountInvoiceID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
             }
         </div>
 

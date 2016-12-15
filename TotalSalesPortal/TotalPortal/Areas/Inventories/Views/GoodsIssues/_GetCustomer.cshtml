@@ -3,7 +3,7 @@
 @using TotalModel.Models;
 
 @(Html.Kendo().Grid<PendingDeliveryAdviceCustomer>()
-    .Name("getCustomersGrid")
+    .Name("pendingDeliveryAdviceCustomerGrid")
 
     .Columns(columns =>
     {
@@ -16,8 +16,8 @@
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
-                <label>Nhập tên khách hàng:</label>
-                <input id="customerNameSearchBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="customerNameSearchBox_KeyUp()" />
+                <label>Nhập mã, tên hoặc MST khách hàng</label>
+                <input id="deliveryAdviceCustomerSearchTextBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="deliveryAdviceCustomerSearchTextBox_KeyUp()" />
             </div>
         </text>);
     })
@@ -29,23 +29,31 @@
     .Selectable()
 )
 
+@Html.Hidden("deliveryAdviceCustomerSearchText", "")
+
 <script type="text/javascript">
     function onAdditionalGetCustomers(e) {
         return {
             locationID: window.parent.requireConfig.pageOptions.LocationID,
             goodsIssueID: $("#GoodsIssueID").val(),
-            customerName: $("#customerNameSearchBox").val()
+            searchText: $("#deliveryAdviceCustomerSearchText").val()
         };
     }
 
-    function customerNameSearchBox_KeyUp() {
-        if ($("#customerNameSearchBox").val().length === 0 || $("#customerNameSearchBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
-            $("#getCustomersGrid").data("kendoGrid").dataSource.read();
+    function deliveryAdviceCustomerSearchTextBox_KeyUp() {
+        if ($("#deliveryAdviceCustomerSearchTextBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
+            $("#deliveryAdviceCustomerSearchText").val($("#deliveryAdviceCustomerSearchTextBox").val());
+            $("#pendingDeliveryAdviceCustomerGrid").data("kendoGrid").dataSource.read();
+        } else {
+            if ($("#deliveryAdviceCustomerSearchText").val() != "") {
+                $("#deliveryAdviceCustomerSearchText").val("");
+                $("#pendingDeliveryAdviceCustomerGrid").data("kendoGrid").dataSource.read();
+            }
         }
     }
 
 
-    $("#getCustomersGrid").dblclick(function (e) {
+    $("#pendingDeliveryAdviceCustomerGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

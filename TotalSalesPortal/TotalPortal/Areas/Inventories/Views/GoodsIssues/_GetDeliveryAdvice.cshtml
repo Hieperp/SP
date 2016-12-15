@@ -2,7 +2,7 @@
 @using TotalModel.Models;
 
 @(Html.Kendo().Grid<PendingDeliveryAdvice>()
-    .Name("getDeliveryAdvicesGrid")
+    .Name("pendingDeliveryAdviceGrid")
     .Columns(columns =>
     {
         columns.Bound(c => c.DeliveryAdviceReference).Title("Số phiếu").Width(40);
@@ -14,10 +14,10 @@
     })
     .ToolBar(toolbar =>
     {
-        toolbar.Template(@<text>
+        toolbar.Template(@<text>            
             <div class="toolbar" style="float: right;">
-                <label>Nhập số phiếu đặt hàng:</label>
-                <input id="deliveryAdviceReferenceSearchBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="deliveryAdviceReferenceSearchBox_KeyUp()" />
+                <label>Nhập số phiếu ĐNGH/ hoặc mã, tên hoặc MST khách hàng</label>
+                <input id="deliveryAdviceSearchTextBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="deliveryAdviceSearchTextBox_KeyUp()" />
             </div>
         </text>);
     })
@@ -29,22 +29,30 @@
         .Selectable()
 )
 
+@Html.Hidden("deliveryAdviceSearchText", "")
+
 <script type="text/javascript">
     function onAdditionalGetDeliveryAdvices(e) {
         return {
             locationID: window.parent.requireConfig.pageOptions.LocationID,
             goodsIssueID: $("#GoodsIssueID").val(),
-            deliveryAdviceReference: $("#deliveryAdviceReferenceSearchBox").val()
+            searchText: $("#deliveryAdviceSearchText").val()
         };
     }
 
-    function deliveryAdviceReferenceSearchBox_KeyUp() {
-        if ($("#deliveryAdviceReferenceSearchBox").val().length === 0 || $("#deliveryAdviceReferenceSearchBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
-            $("#getDeliveryAdvicesGrid").data("kendoGrid").dataSource.read();
+    function deliveryAdviceSearchTextBox_KeyUp() {
+        if ($("#deliveryAdviceSearchTextBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
+            $("#deliveryAdviceSearchText").val($("#deliveryAdviceSearchTextBox").val());
+            $("#pendingDeliveryAdviceGrid").data("kendoGrid").dataSource.read();
+        } else {
+            if ($("#deliveryAdviceSearchText").val() != "") {
+                $("#deliveryAdviceSearchText").val("");
+                $("#pendingDeliveryAdviceGrid").data("kendoGrid").dataSource.read();
+            }
         }
     }
 
-    $("#getDeliveryAdvicesGrid").dblclick(function (e) {
+    $("#pendingDeliveryAdviceGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

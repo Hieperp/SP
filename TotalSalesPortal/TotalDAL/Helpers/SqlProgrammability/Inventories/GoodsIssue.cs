@@ -58,7 +58,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
         private void GetPendingDeliveryAdvices()
         {
-            string queryString = " @LocationID int, @GoodsIssueID int, @DeliveryAdviceReference nvarchar(60) " + "\r\n";
+            string queryString = " @LocationID int, @GoodsIssueID int, @SearchText nvarchar(60) " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "       SELECT          DeliveryAdvices.DeliveryAdviceID, DeliveryAdvices.Reference AS DeliveryAdviceReference, DeliveryAdvices.EntryDate AS DeliveryAdviceEntryDate, DeliveryAdvices.Description, DeliveryAdvices.Remarks, " + "\r\n";
@@ -66,7 +66,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                       DeliveryAdvices.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM            DeliveryAdvices " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Customers ON (@DeliveryAdviceReference = '' OR DeliveryAdvices.Reference LIKE '%' + @DeliveryAdviceReference + '%' OR Customers.Code LIKE '%' + @DeliveryAdviceReference + '%' OR Customers.Name LIKE '%' + @DeliveryAdviceReference + '%') AND DeliveryAdvices.LocationID = @LocationID AND DeliveryAdvices.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON (@SearchText = '' OR DeliveryAdvices.Reference LIKE '%' + @SearchText + '%' OR Customers.Code LIKE '%' + @SearchText + '%' OR Customers.Name LIKE '%' + @SearchText + '%' OR Customers.VATCode LIKE '%' + @SearchText + '%') AND DeliveryAdvices.LocationID = @LocationID AND DeliveryAdvices.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers Receivers ON DeliveryAdvices.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN EntireTerritories ReceiverEntireTerritories ON Receivers.TerritoryID = ReceiverEntireTerritories.TerritoryID " + "\r\n";
@@ -82,7 +82,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
         private void GetPendingDeliveryAdviceCustomers()
         {
-            string queryString = " @LocationID int, @GoodsIssueID int, @CustomerName nvarchar(100) " + "\r\n";
+            string queryString = " @LocationID int, @GoodsIssueID int, @SearchText nvarchar(100) " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
@@ -93,7 +93,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                               UNION ALL " + "\r\n";
             queryString = queryString + "                               SELECT CustomerID, ReceiverID FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID) CustomerReceiverPENDING " + "\r\n";
             queryString = queryString + "                      )CustomerReceiverUNION  " + "\r\n";
-            queryString = queryString + "                       INNER JOIN Customers ON (@CustomerName = '' OR Customers.Code LIKE '%' + @CustomerName + '%' OR Customers.Name LIKE '%' + @CustomerName + '%') AND CustomerReceiverUNION.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN Customers ON (@SearchText = '' OR Customers.Code LIKE '%' + @SearchText + '%' OR Customers.Name LIKE '%' + @SearchText + '%' OR Customers.VATCode LIKE '%' + @SearchText + '%') AND CustomerReceiverUNION.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers Receivers ON CustomerReceiverUNION.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
             queryString = queryString + "                       INNER JOIN EntireTerritories ReceiverEntireTerritories ON Receivers.TerritoryID = ReceiverEntireTerritories.TerritoryID " + "\r\n";
