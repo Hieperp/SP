@@ -39,6 +39,39 @@ namespace TotalModel.Models
     }
 
 
+
+
+
+
+
+
+
+
+    public partial class HandlingUnit : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<HandlingUnitDetail>
+    {
+        public int GetID() { return this.HandlingUnitID; }
+
+        public virtual Customer Receiver { get { return this.Customer1; } }
+
+        public ICollection<HandlingUnitDetail> GetDetails() { return this.HandlingUnitDetails; }
+    }
+
+
+    public partial class HandlingUnitDetail : IPrimitiveEntity, IHelperEntryDate
+    {
+        public int GetID() { return this.HandlingUnitDetailID; }
+    }
+
+
+
+
+
+
+
+
+
+
+
     public partial class AccountInvoice : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<AccountInvoiceDetail>
     {
         public int GetID() { return this.AccountInvoiceID; }

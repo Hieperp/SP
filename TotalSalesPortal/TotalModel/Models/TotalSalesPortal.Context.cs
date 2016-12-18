@@ -667,5 +667,108 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingGoodsIssue>("GetPendingGoodsIssues", locationIDParameter, accountInvoiceIDParameter);
         }
+    
+        public virtual ObjectResult<HandlingUnitIndex> GetHandlingUnitIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitIndex>("GetHandlingUnitIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<HandlingUnitViewDetail> GetHandlingUnitViewDetails(Nullable<int> handlingUnitID)
+        {
+            var handlingUnitIDParameter = handlingUnitID.HasValue ?
+                new ObjectParameter("HandlingUnitID", handlingUnitID) :
+                new ObjectParameter("HandlingUnitID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitViewDetail>("GetHandlingUnitViewDetails", handlingUnitIDParameter);
+        }
+    
+        public virtual ObjectResult<HUPendingGoodsIssueCustomer> GetHUPendingGoodsIssueCustomers(Nullable<int> locationID, Nullable<int> handlingUnitID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var handlingUnitIDParameter = handlingUnitID.HasValue ?
+                new ObjectParameter("HandlingUnitID", handlingUnitID) :
+                new ObjectParameter("HandlingUnitID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HUPendingGoodsIssueCustomer>("GetHUPendingGoodsIssueCustomers", locationIDParameter, handlingUnitIDParameter);
+        }
+    
+        public virtual ObjectResult<HUPendingGoodsIssueDetail> GetHUPendingGoodsIssueDetails(Nullable<int> handlingUnitID, Nullable<int> goodsIssueID, Nullable<int> customerID, Nullable<int> receiverID, string goodsIssueDetailIDs, Nullable<bool> isReadonly)
+        {
+            var handlingUnitIDParameter = handlingUnitID.HasValue ?
+                new ObjectParameter("HandlingUnitID", handlingUnitID) :
+                new ObjectParameter("HandlingUnitID", typeof(int));
+    
+            var goodsIssueIDParameter = goodsIssueID.HasValue ?
+                new ObjectParameter("GoodsIssueID", goodsIssueID) :
+                new ObjectParameter("GoodsIssueID", typeof(int));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            var receiverIDParameter = receiverID.HasValue ?
+                new ObjectParameter("ReceiverID", receiverID) :
+                new ObjectParameter("ReceiverID", typeof(int));
+    
+            var goodsIssueDetailIDsParameter = goodsIssueDetailIDs != null ?
+                new ObjectParameter("GoodsIssueDetailIDs", goodsIssueDetailIDs) :
+                new ObjectParameter("GoodsIssueDetailIDs", typeof(string));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HUPendingGoodsIssueDetail>("GetHUPendingGoodsIssueDetails", handlingUnitIDParameter, goodsIssueIDParameter, customerIDParameter, receiverIDParameter, goodsIssueDetailIDsParameter, isReadonlyParameter);
+        }
+    
+        public virtual ObjectResult<HUPendingGoodsIssue> GetHUPendingGoodsIssues(Nullable<int> locationID, Nullable<int> handlingUnitID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var handlingUnitIDParameter = handlingUnitID.HasValue ?
+                new ObjectParameter("HandlingUnitID", handlingUnitID) :
+                new ObjectParameter("HandlingUnitID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HUPendingGoodsIssue>("GetHUPendingGoodsIssues", locationIDParameter, handlingUnitIDParameter);
+        }
+    
+        public virtual ObjectResult<string> HandlingUnitPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("HandlingUnitPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int HandlingUnitSaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("HandlingUnitSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
     }
 }

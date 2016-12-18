@@ -16,6 +16,8 @@
         "gridDatasourceFreeQuantity": "Controllers/Root/Shared/Edits/gridDatasourceFreeQuantity",
         "gridDatasourceFreeQuantitySubscribe": "Controllers/Root/Shared/Edits/gridDatasourceFreeQuantitySubscribe",
 
+        "gridDatasourceWeight": "Controllers/Root/Shared/Edits/gridDatasourceWeight",
+        "gridDatasourceWeightSubscribe": "Controllers/Root/Shared/Edits/gridDatasourceWeightSubscribe",
 
         "gridEditorTemplate": "Controllers/Root/Shared/Edits/gridEditorTemplate",
         "gridEditorCommodity": "Controllers/Root/Shared/Edits/gridEditorCommodity",

@@ -6,6 +6,8 @@
         public static int rndAmount = 0;
         public static int rndDiscountPercent = 1;
 
+        public static int rndWeight = 2;
+
         public enum SubmitTypeOption
         {
             Save = 0,

@@ -114,7 +114,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID, ReceiverID FROM " + "\r\n";
             queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM GoodsIssueDetails WHERE LocationID = @LocationID AND ROUND(Quantity + FreeQuantity - QuantityHandlingUnit, 0) > 0 " + "\r\n";
             queryString = queryString + "                               UNION ALL " + "\r\n";
-            queryString = queryString + "                               SELECT CustomerID, ReceiverID FROM HandlingUnit WHERE HandlingUnitID = @HandlingUnitID) CustomerReceiverPENDING " + "\r\n";
+            queryString = queryString + "                               SELECT CustomerID, ReceiverID FROM HandlingUnits WHERE HandlingUnitID = @HandlingUnitID) CustomerReceiverPENDING " + "\r\n";
             queryString = queryString + "                      )CustomerReceiverUNION  " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers ON CustomerReceiverUNION.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers Receivers ON CustomerReceiverUNION.ReceiverID = Receivers.CustomerID " + "\r\n";
@@ -130,7 +130,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString;
 
-            queryString = " @HandlingUnitID Int, @GoodsIssueID Int, @CustomerID Int, @ReceiverID Int, @CommodityTypeID int, @AspUserID nvarchar(128), @LocationID Int, @FromDate DateTime, @ToDate DateTime, @GoodsIssueDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+            queryString = " @HandlingUnitID Int, @GoodsIssueID Int, @CustomerID Int, @ReceiverID Int, @GoodsIssueDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 

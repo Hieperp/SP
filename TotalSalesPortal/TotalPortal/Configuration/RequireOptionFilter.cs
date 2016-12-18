@@ -14,6 +14,8 @@ namespace TotalPortal.Configuration
             RequireJsOptions.Add("rndAmount", GlobalEnums.rndAmount , RequireJsOptionsScope.Global);
             RequireJsOptions.Add("rndDiscountPercent", GlobalEnums.rndDiscountPercent, RequireJsOptionsScope.Global);
 
+            RequireJsOptions.Add("rndWeight", GlobalEnums.rndWeight, RequireJsOptionsScope.Global);
+
             RequireJsOptions.Add("settingsManager.dateFormat", SettingsManager.DateFormat, RequireJsOptionsScope.Global);
         }
     }

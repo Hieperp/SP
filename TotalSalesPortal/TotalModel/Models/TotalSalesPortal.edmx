@@ -337,6 +337,7 @@
           <Property Name="FreeQuantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="QuantityInvoice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FreeQuantityInvoice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="QuantityHandlingUnit" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ListedPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DiscountPercent" Type="decimal" Precision="18" Scale="5" Nullable="false" />
           <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -1321,6 +1322,30 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Parameter Name="ReceiverID" Type="int" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
         </Function>
+        <Function Name="GetHandlingUnitIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetHandlingUnitViewDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetHUPendingGoodsIssueCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetHUPendingGoodsIssueDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
+          <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
+          <Parameter Name="CustomerID" Type="int" Mode="In" />
+          <Parameter Name="ReceiverID" Type="int" Mode="In" />
+          <Parameter Name="GoodsIssueDetailIDs" Type="varchar" Mode="In" />
+          <Parameter Name="IsReadonly" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="GetHUPendingGoodsIssues" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetPendingDeliveryAdviceCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
@@ -1396,6 +1421,13 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
         <Function Name="GoodsIssueToggleApproved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EntityID" Type="int" Mode="In" />
           <Parameter Name="Approved" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="HandlingUnitPostSaveValidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="HandlingUnitSaveRelative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EntityID" Type="int" Mode="In" />
+          <Parameter Name="SaveRelativeOption" Type="int" Mode="In" />
         </Function>
         <Function Name="ReceiptEditable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EntityID" Type="int" Mode="In" />
@@ -2120,6 +2152,37 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             <End Role="PackingMaterial" EntitySet="PackingMaterials" />
             <End Role="HandlingUnit" EntitySet="HandlingUnits" />
           </AssociationSet>
+          <FunctionImport Name="GetHandlingUnitIndexes" ReturnType="Collection(TotalSalesPortalModel.HandlingUnitIndex)">
+            <Parameter Name="AspUserID" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetHandlingUnitViewDetails" ReturnType="Collection(TotalSalesPortalModel.HandlingUnitViewDetail)">
+          <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetHUPendingGoodsIssueCustomers" ReturnType="Collection(TotalSalesPortalModel.HUPendingGoodsIssueCustomer)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetHUPendingGoodsIssueDetails" ReturnType="Collection(TotalSalesPortalModel.HUPendingGoodsIssueDetail)">
+            <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
+            <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+            <Parameter Name="ReceiverID" Mode="In" Type="Int32" />
+            <Parameter Name="GoodsIssueDetailIDs" Mode="In" Type="String" />
+            <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetHUPendingGoodsIssues" ReturnType="Collection(TotalSalesPortalModel.HUPendingGoodsIssue)">
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="HandlingUnitPostSaveValidate" ReturnType="Collection(String)">
+          <Parameter Name="EntityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="HandlingUnitSaveRelative">
+            <Parameter Name="EntityID" Mode="In" Type="Int32" />
+            <Parameter Name="SaveRelativeOption" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -3250,6 +3313,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <NavigationProperty Name="AccountInvoiceDetails" Relationship="TotalSalesPortalModel.FK_AccountInvoiceDetails_GoodsIssueDetails" FromRole="GoodsIssueDetail" ToRole="AccountInvoiceDetail" />
           <Property Name="ControlFreeQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="HandlingUnitDetails" Relationship="TotalSalesPortalModel.FK_HandlingUnitDetails_GoodsIssueDetails" FromRole="GoodsIssueDetail" ToRole="HandlingUnitDetail" />
+          <Property Name="QuantityHandlingUnit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_GoodsIssueDetails_Commodities">
           <End Type="TotalSalesPortalModel.Commodity" Role="Commodity" Multiplicity="1" />
@@ -3645,6 +3709,87 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="HandlingUnitIndex">
+          <Property Type="Int32" Name="HandlingUnitID" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="true" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="CustomerDescription" Nullable="false" MaxLength="305" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalWeight" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="RealWeight" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="HandlingUnitViewDetail">
+          <Property Type="Int32" Name="HandlingUnitDetailID" Nullable="false" />
+          <Property Type="Int32" Name="HandlingUnitID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsIssueDetailID" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="21" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Weight" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalWeight" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="HUPendingGoodsIssueDetail">
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="Int32" Name="GoodsIssueDetailID" Nullable="false" />
+          <Property Type="Int32" Name="CommodityID" Nullable="false" />
+          <Property Type="String" Name="CommodityCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CommodityName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CommodityTypeID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="AddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="20" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="HUPendingGoodsIssue">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerVATCode" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+          <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
+          <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="GoodsIssueReceiverCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="GoodsIssueReceiverName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="HUPendingGoodsIssueCustomer">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerVATCode" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CustomerTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CustomerAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+          <Property Type="Int32" Name="ReceiverID" Nullable="false" />
+          <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceiverVATCode" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="ReceiverAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="ReceiverTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceiverAddressNo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ReceiverEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4436,6 +4581,7 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <EntitySetMapping Name="GoodsIssueDetails">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssueDetail">
               <MappingFragment StoreEntitySet="GoodsIssueDetails">
+                <ScalarProperty Name="QuantityHandlingUnit" ColumnName="QuantityHandlingUnit" />
                 <ScalarProperty Name="ControlFreeQuantity" ColumnName="ControlFreeQuantity" />
                 <ScalarProperty Name="InActivePartialDate" ColumnName="InActivePartialDate" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
@@ -4663,6 +4809,109 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetHandlingUnitIndexes" FunctionName="TotalSalesPortalModel.Store.GetHandlingUnitIndexes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.HandlingUnitIndex">
+                <ScalarProperty Name="HandlingUnitID" ColumnName="HandlingUnitID" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="CustomerDescription" ColumnName="CustomerDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+                <ScalarProperty Name="RealWeight" ColumnName="RealWeight" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetHandlingUnitViewDetails" FunctionName="TotalSalesPortalModel.Store.GetHandlingUnitViewDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.HandlingUnitViewDetail">
+                <ScalarProperty Name="HandlingUnitDetailID" ColumnName="HandlingUnitDetailID" />
+                <ScalarProperty Name="HandlingUnitID" ColumnName="HandlingUnitID" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetHUPendingGoodsIssueCustomers" FunctionName="TotalSalesPortalModel.Store.GetHUPendingGoodsIssueCustomers" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.HUPendingGoodsIssueCustomer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerVATCode" ColumnName="CustomerVATCode" />
+                <ScalarProperty Name="CustomerAttentionName" ColumnName="CustomerAttentionName" />
+                <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+                <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
+                <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="ReceiverVATCode" ColumnName="ReceiverVATCode" />
+                <ScalarProperty Name="ReceiverAttentionName" ColumnName="ReceiverAttentionName" />
+                <ScalarProperty Name="ReceiverTelephone" ColumnName="ReceiverTelephone" />
+                <ScalarProperty Name="ReceiverAddressNo" ColumnName="ReceiverAddressNo" />
+                <ScalarProperty Name="ReceiverEntireTerritoryEntireName" ColumnName="ReceiverEntireTerritoryEntireName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetHUPendingGoodsIssueDetails" FunctionName="TotalSalesPortalModel.Store.GetHUPendingGoodsIssueDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.HUPendingGoodsIssueDetail">
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
+                <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
+                <ScalarProperty Name="CommodityCode" ColumnName="CommodityCode" />
+                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
+                <ScalarProperty Name="CommodityTypeID" ColumnName="CommodityTypeID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="AddressNo" ColumnName="AddressNo" />
+                <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetHUPendingGoodsIssues" FunctionName="TotalSalesPortalModel.Store.GetHUPendingGoodsIssues">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TotalSalesPortalModel.HUPendingGoodsIssue">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerVATCode" ColumnName="CustomerVATCode" />
+                <ScalarProperty Name="CustomerAttentionName" ColumnName="CustomerAttentionName" />
+                <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+                <ScalarProperty Name="CustomerAddressNo" ColumnName="CustomerAddressNo" />
+                <ScalarProperty Name="CustomerEntireTerritoryEntireName" ColumnName="CustomerEntireTerritoryEntireName" />
+                <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
+                <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
+                <ScalarProperty Name="GoodsIssueEntryDate" ColumnName="GoodsIssueEntryDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="GoodsIssueReceiverCode" ColumnName="GoodsIssueReceiverCode" />
+                <ScalarProperty Name="GoodsIssueReceiverName" ColumnName="GoodsIssueReceiverName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HandlingUnitPostSaveValidate" FunctionName="TotalSalesPortalModel.Store.HandlingUnitPostSaveValidate" />
+          <FunctionImportMapping FunctionImportName="HandlingUnitSaveRelative" FunctionName="TotalSalesPortalModel.Store.HandlingUnitSaveRelative" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

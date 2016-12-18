@@ -42,6 +42,12 @@ namespace TotalPortal.App_Start
 
                 cfg.CreateMap<GoodsIssue, GoodsIssueBoxDTO>();
 
+                cfg.CreateMap<HandlingUnit, HandlingUnitViewModel>();
+                cfg.CreateMap<HandlingUnit, HandlingUnitDTO>();
+                cfg.CreateMap<HandlingUnitPrimitiveDTO, HandlingUnit>();
+                cfg.CreateMap<HandlingUnitViewDetail, HandlingUnitDetailDTO>();
+                cfg.CreateMap<HandlingUnitDetailDTO, HandlingUnitDetail>();
+
                 cfg.CreateMap<AccountInvoice, AccountInvoiceViewModel>();
                 cfg.CreateMap<AccountInvoice, AccountInvoiceDTO>();
                 cfg.CreateMap<AccountInvoicePrimitiveDTO, AccountInvoice>();

@@ -54,6 +54,7 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
         public decimal ControlFreeQuantity { get; set; }
+        public decimal QuantityHandlingUnit { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }

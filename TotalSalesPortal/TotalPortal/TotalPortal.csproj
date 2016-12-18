@@ -218,12 +218,17 @@
     <Compile Include="Areas\Commons\APIs\EmployeeAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\VoidTypeAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\PromotionAPIsController.cs" />
+    <Compile Include="Areas\Commons\Builders\IPackingMaterialSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\CommonsAreaRegistration.cs" />
+    <Compile Include="Areas\Commons\ViewModels\Helpers\IPackingMaterialDropDownViewModel.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsIssueAPIsController.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
+    <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
     <Compile Include="Areas\Inventories\InventoriesAreaRegistration.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
+    <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
     <Compile Include="Areas\Purchases\PurchasesAreaRegistration.cs" />
     <Compile Include="Areas\Sales\APIs\DeliveryAdviceAPIsController.cs" />
     <Compile Include="Areas\Sales\Controllers\DeliveryAdvicesController.cs" />
@@ -843,6 +848,7 @@
     <Content Include="Areas\Accounts\Views\AccountInvoices\CreateWizard.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\_GetGoodsIssue.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\_GetConsumer.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\Index.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -883,6 +889,8 @@
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceFreeQuantitySubscribe.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceQuantity.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceQuantitySubscribe.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceWeight.js" />
+    <Content Include="Scripts\Controllers\Root\Shared\Edits\gridDatasourceWeightSubscribe.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommoditiesInGoodsReceipts.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommoditiesInGoodsReceiptsInvoked.js" />
     <Content Include="Scripts\Controllers\Root\Shared\Edits\gridEditorCommoditiesInWarehouses.js" />
