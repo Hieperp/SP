@@ -68,7 +68,7 @@
     definedExemplar.prototype._updateRowUnitPriceByListedPrice = function (dataRow) {
         var newUnitPrice = dataRow.ListedPrice * (1 - dataRow.DiscountPercent / 100);
         if (dataRow.UnitPrice - newUnitPrice > 0.8 || newUnitPrice - dataRow.UnitPrice > 0.8)
-            dataRow.set("UnitPrice", Math.round(newUnitPrice, requireConfig.websiteOptions.rndAmount));
+            dataRow.set("UnitPrice", this._round(newUnitPrice, requireConfig.websiteOptions.rndAmount));
     }
 
 

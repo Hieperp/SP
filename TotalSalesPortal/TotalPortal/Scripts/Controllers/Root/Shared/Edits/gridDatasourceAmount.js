@@ -71,13 +71,13 @@
     definedExemplar.prototype._updateRowUnitPrice = function (dataRow) {
         var newUnitPrice = dataRow.GrossPrice * 100 / (100 + dataRow.VATPercent);
         if (dataRow.UnitPrice - newUnitPrice > 0.8 || newUnitPrice - dataRow.UnitPrice > 0.8)
-            dataRow.set("UnitPrice", Math.round(newUnitPrice, requireConfig.websiteOptions.rndAmount));
+            dataRow.set("UnitPrice", this._round(newUnitPrice, requireConfig.websiteOptions.rndAmount));
     }
 
     definedExemplar.prototype._updateRowGrossPrice = function (dataRow) {
         var newGrossPrice = dataRow.UnitPrice * (1 + dataRow.VATPercent / 100);
         if (dataRow.GrossPrice - newGrossPrice > 0.8 || newGrossPrice - dataRow.GrossPrice > 0.8)
-            dataRow.set("GrossPrice", Math.round(newGrossPrice, requireConfig.websiteOptions.rndAmount));
+            dataRow.set("GrossPrice", this._round(newGrossPrice, requireConfig.websiteOptions.rndAmount));
     }
 
     definedExemplar.prototype._updateRowAmount = function (dataRow) {
@@ -85,11 +85,11 @@
     }
 
     definedExemplar.prototype._updateRowVATAmount = function (dataRow) {
-        dataRow.set("VATAmount", Math.round(dataRow.GrossAmount - dataRow.Amount, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("VATAmount", this._round(dataRow.GrossAmount - dataRow.Amount, requireConfig.websiteOptions.rndAmount));
     }
 
     definedExemplar.prototype._updateRowGrossAmount = function (dataRow) {
-        dataRow.set("GrossAmount", Math.round(dataRow.Quantity * dataRow.GrossPrice, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("GrossAmount", this._round(dataRow.Quantity * dataRow.GrossPrice, requireConfig.websiteOptions.rndAmount));
     }
 
 

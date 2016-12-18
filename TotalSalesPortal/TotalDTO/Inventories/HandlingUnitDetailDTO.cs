@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using TotalModel;
+using TotalBase.Enums;
 using TotalModel.Helpers;
 using TotalDTO.Helpers;
 
@@ -39,7 +40,7 @@ namespace TotalDTO.Inventories
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if (Math.Round(this.Quantity * this.UnitWeight, 0) != this.Weight) yield return new ValidationResult("Lỗi trọng lượng", new[] { "TotalWeight" });
+            if (Math.Round(this.Quantity * this.UnitWeight, GlobalEnums.rndWeight) != this.Weight) yield return new ValidationResult("Lỗi trọng lượng", new[] { "TotalWeight" });
         }
 
     }
