@@ -18,6 +18,7 @@ namespace TotalModel.Models
         public GoodsIssueDetail()
         {
             this.AccountInvoiceDetails = new HashSet<AccountInvoiceDetail>();
+            this.HandlingUnitDetails = new HashSet<HandlingUnitDetail>();
         }
     
         public int GoodsIssueDetailID { get; set; }
@@ -60,5 +61,7 @@ namespace TotalModel.Models
         public virtual VoidType VoidType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HandlingUnitDetail> HandlingUnitDetails { get; set; }
     }
 }

@@ -268,7 +268,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
         {
             string[] queryArray = new string[1];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày bán hàng: ' + CAST(GoodsIssueDetails.EntryDate AS nvarchar) FROM AccountInvoiceDetails INNER JOIN GoodsIssueDetails ON AccountInvoiceDetails.AccountInvoiceID = @EntityID AND AccountInvoiceDetails.GoodsIssueDetailID = GoodsIssueDetails.GoodsIssueDetailID AND (AccountInvoiceDetails.EntryDate < GoodsIssueDetails.EntryDate OR CAST(AccountInvoiceDetails.EntryDate AS DATE) <> CAST(GoodsIssueDetails.EntryDate AS DATE)) ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = N'Ngày bán hàng: ' + CAST(GoodsIssueDetails.EntryDate AS nvarchar) FROM AccountInvoiceDetails INNER JOIN GoodsIssueDetails ON AccountInvoiceDetails.AccountInvoiceID = @EntityID AND AccountInvoiceDetails.GoodsIssueDetailID = GoodsIssueDetails.GoodsIssueDetailID AND AccountInvoiceDetails.EntryDate < GoodsIssueDetails.EntryDate ";
 
             this.totalSalesPortalEntities.CreateProcedureToCheckExisting("AccountInvoicePostSaveValidate", queryArray);
         }

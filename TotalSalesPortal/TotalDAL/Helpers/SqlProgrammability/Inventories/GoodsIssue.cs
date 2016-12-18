@@ -89,7 +89,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                       Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID, ReceiverID FROM " + "\r\n";
-            queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM DeliveryAdviceDetails WHERE InActive = 0 AND InActivePartial = 0 AND InActiveIssue = 0 AND LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0  OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
+            queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM DeliveryAdviceDetails WHERE InActive = 0 AND InActivePartial = 0 AND InActiveIssue = 0 AND LocationID = @LocationID AND (ROUND(Quantity - QuantityIssue, 0) > 0 OR ROUND(FreeQuantity - FreeQuantityIssue, 0) > 0) " + "\r\n";
             queryString = queryString + "                               UNION ALL " + "\r\n";
             queryString = queryString + "                               SELECT CustomerID, ReceiverID FROM GoodsIssues WHERE GoodsIssueID = @GoodsIssueID) CustomerReceiverPENDING " + "\r\n";
             queryString = queryString + "                      )CustomerReceiverUNION  " + "\r\n";

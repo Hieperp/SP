@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="EntityFrameworkExtension.cs" />
     <Compile Include="Helpers\SqlProgrammability\Commons\AccessControl.cs" />
+    <Compile Include="Helpers\SqlProgrammability\Inventories\HandlingUnit.cs" />
     <Compile Include="Helpers\SqlProgrammability\Reports\SaleReports.cs" />
     <Compile Include="Repositories\Commons\VoidTypeRepository.cs" />
     <Compile Include="Repositories\Sessions\ModuleDetailRepository.cs" />

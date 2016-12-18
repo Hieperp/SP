@@ -131,6 +131,12 @@
     <Compile Include="Models\GoodsIssueViewDetail.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HandlingUnit.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HandlingUnitDetail.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Location.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
@@ -144,6 +150,9 @@
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrganizationalUnitUser.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PackingMaterial.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PaymentTerm.cs">
