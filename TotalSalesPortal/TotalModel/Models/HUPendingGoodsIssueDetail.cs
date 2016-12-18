@@ -28,8 +28,8 @@ namespace TotalModel.Models
         public string ReceiverName { get; set; }
         public Nullable<decimal> QuantityRemains { get; set; }
         public decimal Quantity { get; set; }
-        public decimal Amount { get; set; }
         public Nullable<bool> IsSelected { get; set; }
         public Nullable<double> UnitWeight { get; set; }
+        public decimal Weight { get; set; }
     }
 }

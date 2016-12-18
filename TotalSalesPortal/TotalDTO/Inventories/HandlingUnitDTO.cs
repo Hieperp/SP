@@ -27,11 +27,14 @@ namespace TotalDTO.Inventories
 
 
         [Display(Name = "Số thứ tự thùng, bao")]
-        public string Identification { get; set; }
+        public int Identification { get; set; }
         [Display(Name = "Loại thùng, bao")]
         public int PackingMaterialID { get; set; }
         [Display(Name = "Quy cách, kích thước thùng, bao")]
         public string Dimension { get; set; }
+
+        [Display(Name = "Trọng lượng thực tế")]
+        public decimal RealWeight { get; set; }
 
         [Display(Name = "Tổng trọng lượng")]
         public decimal TotalWeight { get; set; }

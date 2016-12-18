@@ -29,12 +29,12 @@
     }
 
 
-    definedExemplar.prototype._updateTotalToModelProperty = function (totalFieldName, fieldName, aggregateFunction, isUpdateFooterTemplate) {//Update model property for post data
+    definedExemplar.prototype._updateTotalToModelProperty = function (totalFieldName, fieldName, aggregateFunction, isUpdateFooterTemplate, decimals) {//Update model property for post data
         if (this._kenGrid.dataSource.view().length == 0)
             $("#" + totalFieldName).val(0);
         else {
             if (this._kenGrid.dataSource.aggregates()[fieldName][aggregateFunction] != undefined && this._kenGrid.dataSource.aggregates()[fieldName][aggregateFunction] != null)
-                $("#" + totalFieldName).val(this._kenGrid.dataSource.aggregates()[fieldName][aggregateFunction]);
+                $("#" + totalFieldName).val(this._round(this._kenGrid.dataSource.aggregates()[fieldName][aggregateFunction], decimals));
         }
 
         if (arguments.length === 3 || isUpdateFooterTemplate === true) //Missing isUpdateFooterTemplate => Default isUpdateFooterTemplate === true
@@ -65,7 +65,7 @@
 
 
     definedExemplar.prototype._round = function (value, decimals) {
-        if (arguments.length === 1 || decimals === 0)
+        if (arguments.length === 1 || decimals === undefined || decimals === 0)
             return Math.round(value);
         else
             return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);

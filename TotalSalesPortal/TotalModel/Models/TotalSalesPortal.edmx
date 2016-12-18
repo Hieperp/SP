@@ -3708,9 +3708,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
           <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
           <Property Type="Decimal" Name="QuantityRemains" Nullable="true" Precision="20" Scale="2" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="1" Scale="1" />
-          <Property Type="Decimal" Name="Amount" Nullable="false" Precision="1" Scale="1" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
           <Property Type="Double" Name="UnitWeight" Nullable="true" />
+          <Property Type="Decimal" Name="Weight" Nullable="false" Precision="1" Scale="1" />
         </ComplexType>
         <ComplexType Name="HUPendingGoodsIssue">
           <Property Type="Int32" Name="CustomerID" Nullable="false" />
@@ -4865,9 +4865,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
                 <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
                 <ScalarProperty Name="QuantityRemains" ColumnName="QuantityRemains" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
