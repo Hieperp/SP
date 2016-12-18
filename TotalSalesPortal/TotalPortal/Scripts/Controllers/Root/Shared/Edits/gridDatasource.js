@@ -65,7 +65,10 @@
 
 
     definedExemplar.prototype._round = function (value, decimals) {
-        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+        if (arguments.length === 1 || decimals === 0)
+            return Math.round(value);
+        else
+            return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
 
 

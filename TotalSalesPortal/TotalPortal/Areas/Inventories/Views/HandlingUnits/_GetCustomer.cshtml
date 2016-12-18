@@ -1,0 +1,68 @@
+﻿@using TotalPortal.Configuration
+@using TotalModel.Models;
+
+@(Html.Kendo().Grid<HUPendingGoodsIssueCustomer>()
+    .Name("huPendingGoodsIssueCustomerGrid")
+
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.CustomerCode).Title("Mã khách hàng").Width(80);
+        columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(160);
+        columns.Bound(c => c.CustomerVATCode).Title("MST").Width(50);
+        columns.Bound(c => c.CustomerTelephone).Title("Điện thoại").Width(56);
+        columns.Bound(c => c.CustomerAddressNo).Title("Địa chỉ").Width(180);
+        columns.Bound(c => c.CustomerEntireTerritoryEntireName).Title("Địa bàn").Width(70);
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar" style="float: right;">
+                <label>Nhập mã, tên, MST, địa chỉ, hoặc địa bàn khách hàng</label>
+                <input id="huPendingGoodsIssueCustomerFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="huPendingGoodsIssueCustomerFilter_KeyUp()" />
+            </div>
+        </text>);
+    })
+    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .DataSource(ds => ds.Ajax()
+        .Read(read => read.Action("GetCustomers", "HandlingUnitAPIs", new { area = "Inventories" }).Data("onAdditionalGetCustomers"))
+        .ServerOperation(true)
+    )
+    .Selectable()
+)
+
+<script type="text/javascript">
+    function onAdditionalGetCustomers(e) {
+        return {
+            locationID: 1,
+            handlingUnitID: $("#HandlingUnitID").val()
+        };
+    }
+
+    function huPendingGoodsIssueCustomerFilter_KeyUp() {
+        var huPendingGoodsIssueCustomerFilter = $("#huPendingGoodsIssueCustomerFilter").val(), gridDetails = $("#huPendingGoodsIssueCustomerGrid").data("kendoGrid");
+
+        if (huPendingGoodsIssueCustomerFilter && huPendingGoodsIssueCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+            gridDetails.dataSource.filter({
+                logic: "or",
+                filters: [
+                    { field: "CustomerCode", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
+                    { field: "CustomerName", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
+                    { field: "CustomerVATCode", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
+                    { field: "CustomerTelephone", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
+                    { field: "CustomerAddressNo", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
+                    { field: "CustomerEntireTerritoryEntireName", operator: "contains", value: huPendingGoodsIssueCustomerFilter }
+                ]
+            });
+
+
+        } else {
+            if (gridDetails.dataSource.filter() != undefined)
+                gridDetails.dataSource.filter({});
+        }
+    }
+
+
+    $("#huPendingGoodsIssueCustomerGrid").dblclick(function (e) {
+        okButton_Click();
+    })
+</script>

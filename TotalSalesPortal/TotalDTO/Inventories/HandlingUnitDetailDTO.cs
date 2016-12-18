@@ -26,20 +26,20 @@ namespace TotalDTO.Inventories
         public decimal QuantityRemains { get; set; }
 
 
-        [Display(Name = "Đơn giá")]
+        [Display(Name = "TL chuẩn")]
         [UIHint("DecimalReadonly")] 
-        public virtual decimal Weight { get; set; }
+        public virtual decimal UnitWeight { get; set; }
 
         [Display(Name = "Trọng lượng")]
         [UIHint("DecimalReadonly")]
-        public decimal TotalWeight { get; set; }
+        public decimal Weight { get; set; }
 
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if (Math.Round(this.Quantity * this.Weight, 0) != this.TotalWeight) yield return new ValidationResult("Lỗi trọng lượng", new[] { "TotalWeight" });
+            if (Math.Round(this.Quantity * this.UnitWeight, 0) != this.Weight) yield return new ValidationResult("Lỗi trọng lượng", new[] { "TotalWeight" });
         }
 
     }

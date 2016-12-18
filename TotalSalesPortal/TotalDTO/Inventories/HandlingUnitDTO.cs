@@ -35,7 +35,7 @@ namespace TotalDTO.Inventories
 
         [Display(Name = "Tổng trọng lượng")]
         public decimal TotalWeight { get; set; }
-        protected virtual decimal GetTotalWeight() { return this.DtoDetails().Select(o => o.TotalWeight).Sum(); }
+        protected virtual decimal GetTotalWeight() { return this.DtoDetails().Select(o => o.Weight).Sum(); }
 
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

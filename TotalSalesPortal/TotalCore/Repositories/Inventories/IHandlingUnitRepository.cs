@@ -13,6 +13,6 @@ namespace TotalCore.Repositories.Inventories
         IEnumerable<HUPendingGoodsIssueCustomer> GetCustomers(int? locationID, int? handlingUnitID);
         IEnumerable<HUPendingGoodsIssue> GetGoodsIssues(int? locationID, int? handlingUnitID);
 
-        IEnumerable<HUPendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string aspUserID, int? locationID, string goodsIssueDetailIDs, bool isReadonly);
+        IEnumerable<HUPendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string goodsIssueDetailIDs, bool isReadonly);
     }
 }

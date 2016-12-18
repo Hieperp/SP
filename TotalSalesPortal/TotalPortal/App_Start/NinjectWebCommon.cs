@@ -43,23 +43,23 @@ namespace TotalPortal.App_Start
     using TotalPortal.Areas.Inventories.Builders;
     using TotalPortal.Areas.Commons.Builders;
     using TotalPortal.Areas.Accounts.Builders;
-                        
 
 
-    public static class NinjectWebCommon 
+
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -67,7 +67,7 @@ namespace TotalPortal.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -119,12 +119,13 @@ namespace TotalPortal.App_Start
 
                 kernel.Bind<IInventoryRepository>().To<InventoryRepository>();
 
-                kernel.Bind<IAspNetUserSelectListBuilder>().To<AspNetUserSelectListBuilder>(); 
-                kernel.Bind<IPaymentTermSelectListBuilder>().To<PaymentTermSelectListBuilder>(); 
-                
-                 
+                kernel.Bind<IAspNetUserSelectListBuilder>().To<AspNetUserSelectListBuilder>();
+                kernel.Bind<IPaymentTermSelectListBuilder>().To<PaymentTermSelectListBuilder>();
+                kernel.Bind<IPackingMaterialSelectListBuilder>().To<PackingMaterialSelectListBuilder>();
 
-                
+
+
+
                 kernel.Bind<IAspNetUserRepository>().To<AspNetUserRepository>();
                 kernel.Bind<ICommodityRepository>().To<CommodityRepository>();
                 kernel.Bind<ICustomerRepository>().To<CustomerRepository>();
@@ -132,7 +133,8 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IVoidTypeRepository>().To<VoidTypeRepository>();
                 kernel.Bind<IPromotionRepository>().To<PromotionRepository>();
                 kernel.Bind<IPaymentTermRepository>().To<PaymentTermRepository>();
-                
+                kernel.Bind<IPackingMaterialRepository>().To<PackingMaterialRepository>();
+
 
                 RegisterServices(kernel);
                 return kernel;
@@ -150,6 +152,6 @@ namespace TotalPortal.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+        }
     }
 }

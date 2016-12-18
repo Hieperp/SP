@@ -24,7 +24,7 @@ namespace TotalModel.Models
         public Nullable<decimal> QuantityRemains { get; set; }
         public decimal Quantity { get; set; }
         public decimal Weight { get; set; }
-        public decimal TotalWeight { get; set; }
         public string Remarks { get; set; }
+        public decimal UnitWeight { get; set; }
     }
 }

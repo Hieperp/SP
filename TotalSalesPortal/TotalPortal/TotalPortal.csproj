@@ -222,6 +222,7 @@
     <Compile Include="Areas\Commons\CommonsAreaRegistration.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPackingMaterialDropDownViewModel.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsIssueAPIsController.cs" />
+    <Compile Include="Areas\Inventories\APIs\HandlingUnitAPIsController.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
@@ -849,6 +850,13 @@
     <Content Include="Areas\Accounts\Views\AccountInvoices\_GetGoodsIssue.cshtml" />
     <Content Include="Areas\Accounts\Views\AccountInvoices\_GetConsumer.cshtml" />
     <Content Include="Areas\Inventories\Views\HandlingUnits\Index.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\CreateWizard.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\_GetGoodsIssue.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\_GetCustomer.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\_HandlingUnit.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\GetPendingGoodsIssueDetails.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\Delete.cshtml" />
+    <Content Include="Areas\Inventories\Views\HandlingUnits\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -870,6 +878,11 @@
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Print.js" />
+    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\AddHUPendingGoodsIssueDetail.js" />
+    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\CreateWizard.js" />
+    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Delete.js" />
+    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Edit.js" />
+    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Index.js" />
     <Content Include="Scripts\Controllers\Root\Home\Index.js" />
     <Content Include="Scripts\Controllers\Root\Home\LockedDate.js" />
     <Content Include="Scripts\Controllers\Root\Home\Options.js" />
@@ -1313,6 +1326,7 @@
     <Content Include="Views\Home\Print.cshtml" />
     <Content Include="Views\Helpers\Commons\_DeleteConfirm.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Commons\GoodsIssueBox.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\PackingMaterial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

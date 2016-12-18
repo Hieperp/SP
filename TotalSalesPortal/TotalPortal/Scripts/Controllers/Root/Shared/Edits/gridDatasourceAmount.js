@@ -81,7 +81,7 @@
     }
 
     definedExemplar.prototype._updateRowAmount = function (dataRow) {
-        dataRow.set("Amount", Math.round(dataRow.Quantity * dataRow.UnitPrice, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("Amount", this._round(dataRow.Quantity * dataRow.UnitPrice, requireConfig.websiteOptions.rndAmount));
     }
 
     definedExemplar.prototype._updateRowVATAmount = function (dataRow) {

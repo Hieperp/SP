@@ -23,8 +23,8 @@ namespace TotalModel.Models
         public int GoodsIssueID { get; set; }
         public int GoodsIssueDetailID { get; set; }
         public decimal Quantity { get; set; }
+        public decimal UnitWeight { get; set; }
         public decimal Weight { get; set; }
-        public decimal TotalWeight { get; set; }
         public string Remarks { get; set; }
     
         public virtual GoodsIssueDetail GoodsIssueDetail { get; set; }
