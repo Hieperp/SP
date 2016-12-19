@@ -13,7 +13,7 @@
 
 
     definedExemplar.prototype._removeTotalToModelProperty = function () {
-        this._updateTotalToModelProperty("TotalWeight", "Weight", "sum", false, requireConfig.websiteOptions.rndWeight);
+        this._updateTotalToModelProperty("TotalWeight", "Weight", "sum", requireConfig.websiteOptions.rndWeight, false);
 
         definedExemplar._super._removeTotalToModelProperty.call(this);
     }
@@ -36,7 +36,7 @@
     }
     
     definedExemplar.prototype._changeWeight = function (dataRow) {        
-        this._updateTotalToModelProperty("TotalWeight", "Weight", "sum", true, requireConfig.websiteOptions.rndWeight);
+        this._updateTotalToModelProperty("TotalWeight", "Weight", "sum", requireConfig.websiteOptions.rndWeight);
     }
 
     

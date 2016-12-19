@@ -13,7 +13,7 @@
 
 
     definedExemplar.prototype._removeTotalToModelProperty = function () {
-        this._updateTotalToModelProperty("TotalFreeQuantity", "FreeQuantity", "sum", false);
+        this._updateTotalToModelProperty("TotalFreeQuantity", "FreeQuantity", "sum", requireConfig.websiteOptions.rndQuantity, false);
 
         definedExemplar._super._removeTotalToModelProperty.call(this);
     }
@@ -35,7 +35,7 @@
 
 
     definedExemplar.prototype._changeFreeQuantity = function (dataRow) {
-        this._updateTotalToModelProperty("TotalFreeQuantity", "FreeQuantity", "sum");
+        this._updateTotalToModelProperty("TotalFreeQuantity", "FreeQuantity", "sum", requireConfig.websiteOptions.rndQuantity);
     }
 
 
@@ -43,7 +43,7 @@
 
 
     definedExemplar.prototype._updateRowFreeQuantity = function (dataRow) {
-        dataRow.set("FreeQuantity", (dataRow.ControlFreeQuantity === 0 ? 0 : Math.floor(dataRow.Quantity / dataRow.ControlFreeQuantity)));
+        dataRow.set("FreeQuantity", this._round((dataRow.ControlFreeQuantity === 0 ? 0 : Math.floor(dataRow.Quantity / dataRow.ControlFreeQuantity)), requireConfig.websiteOptions.rndQuantity));
     }
 
 

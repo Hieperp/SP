@@ -13,7 +13,7 @@
 
 
     definedExemplar.prototype._removeTotalToModelProperty = function () {
-        this._updateTotalToModelProperty("AverageDiscountPercent", "DiscountPercent", "average", false);
+        this._updateTotalToModelProperty("AverageDiscountPercent", "DiscountPercent", "average", requireConfig.websiteOptions.rndDiscountPercent, false);
 
         definedExemplar._super._removeTotalToModelProperty.call(this);
     }
@@ -42,7 +42,7 @@
     definedExemplar.prototype._changeDiscountPercent = function (dataRow) {
         this._updateRowUnitPriceByListedPrice(dataRow);
 
-        this._updateTotalToModelProperty("AverageDiscountPercent", "DiscountPercent", "average");
+        this._updateTotalToModelProperty("AverageDiscountPercent", "DiscountPercent", "average", requireConfig.websiteOptions.rndDiscountPercent);
     }
 
     definedExemplar.prototype._changeUnitPrice = function (dataRow) {

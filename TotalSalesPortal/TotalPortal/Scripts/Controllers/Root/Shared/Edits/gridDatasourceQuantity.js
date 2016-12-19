@@ -13,7 +13,7 @@
 
 
     definedExemplar.prototype._removeTotalToModelProperty = function () {
-        this._updateTotalToModelProperty("TotalQuantity", "Quantity", "sum", false);
+        this._updateTotalToModelProperty("TotalQuantity", "Quantity", "sum", requireConfig.websiteOptions.rndQuantity, false);
 
         definedExemplar._super._removeTotalToModelProperty.call(this);
     }
@@ -26,7 +26,7 @@
 
 
     definedExemplar.prototype._changeQuantity = function (dataRow) {
-        this._updateTotalToModelProperty("TotalQuantity", "Quantity", "sum");
+        this._updateTotalToModelProperty("TotalQuantity", "Quantity", "sum", requireConfig.websiteOptions.rndQuantity);
     }
     
 

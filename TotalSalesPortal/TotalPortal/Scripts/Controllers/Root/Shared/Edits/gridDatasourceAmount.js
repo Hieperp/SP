@@ -13,9 +13,9 @@
 
 
     definedExemplar.prototype._removeTotalToModelProperty = function () {
-        this._updateTotalToModelProperty("TotalAmount", "Amount", "sum", false);
-        this._updateTotalToModelProperty("TotalVATAmount", "VATAmount", "sum", false);
-        this._updateTotalToModelProperty("TotalGrossAmount", "GrossAmount", "sum", false);
+        this._updateTotalToModelProperty("TotalAmount", "Amount", "sum", requireConfig.websiteOptions.rndAmount, false);
+        this._updateTotalToModelProperty("TotalVATAmount", "VATAmount", "sum", requireConfig.websiteOptions.rndAmount, false);
+        this._updateTotalToModelProperty("TotalGrossAmount", "GrossAmount", "sum", requireConfig.websiteOptions.rndAmount, false);
 
         definedExemplar._super._removeTotalToModelProperty.call(this);
     }
@@ -51,17 +51,17 @@
     definedExemplar.prototype._changeAmount = function (dataRow) {
         this._updateRowVATAmount(dataRow);
 
-        this._updateTotalToModelProperty("TotalAmount", "Amount", "sum");
+        this._updateTotalToModelProperty("TotalAmount", "Amount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
     definedExemplar.prototype._changeVATAmount = function (dataRow) {
-        this._updateTotalToModelProperty("TotalVATAmount", "VATAmount", "sum");
+        this._updateTotalToModelProperty("TotalVATAmount", "VATAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
     definedExemplar.prototype._changeGrossAmount = function (dataRow) {
         this._updateRowVATAmount(dataRow);
 
-        this._updateTotalToModelProperty("TotalGrossAmount", "GrossAmount", "sum");
+        this._updateTotalToModelProperty("TotalGrossAmount", "GrossAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
 
