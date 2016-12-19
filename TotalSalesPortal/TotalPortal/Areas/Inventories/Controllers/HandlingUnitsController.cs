@@ -14,8 +14,13 @@ namespace TotalPortal.Areas.Inventories.Controllers
     public class HandlingUnitsController : GenericViewDetailController<HandlingUnit, HandlingUnitDetail, HandlingUnitViewDetail, HandlingUnitDTO, HandlingUnitPrimitiveDTO, HandlingUnitDetailDTO, HandlingUnitViewModel>
     {
         public HandlingUnitsController(IHandlingUnitService handlingUnitService, IHandlingUnitViewModelSelectListBuilder handlingUnitViewModelSelectListBuilder)
-            : base(handlingUnitService, handlingUnitViewModelSelectListBuilder, true, true)
+            : base(handlingUnitService, handlingUnitViewModelSelectListBuilder, true)
         {
+        }
+
+        protected override HandlingUnitViewModel InitCreateWizardViewModel(HandlingUnitViewModel simpleViewModel)
+        {
+            return new HandlingUnitViewModel() { Customer = simpleViewModel.Customer, Receiver = simpleViewModel.Receiver, GoodsIssue = simpleViewModel.GoodsIssue };
         }
 
         public ActionResult PrintDetail(int? id)

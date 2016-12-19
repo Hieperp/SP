@@ -95,8 +95,7 @@ namespace TotalPortal.Controllers
         {
             if (!this.isSimpleCreate) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-
-            if (this.Save(simpleViewModel))
+            if ((simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save || simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Closed || simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Create) && this.Save(simpleViewModel))
                 return RedirectAfterSave(simpleViewModel);
             else
             {
@@ -171,7 +170,7 @@ namespace TotalPortal.Controllers
         [OnResultExecutingFilterAttribute]
         public virtual ActionResult Edit(TSimpleViewModel simpleViewModel)
         {
-            if ((simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save || simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Closed) && this.Save(simpleViewModel))
+            if ((simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save || simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Closed || simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Create) && this.Save(simpleViewModel))
                 return RedirectAfterSave(simpleViewModel);
             else
             {
