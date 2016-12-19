@@ -222,8 +222,8 @@
             @if (Model.Editable)
             {
                 @Html.HiddenFor(model => model.PrintAfterClosedSubmit)
-                <button type="submit" class="k-button custom-button" id="closedSubmitButton" formaction="@Url.Action("Edit", "HandlingUnits")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu hóa đơn </button>
-                <button type="submit" class="k-button custom-button" id="closedSubmitButton_NMVN" formaction="@Url.Action("Edit", "HandlingUnits")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu hóa đơn </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
             }
             else
             {

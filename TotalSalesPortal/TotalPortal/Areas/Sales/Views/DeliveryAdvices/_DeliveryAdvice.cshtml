@@ -304,14 +304,13 @@
 
         <div class="right-botton-panel">
             @if (Model.Editable)
-            {                
-                <button id="closedSubmitButton" type="submit" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu phiếu </button>
-                @*<button id="closedSubmitButton_NMVN" type="submit" onclick="$('#PrintAfterClosedSubmit').val(true);" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" alt="SavePreview" /> In HĐ bán lẻ</button>*@
+            {
+                <button type="submit" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button SubmitTypeOption-Closed"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu phiếu </button>
             }
             else
             {
                 if (!Model.Voidable && !Model.UnVoidable)
-                { 
+                {
                     <button type="button" onclick="location.href='@Url.Action("Print", "DeliveryAdvices", new { id = @Model.DeliveryAdviceID })'" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
                 }
             }

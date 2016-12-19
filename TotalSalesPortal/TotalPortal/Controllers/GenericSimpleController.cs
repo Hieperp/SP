@@ -97,7 +97,7 @@ namespace TotalPortal.Controllers
 
 
             if (this.Save(simpleViewModel))
-                return RedirectToAction(simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save ? "Edit" : simpleViewModel.PrintAfterClosedSubmit ? "Print" : "Index", new { id = simpleViewModel.GetID() });
+                return RedirectAfterSave(simpleViewModel);
             else
             {
                 return View(this.TailorViewModel(simpleViewModel));
@@ -172,7 +172,7 @@ namespace TotalPortal.Controllers
         public virtual ActionResult Edit(TSimpleViewModel simpleViewModel)
         {
             if ((simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save || simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Closed) && this.Save(simpleViewModel))
-                return RedirectToAction(simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save ? "Edit" : simpleViewModel.PrintAfterClosedSubmit ? "Print" : "Index", new { id = simpleViewModel.GetID() });
+                return RedirectAfterSave(simpleViewModel);
             else
             {
                 if (simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Popup) this.DecorateViewModel(simpleViewModel);
@@ -181,6 +181,23 @@ namespace TotalPortal.Controllers
         }
 
 
+
+
+
+        public virtual ActionResult RedirectAfterSave(TSimpleViewModel simpleViewModel)
+        {
+            if (simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Create)
+                if (this.isSimpleCreate)
+                    return RedirectToAction("Create");
+                else
+                {
+                    TSimpleViewModel createWizardViewModel = InitCreateWizardViewModel(simpleViewModel);
+                    if (createWizardViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return CreateWizard(createWizardViewModel);
+                }
+            else
+                return RedirectToAction(simpleViewModel.SubmitTypeOption == GlobalEnums.SubmitTypeOption.Save ? "Edit" : simpleViewModel.PrintAfterClosedSubmit ? "Print" : "Index", new { id = simpleViewModel.GetID() });
+        }
 
 
 
@@ -481,6 +498,17 @@ namespace TotalPortal.Controllers
             TSimpleViewModel simpleViewModel = Mapper.Map<TSimpleViewModel>(entity);
 
             return simpleViewModel;
+        }
+
+        /// <summary>
+        /// Init new model for CreateWizard. Default, this return null.
+        /// Each module should init its's createWizardViewModel accordingly
+        /// </summary>
+        /// <param name="simpleViewModel"></param>
+        /// <returns></returns>
+        protected virtual TSimpleViewModel InitCreateWizardViewModel(TSimpleViewModel simpleViewModel) //InitViewModelForCreateWizard
+        {
+            return null;
         }
 
         protected virtual TSimpleViewModel DecorateViewModel(TSimpleViewModel simpleViewModel)

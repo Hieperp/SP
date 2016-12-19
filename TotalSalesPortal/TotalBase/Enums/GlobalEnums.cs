@@ -10,16 +10,17 @@
 
         public enum SubmitTypeOption
         {
-            Save = 0,
-            Popup = 1,
-            Closed = 9
+            Save = 0, //Save and return (keep) current view
+            Popup = 1, //Save popup windows
+            Create = 3, //Save and the create new
+            Closed = 9 //Save and close (return index view)
         };
 
         public enum NmvnTaskID
         {
             UnKnown = 0,
 
-            
+
 
             Customer = 8001,
             Commodity = 8002,
