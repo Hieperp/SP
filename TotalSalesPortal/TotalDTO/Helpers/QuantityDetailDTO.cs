@@ -14,7 +14,7 @@ namespace TotalDTO.Helpers
         decimal Quantity { get; set; }
     }
 
-    public abstract class QuantityDetailDTO : BaseModel, IQuantityDetailDTO
+    public abstract class QuantityDetailDTO : BaseModel, IQuantityDetailDTO, IBaseModel
     {
         public int CommodityID { get; set; }
         [Display(Name = "Mã hàng")]

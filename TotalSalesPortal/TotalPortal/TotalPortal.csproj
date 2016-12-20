@@ -223,11 +223,14 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPackingMaterialDropDownViewModel.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsIssueAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\HandlingUnitAPIsController.cs" />
+    <Compile Include="Areas\Inventories\Builders\GoodsDeliveryViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\GoodsIssueViewModelSelectListBuilder.cs" />
     <Compile Include="Areas\Inventories\Builders\HandlingUnitViewModelSelectListBuilder.cs" />
+    <Compile Include="Areas\Inventories\Controllers\GoodsDeliveriesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
     <Compile Include="Areas\Inventories\InventoriesAreaRegistration.cs" />
+    <Compile Include="Areas\Inventories\ViewModels\GoodsDeliveryViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\GoodsIssueViewModel.cs" />
     <Compile Include="Areas\Inventories\ViewModels\HandlingUnitViewModel.cs" />
     <Compile Include="Areas\Purchases\PurchasesAreaRegistration.cs" />
@@ -857,6 +860,7 @@
     <Content Include="Areas\Inventories\Views\HandlingUnits\GetPendingGoodsIssueDetails.cshtml" />
     <Content Include="Areas\Inventories\Views\HandlingUnits\Delete.cshtml" />
     <Content Include="Areas\Inventories\Views\HandlingUnits\Edit.cshtml" />
+    <Content Include="Areas\Inventories\Views\GoodsDeliveries\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\VCP.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

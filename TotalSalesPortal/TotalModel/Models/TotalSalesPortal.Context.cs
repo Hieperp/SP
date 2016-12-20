@@ -58,6 +58,8 @@ namespace TotalModel.Models
         public virtual DbSet<HandlingUnit> HandlingUnits { get; set; }
         public virtual DbSet<PackingMaterial> PackingMaterials { get; set; }
         public virtual DbSet<HandlingUnitDetail> HandlingUnitDetails { get; set; }
+        public virtual DbSet<GoodsDelivery> GoodsDeliveries { get; set; }
+        public virtual DbSet<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {
@@ -769,6 +771,84 @@ namespace TotalModel.Models
                 new ObjectParameter("SaveRelativeOption", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("HandlingUnitSaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual ObjectResult<GoodsDeliveryIndex> GetGoodsDeliveryIndexes(string aspUserID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var aspUserIDParameter = aspUserID != null ?
+                new ObjectParameter("AspUserID", aspUserID) :
+                new ObjectParameter("AspUserID", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsDeliveryIndex>("GetGoodsDeliveryIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<GoodsDeliveryViewDetail> GetGoodsDeliveryViewDetails(Nullable<int> goodsDeliveryID)
+        {
+            var goodsDeliveryIDParameter = goodsDeliveryID.HasValue ?
+                new ObjectParameter("GoodsDeliveryID", goodsDeliveryID) :
+                new ObjectParameter("GoodsDeliveryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsDeliveryViewDetail>("GetGoodsDeliveryViewDetails", goodsDeliveryIDParameter);
+        }
+    
+        public virtual ObjectResult<PendingHandlingUnitReceiver> GetPendingHandlingUnitReceivers(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingHandlingUnitReceiver>("GetPendingHandlingUnitReceivers", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<PendingHandlingUnit> GetPendingHandlingUnits(Nullable<int> goodsDeliveryID, Nullable<int> receiverID, string handlingUnitIDs, Nullable<bool> isReadonly)
+        {
+            var goodsDeliveryIDParameter = goodsDeliveryID.HasValue ?
+                new ObjectParameter("GoodsDeliveryID", goodsDeliveryID) :
+                new ObjectParameter("GoodsDeliveryID", typeof(int));
+    
+            var receiverIDParameter = receiverID.HasValue ?
+                new ObjectParameter("ReceiverID", receiverID) :
+                new ObjectParameter("ReceiverID", typeof(int));
+    
+            var handlingUnitIDsParameter = handlingUnitIDs != null ?
+                new ObjectParameter("HandlingUnitIDs", handlingUnitIDs) :
+                new ObjectParameter("HandlingUnitIDs", typeof(string));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingHandlingUnit>("GetPendingHandlingUnits", goodsDeliveryIDParameter, receiverIDParameter, handlingUnitIDsParameter, isReadonlyParameter);
+        }
+    
+        public virtual ObjectResult<string> GoodsDeliveryPostSaveValidate(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GoodsDeliveryPostSaveValidate", entityIDParameter);
+        }
+    
+        public virtual int GoodsDeliverySaveRelative(Nullable<int> entityID, Nullable<int> saveRelativeOption)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            var saveRelativeOptionParameter = saveRelativeOption.HasValue ?
+                new ObjectParameter("SaveRelativeOption", saveRelativeOption) :
+                new ObjectParameter("SaveRelativeOption", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GoodsDeliverySaveRelative", entityIDParameter, saveRelativeOptionParameter);
         }
     }
 }

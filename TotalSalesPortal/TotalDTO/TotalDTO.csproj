@@ -99,6 +99,8 @@
     <Compile Include="Helpers\QuantityDTO.cs" />
     <Compile Include="Helpers\VATAmountDetailDTO.cs" />
     <Compile Include="Helpers\VATAmountDTO.cs" />
+    <Compile Include="Inventories\GoodsDeliveryDetailDTO.cs" />
+    <Compile Include="Inventories\GoodsDeliveryDTO.cs" />
     <Compile Include="Inventories\GoodsIssueDetailDTO.cs" />
     <Compile Include="Inventories\GoodsIssueDTO.cs" />
     <Compile Include="Inventories\HandlingUnitDetailDTO.cs" />

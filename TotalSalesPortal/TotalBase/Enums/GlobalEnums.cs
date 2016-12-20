@@ -56,6 +56,7 @@
             PartAdjustment = 8078009,
 
             HandlingUnit = 9010,
+            GoodsDelivery = 9012,
 
             TransferOrder = 8071,
             VehicleTransferOrder = 8071008,

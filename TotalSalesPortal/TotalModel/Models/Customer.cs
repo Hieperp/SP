@@ -26,6 +26,8 @@ namespace TotalModel.Models
             this.AccountInvoices1 = new HashSet<AccountInvoice>();
             this.HandlingUnits = new HashSet<HandlingUnit>();
             this.HandlingUnits1 = new HashSet<HandlingUnit>();
+            this.GoodsDeliveries = new HashSet<GoodsDelivery>();
+            this.GoodsDeliveries1 = new HashSet<GoodsDelivery>();
         }
     
         public int CustomerID { get; set; }
@@ -72,5 +74,9 @@ namespace TotalModel.Models
         public virtual ICollection<HandlingUnit> HandlingUnits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HandlingUnit> HandlingUnits1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoodsDelivery> GoodsDeliveries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoodsDelivery> GoodsDeliveries1 { get; set; }
     }
 }

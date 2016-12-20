@@ -7,6 +7,5 @@ namespace TotalCore.Services.Inventories
 {
     public interface IHandlingUnitService : IGenericWithViewDetailService<HandlingUnit, HandlingUnitDetail, HandlingUnitViewDetail, HandlingUnitDTO, HandlingUnitPrimitiveDTO, HandlingUnitDetailDTO>
     {
-        bool Save(HandlingUnitDTO dto, bool useExistingTransaction);
     }
 }

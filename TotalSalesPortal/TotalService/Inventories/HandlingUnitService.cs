@@ -19,11 +19,6 @@ namespace TotalService.Inventories
         {
         }
 
-        public new bool Save(HandlingUnitDTO dto, bool useExistingTransaction)
-        {
-            return base.Save(dto, true);
-        }
-
         public override ICollection<HandlingUnitViewDetail> GetViewDetails(int handlingUnitID)
         {
             ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("HandlingUnitID", handlingUnitID) };

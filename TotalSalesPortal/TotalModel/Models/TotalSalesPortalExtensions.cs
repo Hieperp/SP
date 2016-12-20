@@ -66,6 +66,21 @@ namespace TotalModel.Models
 
 
 
+    public partial class GoodsDelivery : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<GoodsDeliveryDetail>
+    {
+        public int GetID() { return this.GoodsDeliveryID; }
+
+        public virtual Customer Receiver { get { return this.Customer1; } }
+
+        public ICollection<GoodsDeliveryDetail> GetDetails() { return this.GoodsDeliveryDetails; }
+    }
+
+
+    public partial class GoodsDeliveryDetail : IPrimitiveEntity, IHelperEntryDate
+    {
+        public int GetID() { return this.GoodsDeliveryDetailID; }
+    }
+
 
 
 

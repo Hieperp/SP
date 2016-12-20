@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Repositories\Commons\IPackingMaterialRepository.cs" />
     <Compile Include="Repositories\Commons\IVoidTypeRepository.cs" />
+    <Compile Include="Repositories\Inventories\IGoodsDeliveryRepository.cs" />
     <Compile Include="Repositories\Inventories\IHandlingUnitRepository.cs" />
     <Compile Include="Repositories\Sessions\IModuleDetailRepository.cs" />
     <Compile Include="Repositories\Sessions\IModuleRepository.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Services\IGenericService.cs" />
     <Compile Include="Services\IGenericWithDetailService.cs" />
     <Compile Include="Services\IGenericWithViewDetailService.cs" />
+    <Compile Include="Services\Inventories\IGoodsDeliveryService.cs" />
     <Compile Include="Services\Inventories\IGoodsIssueService.cs" />
     <Compile Include="Services\Inventories\IHandlingUnitService.cs" />
     <Compile Include="Services\Sales\IDeliveryAdviceService.cs" />
