@@ -22,11 +22,11 @@ namespace TotalDAL.Repositories.Inventories
         {
         }
 
-        
 
-        
 
-        IEnumerable<PendingHandlingUnitReceiver> GetReceivers(int? locationID)
+
+
+        public IEnumerable<PendingHandlingUnitReceiver> GetReceivers(int? locationID)
         {
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
             IEnumerable<PendingHandlingUnitReceiver> pendingHandlingUnitReceivers = base.TotalSalesPortalEntities.GetPendingHandlingUnitReceivers(locationID).ToList();
@@ -35,7 +35,7 @@ namespace TotalDAL.Repositories.Inventories
             return pendingHandlingUnitReceivers;
         }
 
-        IEnumerable<PendingHandlingUnit> GetPendingHandlingUnits(int? goodsDeliveryID, int? receiverID, string handlingUnitIDs, bool isReadonly)
+        public IEnumerable<PendingHandlingUnit> GetPendingHandlingUnits(int? goodsDeliveryID, int? receiverID, string handlingUnitIDs, bool isReadonly)
         {
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
             IEnumerable<PendingHandlingUnit> pendingHandlingUnits = base.TotalSalesPortalEntities.GetPendingHandlingUnits(goodsDeliveryID, receiverID, handlingUnitIDs, isReadonly).ToList();

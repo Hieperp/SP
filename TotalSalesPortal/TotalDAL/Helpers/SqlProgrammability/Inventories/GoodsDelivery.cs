@@ -37,10 +37,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsDeliveries.GoodsDeliveryID, CAST(GoodsDeliveries.EntryDate AS DATE) AS EntryDate, GoodsDeliveries.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.AddressNo AS CustomerDescription, GoodsDeliveries.Description, GoodsDeliveries.TotalQuantity, GoodsDeliveries.TotalWeight, GoodsDeliveries.TotalRealWeight " + "\r\n";
-            queryString = queryString + "       FROM        GoodsDeliveries INNER JOIN" + "\r\n";
-            queryString = queryString + "                   Locations ON GoodsDeliveries.EntryDate >= @FromDate AND GoodsDeliveries.EntryDate <= @ToDate AND GoodsDeliveries.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsDelivery + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsDeliveries.LocationID INNER JOIN " + "\r\n";
-            queryString = queryString + "                   Customers ON GoodsDeliveries.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsDeliveries.GoodsDeliveryID, CAST(GoodsDeliveries.EntryDate AS DATE) AS EntryDate, GoodsDeliveries.Reference, Locations.Code AS LocationCode, Receivers.Name + ',    ' + Receivers.AddressNo AS ReceiverDescription, GoodsDeliveries.Description, GoodsDeliveries.TotalQuantity, GoodsDeliveries.TotalWeight, GoodsDeliveries.TotalRealWeight " + "\r\n";
+            queryString = queryString + "       FROM        GoodsDeliveries " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Locations ON GoodsDeliveries.EntryDate >= @FromDate AND GoodsDeliveries.EntryDate <= @ToDate AND GoodsDeliveries.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsDelivery + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsDeliveries.LocationID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers Receivers ON GoodsDeliveries.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";

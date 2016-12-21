@@ -16,7 +16,7 @@ namespace TotalDTO.Helpers
 
     public abstract class QuantityDetailDTO : BaseModel, IQuantityDetailDTO, IBaseModel
     {
-        public int CommodityID { get; set; }
+        public virtual int CommodityID { get; set; }
         [Display(Name = "Mã hàng")]
         [UIHint("StringReadonly")]
         public string CommodityCode { get; set; }
@@ -28,7 +28,7 @@ namespace TotalDTO.Helpers
 
         [Range(1, 99999999999, ErrorMessage = "Lỗi bắt buộc phải có id loại hàng hóa")]
         [Required(ErrorMessage = "Lỗi bắt buộc phải có loại hàng hóa")]
-        public int CommodityTypeID { get; set; }
+        public virtual int CommodityTypeID { get; set; }
 
 
         [Display(Name = "SL")]

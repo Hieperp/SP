@@ -17,10 +17,10 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string Reference { get; set; }
         public string LocationCode { get; set; }
-        public string CustomerDescription { get; set; }
         public string Description { get; set; }
         public decimal TotalQuantity { get; set; }
         public decimal TotalWeight { get; set; }
         public decimal TotalRealWeight { get; set; }
+        public string ReceiverDescription { get; set; }
     }
 }

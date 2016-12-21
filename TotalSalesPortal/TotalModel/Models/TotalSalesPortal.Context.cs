@@ -58,8 +58,8 @@ namespace TotalModel.Models
         public virtual DbSet<HandlingUnit> HandlingUnits { get; set; }
         public virtual DbSet<PackingMaterial> PackingMaterials { get; set; }
         public virtual DbSet<HandlingUnitDetail> HandlingUnitDetails { get; set; }
-        public virtual DbSet<GoodsDelivery> GoodsDeliveries { get; set; }
         public virtual DbSet<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }
+        public virtual DbSet<GoodsDelivery> GoodsDeliveries { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {

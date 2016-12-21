@@ -12,9 +12,7 @@
     @Html.HiddenFor(model => model.TotalWeight)
 
     <div id="popupWindow"></div>
-
-
-
+    
     <div class="left-panel">
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSeactionA.cshtml")
@@ -94,8 +92,9 @@
 
 
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")

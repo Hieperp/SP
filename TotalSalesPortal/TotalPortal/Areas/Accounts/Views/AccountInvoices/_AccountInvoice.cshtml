@@ -101,8 +101,9 @@
                         .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
 
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='AccountInvoiceViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")

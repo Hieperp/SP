@@ -106,6 +106,11 @@ namespace TotalPortal.App_Start
                 kernel.Bind<IHandlingUnitAPIRepository>().To<HandlingUnitAPIRepository>();
                 kernel.Bind<IHandlingUnitViewModelSelectListBuilder>().To<HandlingUnitViewModelSelectListBuilder>();
 
+                kernel.Bind<IGoodsDeliveryService>().To<GoodsDeliveryService>();
+                kernel.Bind<IGoodsDeliveryRepository>().To<GoodsDeliveryRepository>();
+                kernel.Bind<IGoodsDeliveryAPIRepository>().To<GoodsDeliveryAPIRepository>();
+                kernel.Bind<IGoodsDeliveryViewModelSelectListBuilder>().To<GoodsDeliveryViewModelSelectListBuilder>();
+
                 kernel.Bind<IAccountInvoiceService>().To<AccountInvoiceService>();
                 kernel.Bind<IAccountInvoiceRepository>().To<AccountInvoiceRepository>();
                 kernel.Bind<IAccountInvoiceAPIRepository>().To<AccountInvoiceAPIRepository>();

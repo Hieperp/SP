@@ -101,16 +101,18 @@
                         .ClientTemplate("#= kendo.format('{0:n0}', ControlFreeQuantity) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ControlFreeQuantity' value='#= ControlFreeQuantity #' />");
 
                     columns.Bound(p => p.QuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= QuantityRemains #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', QuantityRemains) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].QuantityRemains' value='#= QuantityRemains #' />");
                     columns.Bound(p => p.Quantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', Quantity) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
 
                     columns.Bound(p => p.FreeQuantityRemains).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                        .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= FreeQuantityRemains #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantityRemains' value='#= FreeQuantityRemains #' />");
+                        .ClientTemplate("#= kendo.format('{0:n0}', FreeQuantityRemains) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].FreeQuantityRemains' value='#= FreeQuantityRemains #' />");
                     columns.Bound(p => p.FreeQuantity).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")

@@ -23,8 +23,9 @@ namespace TotalModel.Models
         public int GoodsDeliveryID { get; set; }
         public System.DateTime EntryDate { get; set; }
         public string Reference { get; set; }
-        public Nullable<int> CustomerID { get; set; }
         public Nullable<int> ReceiverID { get; set; }
+        public int DriverID { get; set; }
+        public int CollectorID { get; set; }
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }
         public int OrganizationalUnitID { get; set; }
@@ -44,7 +45,6 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActiveDate { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }

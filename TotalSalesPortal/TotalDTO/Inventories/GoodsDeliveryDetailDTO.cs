@@ -15,9 +15,11 @@ namespace TotalDTO.Inventories
 
         public int HandlingUnitID { get; set; }
 
-        public int Identification { get; set; }
-        public string PrintedLabel { get; set; }
+        public override int CommodityID { get { return 1; } }
+        public override string CommodityName { get { return "#"; } }
+        public override int CommodityTypeID { get { return 1; } }
 
+        
         public int CustomerID { get; set; }
         [Display(Name = "Mã khách hàng")]
         [UIHint("StringReadonly")]
@@ -25,6 +27,7 @@ namespace TotalDTO.Inventories
         [Display(Name = "Tên khách hàng")]
         [UIHint("StringReadonly")]
         public string CustomerName { get; set; }
+
         public int ReceiverID { get; set; }
         [Display(Name = "Mã đơn vị nhận")]
         [UIHint("StringReadonly")]
@@ -38,6 +41,9 @@ namespace TotalDTO.Inventories
         [Display(Name = "Khu vực")]
         [UIHint("StringReadonly")]
         public string EntireTerritoryEntireName { get; set; }
+
+        public int Identification { get; set; }
+        public string PrintedLabel { get; set; }
 
         [Display(Name = "Trọng lượng")]
         [UIHint("DecimalReadonly")]

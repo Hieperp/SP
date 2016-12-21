@@ -88,13 +88,12 @@
         <EntityTypeShape EntityType="TotalSalesPortalModel.HandlingUnitDetail" Width="1.5" PointX="26.75" PointY="15.625" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_HandlingUnitDetails_GoodsIssueDetails" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_HandlingUnitDetails_HandlingUnits" />
-        <EntityTypeShape EntityType="TotalSalesPortalModel.GoodsDelivery" Width="1.5" PointX="19.625" PointY="0.75" />
         <EntityTypeShape EntityType="TotalSalesPortalModel.GoodsDeliveryDetail" Width="1.5" PointX="26.375" PointY="8" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveries_Customers" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveryDetails_HandlingUnits" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.GoodsDelivery" Width="1.5" PointX="19.625" PointY="0.75" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveries_Customers1" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveries_Locations" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveryDetails_GoodsDeliveries" />
-        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveryDetails_HandlingUnits" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

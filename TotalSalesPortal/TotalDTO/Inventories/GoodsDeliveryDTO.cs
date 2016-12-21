@@ -42,10 +42,10 @@ namespace TotalDTO.Inventories
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Receiver { get; set; }
 
-        public override int DeriverID { get { return (this.Deriver != null ? this.Deriver.EmployeeID : 0); } }
+        public override int DriverID { get { return (this.Driver != null ? this.Driver.EmployeeID : 0); } }
         [Display(Name = "Nhân viên tiếp thị")]
         [UIHint("AutoCompletes/EmployeeBase")]
-        public EmployeeBaseDTO Deriver { get; set; }
+        public EmployeeBaseDTO Driver { get; set; }
 
         public override int CollectorID { get { return (this.Collector != null ? this.Collector.EmployeeID : 0); } }
         [Display(Name = "Nhân viên tiếp thị")]

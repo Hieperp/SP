@@ -2,18 +2,18 @@
     window.parent.$("#myWindow").data("kendoWindow").close();
 }
 
-function handleOKEvent(accountInvoiceGridDataSource, pendingGoodsIssueDetailGridDataSource) {
-    if (accountInvoiceGridDataSource != undefined && pendingGoodsIssueDetailGridDataSource != undefined) {
+function handleOKEvent(handlingUnitGridDataSource, pendingGoodsIssueDetailGridDataSource) {
+    if (handlingUnitGridDataSource != undefined && pendingGoodsIssueDetailGridDataSource != undefined) {
         var pendingGoodsIssueDetailGridDataItems = pendingGoodsIssueDetailGridDataSource.view();
-        var accountInvoiceJSON = accountInvoiceGridDataSource.data().toJSON();
+        var handlingUnitJSON = handlingUnitGridDataSource.data().toJSON();
         for (var i = 0; i < pendingGoodsIssueDetailGridDataItems.length; i++) {
             if (pendingGoodsIssueDetailGridDataItems[i].IsSelected === true)
-                _setParentInput(accountInvoiceJSON, pendingGoodsIssueDetailGridDataItems[i]);
+                _setParentInput(handlingUnitJSON, pendingGoodsIssueDetailGridDataItems[i]);
         }
-        accountInvoiceGridDataSource.data(accountInvoiceJSON);
+        handlingUnitGridDataSource.data(handlingUnitJSON);
 
-        var dataRowTest = accountInvoiceGridDataSource.add({}); //To calculate total
-        accountInvoiceGridDataSource.trigger("change");
+        var dataRowTest = handlingUnitGridDataSource.add({}); //To calculate total
+        handlingUnitGridDataSource.trigger("change");
 
         cancelButton_Click();
     }
@@ -31,9 +31,9 @@ function handleOKEvent(accountInvoiceGridDataSource, pendingGoodsIssueDetailGrid
     //grid.dataSource.data(data); //set changed data as data of the Grid
 
 
-    function _setParentInput(accountInvoiceJSON, goodsIssueGridDataItem) {
+    function _setParentInput(handlingUnitJSON, goodsIssueGridDataItem) {
 
-        //var dataRow = accountInvoiceJSON.add({});
+        //var dataRow = handlingUnitJSON.add({});
 
         var dataRow = new Object();
 
@@ -57,9 +57,7 @@ function handleOKEvent(accountInvoiceGridDataSource, pendingGoodsIssueDetailGrid
         dataRow.UnitWeight = goodsIssueGridDataItem.UnitWeight;
         dataRow.Weight = goodsIssueGridDataItem.Weight;
 
-        dataRow.IsBonus = goodsIssueGridDataItem.IsBonus;
-
-        accountInvoiceJSON.push(dataRow);
+        handlingUnitJSON.push(dataRow);
     }
 }
 

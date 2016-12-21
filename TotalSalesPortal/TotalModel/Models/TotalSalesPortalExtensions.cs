@@ -70,7 +70,7 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.GoodsDeliveryID; }
 
-        public virtual Customer Receiver { get { return this.Customer1; } }
+        public virtual Customer Receiver { get { return this.Customer; } }
 
         public ICollection<GoodsDeliveryDetail> GetDetails() { return this.GoodsDeliveryDetails; }
     }
