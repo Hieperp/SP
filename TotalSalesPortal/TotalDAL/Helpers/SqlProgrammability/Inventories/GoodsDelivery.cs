@@ -37,10 +37,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsDeliveries.GoodsDeliveryID, CAST(GoodsDeliveries.EntryDate AS DATE) AS EntryDate, GoodsDeliveries.Reference, Locations.Code AS LocationCode, Receivers.Name + ',    ' + Receivers.AddressNo AS ReceiverDescription, GoodsDeliveries.Description, GoodsDeliveries.TotalQuantity, GoodsDeliveries.TotalWeight, GoodsDeliveries.TotalRealWeight " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsDeliveries.GoodsDeliveryID, CAST(GoodsDeliveries.EntryDate AS DATE) AS EntryDate, GoodsDeliveries.Reference, Locations.Code AS LocationCode, ISNULL(Receivers.Name + ',    ' + Receivers.BillingAddress, N'Phiếu giao hàng gộp chung của nhiều khách hàng') AS ReceiverDescription, GoodsDeliveries.Description, GoodsDeliveries.TotalQuantity, GoodsDeliveries.TotalWeight, GoodsDeliveries.TotalRealWeight " + "\r\n";
             queryString = queryString + "       FROM        GoodsDeliveries " + "\r\n";
             queryString = queryString + "                   INNER JOIN Locations ON GoodsDeliveries.EntryDate >= @FromDate AND GoodsDeliveries.EntryDate <= @ToDate AND GoodsDeliveries.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsDelivery + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsDeliveries.LocationID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN Customers Receivers ON GoodsDeliveries.ReceiverID = Receivers.CustomerID " + "\r\n";
+            queryString = queryString + "                   LEFT JOIN Customers Receivers ON GoodsDeliveries.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
@@ -57,7 +57,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsDeliveryDetails.GoodsDeliveryDetailID, GoodsDeliveryDetails.GoodsDeliveryID, HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.AddressNo AS ReceiverAddressNo, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsDeliveryDetails.GoodsDeliveryDetailID, GoodsDeliveryDetails.GoodsDeliveryID, HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
             queryString = queryString + "                   GoodsDeliveryDetails.Quantity, GoodsDeliveryDetails.Weight, GoodsDeliveryDetails.RealWeight, GoodsDeliveryDetails.Remarks" + "\r\n";
 
             queryString = queryString + "       FROM        GoodsDeliveryDetails " + "\r\n";
@@ -89,7 +89,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString = " @LocationID int " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, EntireTerritories.EntireName AS EntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName " + "\r\n";
             queryString = queryString + "       FROM            Customers Receivers " + "\r\n";
             queryString = queryString + "                       INNER JOIN EntireTerritories ON CustomerID IN (SELECT ReceiverID FROM HandlingUnits WHERE LocationID = @LocationID AND GoodsDeliveryID IS NULL) AND Receivers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
@@ -165,7 +165,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
             queryString = queryString + "                   HandlingUnits.TotalQuantity AS Quantity, HandlingUnits.TotalWeight AS Weight, HandlingUnits.RealWeight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        HandlingUnits " + "\r\n";
@@ -181,7 +181,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
             queryString = queryString + "                   HandlingUnits.TotalQuantity AS Quantity, HandlingUnits.TotalWeight AS Weight, HandlingUnits.RealWeight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        HandlingUnits " + "\r\n";

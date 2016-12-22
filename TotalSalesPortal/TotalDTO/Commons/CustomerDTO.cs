@@ -53,26 +53,22 @@ namespace TotalDTO.Commons
         [Display(Name = "Mã số thuế")]
         public string VATCode { get; set; }
 
-        [Required]
         [Display(Name = "Điện thoại")]
         public string Telephone { get; set; }
 
-        [Required]
         [Display(Name = "Địa chỉ")]
-        public string AddressNo { get; set; }
+        public virtual string AddressNo { get; set; }
 
         [Required]
         [Display(Name = "Khu vực")]
         public int TerritoryID { get; set; }
-        [Required]
         [Display(Name = "Khu vực")]
-        public string EntireTerritoryEntireName { get; set; }
+        public virtual string EntireTerritoryEntireName { get; set; }
 
         [Required]
         public int EmployeeID { get; set; }
         [Display(Name = "Tên nhân viên")]
-        [Required(ErrorMessage = "Vui lòng nhập tên nhân viên")]
-        public string EmployeeName { get; set; }
+        public virtual string EmployeeName { get; set; }
 
         [Required]
         [Display(Name = "Bảng giá")]
@@ -122,6 +118,16 @@ namespace TotalDTO.Commons
         //[Required]
         //[Display(Name = "Ngày sinh")]
         //public Nullable<System.DateTime> Birthday { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
+        public override string AddressNo { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập khu vực")]
+        public override string EntireTerritoryEntireName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tên nhân viên")]
+        public override string EmployeeName { get; set; }
+
         [Display(Name = "Hạn mức tín dụng")]
         public Nullable<double> LimitAmount { get; set; }
 

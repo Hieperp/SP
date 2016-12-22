@@ -54,7 +54,7 @@ namespace TotalDTO.Accounts
         [UIHint("AutoCompletes/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
 
-        public override Nullable<int> ConsumerID { get { return (this.Consumer != null ? (Nullable<int>)this.Consumer.CustomerID : null); } }
+        public override Nullable<int> ConsumerID { get { return (this.Consumer != null ? (this.Consumer.CustomerID > 0 ? (Nullable<int>)this.Consumer.CustomerID : null) : null); } }
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Consumer { get; set; }
 

@@ -2,6 +2,7 @@
 
 @model TotalPortal.Areas.Inventories.ViewModels.HandlingUnitViewModel
 
+<div id="popupWindow"></div>
 
 @using (Html.BeginForm())
 {
@@ -11,8 +12,6 @@
     @Html.HiddenFor(model => model.TotalQuantity)
     @Html.HiddenFor(model => model.TotalWeight)
 
-    <div id="popupWindow"></div>
-    
     <div class="left-panel">
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSeactionA.cshtml")

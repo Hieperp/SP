@@ -9,7 +9,7 @@ namespace TotalDTO.Helpers
         where TQuantityDetailDTO : class, IQuantityDetailDTO
     {
         [Display(Name = "Tổng SL")]
-        public decimal TotalQuantity { get; set; }
+        public virtual decimal TotalQuantity { get; set; }
 
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

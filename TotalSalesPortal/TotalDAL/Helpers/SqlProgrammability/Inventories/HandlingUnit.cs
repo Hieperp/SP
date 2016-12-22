@@ -38,7 +38,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, CAST(HandlingUnits.EntryDate AS DATE) AS EntryDate, HandlingUnits.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.AddressNo AS CustomerDescription, HandlingUnits.Description, HandlingUnits.TotalQuantity, HandlingUnits.TotalWeight, HandlingUnits.RealWeight " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, CAST(HandlingUnits.EntryDate AS DATE) AS EntryDate, HandlingUnits.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.BillingAddress AS CustomerDescription, HandlingUnits.Description, HandlingUnits.TotalQuantity, HandlingUnits.TotalWeight, HandlingUnits.RealWeight " + "\r\n";
             queryString = queryString + "       FROM        HandlingUnits INNER JOIN" + "\r\n";
             queryString = queryString + "                   Locations ON HandlingUnits.EntryDate >= @FromDate AND HandlingUnits.EntryDate <= @ToDate AND HandlingUnits.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.HandlingUnit + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = HandlingUnits.LocationID INNER JOIN " + "\r\n";
             queryString = queryString + "                   Customers ON HandlingUnits.CustomerID = Customers.CustomerID " + "\r\n";
@@ -85,7 +85,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString = " @LocationID int, @HandlingUnitID int " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.BillingAddress AS CustomerBillingAddress, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
             queryString = queryString + "                       GoodsIssues.GoodsIssueID, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.EntryDate AS GoodsIssueEntryDate, GoodsIssues.Description, GoodsIssues.Remarks, " + "\r\n";
             queryString = queryString + "                       Receivers.Code AS GoodsIssueReceiverCode, Receivers.Name AS GoodsIssueReceiverName " + "\r\n";
 
@@ -108,8 +108,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             string queryString = " @LocationID int, @HandlingUnitID int " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
-            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.AddressNo AS CustomerAddressNo, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
-            queryString = queryString + "                       Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.AddressNo AS ReceiverAddressNo, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
+            queryString = queryString + "       SELECT          Customers.CustomerID AS CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.BillingAddress AS CustomerBillingAddress, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "                       Receivers.CustomerID AS ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.VATCode AS ReceiverVATCode, Receivers.AttentionName AS ReceiverAttentionName, Receivers.Telephone AS ReceiverTelephone, Receivers.BillingAddress AS ReceiverBillingAddress, ReceiverEntireTerritories.EntireName AS ReceiverEntireTerritoryEntireName " + "\r\n";
 
             queryString = queryString + "       FROM           (SELECT DISTINCT CustomerID, ReceiverID FROM " + "\r\n";
             queryString = queryString + "                              (SELECT CustomerID, ReceiverID FROM GoodsIssueDetails WHERE LocationID = @LocationID AND ROUND(Quantity + FreeQuantity - QuantityHandlingUnit, 0) > 0 " + "\r\n";
@@ -193,7 +193,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.AddressNo, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.BillingAddress, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit, 0) AS QuantityRemains, " + "\r\n";
             queryString = queryString + "                   0.0 AS Quantity, Commodities.Weight AS UnitWeight, 0.0 AS Weight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        GoodsIssueDetails " + "\r\n";
@@ -209,7 +209,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.AddressNo, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit + HandlingUnitDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.BillingAddress, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit + HandlingUnitDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
             queryString = queryString + "                   HandlingUnitDetails.Quantity, HandlingUnitDetails.UnitWeight, HandlingUnitDetails.Weight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        GoodsIssueDetails " + "\r\n";

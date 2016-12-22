@@ -2,6 +2,7 @@
 
 @model TotalPortal.Areas.Accounts.ViewModels.AccountInvoiceViewModel
 
+<div id="popupWindow"></div>
 
 @using (Html.BeginForm())
 {
@@ -14,10 +15,6 @@
     @Html.HiddenFor(model => model.TotalVATAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
     @Html.HiddenFor(model => model.AverageDiscountPercent)
-
-    <div id="popupWindow"></div>
-
-
 
     <div class="left-panel">
 

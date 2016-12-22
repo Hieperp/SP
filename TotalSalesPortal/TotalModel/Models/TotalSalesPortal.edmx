@@ -1282,6 +1282,9 @@ warning 6035: The relationship 'FK_OrganizationalUnitIUsers_AspNetUsers' has col
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Receipts_AspNetUsers" />-->
         <Association Name="FK_Receipts_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Receipts" Type="Self.Receipts" Multiplicity="*" />

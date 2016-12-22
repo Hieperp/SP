@@ -29,13 +29,13 @@
         .Name("tabStrip")
         .Items(tabStrip =>
         {
-            tabStrip.Add().Text("Danh sách khách hàng")
+            tabStrip.Add().Text("Khách hàng không có đặt hàng")
                 .Selected(true)
                 .Content(@<text>
                     @Html.Partial("~/Areas/Sales/Views/DeliveryAdvices/_SearchCustomer.cshtml")
                 </text>);
 
-            tabStrip.Add().Text("Đơn đặt hàng")
+            tabStrip.Add().Text("Giao hàng theo đơn đặt hàng")
                 .Content(@<text>
                     @*@Html.Partial("~/Views/Helpers/Commons/_SearchServiceContract.cshtml")*@
                 </text>);
@@ -47,9 +47,9 @@
         <div class="popup-button-bar">
             <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "DeliveryAdvices")" formtarget="_top" style="display:none" />
 
-            <input id="okButton" type="button" value="Áp dụng CTKM đang chọn" class="k-button" onclick="okButton_Click()" />
-            <input id="okWOSelectButton" type="button" value="Áp dụng tất cả CTKM" class="k-button" onclick="okWOSelectButton_Click()" />
-            <input id="cancelButton" type="button" value="Thoát" class="k-button" onclick="cancelButton_Click()" />
+            <button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Áp dụng CTKM đang chọn </button>
+            <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png" /> Áp dụng tất cả CTKM </button>
+            <button type="button" class="k-button" onclick="window.parent.$('#myWindow').data('kendoWindow').close()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png" /> Thoát </button>
         </div>
     </div>
 
@@ -64,10 +64,6 @@
 
     function okWOSelectButton_Click() {
         handleOKEvent();
-    }
-
-    function cancelButton_Click() {
-        window.parent.$("#myWindow").data("kendoWindow").close();
     }
 
     function handleOKEvent(selectedGrid) { //This javascript is now used only here. Later, if it is used somewhere else, it should be break into a standalone js file, and then just only add a link here

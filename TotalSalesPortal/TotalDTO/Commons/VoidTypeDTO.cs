@@ -16,8 +16,6 @@ namespace TotalDTO.Commons
 
     public class VoidTypeBaseDTO : BaseDTO, IVoidTypeBaseDTO
     {
-        public Nullable<int> VoidTypeID { get; set; }
-
         public string Code { get; set; }
         public string Name { get; set; }
         public Nullable<int> VoidClassID { get; set; }

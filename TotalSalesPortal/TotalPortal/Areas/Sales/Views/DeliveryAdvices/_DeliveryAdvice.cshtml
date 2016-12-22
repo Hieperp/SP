@@ -3,13 +3,11 @@
 
 @model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
 
-<div id="popupWindow" style="position: absolute"></div>
+<div id="popupWindow"></div>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MainForm" }))
 {
-    @Html.AntiForgeryToken()
-
-    <div id="popupWindow"></div>
+    @Html.AntiForgeryToken()    
 
     @Html.HiddenFor(model => model.DeliveryAdviceID)
     @Html.HiddenFor(model => model.TotalQuantity)
@@ -199,9 +197,14 @@
                     {
                         if (Model.Editable)
                         {
-                            toolbar.Create();
+                            //toolbar.Create().HtmlAttributes(new { @class = "fa fa-map-marker" }).Text("Add new aa le ea1");
                             if (Model.SalesOrderID != null)
                                 toolbar.Custom().Text("Add From SalesOrder").Url("#").HtmlAttributes(new { onclick = "GetSalesOrderDetails()" });
+                            else
+                                toolbar.Template(@<text>
+                                    <button type="button" class="k-button" onclick="$('#kendoGridDetails').data('kendoGrid').addRow()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng xuất HĐ </button>
+                                    
+                                </text>);
                         }
                         else
                         {//Add a functionless button for display purpose only
@@ -305,13 +308,13 @@
         <div class="right-botton-panel">
             @if (Model.Editable)
             {
-                <button type="submit" formaction="@Url.Action("Edit", "DeliveryAdvices")" class="k-button custom-button SubmitTypeOption-Closed"> <img src="~/Content/Images/New/save-icon.png" alt="" /> Lưu phiếu </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "DeliveryAdvices")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu </button>
             }
             else
             {
                 if (!Model.Voidable && !Model.UnVoidable)
                 {
-                    <button type="button" onclick="location.href='@Url.Action("Print", "DeliveryAdvices", new { id = @Model.DeliveryAdviceID })'" class="k-button custom-button"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
+                    <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "DeliveryAdvices", new { id = @Model.DeliveryAdviceID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In tổng hợp xuất kho </button>
                 }
             }
         </div>

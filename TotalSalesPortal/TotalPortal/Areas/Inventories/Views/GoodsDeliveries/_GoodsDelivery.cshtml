@@ -2,6 +2,7 @@
 
 @model TotalPortal.Areas.Inventories.ViewModels.GoodsDeliveryViewModel
 
+<div id="popupWindow"></div>
 
 @using (Html.BeginForm())
 {
@@ -9,7 +10,6 @@
 
     @Html.HiddenFor(model => model.GoodsDeliveryID)
 
-    <div id="popupWindow"></div>
     
     <div class="left-panel">
 

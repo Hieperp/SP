@@ -12,8 +12,8 @@ function handleOKEvent(goodsDeliveryGridDataSource, pendingHandlingUnitDetailGri
         }
         goodsDeliveryGridDataSource.data(goodsDeliveryJSON);
 
-        var dataRowTest = goodsDeliveryGridDataSource.add({}); //To calculate total
-        goodsDeliveryGridDataSource.trigger("change");
+        //var dataRowTest = goodsDeliveryGridDataSource.add({}); //To calculate total
+        //goodsDeliveryGridDataSource.trigger("change");
 
         cancelButton_Click();
     }

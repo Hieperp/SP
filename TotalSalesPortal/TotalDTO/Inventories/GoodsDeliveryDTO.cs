@@ -26,7 +26,7 @@ namespace TotalDTO.Inventories
         public virtual int DriverID { get; set; }
         public virtual int CollectorID { get; set; }
 
-        public decimal TotalQuantity { get { return this.DtoDetails().Select(o => o.Quantity).Sum(); } }
+        public override decimal TotalQuantity { get { return this.DtoDetails().Select(o => o.Quantity).Sum(); } }
         public decimal TotalWeight { get { return this.DtoDetails().Select(o => o.Weight).Sum(); } }
         public decimal TotalRealWeight { get { return this.DtoDetails().Select(o => o.RealWeight).Sum(); } }
     }
@@ -38,7 +38,7 @@ namespace TotalDTO.Inventories
             this.GoodsDeliveryViewDetails = new List<GoodsDeliveryDetailDTO>();
         }
 
-        public override Nullable<int> ReceiverID { get { return (this.Receiver != null ? (Nullable<int>)this.Receiver.CustomerID : null); } }
+        public override Nullable<int> ReceiverID { get { return (this.Receiver != null ? (this.Receiver.CustomerID > 0 ? (Nullable<int>)this.Receiver.CustomerID : null) : null); } }
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Receiver { get; set; }
 
