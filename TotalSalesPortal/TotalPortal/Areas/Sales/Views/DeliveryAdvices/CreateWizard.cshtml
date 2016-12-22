@@ -13,6 +13,7 @@
 
     @Html.HiddenFor(model => model.PriceCategoryID);
     @Html.HiddenFor(model => model.PriceCategoryCode);
+    @Html.HiddenFor(model => model.ShippingAddress);
 
     @Html.HiddenFor(model => model.Promotion.PromotionID);
     @Html.HiddenFor(model => model.Promotion.Name);
@@ -23,6 +24,8 @@
     @Html.HiddenFor(model => model.Promotion.ApplyToAllCustomers);
     @Html.HiddenFor(model => model.Promotion.ApplyToAllCommodities);
     @Html.HiddenFor(model => model.Promotion.Remarks);
+
+
 
     @(Html.Kendo().TabStrip()
         .HtmlAttributes(new { @style = "height: 468px; margin-left: 0px; margin-right: 0px;" })
@@ -86,6 +89,7 @@
         function _setModelInput(selectedDataItem) {
             $("#PriceCategoryID").val($("#Customer_PriceCategoryID").val());
             $("#PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
+            $("#ShippingAddress").val($("#Receiver_ShippingAddress").val() != "" ? $("#Receiver_ShippingAddress").val() : $("#Receiver_BillingAddress").val());
 
             $("#Employee_EmployeeID").val($("#Customer_EmployeeID").val()); //INIT DEFAULT Employee_EmployeeID, Employee_Name FROM Customer_EmployeeID, Customer_EmployeeName
             $("#Employee_Name").val($("#Customer_EmployeeName").val());
@@ -95,7 +99,7 @@
             $("#Promotion_StartDate").val(selectedDataItem === undefined || selectedDataItem.StartDate === undefined ? null : kendo.toString(selectedDataItem.StartDate, SettingsManager.DateTimeFormat));
             $("#Promotion_EndDate").val(selectedDataItem === undefined || selectedDataItem.EndDate === undefined ? null : kendo.toString(selectedDataItem.EndDate, SettingsManager.DateTimeFormat));
             $("#Promotion_DiscountPercent").val(selectedDataItem === undefined || selectedDataItem.DiscountPercent === undefined ? null : selectedDataItem.DiscountPercent);
-            $("#Promotion_ControlFreeQuantity").val(selectedDataItem === undefined || selectedDataItem.ControlFreeQuantity === undefined ? null : selectedDataItem.ControlFreeQuantity);            
+            $("#Promotion_ControlFreeQuantity").val(selectedDataItem === undefined || selectedDataItem.ControlFreeQuantity === undefined ? null : selectedDataItem.ControlFreeQuantity);
 
             $("#Promotion_ApplyToAllCustomers").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCustomers === undefined ? false : selectedDataItem.ApplyToAllCustomers);
             $("#Promotion_ApplyToAllCommodities").val(selectedDataItem === undefined || selectedDataItem.ApplyToAllCommodities === undefined ? false : selectedDataItem.ApplyToAllCommodities);

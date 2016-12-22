@@ -261,6 +261,7 @@
           <Property Name="PromotionVouchers" Type="nvarchar" MaxLength="50" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="ShippingAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PreparedPersonID" Type="int" Nullable="false" />
           <Property Name="OrganizationalUnitID" Type="int" Nullable="false" />
@@ -3229,6 +3230,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Name="TotalFreeQuantityIssue" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Customers" FromRole="DeliveryAdvice" ToRole="Customer" />
           <NavigationProperty Name="Customer1" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Customers1" FromRole="DeliveryAdvice" ToRole="Customer" />
+          <Property Name="ShippingAddress" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_DeliveryAdviceDetails_DeliveryAdvices">
           <End Type="TotalSalesPortalModel.DeliveryAdvice" Role="DeliveryAdvice" Multiplicity="1" />
@@ -4863,6 +4865,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySetMapping Name="DeliveryAdvices">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.DeliveryAdvice">
               <MappingFragment StoreEntitySet="DeliveryAdvices">
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
                 <ScalarProperty Name="TotalFreeQuantityIssue" ColumnName="TotalFreeQuantityIssue" />
                 <ScalarProperty Name="TotalQuantityIssue" ColumnName="TotalQuantityIssue" />
                 <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />

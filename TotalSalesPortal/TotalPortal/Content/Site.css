@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }*/
 
-@media (min-width: 1280px) { 
+@media (min-width: 1280px) {
     .container {
         width: 1190px;
     }
@@ -985,6 +985,15 @@ ul.k-panelbar .k-link {
     box-sizing: border-box;
 }
 
+.div-input-160 {
+    width: 160%;
+    box-sizing: border-box;
+}
+
+.right-panel-input-160 {
+    width: 82.5%; /*this 82% is calculated in the related to div-input-160: for parent width = w => div-input-160 = w*160%  => after subtract to right-panel-label = w*28% => then the remains will be: (w*160-w*28)*100/w*160 = 82.5  */
+    box-sizing: border-box;
+}
 
 .right-panel-label {
     width: 28%;
@@ -1132,7 +1141,7 @@ ul.k-panelbar .k-link {
     a:active MUST come after a:hover*/
 
 
- /* unvisited link */
+/* unvisited link */
 a:link {
     color: blue;
 }

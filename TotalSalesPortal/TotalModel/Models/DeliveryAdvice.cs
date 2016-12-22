@@ -57,6 +57,7 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActiveDate { get; set; }
         public decimal TotalQuantityIssue { get; set; }
         public decimal TotalFreeQuantityIssue { get; set; }
+        public string ShippingAddress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }
