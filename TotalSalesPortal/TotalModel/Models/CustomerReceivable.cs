@@ -16,9 +16,9 @@ namespace TotalModel.Models
         public int CustomerID { get; set; }
         public string CustomerAttentionName { get; set; }
         public string CustomerTelephone { get; set; }
-        public string CustomerAddressNo { get; set; }
         public string CustomerEntireTerritoryEntireName { get; set; }
         public string CustomerName { get; set; }
         public string CustomerCode { get; set; }
+        public string CustomerBillingAddress { get; set; }
     }
 }

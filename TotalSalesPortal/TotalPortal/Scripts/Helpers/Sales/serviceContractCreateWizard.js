@@ -28,7 +28,7 @@ function handleOKEvent(tabIndex) {
         window.parent.$("#CustomerName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
         window.parent.$("#CustomerBirthday").val(selectedDataItem === undefined ? null : kendo.toString(selectedDataItem.CustomerBirthday, window.parent.SettingsManager.DateFormat));
         window.parent.$("#CustomerTelephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
-        window.parent.$("#CustomerAddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+        window.parent.$("#CustomerBillingAddress").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerBillingAddress);
         window.parent.$("#CustomerEntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
 
 

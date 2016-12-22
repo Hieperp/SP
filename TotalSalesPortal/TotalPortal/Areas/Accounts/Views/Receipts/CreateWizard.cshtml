@@ -19,7 +19,7 @@
     @Html.HiddenFor(model => model.Customer.Name);
     @Html.HiddenFor(model => model.Customer.VATCode);
     @Html.HiddenFor(model => model.Customer.Telephone);
-    @Html.HiddenFor(model => model.Customer.AddressNo);
+    @Html.HiddenFor(model => model.Customer.BillingAddress);
     @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
     @Html.HiddenFor(model => model.Customer.EmployeeID)
     @Html.HiddenFor(model => model.Customer.EmployeeName)
@@ -99,7 +99,7 @@
             $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
             $("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
             $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
-            $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+            $("#Customer_BillingAddress").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerBillingAddress);
             $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
         }
     }

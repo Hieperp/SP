@@ -8,7 +8,7 @@
         columns.Bound(c => c.GoodsIssueReference).Title("Phiếu XK").Width(40);
         columns.Bound(c => c.GoodsIssueEntryDate).Title("Ngày").Width(90).Format("{0:" + SettingsManager.DateTimeFormat + "}");
         columns.Bound(c => c.CustomerName).Title("Khách hàng").Width(150);
-        columns.Bound(c => c.CustomerAddressNo).Title("Địa chỉ").Width(180);
+        columns.Bound(c => c.CustomerBillingAddress).Title("Địa chỉ").Width(180);
         columns.Bound(c => c.Description).Title("Diễn giải").Width(60);
     })
     .ToolBar(toolbar =>

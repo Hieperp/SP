@@ -23,7 +23,7 @@
                         "<span class=\"k-state-default\"><p>#: data.Name #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: kendo.toString(new Date(parseInt(data.Birthday.replace(/[A-Za-z$--/]/g, ''))), '" + SettingsManager.DateFormat + "') #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
-                        "<span class=\"k-state-default\"><p>#: data.AddressNo + data.EntireTerritoryEntireName #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: data.BillingAddress + data.EntireTerritoryEntireName #</p></span>" +
                         "</div>")
                 .DataSource(source =>
                 {
@@ -90,12 +90,12 @@
         $("#CustomerBirthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
         $("#CustomerVATCode").val(dataItem.VATCode);
         $("#CustomerTelephone").val(dataItem.Telephone);
-        $("#CustomerAddressNo").val(dataItem.AddressNo);
+        $("#CustomerBillingAddress").val(dataItem.BillingAddress);
         $("#CustomerEntireTerritoryEntireName").val(dataItem.EntireTerritoryEntireName);
 
         $("#label-birthday").text($("#CustomerBirthday").val());
         $("#label-telephone").text(dataItem.Telephone);
-        $("#TerritoriesDescriptions").text((dataItem.VATCode != null && dataItem.VATCode != "" ? "MST: " + dataItem.VATCode : "") + " Đ/C: " + dataItem.AddressNo + ", " + dataItem.EntireTerritoryEntireName);
+        $("#TerritoriesDescriptions").text((dataItem.VATCode != null && dataItem.VATCode != "" ? "MST: " + dataItem.VATCode : "") + " Đ/C: " + dataItem.BillingAddress + ", " + dataItem.EntireTerritoryEntireName);
 
         $("#CustomerNameTemp").val(dataItem.Name);
     }

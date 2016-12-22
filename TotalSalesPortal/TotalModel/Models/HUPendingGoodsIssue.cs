@@ -19,7 +19,6 @@ namespace TotalModel.Models
         public string CustomerVATCode { get; set; }
         public string CustomerAttentionName { get; set; }
         public string CustomerTelephone { get; set; }
-        public string CustomerAddressNo { get; set; }
         public string CustomerEntireTerritoryEntireName { get; set; }
         public int GoodsIssueID { get; set; }
         public string GoodsIssueReference { get; set; }
@@ -28,5 +27,6 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public string GoodsIssueReceiverCode { get; set; }
         public string GoodsIssueReceiverName { get; set; }
+        public string CustomerBillingAddress { get; set; }
     }
 }

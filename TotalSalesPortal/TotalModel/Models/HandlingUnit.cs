@@ -49,8 +49,6 @@ namespace TotalModel.Models
         public string Dimension { get; set; }
         public Nullable<int> GoodsDeliveryID { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
         public virtual GoodsIssue GoodsIssue { get; set; }
         public virtual Location Location { get; set; }
         public virtual PackingMaterial PackingMaterial { get; set; }
@@ -58,5 +56,7 @@ namespace TotalModel.Models
         public virtual ICollection<HandlingUnitDetail> HandlingUnitDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
     }
 }

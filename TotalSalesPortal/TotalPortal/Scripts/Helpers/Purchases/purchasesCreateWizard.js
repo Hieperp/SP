@@ -31,7 +31,7 @@ function handleOKEvent(tabIndex) {
         window.parent.$("#CustomerName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
         window.parent.$("#CustomerAttentionName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAttentionName);
         window.parent.$("#CustomerTelephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
-        window.parent.$("#CustomerAddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+        window.parent.$("#CustomerBillingAddress").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerBillingAddress);
         window.parent.$("#CustomerEntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);     
     }
 }

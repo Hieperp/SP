@@ -22,7 +22,6 @@ namespace TotalModel.Models
         public int CommodityTypeID { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
-        public string AddressNo { get; set; }
         public Nullable<decimal> QuantityRemains { get; set; }
         public Nullable<decimal> FreeQuantityRemains { get; set; }
         public decimal ControlFreeQuantity { get; set; }
@@ -41,5 +40,6 @@ namespace TotalModel.Models
         public string ReceiverCode { get; set; }
         public string ReceiverName { get; set; }
         public string Reference { get; set; }
+        public string BillingAddress { get; set; }
     }
 }

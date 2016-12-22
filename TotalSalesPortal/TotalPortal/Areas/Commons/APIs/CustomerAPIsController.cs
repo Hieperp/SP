@@ -25,7 +25,7 @@ namespace TotalPortal.Areas.Commons.APIs
 
         public JsonResult SearchSuppliers(string searchText)
         {
-            var result = customerRepository.SearchSuppliers(searchText).Select(s => new { s.CustomerID, s.Name, s.AttentionName, s.Birthday, s.VATCode, s.Telephone, s.AddressNo, EntireTerritoryEntireName = s.EntireTerritory.EntireName });
+            var result = customerRepository.SearchSuppliers(searchText).Select(s => new { s.CustomerID, s.Name, s.AttentionName, s.Birthday, s.VATCode, s.Telephone, s.BillingAddress, EntireTerritoryEntireName = s.EntireTerritory.EntireName });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -33,7 +33,7 @@ namespace TotalPortal.Areas.Commons.APIs
 
         public JsonResult SearchCustomers(string searchText)
         {
-            var result = customerRepository.SearchCustomers(searchText).Select(s => new { s.CustomerID, CodeAndName = s.Code + "  -  " + s.Name, s.Code, s.Name, s.OfficialName, s.Birthday, s.VATCode, s.Telephone, s.AddressNo, TerritoryID = s.TerritoryID, EntireTerritoryEntireName = s.EntireTerritory.EntireName, PriceCategoryID = s.PriceCategoryID, PriceCategoryCode = s.PriceCategory.Code, EmployeeID = s.EmployeeID, EmployeeName = s.Employee.Name });
+            var result = customerRepository.SearchCustomers(searchText).Select(s => new { s.CustomerID, CodeAndName = s.Code + "  -  " + s.Name, s.Code, s.Name, s.OfficialName, s.Birthday, s.VATCode, s.Telephone, s.BillingAddress, TerritoryID = s.TerritoryID, EntireTerritoryEntireName = s.EntireTerritory.EntireName, PriceCategoryID = s.PriceCategoryID, PriceCategoryCode = s.PriceCategory.Code, EmployeeID = s.EmployeeID, EmployeeName = s.Employee.Name });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -51,7 +51,7 @@ namespace TotalPortal.Areas.Commons.APIs
                 AttentionName = o.AttentionName,
                 AttentionTitle = o.AttentionTitle,
                 Birthday = o.Birthday,
-                AddressNo = o.AddressNo,
+                BillingAddress = o.BillingAddress,
                 Telephone = o.Telephone,
                 Facsimile = o.Facsimile,                
                 Remarks = o.Remarks
@@ -68,7 +68,7 @@ namespace TotalPortal.Areas.Commons.APIs
 
         public JsonResult GetCustomers(string text, [DataSourceRequest] DataSourceRequest request)
         {
-            //var customers = customerRepository.SearchCustomers(text).Select(s => new { s.CustomerID, s.Name, s.AttentionName, s.OfficialName, s.Birthday, s.Telephone, s.AddressNo, EntireTerritoryEntireName = s.EntireTerritory.EntireName });
+            //var customers = customerRepository.SearchCustomers(text).Select(s => new { s.CustomerID, s.Name, s.AttentionName, s.OfficialName, s.Birthday, s.Telephone, s.BillingAddress, EntireTerritoryEntireName = s.EntireTerritory.EntireName });
 
             //DataSourceResult response = customers.ToDataSourceResult(request, o => new CustomerViewModel
             //{
@@ -76,7 +76,7 @@ namespace TotalPortal.Areas.Commons.APIs
             //    Name = o.Name,
             //    AttentionName = o.AttentionName,
             //    Birthday = o.Birthday,
-            //    AddressNo = o.AddressNo,
+            //    BillingAddress = o.BillingAddress,
             //    Telephone = o.Telephone,
             //    OfficialName = o.OfficialName,
             //    EntireTerritoryEntireName = o.EntireTerritoryEntireName

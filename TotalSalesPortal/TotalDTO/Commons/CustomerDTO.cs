@@ -22,7 +22,7 @@ namespace TotalDTO.Commons
         Nullable<System.DateTime> Birthday { get; set; }
         string VATCode { get; set; }
         string Telephone { get; set; }
-        string AddressNo { get; set; }
+        string BillingAddress { get; set; }
         int TerritoryID { get; set; }
         string EntireTerritoryEntireName { get; set; }
         int EmployeeID { get; set; }
@@ -57,7 +57,7 @@ namespace TotalDTO.Commons
         public string Telephone { get; set; }
 
         [Display(Name = "Địa chỉ")]
-        public virtual string AddressNo { get; set; }
+        public virtual string BillingAddress { get; set; }
 
         [Required]
         [Display(Name = "Khu vực")]
@@ -104,7 +104,7 @@ namespace TotalDTO.Commons
         //public string EntireTerritoryEntireName { get; set; }
         //[Display(Name = "Địa chỉ")]
         //[Required]
-        //public string AddressNo { get; set; }
+        //public string BillingAddress { get; set; }
         //[Display(Name = "Mã số thuế")]
         //public string VATCode { get; set; }
         //[Display(Name = "Điện thoại")]
@@ -120,7 +120,7 @@ namespace TotalDTO.Commons
         //public Nullable<System.DateTime> Birthday { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
-        public override string AddressNo { get; set; }
+        public override string BillingAddress { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập khu vực")]
         public override string EntireTerritoryEntireName { get; set; }

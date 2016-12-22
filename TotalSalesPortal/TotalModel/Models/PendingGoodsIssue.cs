@@ -26,7 +26,7 @@ namespace TotalModel.Models
         public string CustomerVATCode { get; set; }
         public string CustomerAttentionName { get; set; }
         public string CustomerTelephone { get; set; }
-        public string CustomerAddressNo { get; set; }
         public string CustomerEntireTerritoryEntireName { get; set; }
+        public string CustomerBillingAddress { get; set; }
     }
 }

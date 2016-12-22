@@ -16,7 +16,7 @@
     @Html.HiddenFor(model => model.Customer.Name);
     @Html.HiddenFor(model => model.Customer.VATCode);
     @Html.HiddenFor(model => model.Customer.Telephone);
-    @Html.HiddenFor(model => model.Customer.AddressNo);
+    @Html.HiddenFor(model => model.Customer.BillingAddress);
     @Html.HiddenFor(model => model.Customer.EntireTerritoryEntireName);
     @Html.HiddenFor(model => model.Customer.EmployeeID)
     @Html.HiddenFor(model => model.Customer.EmployeeName)
@@ -26,7 +26,7 @@
     @Html.HiddenFor(model => model.Receiver.Name);
     @Html.HiddenFor(model => model.Receiver.VATCode);
     @Html.HiddenFor(model => model.Receiver.Telephone);
-    @Html.HiddenFor(model => model.Receiver.AddressNo);
+    @Html.HiddenFor(model => model.Receiver.BillingAddress);
     @Html.HiddenFor(model => model.Receiver.EntireTerritoryEntireName);
     @Html.HiddenFor(model => model.Receiver.EmployeeID)
     @Html.HiddenFor(model => model.Receiver.EmployeeName)
@@ -110,7 +110,7 @@
             $("#Customer_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
             $("#Customer_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
             $("#Customer_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
-            $("#Customer_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+            $("#Customer_BillingAddress").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerBillingAddress);
             $("#Customer_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
 
 
@@ -119,7 +119,7 @@
             $("#Receiver_Name").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerName);
             $("#Receiver_VATCode").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerVATCode);
             $("#Receiver_Telephone").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerTelephone);
-            $("#Receiver_AddressNo").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerAddressNo);
+            $("#Receiver_BillingAddress").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerBillingAddress);
             $("#Receiver_EntireTerritoryEntireName").val(selectedDataItem === undefined ? null : selectedDataItem.CustomerEntireTerritoryEntireName);
 
         }

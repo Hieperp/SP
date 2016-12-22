@@ -10,7 +10,7 @@
         columns.Bound(c => c.ReceiverName).Title("Tên khách hàng").Width(160);
         columns.Bound(c => c.ReceiverVATCode).Title("MST").Width(50);
         columns.Bound(c => c.ReceiverTelephone).Title("Điện thoại").Width(56);
-        columns.Bound(c => c.ReceiverAddressNo).Title("Địa chỉ").Width(180);
+        columns.Bound(c => c.ReceiverBillingAddress).Title("Địa chỉ").Width(180);
     })
     .ToolBar(toolbar =>
     {
@@ -48,7 +48,7 @@
                     { field: "ReceiverName", operator: "contains", value: pendingHandlingUnitReceiverFilter },
                     { field: "ReceiverVATCode", operator: "contains", value: pendingHandlingUnitReceiverFilter },
                     { field: "ReceiverTelephone", operator: "contains", value: pendingHandlingUnitReceiverFilter },
-                    { field: "ReceiverAddressNo", operator: "contains", value: pendingHandlingUnitReceiverFilter }
+                    { field: "ReceiverBillingAddress", operator: "contains", value: pendingHandlingUnitReceiverFilter }
                 ]
             });
 

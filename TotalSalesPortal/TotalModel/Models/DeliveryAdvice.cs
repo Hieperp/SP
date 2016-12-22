@@ -58,8 +58,6 @@ namespace TotalModel.Models
         public decimal TotalQuantityIssue { get; set; }
         public decimal TotalFreeQuantityIssue { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }
         public virtual Employee Employee { get; set; }
@@ -70,5 +68,7 @@ namespace TotalModel.Models
         public virtual VoidType VoidType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
     }
 }

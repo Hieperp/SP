@@ -23,7 +23,6 @@ namespace TotalModel.Models
         public int CommodityTypeID { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
-        public string AddressNo { get; set; }
         public string ReceiverCode { get; set; }
         public string ReceiverName { get; set; }
         public Nullable<decimal> QuantityRemains { get; set; }
@@ -31,5 +30,6 @@ namespace TotalModel.Models
         public Nullable<bool> IsSelected { get; set; }
         public Nullable<double> UnitWeight { get; set; }
         public decimal Weight { get; set; }
+        public string BillingAddress { get; set; }
     }
 }

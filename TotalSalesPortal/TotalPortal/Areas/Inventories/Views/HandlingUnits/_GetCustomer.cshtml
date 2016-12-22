@@ -10,7 +10,7 @@
         columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(160);
         columns.Bound(c => c.CustomerVATCode).Title("MST").Width(50);
         columns.Bound(c => c.CustomerTelephone).Title("Điện thoại").Width(56);
-        columns.Bound(c => c.CustomerAddressNo).Title("Địa chỉ").Width(180);
+        columns.Bound(c => c.CustomerBillingAddress).Title("Địa chỉ").Width(180);
         columns.Bound(c => c.CustomerEntireTerritoryEntireName).Title("Địa bàn").Width(70);
     })
     .ToolBar(toolbar =>
@@ -49,7 +49,7 @@
                     { field: "CustomerName", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
                     { field: "CustomerVATCode", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
                     { field: "CustomerTelephone", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
-                    { field: "CustomerAddressNo", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
+                    { field: "CustomerBillingAddress", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
                     { field: "CustomerEntireTerritoryEntireName", operator: "contains", value: huPendingGoodsIssueCustomerFilter }
                 ]
             });

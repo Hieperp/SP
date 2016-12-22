@@ -19,7 +19,7 @@ namespace TotalModel.Models
         public string ReceiverVATCode { get; set; }
         public string ReceiverAttentionName { get; set; }
         public string ReceiverTelephone { get; set; }
-        public string ReceiverAddressNo { get; set; }
         public string EntireTerritoryEntireName { get; set; }
+        public string ReceiverBillingAddress { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace TotalPortal.Areas.Commons.ViewModels.Helpers
         Nullable<System.DateTime> CustomerBirthday { get; set; }
         string CustomerVATCode { get; set; }
         string CustomerTelephone { get; set; }
-        string CustomerAddressNo { get; set; }
+        string CustomerBillingAddress { get; set; }
         string CustomerEntireTerritoryEntireName { get; set; }
     }
 }

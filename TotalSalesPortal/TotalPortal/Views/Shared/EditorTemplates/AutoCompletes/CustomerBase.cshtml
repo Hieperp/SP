@@ -26,7 +26,7 @@
                         "<span class=\"k-state-default\"><p>#: data.CodeAndName #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.VATCode #</p></span>" +
                         "<span class=\"k-state-default\"><p>#: data.Telephone #</p></span>" +
-                        "<span class=\"k-state-default\"><p>#: data.AddressNo + data.EntireTerritoryEntireName #</p></span>" +
+                        "<span class=\"k-state-default\"><p>#: data.BillingAddress + data.EntireTerritoryEntireName #</p></span>" +
                         "</div>")
                 .DataSource(source =>
                 {
@@ -81,7 +81,7 @@
         $("#" + modelID + "Birthday").val(kendo.toString(new Date(parseInt(dataItem.Birthday.replace(/[A-Za-z$--/]/g, ''))), "@SettingsManager.DateFormat"));
         $("#" + modelID + "VATCode").val(dataItem.VATCode);
         $("#" + modelID + "Telephone").val(dataItem.Telephone);
-        $("#" + modelID + "AddressNo").val(dataItem.AddressNo);
+        $("#" + modelID + "BillingAddress").val(dataItem.BillingAddress);
         $("#" + modelID + "TerritoryID").val(dataItem.TerritoryID);
         $("#" + modelID + "EntireTerritoryEntireName").val(dataItem.EntireTerritoryEntireName);
         $("#" + modelID + "EmployeeID").val(dataItem.EmployeeID);
@@ -92,7 +92,7 @@
         //Set display label
         $("#" + modelID + "label_Telephone").text(dataItem.Telephone);
         $("#" + modelID + "label_VATCode").text(dataItem.VATCode);
-        $("#" + modelID + "label_AddressNo").text(dataItem.AddressNo);
+        $("#" + modelID + "label_BillingAddress").text(dataItem.BillingAddress);
         $("#" + modelID + "label_EntireTerritoryEntireName").text(dataItem.EntireTerritoryEntireName);
 
         //Remember last AutoComplete value

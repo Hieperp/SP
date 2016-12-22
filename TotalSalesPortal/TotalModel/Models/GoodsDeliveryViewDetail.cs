@@ -26,11 +26,11 @@ namespace TotalModel.Models
         public int ReceiverID { get; set; }
         public string ReceiverCode { get; set; }
         public string ReceiverName { get; set; }
-        public string ReceiverAddressNo { get; set; }
         public string EntireTerritoryEntireName { get; set; }
         public decimal Quantity { get; set; }
         public decimal Weight { get; set; }
         public decimal RealWeight { get; set; }
         public string Remarks { get; set; }
+        public string ReceiverBillingAddress { get; set; }
     }
 }
