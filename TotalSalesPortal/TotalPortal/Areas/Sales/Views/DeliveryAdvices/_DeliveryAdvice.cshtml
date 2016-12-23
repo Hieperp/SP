@@ -70,7 +70,7 @@
 
     <div class="right-panel">
 
-        <div style="clear: both; height: 270px;">
+        <div style="clear: both; height: 150px;">
 
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
             @Html.EditorFor(d => d.Receiver, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
@@ -81,7 +81,7 @@
 
             <div class="right-first-panel">
                 <div class="form-group">
-                    <div class="right-panel-label" style="padding-top: 2px;"> <img src="~/Content/Images/New/Telephone.png" title="Điện thoại" /> </div>
+                    <div class="right-panel-label" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Size24/Delivery-80-24.png" title="Địa chỉ giao hàng" /> </div>
                     <div class="div-input div-input-160">
                         @Html.Kendo().MaskedTextBoxFor(model => model.ShippingAddress).HtmlAttributes(new { @class = "right-panel-input-160" })
 
@@ -367,16 +367,3 @@
     }
 
 </script>
-
-<style>
-    
-.right-panel-input-1 {
-    width: 82%;
-    box-sizing: border-box;
-}
-
-.right-panel-input-10 {
-    width: 160%;box-sizing: border-box;
-}
-
-</style>

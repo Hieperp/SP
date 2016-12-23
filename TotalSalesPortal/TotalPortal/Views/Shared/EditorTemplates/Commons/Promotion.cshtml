@@ -18,7 +18,7 @@
 
 @{var showPromotion = @Model != null && @Model.PromotionID != null && @Model.Name != null && @Model.Name != "";}
 
-<div class="right-first-panel">
+<div class="right-first-panel" style="display:none;" >
     <div class="form-group" style="margin-top:0px;">
         <div class="right-panel-label" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/Sale-icon.png" title="Áp dụng chương trình khuyến mãi" />  </div>
         <div class="div-input">
@@ -49,7 +49,7 @@
 
 @if (showPromotion)
 {
-    <div class="right-second-panel" style="width: 32%;">
+    <div class="right-second-panel" style="width: 32%;display:none;">
         <div class="form-group" style="margin-top:0px;">
             <div style="float:left; padding-top: 2px; padding-right: 2px;"> <img src="~/Content/Images/Mains/Sale-Discount.png" title="Tỷ lệ chiết khấu" /> </div> <div class="right-panel-label right-panel-label-larger-width"> @Html.DisplayFor(a => a.DiscountPercent)% @if (@Model.ControlFreeQuantity > 0) { <span> [Mua @Model.ControlFreeQuantity.Value.ToString("N0") tặng 1] </span>} </div>
         </div>

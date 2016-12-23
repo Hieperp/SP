@@ -353,9 +353,14 @@
     <Content Include="Content\Images\Mains\Size24\Borderlands-Select-icon-24.png" />
     <Content Include="Content\Images\Mains\Size24\contacts-icon-24.png" />
     <Content Include="Content\Images\Mains\Size24\data-add-icon-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Delivery-80-24.png" />
     <Content Include="Content\Images\Mains\Size24\folder-documents-icon-24.png" />
     <Content Include="Content\Images\Mains\Size24\Ok-1.png" />
+    <Content Include="Content\Images\Mains\Size24\Phone-icon-24.png" />
     <Content Include="Content\Images\Mains\Size24\select-by-color-icon-24.png" />
+    <Content Include="Content\Images\Mains\Size24\truck-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Truck-icon-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Truck_Transportation-24.png" />
     <Content Include="Content\Images\Mains\Size24\Users-Exit-icon-24.png" />
     <Content Include="Content\Images\Mains\Users-Exit-icon.png" />
     <Content Include="Content\Images\Menu\Automatic-32.png" />
