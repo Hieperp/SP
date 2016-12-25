@@ -277,13 +277,11 @@
     <Compile Include="Areas\Commons\ViewModels\Helpers\IEmployeeAutoCompleteViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IEntireTerritoryAutoCompleteViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\ILocationAutoCompleteViewModel.cs" />
-    <Compile Include="Areas\Commons\ViewModels\Helpers\IOrderInvoiceViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPaymentTermDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPreparedPersonDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPriceTermDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPromotionAutoCompleteViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IServiceContractTypeDropDownViewModel.cs" />
-    <Compile Include="Areas\Commons\ViewModels\Helpers\ISupplierAutoCompleteViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\ISupplierDropDownViewModel.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IWarehouseAutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\Helpers\PrintViewModel.cs" />
@@ -1356,6 +1354,8 @@
     <Content Include="Views\Helpers\Commons\_DeleteConfirm.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Commons\GoodsIssueBox.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\PackingMaterial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Commons\DeliveryAdviceBox.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Commons\ShippingAddress.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

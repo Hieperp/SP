@@ -33,7 +33,7 @@
 <script type="text/javascript">
     function onAdditionalGetCustomers(e) {
         return {
-            locationID: 1,
+            locationID: window.parent.requireConfig.pageOptions.LocationID,
             handlingUnitID: $("#HandlingUnitID").val()
         };
     }

@@ -36,24 +36,18 @@
 
     <div class="right-panel">
 
-        <div style="clear: both; height: 136px;">
-            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
-            @Html.EditorFor(d => d.Receiver, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
+        <div style="clear: both; height: 168px;">
+
+            @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+            @Html.EditorFor(d => d.Receiver, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
+
+            @Html.EditorFor(d => d.ShippingAddress, new { ShippingAddressReadonly = true })
+
+            <div style="float: right; margin-top: -142px; " title="Phiếu xuất kho đang đóng hàng">
+                @Html.DisplayFor(d => d.DeliveryAdvice)
+            </div>
+
         </div>
-
-
-
-
-        @Html.HiddenFor(model => model.DeliveryAdviceID)
-        @*<div class="contract-separator">
-                @if (Model.DeliveryAdviceID == 0 || Model.DeliveryAdviceID == null)
-                {
-                    @Html.Partial("~/Views/Purchases/_NoOrderInvoice.cshtml")}
-                else
-                {
-                    @Html.Partial("~/Views/Purchases/_OrderInvoice.cshtml")
-                }
-            </div>*@
 
 
         <div class="div-k-grid-detail">
@@ -209,30 +203,30 @@
                     events.DataBinding(@<text>function(e){rowNumber = 0;} </text>);
 
                 })
-                                                                                .DataSource(dataSource => dataSource
-                                                                                    .Ajax()
-                                                                                    .Batch(true)
-                                                                                    .ServerOperation(false)
-                                                                                    .Model(model =>
-                                                                                    {
-                                                                                        model.Id(x => x.GoodsIssueDetailID);
-                                                                                        model.Field(m => m.GoodsIssueDetailID).DefaultValue(0);
-                                                                                        model.Field(m => m.GoodsIssueID).DefaultValue(@Model.GoodsIssueID);
-                                                                                    })
-                                                                                    .Events(events =>
-                                                                                    {
-                                                                                        events.Error("kendGrid_ErrorHandler");
-                                                                                    })
-                                                                                    .Aggregates(a => a.Add(x => x.QuantityAvailable).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.FreeQuantityRemains).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
-                                                                                    .Aggregates(a => a.Add(x => x.Amount).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
-                                                                                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
-                                                                                )
+                                                                                                                .DataSource(dataSource => dataSource
+                                                                                                                    .Ajax()
+                                                                                                                    .Batch(true)
+                                                                                                                    .ServerOperation(false)
+                                                                                                                    .Model(model =>
+                                                                                                                    {
+                                                                                                                        model.Id(x => x.GoodsIssueDetailID);
+                                                                                                                        model.Field(m => m.GoodsIssueDetailID).DefaultValue(0);
+                                                                                                                        model.Field(m => m.GoodsIssueID).DefaultValue(@Model.GoodsIssueID);
+                                                                                                                    })
+                                                                                                                    .Events(events =>
+                                                                                                                    {
+                                                                                                                        events.Error("kendGrid_ErrorHandler");
+                                                                                                                    })
+                                                                                                                    .Aggregates(a => a.Add(x => x.QuantityAvailable).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.QuantityRemains).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.FreeQuantityRemains).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                                                                                                                    .Aggregates(a => a.Add(x => x.Amount).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                                                                                                                )
             )
         </div>
 

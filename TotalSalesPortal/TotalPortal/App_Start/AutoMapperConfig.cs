@@ -28,11 +28,12 @@ namespace TotalPortal.App_Start
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<DeliveryAdvice, DeliveryAdviceViewModel>();
-                //cfg.CreateMap<DeliveryAdviceViewModel, DeliveryAdvice>();
                 cfg.CreateMap<DeliveryAdvice, DeliveryAdviceDTO>();
                 cfg.CreateMap<DeliveryAdvicePrimitiveDTO, DeliveryAdvice>();
                 cfg.CreateMap<DeliveryAdviceViewDetail, DeliveryAdviceDetailDTO>();
                 cfg.CreateMap<DeliveryAdviceDetailDTO, DeliveryAdviceDetail>();
+
+                cfg.CreateMap<DeliveryAdvice, DeliveryAdviceBoxDTO>();
 
                 cfg.CreateMap<GoodsIssue, GoodsIssueViewModel>();
                 cfg.CreateMap<GoodsIssue, GoodsIssueDTO>();

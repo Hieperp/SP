@@ -24,14 +24,14 @@ namespace TotalDAL.Repositories.Inventories
         {
         }
 
-        public ICollection<PendingDeliveryAdvice> GetDeliveryAdvices(int locationID, int? goodsIssueID, string searchText)
+        public ICollection<PendingDeliveryAdvice> GetDeliveryAdvices(int locationID)
         {
-            return this.TotalSalesPortalEntities.GetPendingDeliveryAdvices(locationID, goodsIssueID, searchText).ToList();
+            return this.TotalSalesPortalEntities.GetPendingDeliveryAdvices(locationID).ToList();
         }
 
-        public ICollection<PendingDeliveryAdviceCustomer> GetCustomers(int locationID, int? goodsIssueID, string searchText)
+        public ICollection<PendingDeliveryAdviceCustomer> GetCustomers(int locationID)
         {
-            return this.TotalSalesPortalEntities.GetPendingDeliveryAdviceCustomers(locationID, goodsIssueID, searchText).ToList();
+            return this.TotalSalesPortalEntities.GetPendingDeliveryAdviceCustomers(locationID).ToList();
         }
     }
 }

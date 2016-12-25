@@ -8,9 +8,7 @@
 
     @Html.HiddenFor(model => model.GoodsIssueID);
 
-    @Html.HiddenFor(model => model.DeliveryAdviceID);
-    @Html.HiddenFor(model => model.DeliveryAdviceReference);
-    @Html.HiddenFor(model => model.DeliveryAdviceEntryDate);
+    @Html.HiddenFor(model => model.ShippingAddress);
     @Html.HiddenFor(model => model.Description);
     @Html.HiddenFor(model => model.Remarks);
 
@@ -33,6 +31,10 @@
     @Html.HiddenFor(model => model.Receiver.EntireTerritoryEntireName);
     @Html.HiddenFor(model => model.Receiver.EmployeeID)
     @Html.HiddenFor(model => model.Receiver.EmployeeName)
+    
+    @Html.HiddenFor(model => model.DeliveryAdvice.DeliveryAdviceID);
+    @Html.HiddenFor(model => model.DeliveryAdvice.Reference);
+    @Html.HiddenFor(model => model.DeliveryAdvice.EntryDate);
 
 
     @(Html.Kendo().TabStrip()
@@ -88,10 +90,13 @@
 
 
         function _setModelInput(selectedDataItem) {
-            $("#DeliveryAdviceID").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceID === undefined ? null : selectedDataItem.DeliveryAdviceID);
-            $("#DeliveryAdviceReference").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceReference === undefined ? null : selectedDataItem.DeliveryAdviceReference);
-            $("#DeliveryAdviceEntryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceEntryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceEntryDate, SettingsManager.DateFormat));
-            //$("#DeliveryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceDeliveryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceDeliveryDate, SettingsManager.DateFormat));
+
+            $("#DeliveryAdvice_DeliveryAdviceID").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceID === undefined ? null : selectedDataItem.DeliveryAdviceID);
+            $("#DeliveryAdvice_Reference").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceReference === undefined ? null : selectedDataItem.DeliveryAdviceReference);
+            $("#DeliveryAdvice_EntryDate").val(selectedDataItem === undefined || selectedDataItem.DeliveryAdviceEntryDate === undefined ? null : kendo.toString(selectedDataItem.DeliveryAdviceEntryDate, SettingsManager.DateFormat));
+
+            $("#ShippingAddress").val(selectedDataItem === undefined || selectedDataItem.ShippingAddress === undefined ? null : selectedDataItem.ShippingAddress);
+
             $("#Description").val(selectedDataItem === undefined || selectedDataItem.Description === undefined ? null : selectedDataItem.Description);
             $("#Remarks").val(selectedDataItem === undefined || selectedDataItem.Remarks === undefined ? null : selectedDataItem.Remarks);
 

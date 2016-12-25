@@ -38,15 +38,15 @@ namespace TotalPortal.Areas.Inventories.APIs
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDeliveryAdvices([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? goodsIssueID, string searchText)
+        public JsonResult GetDeliveryAdvices([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID)
         {
-            ICollection<PendingDeliveryAdvice> GoodsIssueGetDeliveryAdvices = this.goodsIssueAPIRepository.GetDeliveryAdvices(locationID, goodsIssueID, searchText);
+            ICollection<PendingDeliveryAdvice> GoodsIssueGetDeliveryAdvices = this.goodsIssueAPIRepository.GetDeliveryAdvices(locationID);
             return Json(GoodsIssueGetDeliveryAdvices.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID, int? goodsIssueID, string searchText)
+        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int locationID)
         {
-            ICollection<PendingDeliveryAdviceCustomer> pendingDeliveryAdviceCustomers = this.goodsIssueAPIRepository.GetCustomers(locationID, goodsIssueID, searchText);
+            ICollection<PendingDeliveryAdviceCustomer> pendingDeliveryAdviceCustomers = this.goodsIssueAPIRepository.GetCustomers(locationID);
             return Json(pendingDeliveryAdviceCustomers.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 

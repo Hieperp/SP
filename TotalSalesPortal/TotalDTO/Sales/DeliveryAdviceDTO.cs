@@ -48,6 +48,7 @@ namespace TotalDTO.Sales
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         [Display(Name = "Địa chỉ giao hàng")]
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ giao hàng")]
+        [UIHint("Commons/ShippingAddress")]
         public string ShippingAddress { get; set; }
 
         public virtual int EmployeeID { get; set; }
@@ -106,5 +107,30 @@ namespace TotalDTO.Sales
             base.PrepareVoidDetail(detailID);
         }
     }
+
+
+
+
+
+
+
+
+
+    public interface IDeliveryAdviceBoxDTO //This DTO is used to display related DeliveryAdvice data only
+    {
+        Nullable<int> DeliveryAdviceID { get; set; }
+        [Display(Name = "Số phiếu ĐNGH")]
+        string Reference { get; set; }
+        [Display(Name = "Ngày ĐNGH")]
+        DateTime? EntryDate { get; set; }
+    }
+
+    public class DeliveryAdviceBoxDTO : IDeliveryAdviceBoxDTO
+    {
+        public Nullable<int> DeliveryAdviceID { get; set; }
+        public string Reference { get; set; }
+        public DateTime? EntryDate { get; set; }
+    }
+
 
 }

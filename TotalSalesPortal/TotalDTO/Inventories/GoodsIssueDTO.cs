@@ -9,6 +9,7 @@ using TotalModel;
 using TotalBase.Enums;
 using TotalDTO.Helpers;
 using TotalDTO.Commons;
+using TotalDTO.Sales;
 
 namespace TotalDTO.Inventories
 {
@@ -24,14 +25,14 @@ namespace TotalDTO.Inventories
         public virtual int CustomerID { get; set; }
         public virtual int ReceiverID { get; set; }
 
-        public Nullable<int> DeliveryAdviceID { get; set; }
-        [Display(Name = "Đơn đặt hàng")]
-        public string DeliveryAdviceReference { get; set; }
-        [Display(Name = "Ngày đặt hàng")]
-        public Nullable<System.DateTime> DeliveryAdviceEntryDate { get; set; }
+        public virtual Nullable<int> DeliveryAdviceID { get; set; }
 
         [Display(Name = "Ngày giao hàng")]
         public Nullable<System.DateTime> DeliveryDate { get; set; }
+        [Display(Name = "Địa chỉ giao hàng")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ giao hàng")]
+        [UIHint("Commons/ShippingAddress")]
+        public string ShippingAddress { get; set; }
 
         public virtual int EmployeeID { get; set; }
 
@@ -59,6 +60,10 @@ namespace TotalDTO.Inventories
         [Display(Name = "Đơn vị, người nhận hàng")]
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Receiver { get; set; }
+
+        public override Nullable<int> DeliveryAdviceID { get { return (this.DeliveryAdvice != null ? (Nullable<int>)this.DeliveryAdvice.DeliveryAdviceID : null); } }
+        [UIHint("Commons/DeliveryAdviceBox")]
+        public DeliveryAdviceBoxDTO DeliveryAdvice { get; set; }
 
         public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
         [Display(Name = "Nhân viên kho")]
