@@ -313,6 +313,8 @@
     <Content Include="Content\Images\Mains\Actions-ok-icon32.png" />
     <Content Include="Content\Images\Mains\Actions-ok-icon64.png" />
     <Content Include="Content\Images\Mains\Arrow-right.png" />
+    <Content Include="Content\Images\Mains\Blowout-Sale-icon-48.png" />
+    <Content Include="Content\Images\Mains\Blowout-Sale-icon.png" />
     <Content Include="Content\Images\Mains\blue-cross-icon32.png" />
     <Content Include="Content\Images\Mains\blue-cross-icon64.png" />
     <Content Include="Content\Images\Mains\Blue-Right 32.png" />
@@ -355,6 +357,12 @@
     <Content Include="Content\Images\Mains\Size24\data-add-icon-24.png" />
     <Content Include="Content\Images\Mains\Size24\Delivery-80-24.png" />
     <Content Include="Content\Images\Mains\Size24\folder-documents-icon-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Location-30-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Map-11-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Map-24-24.png" />
+    <Content Include="Content\Images\Mains\Size24\Map-pin-16.png" />
+    <Content Include="Content\Images\Mains\Size24\Map-pin-20.png" />
+    <Content Include="Content\Images\Mains\Size24\Map-pin-24.png" />
     <Content Include="Content\Images\Mains\Size24\Ok-1.png" />
     <Content Include="Content\Images\Mains\Size24\Phone-icon-24.png" />
     <Content Include="Content\Images\Mains\Size24\select-by-color-icon-24.png" />

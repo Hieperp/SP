@@ -958,14 +958,14 @@ ul.k-panelbar .k-link {
 
 .right-first-panel {
     float: left;
-    width: 55%;
-    padding-right: 15px;
+    width: 55%;    
     box-sizing: border-box;
 }
 
 .right-second-panel {
     float: left;
     width: 45%;
+    padding-left: 15px;
     box-sizing: border-box;
 }
 
@@ -985,6 +985,10 @@ ul.k-panelbar .k-link {
     box-sizing: border-box;
 }
 
+.right-panel-input-whole-width{
+    width: 84.6%;
+}
+
 .div-input-160 {
     width: 160%;
     box-sizing: border-box;
@@ -1002,6 +1006,10 @@ ul.k-panelbar .k-link {
     padding-top: 5px;
     padding-right: 4px;
     box-sizing: border-box;
+}
+
+.right-panel-label-whole-width{
+    width: 15.4%;
 }
 
 .right-panel-label-larger-width { /*this css should ALWAYS be combined with: right-panel-label*/
