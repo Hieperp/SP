@@ -53,6 +53,7 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> InActiveDate { get; set; }
         public Nullable<decimal> TotalFreeQuantity { get; set; }
         public int ReceiverID { get; set; }
+        public string ShippingAddress { get; set; }
     
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

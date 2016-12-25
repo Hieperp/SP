@@ -34,5 +34,6 @@ namespace TotalModel.Models
         public string ReceiverEntireTerritoryEntireName { get; set; }
         public string CustomerBillingAddress { get; set; }
         public string ReceiverBillingAddress { get; set; }
+        public string ShippingAddress { get; set; }
     }
 }

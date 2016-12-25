@@ -233,7 +233,7 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsIssueIndex>("GetGoodsIssueIndexes", aspUserIDParameter, fromDateParameter, toDateParameter);
         }
     
-        public virtual ObjectResult<GoodsIssueViewDetail> GetGoodsIssueViewDetails(Nullable<int> goodsIssueID, Nullable<int> deliveryAdviceID, Nullable<int> customerID, Nullable<int> receiverID, Nullable<bool> isReadonly)
+        public virtual ObjectResult<GoodsIssueViewDetail> GetGoodsIssueViewDetails(Nullable<int> goodsIssueID, Nullable<int> deliveryAdviceID, Nullable<int> customerID, Nullable<int> receiverID, string shippingAddress, Nullable<bool> isReadonly)
         {
             var goodsIssueIDParameter = goodsIssueID.HasValue ?
                 new ObjectParameter("GoodsIssueID", goodsIssueID) :
@@ -251,45 +251,33 @@ namespace TotalModel.Models
                 new ObjectParameter("ReceiverID", receiverID) :
                 new ObjectParameter("ReceiverID", typeof(int));
     
+            var shippingAddressParameter = shippingAddress != null ?
+                new ObjectParameter("ShippingAddress", shippingAddress) :
+                new ObjectParameter("ShippingAddress", typeof(string));
+    
             var isReadonlyParameter = isReadonly.HasValue ?
                 new ObjectParameter("IsReadonly", isReadonly) :
                 new ObjectParameter("IsReadonly", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsIssueViewDetail>("GetGoodsIssueViewDetails", goodsIssueIDParameter, deliveryAdviceIDParameter, customerIDParameter, receiverIDParameter, isReadonlyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GoodsIssueViewDetail>("GetGoodsIssueViewDetails", goodsIssueIDParameter, deliveryAdviceIDParameter, customerIDParameter, receiverIDParameter, shippingAddressParameter, isReadonlyParameter);
         }
     
-        public virtual ObjectResult<PendingDeliveryAdviceCustomer> GetPendingDeliveryAdviceCustomers(Nullable<int> locationID, Nullable<int> goodsIssueID, string searchText)
+        public virtual ObjectResult<PendingDeliveryAdviceCustomer> GetPendingDeliveryAdviceCustomers(Nullable<int> locationID)
         {
             var locationIDParameter = locationID.HasValue ?
                 new ObjectParameter("LocationID", locationID) :
                 new ObjectParameter("LocationID", typeof(int));
     
-            var goodsIssueIDParameter = goodsIssueID.HasValue ?
-                new ObjectParameter("GoodsIssueID", goodsIssueID) :
-                new ObjectParameter("GoodsIssueID", typeof(int));
-    
-            var searchTextParameter = searchText != null ?
-                new ObjectParameter("SearchText", searchText) :
-                new ObjectParameter("SearchText", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingDeliveryAdviceCustomer>("GetPendingDeliveryAdviceCustomers", locationIDParameter, goodsIssueIDParameter, searchTextParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingDeliveryAdviceCustomer>("GetPendingDeliveryAdviceCustomers", locationIDParameter);
         }
     
-        public virtual ObjectResult<PendingDeliveryAdvice> GetPendingDeliveryAdvices(Nullable<int> locationID, Nullable<int> goodsIssueID, string searchText)
+        public virtual ObjectResult<PendingDeliveryAdvice> GetPendingDeliveryAdvices(Nullable<int> locationID)
         {
             var locationIDParameter = locationID.HasValue ?
                 new ObjectParameter("LocationID", locationID) :
                 new ObjectParameter("LocationID", typeof(int));
     
-            var goodsIssueIDParameter = goodsIssueID.HasValue ?
-                new ObjectParameter("GoodsIssueID", goodsIssueID) :
-                new ObjectParameter("GoodsIssueID", typeof(int));
-    
-            var searchTextParameter = searchText != null ?
-                new ObjectParameter("SearchText", searchText) :
-                new ObjectParameter("SearchText", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingDeliveryAdvice>("GetPendingDeliveryAdvices", locationIDParameter, goodsIssueIDParameter, searchTextParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PendingDeliveryAdvice>("GetPendingDeliveryAdvices", locationIDParameter);
         }
     
         public virtual ObjectResult<string> GoodsIssueEditable(Nullable<int> entityID)

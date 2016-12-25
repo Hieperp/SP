@@ -409,6 +409,7 @@
           <Property Name="DeliveryAdviceID" Type="int" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="ReceiverID" Type="int" Nullable="false" />
+          <Property Name="ShippingAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="DeliveryDate" Type="datetime" />
           <Property Name="UserID" Type="int" Nullable="false" />
@@ -1435,6 +1436,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Parameter Name="DeliveryAdviceID" Type="int" Mode="In" />
           <Parameter Name="CustomerID" Type="int" Mode="In" />
           <Parameter Name="ReceiverID" Type="int" Mode="In" />
+          <Parameter Name="ShippingAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
         </Function>
         <Function Name="GetHandlingUnitIndexes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1463,13 +1465,9 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
         </Function>
         <Function Name="GetPendingDeliveryAdviceCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
-          <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
-          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetPendingDeliveryAdvices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
-          <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
-          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetPendingGoodsIssueConsumers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
@@ -2007,17 +2005,14 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <Parameter Name="DeliveryAdviceID" Mode="In" Type="Int32" />
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="ReceiverID" Mode="In" Type="Int32" />
+            <Parameter Name="ShippingAddress" Mode="In" Type="String" />
             <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="GetPendingDeliveryAdviceCustomers" ReturnType="Collection(TotalSalesPortalModel.PendingDeliveryAdviceCustomer)">
-            <Parameter Name="LocationID" Mode="In" Type="Int32" />
-            <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
-            <Parameter Name="SearchText" Mode="In" Type="String" />
+          <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPendingDeliveryAdvices" ReturnType="Collection(TotalSalesPortalModel.PendingDeliveryAdvice)">
-            <Parameter Name="LocationID" Mode="In" Type="Int32" />
-            <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
-            <Parameter Name="SearchText" Mode="In" Type="String" />
+          <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GoodsIssueEditable" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />
@@ -2875,6 +2870,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="String" Name="ReceiverTelephone" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="CustomerBillingAddress" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="ReceiverBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="PendingDeliveryAdvice">
           <Property Type="Int32" Name="DeliveryAdviceID" Nullable="false" />
@@ -2898,6 +2894,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="String" Name="ReceiverEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="String" Name="CustomerBillingAddress" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="ReceiverBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="AccountInvoiceIndex">
           <Property Type="Int32" Name="AccountInvoiceID" Nullable="false" />
@@ -3051,6 +3048,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="HandlingUnits" Relationship="TotalSalesPortalModel.FK_HandlingUnits_GoodsIssues" FromRole="GoodsIssue" ToRole="HandlingUnit" />
           <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers" FromRole="GoodsIssue" ToRole="Customer" />
           <NavigationProperty Name="Customer1" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Customers1" FromRole="GoodsIssue" ToRole="Customer" />
+          <Property Name="ShippingAddress" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_GoodsIssues_Employees">
           <End Type="TotalSalesPortalModel.Employee" Role="Employee" Multiplicity="1" />
@@ -4597,6 +4595,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="ReceiverTelephone" ColumnName="ReceiverTelephone" />
                 <ScalarProperty Name="CustomerBillingAddress" ColumnName="CustomerBillingAddress" />
                 <ScalarProperty Name="ReceiverBillingAddress" ColumnName="ReceiverBillingAddress" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4624,6 +4623,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="ReceiverEntireTerritoryEntireName" ColumnName="ReceiverEntireTerritoryEntireName" />
                 <ScalarProperty Name="CustomerBillingAddress" ColumnName="CustomerBillingAddress" />
                 <ScalarProperty Name="ReceiverBillingAddress" ColumnName="ReceiverBillingAddress" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4725,6 +4725,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySetMapping Name="GoodsIssues">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsIssue">
               <MappingFragment StoreEntitySet="GoodsIssues">
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
                 <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
                 <ScalarProperty Name="TotalFreeQuantity" ColumnName="TotalFreeQuantity" />
                 <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
