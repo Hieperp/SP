@@ -3735,9 +3735,9 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="DateTime" Name="GoodsIssueEntryDate" Nullable="false" Precision="23" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="GoodsIssueReceiverCode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="GoodsIssueReceiverName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="CustomerBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="HUPendingGoodsIssueCustomer">
           <Property Type="Int32" Name="CustomerID" Nullable="false" />
@@ -5217,9 +5217,9 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="GoodsIssueEntryDate" ColumnName="GoodsIssueEntryDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="GoodsIssueReceiverCode" ColumnName="GoodsIssueReceiverCode" />
-                <ScalarProperty Name="GoodsIssueReceiverName" ColumnName="GoodsIssueReceiverName" />
                 <ScalarProperty Name="CustomerBillingAddress" ColumnName="CustomerBillingAddress" />
+                <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

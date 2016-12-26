@@ -10,8 +10,8 @@
         columns.Bound(c => c.CustomerCode).Title("Mã khách hàng").Width(80);
         columns.Bound(c => c.CustomerName).Title("Tên khách hàng").Width(160);
         columns.Bound(c => c.CustomerVATCode).Title("MST").Width(60);
-        columns.Bound(c => c.GoodsIssueReceiverCode).Title("Mã đơn vị nhận").Width(80);
-        columns.Bound(c => c.GoodsIssueReceiverName).Title("Tên đơn vị nhận").Width(150);
+        columns.Bound(c => c.ReceiverCode).Title("Mã đơn vị nhận").Width(80);
+        columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(150);
     })
     .ToolBar(toolbar =>
     {
@@ -51,8 +51,8 @@
                     { field: "CustomerName", operator: "contains", value: pendingGoodsIssueFilter },
                     { field: "CustomerVATCode", operator: "contains", value: pendingGoodsIssueFilter },
 
-                    { field: "GoodsIssueReceiverCode", operator: "contains", value: pendingGoodsIssueFilter },
-                    { field: "GoodsIssueReceiverName", operator: "contains", value: pendingGoodsIssueFilter }
+                    { field: "ReceiverCode", operator: "contains", value: pendingGoodsIssueFilter },
+                    { field: "ReceiverName", operator: "contains", value: pendingGoodsIssueFilter }
                 ]
             });
 

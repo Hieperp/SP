@@ -16,17 +16,17 @@
     {
         toolbar.Template(@<text>            
             <div class="toolbar" style="float: right;">
-                <label>Nhập số phiếu ĐNGH/ hoặc mã, tên hoặc MST khách hàng</label>
-                <input id="deliveryAdviceSearchTextBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="deliveryAdviceSearchTextBox_KeyUp()" />
+                <label>Nhập số phiếu ĐNGH/ hoặc mã, tên hoặc MST khách hàng, đơn vị nhận, hoặc địa chỉ giao hàng</label>
+                <input id="pendingDeliveryAdviceFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="pendingDeliveryAdviceFilter_KeyUp()" />
             </div>
         </text>);
     })
-        .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
-        .DataSource(ds => ds.Ajax()
-            .Read(read => read.Action("GetDeliveryAdvices", "GoodsIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetDeliveryAdvices"))
-            .ServerOperation(true)
-        )
-        .Selectable()
+    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
+    .DataSource(ds => ds.Ajax()
+        .Read(read => read.Action("GetDeliveryAdvices", "GoodsIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetDeliveryAdvices"))
+        .ServerOperation(false)//If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
+    )
+    .Selectable()
 )
 
 @Html.Hidden("deliveryAdviceSearchText", "")
@@ -38,18 +38,35 @@
         };
     }
 
-    function deliveryAdviceSearchTextBox_KeyUp() {
-        if ($("#deliveryAdviceSearchTextBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
-            $("#deliveryAdviceSearchText").val($("#deliveryAdviceSearchTextBox").val());
-            $("#pendingDeliveryAdviceGrid").data("kendoGrid").dataSource.read();
+    function pendingDeliveryAdviceFilter_KeyUp() {
+        var pendingDeliveryAdviceFilter = $("#pendingDeliveryAdviceFilter").val(), gridDetails = $("#pendingDeliveryAdviceGrid").data("kendoGrid");
+
+        if (pendingDeliveryAdviceFilter && pendingDeliveryAdviceFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+            gridDetails.dataSource.filter({
+                logic: "or",
+                filters: [
+                    { field: "DeliveryAdviceReference", operator: "contains", value: pendingDeliveryAdviceFilter },
+
+                    { field: "CustomerCode", operator: "contains", value: pendingDeliveryAdviceFilter },
+                    { field: "CustomerName", operator: "contains", value: pendingDeliveryAdviceFilter },
+                    { field: "CustomerVATCode", operator: "contains", value: pendingDeliveryAdviceFilter },
+
+                    { field: "ReceiverCode", operator: "contains", value: pendingDeliveryAdviceFilter },
+                    { field: "ReceiverName", operator: "contains", value: pendingDeliveryAdviceFilter },
+                    { field: "ReceiverVATCode", operator: "contains", value: pendingDeliveryAdviceFilter },
+
+                    { field: "ShippingAddress", operator: "contains", value: pendingDeliveryAdviceFilter }
+                ]
+            });
+
+
         } else {
-            if ($("#deliveryAdviceSearchText").val() != "") {
-                $("#deliveryAdviceSearchText").val("");
-                $("#pendingDeliveryAdviceGrid").data("kendoGrid").dataSource.read();
-            }
+            if (gridDetails.dataSource.filter() != undefined)
+                gridDetails.dataSource.filter({});
         }
     }
 
+    
     $("#pendingDeliveryAdviceGrid").dblclick(function (e) {
         okButton_Click();
     })

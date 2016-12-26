@@ -25,8 +25,8 @@ namespace TotalModel.Models
         public System.DateTime GoodsIssueEntryDate { get; set; }
         public string Description { get; set; }
         public string Remarks { get; set; }
-        public string GoodsIssueReceiverCode { get; set; }
-        public string GoodsIssueReceiverName { get; set; }
         public string CustomerBillingAddress { get; set; }
+        public string ReceiverCode { get; set; }
+        public string ReceiverName { get; set; }
     }
 }

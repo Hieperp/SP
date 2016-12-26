@@ -16,15 +16,15 @@
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
-                <label>Nhập mã, tên hoặc MST khách hàng</label>
-                <input id="deliveryAdviceCustomerSearchTextBox" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="deliveryAdviceCustomerSearchTextBox_KeyUp()" />
+                <label>Nhập mã, tên, MST, địa chỉ, hoặc địa bàn khách hàng</label>
+                <input id="pendingDeliveryAdviceCustomerFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="pendingDeliveryAdviceCustomerFilter_KeyUp()" />
             </div>
         </text>);
     })
     .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
     .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetCustomers", "GoodsIssueAPIs", new { area = "Inventories" }).Data("onAdditionalGetCustomers"))
-        .ServerOperation(true)
+        .ServerOperation(false)//If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
     )
     .Selectable()
 )
@@ -38,18 +38,28 @@
         };
     }
 
-    function deliveryAdviceCustomerSearchTextBox_KeyUp() {
-        if ($("#deliveryAdviceCustomerSearchTextBox").val().length >= "@SettingsManager.AutoCompleteMinLenght") {
-            $("#deliveryAdviceCustomerSearchText").val($("#deliveryAdviceCustomerSearchTextBox").val());
-            $("#pendingDeliveryAdviceCustomerGrid").data("kendoGrid").dataSource.read();
+    function pendingDeliveryAdviceCustomerFilter_KeyUp() {
+        var pendingDeliveryAdviceCustomerFilter = $("#pendingDeliveryAdviceCustomerFilter").val(), gridDetails = $("#pendingDeliveryAdviceCustomerGrid").data("kendoGrid");
+
+        if (pendingDeliveryAdviceCustomerFilter && pendingDeliveryAdviceCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+            gridDetails.dataSource.filter({
+                logic: "or",
+                filters: [
+                    { field: "CustomerCode", operator: "contains", value: pendingDeliveryAdviceCustomerFilter },
+                    { field: "CustomerName", operator: "contains", value: pendingDeliveryAdviceCustomerFilter },
+                    { field: "CustomerVATCode", operator: "contains", value: pendingDeliveryAdviceCustomerFilter },
+                    { field: "CustomerTelephone", operator: "contains", value: pendingDeliveryAdviceCustomerFilter },
+                    { field: "CustomerBillingAddress", operator: "contains", value: pendingDeliveryAdviceCustomerFilter },
+                    { field: "CustomerEntireTerritoryEntireName", operator: "contains", value: pendingDeliveryAdviceCustomerFilter }
+                ]
+            });
+
+
         } else {
-            if ($("#deliveryAdviceCustomerSearchText").val() != "") {
-                $("#deliveryAdviceCustomerSearchText").val("");
-                $("#pendingDeliveryAdviceCustomerGrid").data("kendoGrid").dataSource.read();
-            }
+            if (gridDetails.dataSource.filter() != undefined)
+                gridDetails.dataSource.filter({});
         }
     }
-
 
     $("#pendingDeliveryAdviceCustomerGrid").dblclick(function (e) {
         okButton_Click();

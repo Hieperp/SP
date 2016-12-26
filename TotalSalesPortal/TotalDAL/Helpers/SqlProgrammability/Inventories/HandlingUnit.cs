@@ -87,7 +87,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "       SELECT          Customers.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.VATCode AS CustomerVATCode, Customers.AttentionName AS CustomerAttentionName, Customers.Telephone AS CustomerTelephone, Customers.BillingAddress AS CustomerBillingAddress, CustomerEntireTerritories.EntireName AS CustomerEntireTerritoryEntireName, " + "\r\n";
             queryString = queryString + "                       GoodsIssues.GoodsIssueID, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.EntryDate AS GoodsIssueEntryDate, GoodsIssues.Description, GoodsIssues.Remarks, " + "\r\n";
-            queryString = queryString + "                       Receivers.Code AS GoodsIssueReceiverCode, Receivers.Name AS GoodsIssueReceiverName " + "\r\n";
+            queryString = queryString + "                       Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName " + "\r\n";
 
             queryString = queryString + "       FROM            GoodsIssues " + "\r\n";
             queryString = queryString + "                       INNER JOIN Customers ON GoodsIssues.LocationID = @LocationID AND GoodsIssues.CustomerID = Customers.CustomerID " + "\r\n";
