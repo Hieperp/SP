@@ -1,8 +1,8 @@
 ﻿@using TotalPortal.Configuration
 @using TotalModel.Models;
 
-@(Html.Kendo().Grid<HUPendingGoodsIssue>()
-    .Name("huPendingGoodsIssueGrid")
+@(Html.Kendo().Grid<HandlingUnitPendingGoodsIssue>()
+    .Name("handlingUnitPendingGoodsIssueGrid")
     .Columns(columns =>
     {
         columns.Bound(c => c.GoodsIssueReference).Title("PXK").Width(35);
@@ -18,7 +18,7 @@
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
                 <label>Nhập số phiếu xuất kho/ hoặc mã, tên hoặc MST khách hàng hay đơn vị, người nhận hàng</label>
-                <input id="pendingGoodsIssueFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="pendingGoodsIssueFilter_KeyUp()" />
+                <input id="handlingUnitPendingGoodsIssueFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="handlingUnitPendingGoodsIssueFilter_KeyUp()" />
             </div>
         </text>);
     })
@@ -33,26 +33,25 @@
 <script type="text/javascript">
     function onAdditionalGetGoodsIssues(e) {
         return {
-            locationID: window.parent.requireConfig.pageOptions.LocationID,
-            handlingUnitID: $("#HandlingUnitID").val()
+            locationID: window.parent.requireConfig.pageOptions.LocationID            
         };
     }
 
-    function pendingGoodsIssueFilter_KeyUp() {
-        var pendingGoodsIssueFilter = $("#pendingGoodsIssueFilter").val(), gridDetails = $("#huPendingGoodsIssueGrid").data("kendoGrid");
+    function handlingUnitPendingGoodsIssueFilter_KeyUp() {
+        var handlingUnitPendingGoodsIssueFilter = $("#handlingUnitPendingGoodsIssueFilter").val(), gridDetails = $("#handlingUnitPendingGoodsIssueGrid").data("kendoGrid");
 
-        if (pendingGoodsIssueFilter && pendingGoodsIssueFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (handlingUnitPendingGoodsIssueFilter && handlingUnitPendingGoodsIssueFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "GoodsIssueReference", operator: "contains", value: pendingGoodsIssueFilter },
+                    { field: "GoodsIssueReference", operator: "contains", value: handlingUnitPendingGoodsIssueFilter },
 
-                    { field: "CustomerCode", operator: "contains", value: pendingGoodsIssueFilter },
-                    { field: "CustomerName", operator: "contains", value: pendingGoodsIssueFilter },
-                    { field: "CustomerVATCode", operator: "contains", value: pendingGoodsIssueFilter },
+                    { field: "CustomerCode", operator: "contains", value: handlingUnitPendingGoodsIssueFilter },
+                    { field: "CustomerName", operator: "contains", value: handlingUnitPendingGoodsIssueFilter },
+                    { field: "CustomerVATCode", operator: "contains", value: handlingUnitPendingGoodsIssueFilter },
 
-                    { field: "ReceiverCode", operator: "contains", value: pendingGoodsIssueFilter },
-                    { field: "ReceiverName", operator: "contains", value: pendingGoodsIssueFilter }
+                    { field: "ReceiverCode", operator: "contains", value: handlingUnitPendingGoodsIssueFilter },
+                    { field: "ReceiverName", operator: "contains", value: handlingUnitPendingGoodsIssueFilter }
                 ]
             });
 
@@ -63,7 +62,7 @@
         }
     }
 
-    $("#huPendingGoodsIssueGrid").dblclick(function (e) {
+    $("#handlingUnitPendingGoodsIssueGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

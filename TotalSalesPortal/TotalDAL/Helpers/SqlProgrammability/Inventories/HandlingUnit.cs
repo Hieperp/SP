@@ -20,7 +20,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.GetHandlingUnitViewDetails();
 
             this.GetHandlingUnitPendingGoodsIssues();
-            this.GetHandlingUnitPendingGoodsIssueCustomers();
+            this.GetHandlingUnitPendingCustomers();
             this.GetHandlingUnitPendingGoodsIssueDetails();
 
             this.HandlingUnitSaveRelative();
@@ -101,7 +101,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             this.totalSalesPortalEntities.CreateStoredProcedure("GetHandlingUnitPendingGoodsIssues", queryString);
         }
 
-        private void GetHandlingUnitPendingGoodsIssueCustomers()
+        private void GetHandlingUnitPendingCustomers()
         {
             string queryString = " @LocationID int " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
@@ -116,7 +116,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                       INNER JOIN EntireTerritories CustomerEntireTerritories ON Customers.TerritoryID = CustomerEntireTerritories.TerritoryID " + "\r\n";
             queryString = queryString + "                       INNER JOIN EntireTerritories ReceiverEntireTerritories ON Receivers.TerritoryID = ReceiverEntireTerritories.TerritoryID " + "\r\n";
 
-            this.totalSalesPortalEntities.CreateStoredProcedure("GetHandlingUnitPendingGoodsIssueCustomers", queryString);
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetHandlingUnitPendingCustomers", queryString);
         }
 
 

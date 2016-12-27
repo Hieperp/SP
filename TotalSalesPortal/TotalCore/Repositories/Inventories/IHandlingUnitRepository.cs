@@ -10,9 +10,9 @@ namespace TotalCore.Repositories.Inventories
 
     public interface IHandlingUnitAPIRepository : IGenericAPIRepository
     {
-        IEnumerable<HUPendingGoodsIssueCustomer> GetCustomers(int? locationID);
-        IEnumerable<HUPendingGoodsIssue> GetGoodsIssues(int? locationID);
+        IEnumerable<HandlingUnitPendingCustomer> GetCustomers(int? locationID);
+        IEnumerable<HandlingUnitPendingGoodsIssue> GetGoodsIssues(int? locationID);
 
-        IEnumerable<HUPendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? locationID, int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string shippingAddress, string goodsIssueDetailIDs, bool isReadonly);
+        IEnumerable<HandlingUnitPendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? locationID, int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string shippingAddress, string goodsIssueDetailIDs, bool isReadonly);
     }
 }

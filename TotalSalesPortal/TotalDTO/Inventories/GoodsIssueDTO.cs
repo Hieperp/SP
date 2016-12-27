@@ -25,14 +25,15 @@ namespace TotalDTO.Inventories
         public virtual int CustomerID { get; set; }
         public virtual int ReceiverID { get; set; }
 
-        public virtual Nullable<int> DeliveryAdviceID { get; set; }
-
-        [Display(Name = "Ngày giao hàng")]
-        public Nullable<System.DateTime> DeliveryDate { get; set; }
         [Display(Name = "Địa chỉ giao hàng")]
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ giao hàng")]
         [UIHint("Commons/ShippingAddress")]
         public string ShippingAddress { get; set; }
+
+        public virtual Nullable<int> DeliveryAdviceID { get; set; }
+
+        [Display(Name = "Ngày giao hàng")]
+        public Nullable<System.DateTime> DeliveryDate { get; set; }
 
         public virtual int EmployeeID { get; set; }
 

@@ -35,7 +35,6 @@
     </div>
 
     <div class="right-panel">
-
         <div style="clear: both; height: 168px;">
 
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
@@ -43,7 +42,7 @@
 
             @Html.EditorFor(d => d.ShippingAddress, new { ShippingAddressReadonly = true })
 
-            <div style="float: right; margin-top: -142px; " title="Phiếu xuất kho đang đóng hàng">
+            <div style="float: right; margin-top: -142px; " title="Phiếu đề nghị giao hàng">
                 @Html.DisplayFor(d => d.DeliveryAdvice)
             </div>
 

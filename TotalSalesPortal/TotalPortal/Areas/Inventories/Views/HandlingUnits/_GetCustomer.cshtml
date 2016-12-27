@@ -1,8 +1,8 @@
 ﻿@using TotalPortal.Configuration
 @using TotalModel.Models;
 
-@(Html.Kendo().Grid<HUPendingGoodsIssueCustomer>()
-    .Name("huPendingGoodsIssueCustomerGrid")
+@(Html.Kendo().Grid<HandlingUnitPendingCustomer>()
+    .Name("handlingUnitPendingCustomerGrid")
 
     .Columns(columns =>
     {
@@ -18,7 +18,7 @@
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
                 <label>Nhập mã, tên, MST, địa chỉ, hoặc địa bàn khách hàng</label>
-                <input id="huPendingGoodsIssueCustomerFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="huPendingGoodsIssueCustomerFilter_KeyUp()" />
+                <input id="handlingUnitPendingCustomerFilter" class="k-textbox" style="text-align: center; margin-right: 13px;" onkeyup="handlingUnitPendingCustomerFilter_KeyUp()" />
             </div>
         </text>);
     })
@@ -33,24 +33,23 @@
 <script type="text/javascript">
     function onAdditionalGetCustomers(e) {
         return {
-            locationID: window.parent.requireConfig.pageOptions.LocationID,
-            handlingUnitID: $("#HandlingUnitID").val()
+            locationID: window.parent.requireConfig.pageOptions.LocationID            
         };
     }
 
-    function huPendingGoodsIssueCustomerFilter_KeyUp() {
-        var huPendingGoodsIssueCustomerFilter = $("#huPendingGoodsIssueCustomerFilter").val(), gridDetails = $("#huPendingGoodsIssueCustomerGrid").data("kendoGrid");
+    function handlingUnitPendingCustomerFilter_KeyUp() {
+        var handlingUnitPendingCustomerFilter = $("#handlingUnitPendingCustomerFilter").val(), gridDetails = $("#handlingUnitPendingCustomerGrid").data("kendoGrid");
 
-        if (huPendingGoodsIssueCustomerFilter && huPendingGoodsIssueCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
+        if (handlingUnitPendingCustomerFilter && handlingUnitPendingCustomerFilter.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "CustomerCode", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
-                    { field: "CustomerName", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
-                    { field: "CustomerVATCode", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
-                    { field: "CustomerTelephone", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
-                    { field: "CustomerBillingAddress", operator: "contains", value: huPendingGoodsIssueCustomerFilter },
-                    { field: "CustomerEntireTerritoryEntireName", operator: "contains", value: huPendingGoodsIssueCustomerFilter }
+                    { field: "CustomerCode", operator: "contains", value: handlingUnitPendingCustomerFilter },
+                    { field: "CustomerName", operator: "contains", value: handlingUnitPendingCustomerFilter },
+                    { field: "CustomerVATCode", operator: "contains", value: handlingUnitPendingCustomerFilter },
+                    { field: "CustomerTelephone", operator: "contains", value: handlingUnitPendingCustomerFilter },
+                    { field: "CustomerBillingAddress", operator: "contains", value: handlingUnitPendingCustomerFilter },
+                    { field: "CustomerEntireTerritoryEntireName", operator: "contains", value: handlingUnitPendingCustomerFilter }
                 ]
             });
 
@@ -62,7 +61,7 @@
     }
 
 
-    $("#huPendingGoodsIssueCustomerGrid").dblclick(function (e) {
+    $("#handlingUnitPendingCustomerGrid").dblclick(function (e) {
         okButton_Click();
     })
 </script>

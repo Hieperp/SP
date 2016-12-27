@@ -152,16 +152,16 @@
     <Compile Include="Models\HandlingUnitIndex.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HandlingUnitPendingCustomer.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HandlingUnitPendingGoodsIssue.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HandlingUnitPendingGoodsIssueDetail.cs">
+      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HandlingUnitViewDetail.cs">
-      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HUPendingGoodsIssue.cs">
-      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HUPendingGoodsIssueCustomer.cs">
-      <DependentUpon>TotalSalesPortal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HUPendingGoodsIssueDetail.cs">
       <DependentUpon>TotalSalesPortal.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Location.cs">

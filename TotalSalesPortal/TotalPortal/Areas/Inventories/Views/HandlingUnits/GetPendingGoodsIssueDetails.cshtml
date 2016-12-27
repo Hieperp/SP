@@ -4,8 +4,8 @@
 @{Layout = "~/Views/Shared/_LayoutPopup.cshtml";}
 
 
-@(Html.Kendo().Grid<HUPendingGoodsIssueDetail>()
-    .Name("gridHUPendingGoodsIssueDetails")
+@(Html.Kendo().Grid<HandlingUnitPendingGoodsIssueDetail>()
+    .Name("gridHandlingUnitPendingGoodsIssueDetails")
     .Columns(columns =>
     {
         columns.Bound(c => c.Reference).Title("PXK").Width(35);
@@ -35,18 +35,19 @@
                 var handlingUnitJSON = window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource.data().toJSON();
 
                 return {
+                    locationID: window.parent.requireConfig.pageOptions.LocationID,
                     handlingUnitID: window.parent.$("#HandlingUnitID").val(),
                     goodsIssueID: window.parent.$("#GoodsIssue_GoodsIssueID").val(),
                     customerID: window.parent.$("#Customer_CustomerID").val(),
                     receiverID: window.parent.$("#Receiver_CustomerID").val(),
+                    shippingAddress: window.parent.$("#ShippingAddress").val(),
                     goodsIssueDetailIDs : handlingUnitJSON.map(function(elem){return elem.GoodsIssueDetailID;}).join(","),
-                    isReadOnly: false
+                    isReadonly: false
             };}
             </text>))
     .ServerOperation(false)) //If this is TRUE: Apply filter to datasource will call Ajax to get new datasource result. If this is FALSE: filter will run on client
     .Selectable()
 )
-
 
 <div class="background-bar" style="height: 45px;">
     <div class="popup-button-bar">
@@ -55,16 +56,16 @@
     </div>
 </div>
 
-<script src="@Url.Content("~/Scripts/Controllers/Inventories/HandlingUnits/AddHUPendingGoodsIssueDetail.js")"></script>
+<script src="@Url.Content("~/Scripts/Controllers/Inventories/HandlingUnits/AddHandlingUnitPendingGoodsIssueDetail.js")"></script>
 
 <script type="text/javascript">
     function okButton_Click() {
-        handleOKEvent(window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource, $("#gridHUPendingGoodsIssueDetails").data("kendoGrid").dataSource);
+        handleOKEvent(window.parent.$("#kendoGridDetails").data("kendoGrid").dataSource, $("#gridHandlingUnitPendingGoodsIssueDetails").data("kendoGrid").dataSource);
     }
 
-    $('#gridHUPendingGoodsIssueDetails').on('click', '.IsSelected', function () {
+    $('#gridHandlingUnitPendingGoodsIssueDetails').on('click', '.IsSelected', function () {
         var checked = $(this).is(':checked');
-        var grid = $('#gridHUPendingGoodsIssueDetails').data().kendoGrid;
+        var grid = $('#gridHandlingUnitPendingGoodsIssueDetails').data().kendoGrid;
         var dataItem = grid.dataItem($(this).closest('tr'));
         dataItem.set('IsSelected', checked);
     })
@@ -73,10 +74,8 @@
 
 
 <script>
-    function reReadHUPendingGoodsIssueDetails() { $("#gridHUPendingGoodsIssueDetails").data("kendoGrid").dataSource.read() }
-
     function filterText_KeyUp() {
-        var filterText = $("#filterText").val(), gridDetails = $("#gridHUPendingGoodsIssueDetails").data("kendoGrid");
+        var filterText = $("#filterText").val(), gridDetails = $("#gridHandlingUnitPendingGoodsIssueDetails").data("kendoGrid");
 
         if (filterText && filterText.length >= "@SettingsManager.AutoCompleteMinLenght") {
             gridDetails.dataSource.filter({

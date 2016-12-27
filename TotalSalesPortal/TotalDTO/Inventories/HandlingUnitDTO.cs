@@ -23,6 +23,12 @@ namespace TotalDTO.Inventories
 
         public virtual int CustomerID { get; set; }
         public virtual int ReceiverID { get; set; }
+
+        [Display(Name = "Địa chỉ giao hàng")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ giao hàng")]
+        [UIHint("Commons/ShippingAddress")]
+        public string ShippingAddress { get; set; }
+
         public virtual Nullable<int> GoodsIssueID { get; set; }
 
 

@@ -688,61 +688,6 @@ namespace TotalModel.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitViewDetail>("GetHandlingUnitViewDetails", handlingUnitIDParameter);
         }
     
-        public virtual ObjectResult<HUPendingGoodsIssueCustomer> GetHUPendingGoodsIssueCustomers(Nullable<int> locationID)
-        {
-            var locationIDParameter = locationID.HasValue ?
-                new ObjectParameter("LocationID", locationID) :
-                new ObjectParameter("LocationID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HUPendingGoodsIssueCustomer>("GetHUPendingGoodsIssueCustomers", locationIDParameter);
-        }
-    
-        public virtual ObjectResult<HUPendingGoodsIssueDetail> GetHUPendingGoodsIssueDetails(Nullable<int> handlingUnitID, Nullable<int> locationID, Nullable<int> goodsIssueID, Nullable<int> customerID, Nullable<int> receiverID, string shippingAddress, string goodsIssueDetailIDs, Nullable<bool> isReadonly)
-        {
-            var handlingUnitIDParameter = handlingUnitID.HasValue ?
-                new ObjectParameter("HandlingUnitID", handlingUnitID) :
-                new ObjectParameter("HandlingUnitID", typeof(int));
-    
-            var locationIDParameter = locationID.HasValue ?
-                new ObjectParameter("LocationID", locationID) :
-                new ObjectParameter("LocationID", typeof(int));
-    
-            var goodsIssueIDParameter = goodsIssueID.HasValue ?
-                new ObjectParameter("GoodsIssueID", goodsIssueID) :
-                new ObjectParameter("GoodsIssueID", typeof(int));
-    
-            var customerIDParameter = customerID.HasValue ?
-                new ObjectParameter("CustomerID", customerID) :
-                new ObjectParameter("CustomerID", typeof(int));
-    
-            var receiverIDParameter = receiverID.HasValue ?
-                new ObjectParameter("ReceiverID", receiverID) :
-                new ObjectParameter("ReceiverID", typeof(int));
-    
-            var shippingAddressParameter = shippingAddress != null ?
-                new ObjectParameter("ShippingAddress", shippingAddress) :
-                new ObjectParameter("ShippingAddress", typeof(string));
-    
-            var goodsIssueDetailIDsParameter = goodsIssueDetailIDs != null ?
-                new ObjectParameter("GoodsIssueDetailIDs", goodsIssueDetailIDs) :
-                new ObjectParameter("GoodsIssueDetailIDs", typeof(string));
-    
-            var isReadonlyParameter = isReadonly.HasValue ?
-                new ObjectParameter("IsReadonly", isReadonly) :
-                new ObjectParameter("IsReadonly", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HUPendingGoodsIssueDetail>("GetHUPendingGoodsIssueDetails", handlingUnitIDParameter, locationIDParameter, goodsIssueIDParameter, customerIDParameter, receiverIDParameter, shippingAddressParameter, goodsIssueDetailIDsParameter, isReadonlyParameter);
-        }
-    
-        public virtual ObjectResult<HUPendingGoodsIssue> GetHUPendingGoodsIssues(Nullable<int> locationID)
-        {
-            var locationIDParameter = locationID.HasValue ?
-                new ObjectParameter("LocationID", locationID) :
-                new ObjectParameter("LocationID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HUPendingGoodsIssue>("GetHUPendingGoodsIssues", locationIDParameter);
-        }
-    
         public virtual ObjectResult<string> HandlingUnitPostSaveValidate(Nullable<int> entityID)
         {
             var entityIDParameter = entityID.HasValue ?
@@ -841,6 +786,61 @@ namespace TotalModel.Models
                 new ObjectParameter("SaveRelativeOption", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GoodsDeliverySaveRelative", entityIDParameter, saveRelativeOptionParameter);
+        }
+    
+        public virtual ObjectResult<HandlingUnitPendingCustomer> GetHandlingUnitPendingCustomers(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitPendingCustomer>("GetHandlingUnitPendingCustomers", locationIDParameter);
+        }
+    
+        public virtual ObjectResult<HandlingUnitPendingGoodsIssueDetail> GetHandlingUnitPendingGoodsIssueDetails(Nullable<int> locationID, Nullable<int> handlingUnitID, Nullable<int> goodsIssueID, Nullable<int> customerID, Nullable<int> receiverID, string shippingAddress, string goodsIssueDetailIDs, Nullable<bool> isReadonly)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var handlingUnitIDParameter = handlingUnitID.HasValue ?
+                new ObjectParameter("HandlingUnitID", handlingUnitID) :
+                new ObjectParameter("HandlingUnitID", typeof(int));
+    
+            var goodsIssueIDParameter = goodsIssueID.HasValue ?
+                new ObjectParameter("GoodsIssueID", goodsIssueID) :
+                new ObjectParameter("GoodsIssueID", typeof(int));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            var receiverIDParameter = receiverID.HasValue ?
+                new ObjectParameter("ReceiverID", receiverID) :
+                new ObjectParameter("ReceiverID", typeof(int));
+    
+            var shippingAddressParameter = shippingAddress != null ?
+                new ObjectParameter("ShippingAddress", shippingAddress) :
+                new ObjectParameter("ShippingAddress", typeof(string));
+    
+            var goodsIssueDetailIDsParameter = goodsIssueDetailIDs != null ?
+                new ObjectParameter("GoodsIssueDetailIDs", goodsIssueDetailIDs) :
+                new ObjectParameter("GoodsIssueDetailIDs", typeof(string));
+    
+            var isReadonlyParameter = isReadonly.HasValue ?
+                new ObjectParameter("IsReadonly", isReadonly) :
+                new ObjectParameter("IsReadonly", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitPendingGoodsIssueDetail>("GetHandlingUnitPendingGoodsIssueDetails", locationIDParameter, handlingUnitIDParameter, goodsIssueIDParameter, customerIDParameter, receiverIDParameter, shippingAddressParameter, goodsIssueDetailIDsParameter, isReadonlyParameter);
+        }
+    
+        public virtual ObjectResult<HandlingUnitPendingGoodsIssue> GetHandlingUnitPendingGoodsIssues(Nullable<int> locationID)
+        {
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitPendingGoodsIssue>("GetHandlingUnitPendingGoodsIssues", locationIDParameter);
         }
     }
 }

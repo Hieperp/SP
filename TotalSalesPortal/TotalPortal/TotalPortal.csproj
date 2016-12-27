@@ -905,7 +905,7 @@
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Edit.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Index.js" />
     <Content Include="Scripts\Controllers\Inventories\GoodsIssues\Print.js" />
-    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\AddHUPendingGoodsIssueDetail.js" />
+    <Content Include="Scripts\Controllers\Inventories\HandlingUnits\AddHandlingUnitPendingGoodsIssueDetail.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Delete.js" />
     <Content Include="Scripts\Controllers\Inventories\HandlingUnits\Edit.js" />

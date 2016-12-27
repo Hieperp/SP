@@ -48,6 +48,7 @@ namespace TotalModel.Models
         public int PackingMaterialID { get; set; }
         public string Dimension { get; set; }
         public Nullable<int> GoodsDeliveryID { get; set; }
+        public string ShippingAddress { get; set; }
     
         public virtual GoodsIssue GoodsIssue { get; set; }
         public virtual Location Location { get; set; }
