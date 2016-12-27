@@ -1433,6 +1433,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
         </Function>
         <Function Name="GetGoodsIssueViewDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="DeliveryAdviceID" Type="int" Mode="In" />
           <Parameter Name="CustomerID" Type="int" Mode="In" />
           <Parameter Name="ReceiverID" Type="int" Mode="In" />
@@ -1449,19 +1450,19 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
         </Function>
         <Function Name="GetHUPendingGoodsIssueCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
-          <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetHUPendingGoodsIssueDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
           <Parameter Name="CustomerID" Type="int" Mode="In" />
           <Parameter Name="ReceiverID" Type="int" Mode="In" />
+          <Parameter Name="ShippingAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="GoodsIssueDetailIDs" Type="varchar" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
         </Function>
         <Function Name="GetHUPendingGoodsIssues" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
-          <Parameter Name="HandlingUnitID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetPendingDeliveryAdviceCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
@@ -1475,11 +1476,11 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
         </Function>
         <Function Name="GetPendingGoodsIssueDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AccountInvoiceID" Type="int" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="GoodsIssueID" Type="int" Mode="In" />
           <Parameter Name="CustomerID" Type="int" Mode="In" />
           <Parameter Name="CommodityTypeID" Type="int" Mode="In" />
           <Parameter Name="AspUserID" Type="nvarchar" Mode="In" />
-          <Parameter Name="LocationID" Type="int" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
           <Parameter Name="ToDate" Type="datetime" Mode="In" />
           <Parameter Name="GoodsIssueDetailIDs" Type="varchar" Mode="In" />
@@ -2002,6 +2003,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           </FunctionImport>
           <FunctionImport Name="GetGoodsIssueViewDetails" ReturnType="Collection(TotalSalesPortalModel.GoodsIssueViewDetail)">
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="DeliveryAdviceID" Mode="In" Type="Int32" />
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="ReceiverID" Mode="In" Type="Int32" />
@@ -2203,11 +2205,11 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           </AssociationSet>
           <FunctionImport Name="GetPendingGoodsIssueDetails" ReturnType="Collection(TotalSalesPortalModel.PendingGoodsIssueDetail)">
             <Parameter Name="AccountInvoiceID" Mode="In" Type="Int32" />
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="CommodityTypeID" Mode="In" Type="Int32" />
             <Parameter Name="AspUserID" Mode="In" Type="String" />
-            <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
             <Parameter Name="GoodsIssueDetailIDs" Mode="In" Type="String" />
@@ -2249,19 +2251,19 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           </FunctionImport>
           <FunctionImport Name="GetHUPendingGoodsIssueCustomers" ReturnType="Collection(TotalSalesPortalModel.HUPendingGoodsIssueCustomer)">
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
-            <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetHUPendingGoodsIssueDetails" ReturnType="Collection(TotalSalesPortalModel.HUPendingGoodsIssueDetail)">
             <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
             <Parameter Name="GoodsIssueID" Mode="In" Type="Int32" />
             <Parameter Name="CustomerID" Mode="In" Type="Int32" />
             <Parameter Name="ReceiverID" Mode="In" Type="Int32" />
+            <Parameter Name="ShippingAddress" Mode="In" Type="String" />
             <Parameter Name="GoodsIssueDetailIDs" Mode="In" Type="String" />
             <Parameter Name="IsReadonly" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="GetHUPendingGoodsIssues" ReturnType="Collection(TotalSalesPortalModel.HUPendingGoodsIssue)">
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
-            <Parameter Name="HandlingUnitID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="HandlingUnitPostSaveValidate" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />
@@ -3738,6 +3740,13 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="String" Name="CustomerBillingAddress" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ReceiverID" Nullable="false" />
+          <Property Type="String" Name="ReceiverVATCode" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="ReceiverAttentionName" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="ReceiverTelephone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceiverBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ReceiverEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="HUPendingGoodsIssueCustomer">
           <Property Type="Int32" Name="CustomerID" Nullable="false" />
@@ -3756,6 +3765,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="String" Name="ReceiverEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="String" Name="CustomerBillingAddress" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="ReceiverBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
         </ComplexType>
         <EntityType Name="HandlingUnitDetail">
           <Key>
@@ -5175,6 +5185,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="ReceiverEntireTerritoryEntireName" ColumnName="ReceiverEntireTerritoryEntireName" />
                 <ScalarProperty Name="CustomerBillingAddress" ColumnName="CustomerBillingAddress" />
                 <ScalarProperty Name="ReceiverBillingAddress" ColumnName="ReceiverBillingAddress" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5220,6 +5231,13 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="CustomerBillingAddress" ColumnName="CustomerBillingAddress" />
                 <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
                 <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="ReceiverVATCode" ColumnName="ReceiverVATCode" />
+                <ScalarProperty Name="ReceiverAttentionName" ColumnName="ReceiverAttentionName" />
+                <ScalarProperty Name="ReceiverTelephone" ColumnName="ReceiverTelephone" />
+                <ScalarProperty Name="ReceiverBillingAddress" ColumnName="ReceiverBillingAddress" />
+                <ScalarProperty Name="ReceiverEntireTerritoryEntireName" ColumnName="ReceiverEntireTerritoryEntireName" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

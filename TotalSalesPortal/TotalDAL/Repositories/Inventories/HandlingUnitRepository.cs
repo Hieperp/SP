@@ -22,29 +22,29 @@ namespace TotalDAL.Repositories.Inventories
         {
         }
 
-        public IEnumerable<HUPendingGoodsIssueCustomer> GetCustomers(int? locationID, int? handlingUnitID)
+        public IEnumerable<HUPendingGoodsIssueCustomer> GetCustomers(int? locationID)
         {
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
-            IEnumerable<HUPendingGoodsIssueCustomer> pendingGoodsIssueCustomers = base.TotalSalesPortalEntities.GetHUPendingGoodsIssueCustomers(locationID, handlingUnitID).ToList();
+            IEnumerable<HUPendingGoodsIssueCustomer> pendingGoodsIssueCustomers = base.TotalSalesPortalEntities.GetHUPendingGoodsIssueCustomers(locationID).ToList();
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = true;
 
             return pendingGoodsIssueCustomers;
         }
 
-        public IEnumerable<HUPendingGoodsIssue> GetGoodsIssues(int? locationID, int? handlingUnitID)
+        public IEnumerable<HUPendingGoodsIssue> GetGoodsIssues(int? locationID)
         {
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
-            IEnumerable<HUPendingGoodsIssue> pendingGoodsIssues = base.TotalSalesPortalEntities.GetHUPendingGoodsIssues(locationID, handlingUnitID).ToList();
+            IEnumerable<HUPendingGoodsIssue> pendingGoodsIssues = base.TotalSalesPortalEntities.GetHUPendingGoodsIssues(locationID).ToList();
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = true;
 
             return pendingGoodsIssues;
         }
 
 
-        public IEnumerable<HUPendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string goodsIssueDetailIDs, bool isReadonly)
+        public IEnumerable<HUPendingGoodsIssueDetail> GetPendingGoodsIssueDetails(int? locationID, int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string shippingAddress, string goodsIssueDetailIDs, bool isReadonly)
         {
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = false;
-            IEnumerable<HUPendingGoodsIssueDetail> pendingGoodsIssueDetails = base.TotalSalesPortalEntities.GetHUPendingGoodsIssueDetails(handlingUnitID, goodsIssueID, customerID, receiverID, goodsIssueDetailIDs, isReadonly).ToList();
+            IEnumerable<HUPendingGoodsIssueDetail> pendingGoodsIssueDetails = base.TotalSalesPortalEntities.GetHUPendingGoodsIssueDetails(handlingUnitID, locationID, goodsIssueID, customerID, receiverID, shippingAddress, goodsIssueDetailIDs, isReadonly).ToList();
             this.TotalSalesPortalEntities.Configuration.ProxyCreationEnabled = true;
 
             return pendingGoodsIssueDetails;

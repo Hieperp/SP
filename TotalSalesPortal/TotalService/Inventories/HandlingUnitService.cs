@@ -25,5 +25,11 @@ namespace TotalService.Inventories
             return this.GetViewDetails(parameters);
         }
 
+        public override bool Save(HandlingUnitDTO dto)
+        {
+            dto.HandlingUnitViewDetails.RemoveAll(x => x.Quantity == 0);
+            return base.Save(dto);
+        }
+
     }
 }

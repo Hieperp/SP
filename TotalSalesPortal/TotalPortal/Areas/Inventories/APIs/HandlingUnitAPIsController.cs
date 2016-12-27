@@ -44,22 +44,22 @@ namespace TotalPortal.Areas.Inventories.APIs
 
 
 
-        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? handlingUnitID)
+        public JsonResult GetCustomers([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID)
         {
-            var result = this.handlingUnitAPIRepository.GetCustomers(locationID, handlingUnitID);
+            var result = this.handlingUnitAPIRepository.GetCustomers(locationID);
             return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetGoodsIssues([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? handlingUnitID)
+        public JsonResult GetGoodsIssues([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID)
         {
-            var result = this.handlingUnitAPIRepository.GetGoodsIssues(locationID, handlingUnitID);
+            var result = this.handlingUnitAPIRepository.GetGoodsIssues(locationID);
             return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 
 
-        public JsonResult GetPendingGoodsIssueDetails([DataSourceRequest] DataSourceRequest dataSourceRequest, int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string goodsIssueDetailIDs, bool isReadonly)
+        public JsonResult GetPendingGoodsIssueDetails([DataSourceRequest] DataSourceRequest dataSourceRequest, int? locationID, int? handlingUnitID, int? goodsIssueID, int? customerID, int? receiverID, string shippingAddress, string goodsIssueDetailIDs, bool isReadonly)
         {
-            var result = this.handlingUnitAPIRepository.GetPendingGoodsIssueDetails(handlingUnitID, goodsIssueID, customerID, receiverID, goodsIssueDetailIDs, false);
+            var result = this.handlingUnitAPIRepository.GetPendingGoodsIssueDetails(locationID, handlingUnitID, goodsIssueID, customerID, receiverID, shippingAddress, goodsIssueDetailIDs, false);
             return Json(result.ToDataSourceResult(dataSourceRequest), JsonRequestBehavior.AllowGet);
         }
 

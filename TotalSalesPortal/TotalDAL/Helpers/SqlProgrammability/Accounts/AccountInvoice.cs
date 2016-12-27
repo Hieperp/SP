@@ -127,8 +127,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Accounts
         private void GetPendingGoodsIssueDetails()
         {
             string queryString;
-            
-            queryString = " @AccountInvoiceID Int, @GoodsIssueID Int, @CustomerID Int, @CommodityTypeID int, @AspUserID nvarchar(128), @LocationID Int, @FromDate DateTime, @ToDate DateTime, @GoodsIssueDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
+
+            queryString = " @AccountInvoiceID Int, @LocationID Int, @GoodsIssueID Int, @CustomerID Int, @CommodityTypeID int, @AspUserID nvarchar(128), @FromDate DateTime, @ToDate DateTime, @GoodsIssueDetailIDs varchar(3999), @IsReadonly bit " + "\r\n";
             queryString = queryString + " WITH ENCRYPTION " + "\r\n";
             queryString = queryString + " AS " + "\r\n";
 
