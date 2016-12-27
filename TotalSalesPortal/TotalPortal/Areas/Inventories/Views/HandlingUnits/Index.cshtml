@@ -21,7 +21,7 @@
         })
         .ToolBar(toolbar =>
         {
-            toolbar.Template(@<text> <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập hóa đơn </button> </text>);
+            toolbar.Template(@<text> <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập phiếu đóng gói </button> </text>);
         })
 
                 .Pageable()
@@ -66,7 +66,7 @@
     function createWizard() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "HandlingUnits")", "Chọn phiếu xuất kho, hoặc khách hàng xuất hóa đơn", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "HandlingUnits")", "Chọn phiếu xuất kho, hoặc khách hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
         });
     }
 </script>

@@ -20,7 +20,7 @@ namespace TotalPortal.Areas.Inventories.Controllers
 
         protected override HandlingUnitViewModel InitCreateWizardViewModel(HandlingUnitViewModel simpleViewModel)
         {
-            return new HandlingUnitViewModel() { Customer = simpleViewModel.Customer, Receiver = simpleViewModel.Receiver, GoodsIssue = simpleViewModel.GoodsIssue };
+            return new HandlingUnitViewModel() { Customer = simpleViewModel.Customer, Receiver = simpleViewModel.Receiver, ShippingAddress = simpleViewModel.ShippingAddress, GoodsIssue = simpleViewModel.GoodsIssue };
         }
 
         public ActionResult PrintDetail(int? id)
