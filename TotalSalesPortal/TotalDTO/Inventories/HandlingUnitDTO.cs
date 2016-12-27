@@ -39,6 +39,8 @@ namespace TotalDTO.Inventories
         [Display(Name = "Quy cách, kích thước thùng, bao")]
         public string Dimension { get; set; }
 
+        public string GoodsIssueReferences { get; set; }
+
         [Display(Name = "Trọng lượng thực tế")]
         public decimal RealWeight { get; set; }
 
@@ -53,12 +55,15 @@ namespace TotalDTO.Inventories
 
             if (this.TotalWeight != this.GetTotalWeight()) yield return new ValidationResult("Lỗi tổng trọng lượng", new[] { "TotalWeight" });
         }
-        
+
 
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; });
+
+            string goodsIssueReferences = "";
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; if (goodsIssueReferences.IndexOf(e.GoodsIssueReference) < 0) goodsIssueReferences = goodsIssueReferences + (goodsIssueReferences != "" ? ", " : "") + e.GoodsIssueReference; });
+            this.GoodsIssueReferences = goodsIssueReferences;
         }
     }
 

@@ -20,7 +20,7 @@ namespace TotalDTO.Inventories
         public int ReceiverID { get; set; }
         public int GoodsIssueID { get; set; }
         public int GoodsIssueDetailID { get; set; }
-
+        public string GoodsIssueReference { get; set; }
 
         [Display(Name = "SL ĐH")]
         [UIHint("DecimalReadonly")]

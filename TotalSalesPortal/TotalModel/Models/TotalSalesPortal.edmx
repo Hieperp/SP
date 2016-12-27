@@ -463,6 +463,7 @@
           <Property Name="ReceiverID" Type="int" Nullable="false" />
           <Property Name="ShippingAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="GoodsIssueID" Type="int" />
+          <Property Name="GoodsIssueReferences" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="GoodsDeliveryID" Type="int" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="PreparedPersonID" Type="int" Nullable="false" />
@@ -3631,6 +3632,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_HandlingUnits_Customers" FromRole="HandlingUnit" ToRole="Customer" />
           <NavigationProperty Name="Customer1" Relationship="TotalSalesPortalModel.FK_HandlingUnits_Customers1" FromRole="HandlingUnit" ToRole="Customer" />
           <Property Name="ShippingAddress" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsIssueReferences" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_HandlingUnits_GoodsIssues">
           <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="0..1" />
@@ -3705,6 +3707,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="UnitWeight" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
         </ComplexType>
         <EntityType Name="HandlingUnitDetail">
           <Key>
@@ -4114,7 +4117,6 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
         </ComplexType>
         <ComplexType Name="HandlingUnitPendingGoodsIssueDetail">
           <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
           <Property Type="Int32" Name="GoodsIssueDetailID" Nullable="false" />
           <Property Type="Int32" Name="CommodityID" Nullable="false" />
@@ -4131,6 +4133,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="Double" Name="UnitWeight" Nullable="true" />
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="1" Scale="1" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
+          <Property Type="String" Name="GoodsIssueReference" Nullable="true" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="HandlingUnitPendingGoodsIssue">
           <Property Type="Int32" Name="GoodsIssueID" Nullable="false" />
@@ -5092,6 +5095,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySetMapping Name="HandlingUnits">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.HandlingUnit">
               <MappingFragment StoreEntitySet="HandlingUnits">
+                <ScalarProperty Name="GoodsIssueReferences" ColumnName="GoodsIssueReferences" />
                 <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
                 <ScalarProperty Name="GoodsDeliveryID" ColumnName="GoodsDeliveryID" />
                 <ScalarProperty Name="Dimension" ColumnName="Dimension" />
@@ -5166,6 +5170,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
+                <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5371,7 +5376,6 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <ResultMapping>
               <ComplexTypeMapping TypeName="TotalSalesPortalModel.HandlingUnitPendingGoodsIssueDetail">
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="GoodsIssueID" ColumnName="GoodsIssueID" />
                 <ScalarProperty Name="GoodsIssueDetailID" ColumnName="GoodsIssueDetailID" />
                 <ScalarProperty Name="CommodityID" ColumnName="CommodityID" />
@@ -5388,6 +5392,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="UnitWeight" ColumnName="UnitWeight" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="GoodsIssueReference" ColumnName="GoodsIssueReference" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

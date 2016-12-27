@@ -82,6 +82,9 @@
                     columns.Bound(p => p.GoodsIssueDetailID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= GoodsIssueDetailID #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueDetailID' value='#= GoodsIssueDetailID #' />");
 
+                    columns.Bound(p => p.GoodsIssueReference).DisplayNameTitle().Filterable(false)
+                        .ClientTemplate("#= GoodsIssueReference #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueReference' value='#= GoodsIssueReference #' />");
+                    
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");

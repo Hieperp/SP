@@ -49,6 +49,7 @@ namespace TotalModel.Models
         public string Dimension { get; set; }
         public Nullable<int> GoodsDeliveryID { get; set; }
         public string ShippingAddress { get; set; }
+        public string GoodsIssueReferences { get; set; }
     
         public virtual GoodsIssue GoodsIssue { get; set; }
         public virtual Location Location { get; set; }

@@ -60,12 +60,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      HandlingUnitDetails.HandlingUnitDetailID, HandlingUnitDetails.HandlingUnitID, HandlingUnitDetails.GoodsIssueID, HandlingUnitDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit + HandlingUnitDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnitDetails.HandlingUnitDetailID, HandlingUnitDetails.HandlingUnitID, HandlingUnitDetails.GoodsIssueID, HandlingUnitDetails.GoodsIssueDetailID, GoodsIssues.Reference AS GoodsIssueReference, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit + HandlingUnitDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
             queryString = queryString + "                   HandlingUnitDetails.Quantity, HandlingUnitDetails.UnitWeight, HandlingUnitDetails.Weight, HandlingUnitDetails.Remarks" + "\r\n";
 
-            queryString = queryString + "       FROM        HandlingUnitDetails INNER JOIN" + "\r\n";
-            queryString = queryString + "                   GoodsIssueDetails ON HandlingUnitDetails.HandlingUnitID = @HandlingUnitID AND HandlingUnitDetails.GoodsIssueDetailID = GoodsIssueDetails.GoodsIssueDetailID INNER JOIN" + "\r\n";
-            queryString = queryString + "                   Commodities ON GoodsIssueDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "       FROM        HandlingUnitDetails" + "\r\n";
+            queryString = queryString + "                   INNER JOIN GoodsIssueDetails ON HandlingUnitDetails.HandlingUnitID = @HandlingUnitID AND HandlingUnitDetails.GoodsIssueDetailID = GoodsIssueDetails.GoodsIssueDetailID" + "\r\n";
+            queryString = queryString + "                   INNER JOIN GoodsIssues ON GoodsIssueDetails.GoodsIssueID = GoodsIssues.GoodsIssueID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities ON GoodsIssueDetails.CommodityID = Commodities.CommodityID " + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
@@ -188,7 +189,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.BillingAddress, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.BillingAddress, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit, 0) AS QuantityRemains, " + "\r\n";
             queryString = queryString + "                   0.0 AS Quantity, Commodities.Weight AS UnitWeight, 0.0 AS Weight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        GoodsIssues " + "\r\n";
@@ -204,7 +205,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.BillingAddress, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit + HandlingUnitDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsIssues.EntryDate, GoodsIssues.Reference AS GoodsIssueReference, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID, Commodities.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, Customers.BillingAddress, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, ROUND(GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity - GoodsIssueDetails.QuantityHandlingUnit + HandlingUnitDetails.Quantity, 0) AS QuantityRemains, " + "\r\n";
             queryString = queryString + "                   HandlingUnitDetails.Quantity, HandlingUnitDetails.UnitWeight, HandlingUnitDetails.Weight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        GoodsIssueDetails " + "\r\n";
@@ -231,7 +232,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
             queryString = queryString + "       IF @@ROWCOUNT <> (SELECT COUNT(*) FROM HandlingUnitDetails WHERE HandlingUnitID = @EntityID) " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
-            queryString = queryString + "               DECLARE     @msg NVARCHAR(300) = 'Phiếu xuất kho không tồn tại hoặc chưa duyệt' ; " + "\r\n";
+            queryString = queryString + "               DECLARE     @msg NVARCHAR(300) = N'Phiếu xuất kho không tồn tại hoặc chưa duyệt' ; " + "\r\n";
             queryString = queryString + "               THROW       61001,  @msg, 1; " + "\r\n";
             queryString = queryString + "           END " + "\r\n";
 
@@ -253,9 +254,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
         private void HandlingUnitEditable()
         {
-            string[] queryArray = new string[1];
+            string[] queryArray = new string[2];
 
-            queryArray[0] = " SELECT TOP 1 @FoundEntity = HandlingUnitID FROM GoodsDeliveryDetails WHERE HandlingUnitID = @EntityID ";
+            queryArray[0] = " SELECT TOP 1 @FoundEntity = HandlingUnitID FROM HandlingUnits WHERE HandlingUnitID = @EntityID AND NOT GoodsDeliveryID IS NULL";
+            queryArray[1] = " SELECT TOP 1 @FoundEntity = HandlingUnitID FROM GoodsDeliveryDetails WHERE HandlingUnitID = @EntityID ";
 
             this.totalSalesPortalEntities.CreateProcedureToCheckExisting("HandlingUnitEditable", queryArray);
         }
