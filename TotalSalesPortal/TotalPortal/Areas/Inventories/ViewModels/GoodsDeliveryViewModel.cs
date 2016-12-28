@@ -8,9 +8,11 @@ using TotalPortal.Areas.Commons.ViewModels.Helpers;
 
 namespace TotalPortal.Areas.Inventories.ViewModels
 {
-    public class GoodsDeliveryViewModel : GoodsDeliveryDTO, IViewDetailViewModel<GoodsDeliveryDetailDTO>, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel
+    public class GoodsDeliveryViewModel : GoodsDeliveryDTO, IViewDetailViewModel<GoodsDeliveryDetailDTO>, IPreparedPersonDropDownViewModel, IApproverDropDownViewModel, IVehicleDropDownViewModel
     {
         public IEnumerable<SelectListItem> AspNetUserSelectList { get; set; }
+
+        public IEnumerable<SelectListItem> VehicleSelectList { get; set; }
     }
 
 }

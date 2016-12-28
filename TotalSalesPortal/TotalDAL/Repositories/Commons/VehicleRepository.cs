@@ -4,22 +4,20 @@ using System.Collections.Generic;
 using TotalModel.Models;
 using TotalCore.Repositories.Commons;
 
-
 namespace TotalDAL.Repositories.Commons
 {
-    public class PaymentTermRepository : IPaymentTermRepository
+    public class VehicleRepository : IVehicleRepository
     {
         private readonly TotalSalesPortalEntities totalSalesPortalEntities;
 
-        public PaymentTermRepository(TotalSalesPortalEntities totalSalesPortalEntities)
+        public VehicleRepository(TotalSalesPortalEntities totalSalesPortalEntities)
         {
             this.totalSalesPortalEntities = totalSalesPortalEntities;
         }
 
-        public IList<PaymentTerm> GetAllPaymentTerms()
+        public IList<Vehicle> GetAllVehicles()
         {
-            return this.totalSalesPortalEntities.PaymentTerms.ToList();
+            return this.totalSalesPortalEntities.Vehicles.ToList();
         }
     }
 }
-

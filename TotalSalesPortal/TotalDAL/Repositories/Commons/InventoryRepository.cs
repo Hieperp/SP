@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 using TotalModel.Models;
 using TotalCore.Repositories.Commons;

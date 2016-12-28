@@ -22,5 +22,6 @@ namespace TotalModel.Models
         public decimal TotalQuantity { get; set; }
         public decimal TotalWeight { get; set; }
         public decimal RealWeight { get; set; }
+        public string GoodsIssueReferences { get; set; }
     }
 }

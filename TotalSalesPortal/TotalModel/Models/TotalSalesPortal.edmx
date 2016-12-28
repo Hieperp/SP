@@ -324,6 +324,7 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="Reference" Type="nvarchar" MaxLength="10" />
           <Property Name="ReceiverID" Type="int" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
           <Property Name="DriverID" Type="int" Nullable="false" />
           <Property Name="CollectorID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
@@ -647,6 +648,17 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="AncestorID" Type="int" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="VehicleID" />
+          </Key>
+          <Property Name="VehicleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleCategoryID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="CalculateID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VoidTypes">
           <Key>
@@ -1023,6 +1035,30 @@ warning 6035: The relationship 'FK_GoodsDeliveries_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GoodsDeliveries_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="GoodsDeliveries" Type="Self.GoodsDeliveries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="GoodsDeliveries">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsDeliveries_Employees1">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="GoodsDeliveries" Type="Self.GoodsDeliveries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="GoodsDeliveries">
+              <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GoodsDeliveries_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
           <End Role="GoodsDeliveries" Type="Self.GoodsDeliveries" Multiplicity="*" />
@@ -1032,6 +1068,18 @@ warning 6035: The relationship 'FK_GoodsDeliveries_AspNetUsers2' has columns tha
             </Principal>
             <Dependent Role="GoodsDeliveries">
               <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsDeliveries_Vehicles">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="GoodsDeliveries" Type="Self.GoodsDeliveries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="VehicleID" />
+            </Principal>
+            <Dependent Role="GoodsDeliveries">
+              <PropertyRef Name="VehicleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1604,6 +1652,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySet Name="ReceiptDetails" EntityType="Self.ReceiptDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Receipts" EntityType="Self.Receipts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territories" EntityType="Self.Territories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VoidTypes" EntityType="Self.VoidTypes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccountInvoiceDetails_AccountInvoices" Association="Self.FK_AccountInvoiceDetails_AccountInvoices">
             <End Role="AccountInvoices" EntitySet="AccountInvoices" />
@@ -1717,8 +1766,20 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <End Role="Customers" EntitySet="Customers" />
             <End Role="GoodsDeliveries" EntitySet="GoodsDeliveries" />
           </AssociationSet>
+          <AssociationSet Name="FK_GoodsDeliveries_Employees" Association="Self.FK_GoodsDeliveries_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="GoodsDeliveries" EntitySet="GoodsDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsDeliveries_Employees1" Association="Self.FK_GoodsDeliveries_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="GoodsDeliveries" EntitySet="GoodsDeliveries" />
+          </AssociationSet>
           <AssociationSet Name="FK_GoodsDeliveries_Locations" Association="Self.FK_GoodsDeliveries_Locations">
             <End Role="Locations" EntitySet="Locations" />
+            <End Role="GoodsDeliveries" EntitySet="GoodsDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsDeliveries_Vehicles" Association="Self.FK_GoodsDeliveries_Vehicles">
+            <End Role="Vehicles" EntitySet="Vehicles" />
             <End Role="GoodsDeliveries" EntitySet="GoodsDeliveries" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsDeliveryDetails_GoodsDeliveries" Association="Self.FK_GoodsDeliveryDetails_GoodsDeliveries">
@@ -2374,6 +2435,19 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <FunctionImport Name="GetHandlingUnitPendingGoodsIssues" ReturnType="Collection(TotalSalesPortalModel.HandlingUnitPendingGoodsIssue)">
           <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Vehicles" EntityType="TotalSalesPortalModel.Vehicle" />
+          <AssociationSet Name="FK_GoodsDeliveries_Vehicles" Association="TotalSalesPortalModel.FK_GoodsDeliveries_Vehicles">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="GoodsDelivery" EntitySet="GoodsDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsDeliveries_Employees" Association="TotalSalesPortalModel.FK_GoodsDeliveries_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="GoodsDelivery" EntitySet="GoodsDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsDeliveries_Employees1" Association="TotalSalesPortalModel.FK_GoodsDeliveries_Employees1">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="GoodsDelivery" EntitySet="GoodsDeliveries" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -2531,6 +2605,8 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="Employee" ToRole="GoodsIssue" />
           <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Employees" FromRole="Employee" ToRole="DeliveryAdvice" />
           <NavigationProperty Name="Customers" Relationship="TotalSalesPortalModel.FK_Customers_Employees" FromRole="Employee" ToRole="Customer" />
+          <NavigationProperty Name="GoodsDeliveries" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Employees" FromRole="Employee" ToRole="GoodsDelivery" />
+          <NavigationProperty Name="GoodsDeliveries1" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Employees1" FromRole="Employee" ToRole="GoodsDelivery" />
         </EntityType>
         <EntityType Name="EntireTerritory">
           <Key>
@@ -3692,6 +3768,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="TotalWeight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="RealWeight" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="GoodsIssueReferences" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="HandlingUnitViewDetail">
           <Property Type="Int32" Name="HandlingUnitDetailID" Nullable="false" />
@@ -3874,6 +3951,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="Location" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Locations" FromRole="GoodsDelivery" ToRole="Location" />
           <NavigationProperty Name="GoodsDeliveryDetails" Relationship="TotalSalesPortalModel.FK_GoodsDeliveryDetails_GoodsDeliveries" FromRole="GoodsDelivery" ToRole="GoodsDeliveryDetail" />
           <NavigationProperty Name="Customer" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Customers1" FromRole="GoodsDelivery" ToRole="Customer" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehicle" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Vehicles" FromRole="GoodsDelivery" ToRole="Vehicle" />
+          <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Employees" FromRole="GoodsDelivery" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Employees1" FromRole="GoodsDelivery" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_GoodsDeliveries_Locations">
           <End Type="TotalSalesPortalModel.Location" Role="Location" Multiplicity="1" />
@@ -4159,6 +4240,54 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="String" Name="ReceiverEntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
         </ComplexType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="VehicleID" />
+          </Key>
+          <Property Name="VehicleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="CalculateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GoodsDeliveries" Relationship="TotalSalesPortalModel.FK_GoodsDeliveries_Vehicles" FromRole="Vehicle" ToRole="GoodsDelivery" />
+        </EntityType>
+        <Association Name="FK_GoodsDeliveries_Vehicles">
+          <End Type="TotalSalesPortalModel.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsDelivery" Role="GoodsDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="VehicleID" />
+            </Principal>
+            <Dependent Role="GoodsDelivery">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsDeliveries_Employees">
+          <End Type="TotalSalesPortalModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsDelivery" Role="GoodsDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="GoodsDelivery">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsDeliveries_Employees1">
+          <End Type="TotalSalesPortalModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsDelivery" Role="GoodsDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="GoodsDelivery">
+              <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5151,6 +5280,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
                 <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
                 <ScalarProperty Name="RealWeight" ColumnName="RealWeight" />
+                <ScalarProperty Name="GoodsIssueReferences" ColumnName="GoodsIssueReferences" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5294,6 +5424,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySetMapping Name="GoodsDeliveries">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.GoodsDelivery">
               <MappingFragment StoreEntitySet="GoodsDeliveries">
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
                 <ScalarProperty Name="InActiveDate" ColumnName="InActiveDate" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
@@ -5424,6 +5555,18 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="TotalSalesPortalModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="CalculateID" ColumnName="CalculateID" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VehicleCategoryID" ColumnName="VehicleCategoryID" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

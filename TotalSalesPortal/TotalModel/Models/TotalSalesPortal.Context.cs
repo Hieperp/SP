@@ -60,6 +60,7 @@ namespace TotalModel.Models
         public virtual DbSet<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }
         public virtual DbSet<GoodsDelivery> GoodsDeliveries { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Vehicle> Vehicles { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {

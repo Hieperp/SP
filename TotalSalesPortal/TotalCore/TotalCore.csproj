@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repositories\Commons\IPackingMaterialRepository.cs" />
+    <Compile Include="Repositories\Commons\IVehicleRepository.cs" />
     <Compile Include="Repositories\Commons\IVoidTypeRepository.cs" />
     <Compile Include="Repositories\Inventories\IGoodsDeliveryRepository.cs" />
     <Compile Include="Repositories\Inventories\IHandlingUnitRepository.cs" />

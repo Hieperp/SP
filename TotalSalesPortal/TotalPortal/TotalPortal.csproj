@@ -219,8 +219,10 @@
     <Compile Include="Areas\Commons\APIs\VoidTypeAPIsController.cs" />
     <Compile Include="Areas\Commons\APIs\PromotionAPIsController.cs" />
     <Compile Include="Areas\Commons\Builders\IPackingMaterialSelectListBuilder.cs" />
+    <Compile Include="Areas\Commons\Builders\IVehicleSelectListBuilder.cs" />
     <Compile Include="Areas\Commons\CommonsAreaRegistration.cs" />
     <Compile Include="Areas\Commons\ViewModels\Helpers\IPackingMaterialDropDownViewModel.cs" />
+    <Compile Include="Areas\Commons\ViewModels\Helpers\IVehicleDropDownViewModel.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsDeliveryAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\GoodsIssueAPIsController.cs" />
     <Compile Include="Areas\Inventories\APIs\HandlingUnitAPIsController.cs" />
@@ -1356,6 +1358,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDowns\PackingMaterial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Commons\DeliveryAdviceBox.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Commons\ShippingAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDowns\Vehicle.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

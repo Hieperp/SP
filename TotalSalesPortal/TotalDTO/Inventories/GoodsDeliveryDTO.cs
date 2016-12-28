@@ -23,6 +23,11 @@ namespace TotalDTO.Inventories
 
         public virtual Nullable<int> ReceiverID { get; set; }
 
+
+        [Display(Name = "Biển số xe")]
+        [UIHint("DropDowns/Vehicle")]
+        public int VehicleID { get; set; }
+
         public virtual int DriverID { get; set; }
         public virtual int CollectorID { get; set; }
 

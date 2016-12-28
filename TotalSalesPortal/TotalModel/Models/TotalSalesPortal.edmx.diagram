@@ -94,6 +94,10 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_HandlingUnits_Customers" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_HandlingUnits_Customers1" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_Receipts_Customers" />
+        <EntityTypeShape EntityType="TotalSalesPortalModel.Vehicle" Width="1.5" PointX="9.375" PointY="4" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveries_Vehicles" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveries_Employees" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsDeliveries_Employees1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

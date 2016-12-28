@@ -40,10 +40,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, CAST(HandlingUnits.EntryDate AS DATE) AS EntryDate, HandlingUnits.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.BillingAddress AS CustomerDescription, HandlingUnits.Description, HandlingUnits.TotalQuantity, HandlingUnits.TotalWeight, HandlingUnits.RealWeight " + "\r\n";
-            queryString = queryString + "       FROM        HandlingUnits INNER JOIN" + "\r\n";
-            queryString = queryString + "                   Locations ON HandlingUnits.EntryDate >= @FromDate AND HandlingUnits.EntryDate <= @ToDate AND HandlingUnits.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.HandlingUnit + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = HandlingUnits.LocationID INNER JOIN " + "\r\n";
-            queryString = queryString + "                   Customers ON HandlingUnits.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, CAST(HandlingUnits.EntryDate AS DATE) AS EntryDate, HandlingUnits.Reference, Locations.Code AS LocationCode, Customers.Name + ',    ' + Customers.BillingAddress AS CustomerDescription, HandlingUnits.GoodsIssueReferences, HandlingUnits.Description, HandlingUnits.TotalQuantity, HandlingUnits.TotalWeight, HandlingUnits.RealWeight " + "\r\n";
+            queryString = queryString + "       FROM        HandlingUnits " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Locations ON HandlingUnits.EntryDate >= @FromDate AND HandlingUnits.EntryDate <= @ToDate AND HandlingUnits.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.HandlingUnit + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = HandlingUnits.LocationID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers ON HandlingUnits.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
