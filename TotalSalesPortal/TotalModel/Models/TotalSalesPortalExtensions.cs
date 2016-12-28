@@ -9,6 +9,7 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.DeliveryAdviceID; }
 
+        public virtual Employee Salesperson { get { return this.Employee; } }
         public virtual Customer Receiver { get { return this.Customer1; } }
 
         public ICollection<DeliveryAdviceDetail> GetDetails() { return this.DeliveryAdviceDetails; }
@@ -26,6 +27,7 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.GoodsIssueID; }
 
+        public virtual Employee Storekeeper { get { return this.Employee; } }
         public virtual Customer Receiver { get { return this.Customer1; } }
 
         public ICollection<GoodsIssueDetail> GetDetails() { return this.GoodsIssueDetails; }
@@ -51,6 +53,7 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.HandlingUnitID; }
 
+        public virtual Employee PackagingStaff { get { return this.Employee; } }
         public virtual Customer Receiver { get { return this.Customer1; } }
 
         public ICollection<HandlingUnitDetail> GetDetails() { return this.HandlingUnitDetails; }
@@ -70,6 +73,8 @@ namespace TotalModel.Models
     {
         public int GetID() { return this.GoodsDeliveryID; }
 
+        public virtual Employee Driver { get { return this.Employee; } }
+        public virtual Employee Collector { get { return this.Employee1; } }
         public virtual Customer Receiver { get { return this.Customer; } }
 
         public ICollection<GoodsDeliveryDetail> GetDetails() { return this.GoodsDeliveryDetails; }
@@ -106,6 +111,8 @@ namespace TotalModel.Models
     public partial class Receipt : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<ReceiptDetail>
     {
         public int GetID() { return this.ReceiptID; }
+
+        public virtual Employee Cashier { get { return this.Employee; } }
 
         public ICollection<ReceiptDetail> GetDetails() { return this.ReceiptDetails; }
     }

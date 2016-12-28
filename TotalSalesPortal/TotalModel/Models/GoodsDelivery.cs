@@ -48,9 +48,9 @@ namespace TotalModel.Models
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Vehicle Vehicle { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

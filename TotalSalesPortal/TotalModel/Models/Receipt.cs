@@ -25,7 +25,7 @@ namespace TotalModel.Models
         public string Reference { get; set; }
         public Nullable<int> GoodsIssueID { get; set; }
         public int CustomerID { get; set; }
-        public int EmployeeID { get; set; }
+        public int CashierID { get; set; }
         public Nullable<System.DateTime> PostDate { get; set; }
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }
@@ -46,10 +46,10 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActiveDate { get; set; }
     
+        public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual GoodsIssue GoodsIssue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
-        public virtual GoodsIssue GoodsIssue { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

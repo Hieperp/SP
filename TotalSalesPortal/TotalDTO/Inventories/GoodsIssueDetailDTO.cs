@@ -14,6 +14,8 @@ namespace TotalDTO.Inventories
         public int GoodsIssueDetailID { get; set; }
         public int GoodsIssueID { get; set; }
 
+        public int StorekeeperID { get; set; }
+
         [UIHint("StringReadonly")]
         public override string CommodityName { get; set; }
         

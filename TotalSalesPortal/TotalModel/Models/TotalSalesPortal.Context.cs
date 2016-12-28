@@ -42,16 +42,11 @@ namespace TotalModel.Models
         public virtual DbSet<EntireTerritory> EntireTerritories { get; set; }
         public virtual DbSet<PaymentTerm> PaymentTerms { get; set; }
         public virtual DbSet<Territory> Territories { get; set; }
-        public virtual DbSet<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<PriceCategory> PriceCategories { get; set; }
         public virtual DbSet<ReceiptDetail> ReceiptDetails { get; set; }
-        public virtual DbSet<Receipt> Receipts { get; set; }
-        public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
         public virtual DbSet<AccessControl> AccessControls { get; set; }
         public virtual DbSet<VoidType> VoidTypes { get; set; }
-        public virtual DbSet<DeliveryAdvice> DeliveryAdvices { get; set; }
-        public virtual DbSet<GoodsIssueDetail> GoodsIssueDetails { get; set; }
         public virtual DbSet<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         public virtual DbSet<AccountInvoice> AccountInvoices { get; set; }
         public virtual DbSet<HandlingUnit> HandlingUnits { get; set; }
@@ -59,8 +54,13 @@ namespace TotalModel.Models
         public virtual DbSet<HandlingUnitDetail> HandlingUnitDetails { get; set; }
         public virtual DbSet<GoodsDeliveryDetail> GoodsDeliveryDetails { get; set; }
         public virtual DbSet<GoodsDelivery> GoodsDeliveries { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }
+        public virtual DbSet<DeliveryAdvice> DeliveryAdvices { get; set; }
+        public virtual DbSet<GoodsIssueDetail> GoodsIssueDetails { get; set; }
+        public virtual DbSet<GoodsIssue> GoodsIssues { get; set; }
+        public virtual DbSet<Receipt> Receipts { get; set; }
     
         public virtual ObjectResult<Nullable<int>> GetAccessLevel(Nullable<int> userID, Nullable<int> nMVNTaskID, Nullable<int> organizationalUnitID)
         {

@@ -34,11 +34,13 @@ namespace TotalModel.Models
         public int CommodityID { get; set; }
         public int CommodityTypeID { get; set; }
         public Nullable<int> WarehouseID { get; set; }
-        public int EmployeeID { get; set; }
+        public int StorekeeperID { get; set; }
         public decimal Quantity { get; set; }
+        public decimal ControlFreeQuantity { get; set; }
         public decimal FreeQuantity { get; set; }
         public decimal QuantityInvoice { get; set; }
         public decimal FreeQuantityInvoice { get; set; }
+        public decimal QuantityHandlingUnit { get; set; }
         public decimal ListedPrice { get; set; }
         public decimal DiscountPercent { get; set; }
         public decimal UnitPrice { get; set; }
@@ -53,15 +55,13 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActivePartialDate { get; set; }
-        public decimal ControlFreeQuantity { get; set; }
-        public decimal QuantityHandlingUnit { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdviceDetail DeliveryAdviceDetail { get; set; }
         public virtual GoodsIssue GoodsIssue { get; set; }
         public virtual VoidType VoidType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountInvoiceDetail> AccountInvoiceDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HandlingUnitDetail> HandlingUnitDetails { get; set; }
     }

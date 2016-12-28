@@ -30,8 +30,9 @@ namespace TotalModel.Models
         public int PriceCategoryID { get; set; }
         public Nullable<int> PromotionID { get; set; }
         public string PromotionVouchers { get; set; }
-        public int EmployeeID { get; set; }
+        public int SalespersonID { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
+        public string ShippingAddress { get; set; }
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }
         public int OrganizationalUnitID { get; set; }
@@ -39,7 +40,9 @@ namespace TotalModel.Models
         public int ApproverID { get; set; }
         public int PaymentTermID { get; set; }
         public decimal TotalQuantity { get; set; }
+        public decimal TotalQuantityIssue { get; set; }
         public decimal TotalFreeQuantity { get; set; }
+        public decimal TotalFreeQuantityIssue { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal TotalVATAmount { get; set; }
         public decimal TotalGrossAmount { get; set; }
@@ -55,10 +58,9 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActiveDate { get; set; }
-        public decimal TotalQuantityIssue { get; set; }
-        public decimal TotalFreeQuantityIssue { get; set; }
-        public string ShippingAddress { get; set; }
     
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryAdviceDetail> DeliveryAdviceDetails { get; set; }
         public virtual Employee Employee { get; set; }
@@ -69,7 +71,5 @@ namespace TotalModel.Models
         public virtual VoidType VoidType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssue> GoodsIssues { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
     }
 }

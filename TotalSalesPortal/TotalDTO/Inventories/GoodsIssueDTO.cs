@@ -35,12 +35,12 @@ namespace TotalDTO.Inventories
         [Display(Name = "Ngày giao hàng")]
         public Nullable<System.DateTime> DeliveryDate { get; set; }
 
-        public virtual int EmployeeID { get; set; }
+        public virtual int StorekeeperID { get; set; }
 
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.EmployeeID = this.EmployeeID; });
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.StorekeeperID = this.StorekeeperID; });
         }
     }
 
@@ -66,10 +66,10 @@ namespace TotalDTO.Inventories
         [UIHint("Commons/DeliveryAdviceBox")]
         public DeliveryAdviceBoxDTO DeliveryAdvice { get; set; }
 
-        public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
+        public override int StorekeeperID { get { return (this.Storekeeper != null ? this.Storekeeper.EmployeeID : 0); } }
         [Display(Name = "Nhân viên kho")]
         [UIHint("AutoCompletes/EmployeeBase")]
-        public EmployeeBaseDTO Employee { get; set; }
+        public EmployeeBaseDTO Storekeeper { get; set; }
 
         public List<GoodsIssueDetailDTO> GoodsIssueViewDetails { get; set; }
         public List<GoodsIssueDetailDTO> ViewDetails { get { return this.GoodsIssueViewDetails; } set { this.GoodsIssueViewDetails = value; } }

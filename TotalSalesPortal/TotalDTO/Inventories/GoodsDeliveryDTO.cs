@@ -48,12 +48,12 @@ namespace TotalDTO.Inventories
         public CustomerBaseDTO Receiver { get; set; }
 
         public override int DriverID { get { return (this.Driver != null ? this.Driver.EmployeeID : 0); } }
-        [Display(Name = "Nhân viên tiếp thị")]
+        [Display(Name = "Tài xế")]
         [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO Driver { get; set; }
 
         public override int CollectorID { get { return (this.Collector != null ? this.Collector.EmployeeID : 0); } }
-        [Display(Name = "Nhân viên tiếp thị")]
+        [Display(Name = "Nhân viên giao hàng")]
         [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO Collector { get; set; }
 

@@ -33,7 +33,7 @@ namespace TotalDTO.Sales
 
         public int CustomerID { get; set; }
         public int ReceiverID { get; set; }
-        public int EmployeeID { get; set; }
+        public int SalespersonID { get; set; }
 
         
 

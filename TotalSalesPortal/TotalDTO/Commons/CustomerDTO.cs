@@ -26,8 +26,8 @@ namespace TotalDTO.Commons
         string ShippingAddress { get; set; }
         int TerritoryID { get; set; }
         string EntireTerritoryEntireName { get; set; }
-        int EmployeeID { get; set; }
-        string EmployeeName { get; set; }
+        int SalespersonID { get; set; }
+        string SalespersonName { get; set; }
         int PriceCategoryID { get; set; }
         string PriceCategoryCode { get; set; }
 
@@ -70,9 +70,9 @@ namespace TotalDTO.Commons
         public virtual string EntireTerritoryEntireName { get; set; }
 
         [Required]
-        public int EmployeeID { get; set; }
+        public int SalespersonID { get; set; }
         [Display(Name = "Tên nhân viên")]
-        public virtual string EmployeeName { get; set; }
+        public virtual string SalespersonName { get; set; }
 
         [Required]
         [Display(Name = "Bảng giá")]
@@ -128,7 +128,7 @@ namespace TotalDTO.Commons
         public override string EntireTerritoryEntireName { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên nhân viên")]
-        public override string EmployeeName { get; set; }
+        public override string SalespersonName { get; set; }
 
         [Display(Name = "Hạn mức tín dụng")]
         public Nullable<double> LimitAmount { get; set; }

@@ -25,7 +25,7 @@ namespace TotalModel.Models
         public decimal FluctuationAmount { get; set; }
         public string Remarks { get; set; }
     
-        public virtual Receipt Receipt { get; set; }
         public virtual GoodsIssue GoodsIssue { get; set; }
+        public virtual Receipt Receipt { get; set; }
     }
 }

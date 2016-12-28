@@ -17,11 +17,11 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GoodsIssue()
         {
+            this.AccountInvoices = new HashSet<AccountInvoice>();
+            this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
+            this.HandlingUnits = new HashSet<HandlingUnit>();
             this.ReceiptDetails = new HashSet<ReceiptDetail>();
             this.Receipts = new HashSet<Receipt>();
-            this.GoodsIssueDetails = new HashSet<GoodsIssueDetail>();
-            this.AccountInvoices = new HashSet<AccountInvoice>();
-            this.HandlingUnits = new HashSet<HandlingUnit>();
         }
     
         public int GoodsIssueID { get; set; }
@@ -29,7 +29,9 @@ namespace TotalModel.Models
         public string Reference { get; set; }
         public Nullable<int> DeliveryAdviceID { get; set; }
         public int CustomerID { get; set; }
-        public int EmployeeID { get; set; }
+        public int ReceiverID { get; set; }
+        public string ShippingAddress { get; set; }
+        public int StorekeeperID { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public int UserID { get; set; }
         public int PreparedPersonID { get; set; }
@@ -37,6 +39,7 @@ namespace TotalModel.Models
         public int LocationID { get; set; }
         public int ApproverID { get; set; }
         public decimal TotalQuantity { get; set; }
+        public Nullable<decimal> TotalFreeQuantity { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal TotalVATAmount { get; set; }
         public decimal TotalGrossAmount { get; set; }
@@ -51,23 +54,19 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActiveDate { get; set; }
-        public Nullable<decimal> TotalFreeQuantity { get; set; }
-        public int ReceiverID { get; set; }
-        public string ShippingAddress { get; set; }
     
-        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Receipt> Receipts { get; set; }
+        public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
         public virtual DeliveryAdvice DeliveryAdvice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsIssueDetail> GoodsIssueDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HandlingUnit> HandlingUnits { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receipt> Receipts { get; set; }
     }
 }

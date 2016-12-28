@@ -51,12 +51,12 @@ namespace TotalDTO.Sales
         [UIHint("Commons/ShippingAddress")]
         public string ShippingAddress { get; set; }
 
-        public virtual int EmployeeID { get; set; }
+        public virtual int SalespersonID { get; set; }
 
         public override void PerformPresaveRule()
         {
             this.Approved = true; this.ApprovedDate = this.EntryDate; //At DeliveryAdvice, Approve right after save. Surely, It can be UnApprove later for editing
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.PromotionID = this.PromotionID; e.EmployeeID = this.EmployeeID; });
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.PromotionID = this.PromotionID; e.SalespersonID = this.SalespersonID; });
             base.PerformPresaveRule();
         }
     }
@@ -83,10 +83,10 @@ namespace TotalDTO.Sales
         [UIHint("Commons/Promotion")]
         public PromotionDTO Promotion { get; set; }
 
-        public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
+        public override int SalespersonID { get { return (this.Salesperson != null ? this.Salesperson.EmployeeID : 0); } }
         [Display(Name = "Nhân viên tiếp thị")]
         [UIHint("AutoCompletes/EmployeeBase")]
-        public EmployeeBaseDTO Employee { get; set; }
+        public EmployeeBaseDTO Salesperson { get; set; }
 
         public override Nullable<int> VoidTypeID { get { return (this.VoidType != null ? this.VoidType.VoidTypeID : null); } }
         [UIHint("AutoCompletes/VoidType")]

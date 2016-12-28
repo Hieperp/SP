@@ -32,7 +32,7 @@ namespace TotalDTO.Accounts
         [Display(Name = "Ngày ghi sổ cái")]
         public Nullable<System.DateTime> PostDate { get; set; }
 
-        public virtual int EmployeeID { get; set; }
+        public virtual int CashierID { get; set; }
 
         [Display(Name = "Tổng cấn trừ hóa đơn")]
         public decimal TotalReceiptAmount { get { return this.GetReceiptAmount(); } } //PHAI XEM XET LAI: NHAM MUC DICH HOAN THIEN UN-APPLY AMOUNT { get; set; }
@@ -59,7 +59,7 @@ namespace TotalDTO.Accounts
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.EmployeeID = this.EmployeeID; });
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; });
         }
     }
 
@@ -75,9 +75,9 @@ namespace TotalDTO.Accounts
         [UIHint("Commons/CustomerBase")]
         public CustomerBaseDTO Customer { get; set; }
 
-        public override int EmployeeID { get { return (this.Employee != null ? this.Employee.EmployeeID : 0); } }
+        public override int CashierID { get { return (this.Cashier != null ? this.Cashier.EmployeeID : 0); } }
         [UIHint("AutoCompletes/EmployeeBase")]
-        public EmployeeBaseDTO Employee { get; set; }
+        public EmployeeBaseDTO Cashier { get; set; }
 
         public List<ReceiptDetailDTO> ReceiptViewDetails { get; set; }
         public List<ReceiptDetailDTO> ViewDetails { get { return this.ReceiptViewDetails; } set { this.ReceiptViewDetails = value; } }

@@ -28,7 +28,7 @@ namespace TotalDTO.Accounts
         [UIHint("StringReadonly")]
         public string CustomerOfficialName { get; set; }
 
-        public int EmployeeID { get; set; }
+        public int CashierID { get; set; }
 
         [Display(Name = "Số tiền bán hàng")]
         [UIHint("DecimalReadonly")]

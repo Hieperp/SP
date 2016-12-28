@@ -34,7 +34,7 @@ namespace TotalModel.Models
         public string Name { get; set; }
         public string OfficialName { get; set; }
         public int PriceCategoryID { get; set; }
-        public int EmployeeID { get; set; }
+        public int SalespersonID { get; set; }
         public int CustomerCategoryID { get; set; }
         public int CustomerTypeID { get; set; }
         public int TerritoryID { get; set; }

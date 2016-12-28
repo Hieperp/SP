@@ -34,7 +34,7 @@ namespace TotalPortal.Areas.Inventories.Controllers
         //{
         //    return base.TailorViewModel(simpleViewModel);
 
-        //    if (simpleViewModel.Employee.EmployeeID == null && simpleViewModel.Employee.Name == null)
+        //    if (simpleViewModel.Storekeeper.EmployeeID == null && simpleViewModel.Storekeeper.Name == null)
         //    {
 
         //    }
