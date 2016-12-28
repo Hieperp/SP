@@ -98,6 +98,7 @@
         <AssociationConnector Association="TotalSalesPortalModel.FK_Receipts_GoodsIssues" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_ReceiptDetails_Receipts" />
         <AssociationConnector Association="TotalSalesPortalModel.FK_HandlingUnits_Employees" />
+        <AssociationConnector Association="TotalSalesPortalModel.FK_GoodsIssues_Employees" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

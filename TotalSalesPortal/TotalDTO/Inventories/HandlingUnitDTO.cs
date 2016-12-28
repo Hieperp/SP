@@ -31,6 +31,7 @@ namespace TotalDTO.Inventories
 
         public virtual Nullable<int> GoodsIssueID { get; set; }
 
+        public virtual int PackagingStaffID { get; set; }
 
         [Display(Name = "Số thứ tự thùng, bao")]
         public int Identification { get; set; }
@@ -85,6 +86,11 @@ namespace TotalDTO.Inventories
         public override Nullable<int> GoodsIssueID { get { return (this.GoodsIssue != null ? (Nullable<int>)this.GoodsIssue.GoodsIssueID : null); } }
         [UIHint("Commons/GoodsIssueBox")]
         public GoodsIssueBoxDTO GoodsIssue { get; set; }
+
+        public override int PackagingStaffID { get { return (this.PackagingStaff != null ? this.PackagingStaff.EmployeeID : 0); } }
+        [Display(Name = "Nhân viên tiếp thị")]
+        [UIHint("AutoCompletes/EmployeeBase")]
+        public EmployeeBaseDTO PackagingStaff { get; set; }
 
         public List<HandlingUnitDetailDTO> HandlingUnitViewDetails { get; set; }
         public List<HandlingUnitDetailDTO> ViewDetails { get { return this.HandlingUnitViewDetails; } set { this.HandlingUnitViewDetails = value; } }

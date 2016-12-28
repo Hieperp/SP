@@ -1192,6 +1192,18 @@ warning 6035: The relationship 'FK_GoodsDeliveries_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GoodsIssues_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="GoodsIssues" Type="Self.GoodsIssues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="GoodsIssues">
+              <PropertyRef Name="StorekeeperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HandlingUnitDetails_GoodsIssueDetails">
           <End Role="GoodsIssueDetails" Type="Self.GoodsIssueDetails" Multiplicity="1" />
           <End Role="HandlingUnitDetails" Type="Self.HandlingUnitDetails" Multiplicity="*" />
@@ -1831,6 +1843,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <End Role="DeliveryAdvices" EntitySet="DeliveryAdvices" />
             <End Role="GoodsIssues" EntitySet="GoodsIssues" />
           </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssues_Employees" Association="Self.FK_GoodsIssues_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="GoodsIssues" EntitySet="GoodsIssues" />
+          </AssociationSet>
           <AssociationSet Name="FK_HandlingUnitDetails_GoodsIssueDetails" Association="Self.FK_HandlingUnitDetails_GoodsIssueDetails">
             <End Role="GoodsIssueDetails" EntitySet="GoodsIssueDetails" />
             <End Role="HandlingUnitDetails" EntitySet="HandlingUnitDetails" />
@@ -2465,6 +2481,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <End Role="Employee" EntitySet="Employees" />
             <End Role="HandlingUnit" EntitySet="HandlingUnits" />
           </AssociationSet>
+          <AssociationSet Name="FK_GoodsIssues_Employees" Association="TotalSalesPortalModel.FK_GoodsIssues_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="GoodsIssue" EntitySet="GoodsIssues" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -2624,6 +2644,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="DeliveryAdvices" Relationship="TotalSalesPortalModel.FK_DeliveryAdvices_Employees" FromRole="Employee" ToRole="DeliveryAdvice" />
           <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_Employees" FromRole="Employee" ToRole="Receipt" />
           <NavigationProperty Name="HandlingUnits" Relationship="TotalSalesPortalModel.FK_HandlingUnits_Employees" FromRole="Employee" ToRole="HandlingUnit" />
+          <NavigationProperty Name="GoodsIssues" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="Employee" ToRole="GoodsIssue" />
         </EntityType>
         <EntityType Name="EntireTerritory">
           <Key>
@@ -3839,6 +3860,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="HandlingUnits" Relationship="TotalSalesPortalModel.FK_HandlingUnits_GoodsIssues" FromRole="GoodsIssue" ToRole="HandlingUnit" />
           <NavigationProperty Name="ReceiptDetails" Relationship="TotalSalesPortalModel.FK_ReceiptDetails_GoodsIssues" FromRole="GoodsIssue" ToRole="ReceiptDetail" />
           <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_GoodsIssues" FromRole="GoodsIssue" ToRole="Receipt" />
+          <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_GoodsIssues_Employees" FromRole="GoodsIssue" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Receipt">
           <Key>
@@ -4303,6 +4325,18 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             </Principal>
             <Dependent Role="HandlingUnit">
               <PropertyRef Name="PackagingStaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsIssues_Employees">
+          <End Type="TotalSalesPortalModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.GoodsIssue" Role="GoodsIssue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="GoodsIssue">
+              <PropertyRef Name="StorekeeperID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

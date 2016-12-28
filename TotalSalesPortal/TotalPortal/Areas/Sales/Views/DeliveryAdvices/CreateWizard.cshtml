@@ -8,8 +8,8 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(model => model.Employee.EmployeeID);
-    @Html.HiddenFor(model => model.Employee.Name);
+    @Html.HiddenFor(model => model.Salesperson.EmployeeID);
+    @Html.HiddenFor(model => model.Salesperson.Name);
 
     @Html.HiddenFor(model => model.PriceCategoryID);
     @Html.HiddenFor(model => model.PriceCategoryCode);
@@ -91,8 +91,8 @@
             $("#PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
             $("#ShippingAddress").val($("#Receiver_ShippingAddress").val() != "" ? $("#Receiver_ShippingAddress").val() : $("#Receiver_BillingAddress").val());
 
-            $("#Employee_EmployeeID").val($("#Customer_EmployeeID").val()); //INIT DEFAULT Employee_EmployeeID, Employee_Name FROM Customer_EmployeeID, Customer_EmployeeName
-            $("#Employee_Name").val($("#Customer_EmployeeName").val());
+            $("#Salesperson_EmployeeID").val($("#Customer_SalespersonID").val()); //INIT DEFAULT Salesperson_EmployeeID, Salesperson_Name FROM Customer_SalespersonID, Customer_SalespersonName
+            $("#Salesperson_Name").val($("#Customer_SalespersonName").val());
 
             $("#Promotion_PromotionID").val(selectedDataItem === undefined || selectedDataItem.PromotionID === undefined ? null : selectedDataItem.PromotionID);
             $("#Promotion_Name").val(selectedDataItem === undefined || selectedDataItem.Name === undefined ? null : selectedDataItem.Name);
