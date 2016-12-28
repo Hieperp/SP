@@ -37,7 +37,8 @@ namespace TotalDTO.Commons
     {
         public int CustomerID { get; set; }
 
-        public string CodeAndName { get { return this.Code + (this.Code != "" && this.Name != "" ? "  -  " : "") + this.Name; } }
+        //public string CodeAndName { get { return this.Code + (this.Code != null && this.Code != "" && this.Name != null && this.Name != "" ? "  -  " : "") + this.Name; } }
+        public string CodeAndName { get { return "A"; } }
 
         [Display(Name = "Mã khách hàng")]
         public string Code { get; set; }
@@ -61,7 +62,7 @@ namespace TotalDTO.Commons
         public virtual string BillingAddress { get; set; }
         [Display(Name = "Địa chỉ giao hàng")]
         public virtual string ShippingAddress { get; set; }
-        
+
 
         [Required]
         [Display(Name = "Khu vực")]
@@ -106,7 +107,7 @@ namespace TotalDTO.Commons
         //[Display(Name = "Khu vực")]
         //[Required]
         //public string EntireTerritoryEntireName { get; set; }
-        
+
         //[Display(Name = "Mã số thuế")]
         //public string VATCode { get; set; }
         //[Display(Name = "Điện thoại")]
@@ -123,7 +124,7 @@ namespace TotalDTO.Commons
 
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ xuất hóa đơn")]
         public override string BillingAddress { get; set; }
-        
+
         [Required(ErrorMessage = "Vui lòng nhập khu vực")]
         public override string EntireTerritoryEntireName { get; set; }
 
