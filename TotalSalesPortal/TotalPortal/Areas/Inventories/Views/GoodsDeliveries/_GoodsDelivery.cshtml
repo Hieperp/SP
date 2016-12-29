@@ -10,13 +10,13 @@
 
     @Html.HiddenFor(model => model.GoodsDeliveryID)
 
-    
+
     <div class="left-panel">
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSeactionA.cshtml")
 
         @Html.Partial("~/Views/Shared/EditorTemplates/DropDowns/Vehicle.cshtml")
-        
+
         <div class="form-group">
             @Html.EditorFor(d => d.Driver, new { EmployeeDisplayName = @Model.GetDisplayName(m => m.Driver) })
         </div>
@@ -27,8 +27,8 @@
     </div>
 
     <div class="right-panel">
-        <div style="clear: both; height: 136px;">
-            @Html.EditorFor(d => d.Receiver, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
+        <div style="clear: both; height: 87px;">
+            @Html.EditorFor(d => d.Receiver, new { CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png", NullCustomerCodeAndName = (Model.ReceiverID > 0 ? null : "Giao hàng tổng hợp của nhiều khách hàng"), CustomerInfo = (Model.ReceiverID > 0 ? null : "Chi tiết địa chỉ giao hàng căn cứ phiếu xuất kho của từng khách hàng") })
         </div>
 
         <div class="div-k-grid-detail">
@@ -54,7 +54,6 @@
                     columns.Bound(p => p.CustomerCode).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CustomerCode #" + "<input type='hidden' name='GoodsDeliveryViewDetails[#= index(data) #].CustomerCode' value='#= CustomerCode #' />");
                     columns.Bound(p => p.CustomerName).DisplayNameTitle().Filterable(false).Width(200)
-                        .ClientFooterTemplate("Tổng cộng:")
                         .ClientTemplate("#= CustomerName #" + "<input type='hidden' name='GoodsDeliveryViewDetails[#= index(data) #].CustomerName' value='#= CustomerName #' />");
 
 
@@ -99,7 +98,7 @@
                     if (Model.Editable)
                     {
                         toolbar.Template(@<text>
-                            <button type="button" class="k-button" onclick="GetPendingHandlingUnits()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn thùng hoặc bao hàng </button>
+                            <button type="button" class="k-button" onclick="GetPendingHandlingUnits()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn thùng carton hoặc gói hàng </button>
                         </text>);
                     }
                     else
@@ -128,24 +127,24 @@
                 {
                     events.DataBinding(@<text> function(e) {rowNumber = 0;} </text>);
                 })
-                .DataSource(dataSource => dataSource
-                    .Ajax()
-                    .Batch(true)
-                    .ServerOperation(false)
-                    .Model(model =>
-                    {
-                        model.Id(x => x.GoodsDeliveryDetailID);
-                        model.Field(m => m.GoodsDeliveryDetailID).DefaultValue(0);
-                        model.Field(m => m.GoodsDeliveryID).DefaultValue(@Model.GoodsDeliveryID);
-                    })
-                    .Events(events =>
-                    {
-                        events.Error("kendGrid_ErrorHandler");
-                    })
-                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                    .Aggregates(a => a.Add(x => x.Weight).Sum())
-                    .Aggregates(a => a.Add(x => x.RealWeight).Sum())
-                )
+                                                                                                                .DataSource(dataSource => dataSource
+                                                                                                                    .Ajax()
+                                                                                                                    .Batch(true)
+                                                                                                                    .ServerOperation(false)
+                                                                                                                    .Model(model =>
+                                                                                                                    {
+                                                                                                                        model.Id(x => x.GoodsDeliveryDetailID);
+                                                                                                                        model.Field(m => m.GoodsDeliveryDetailID).DefaultValue(0);
+                                                                                                                        model.Field(m => m.GoodsDeliveryID).DefaultValue(@Model.GoodsDeliveryID);
+                                                                                                                    })
+                                                                                                                    .Events(events =>
+                                                                                                                    {
+                                                                                                                        events.Error("kendGrid_ErrorHandler");
+                                                                                                                    })
+                                                                                                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.Weight).Sum())
+                                                                                                                    .Aggregates(a => a.Add(x => x.RealWeight).Sum())
+                                                                                                                )
             )
 
         </div>
@@ -197,15 +196,11 @@
             @if (Model.Editable)
             {
                 @Html.HiddenFor(model => model.PrintAfterClosedSubmit)
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Create" formaction="@Url.Action("Edit", "GoodsDeliveries")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu và lập phiếu tiếp theo </button>
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsDeliveries")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu nhãn thùng </button>
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsDeliveries")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsDeliveries")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu giao hàng </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsDeliveries")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu và in phiếu giao hàng</button>
             }
-            else
-            {
-                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("PrintDetail", "GoodsDeliveries", new { id = @Model.GoodsDeliveryID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In bảng kê</button>
-                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "GoodsDeliveries", new { id = @Model.GoodsDeliveryID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
-            }
+            @if (Model.GoodsDeliveryID > 0) { 
+                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "GoodsDeliveries", new { id = @Model.GoodsDeliveryID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In phiếu giao hàng đã lưu</button>}
         </div>
 
         @Html.Partial("~/Views/Helpers/Bases/_BaseSubmit.cshtml")

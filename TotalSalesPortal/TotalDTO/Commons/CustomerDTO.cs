@@ -37,8 +37,7 @@ namespace TotalDTO.Commons
     {
         public int CustomerID { get; set; }
 
-        //public string CodeAndName { get { return this.Code + (this.Code != null && this.Code != "" && this.Name != null && this.Name != "" ? "  -  " : "") + this.Name; } }
-        public string CodeAndName { get { return "A"; } }
+        public string CodeAndName { get { return this.Code + (this.Code != null && this.Code != "" && this.Name != null && this.Name != "" ? "  -  " : "") + this.Name; } }
 
         [Display(Name = "Mã khách hàng")]
         public string Code { get; set; }

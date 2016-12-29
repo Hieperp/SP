@@ -10,7 +10,7 @@
             columns.Bound(p => p.HandlingUnitID).DisplayNameTitle().Hidden();
             columns.Bound(p => p.LocationCode).Title("CN").Width(10);
             columns.Bound(p => p.EntryDate).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(40);
-            columns.Bound(p => p.CustomerDescription).Title("Khách hàng").Width(410);
+            columns.Bound(p => p.CustomerDescription).Title("Khách hàng").Width(410).Hidden();
             columns.Bound(p => p.GoodsIssueReferences).Title("Nội dung").Width(270);
             columns.Bound(p => p.Description).Title("Nội dung").Width(270);           
             columns.Bound(p => p.TotalQuantity).Title("Thành tiền").Format("{0:n0}").HtmlAttributes(new { @class = "grid-number-column" }).Filterable(false).Width(115);
@@ -36,6 +36,7 @@
                 })
                 .DataSource(dataSource => dataSource
                     .Ajax()
+                    .Group(group => group.AddDescending(p => p.EntryDate)).Group(group => group.Add(p => p.CustomerDescription))
                     .Read(read => read.Action("GetHandlingUnitIndexes", "HandlingUnitAPIs", new { area = "Inventories" }))
                     .Sort(sort =>
                         {
@@ -71,3 +72,11 @@
         });
     }
 </script>
+
+
+<style>
+    #kendoGridIndex tr.k-alt {
+        /*background: transparent;*/
+        /*background-color: white;*/
+    }
+</style>

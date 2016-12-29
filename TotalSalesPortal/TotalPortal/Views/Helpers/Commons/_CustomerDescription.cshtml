@@ -21,14 +21,22 @@
 
 <div class="right-second-panel right-second-panel-small">
     <div class="form-group">
-        <div style="float:left; padding-top: 2px; padding-right: 2px;"> <img src="~/Content/Images/Mains/Size24/Phone-icon-24.png" title="Điện thoại" /> </div>
+        <div style="float:left; padding-top: 2px; padding-right: 2px;">
+            @if (Model != null && Model.Telephone != "") {
+                <img src="~/Content/Images/Mains/Size24/Phone-icon-24.png" title="Điện thoại" />}
+        </div>
         <div class="right-panel-label right-panel-label-larger-width"> <span id="@(modelFullHtmlFieldName + "_label_Telephone")"> @Html.DisplayFor(a => a.Telephone) </span> </div>
     </div>
 </div>
 
 <div class="right-first-panel" style="@(ViewData["CustomerDescriptionHidden"] == "true" ? "display: none" : "")">
     <div class="right-panel-label right-panel-label-double-height" style="padding-top: 2px; padding-right: 2px;"> <span id="customer-description-icon"> <img src="~/Content/Images/New/Address-icon.png" title="Điện thoại" /> </span> </div>
-    <div class="customer-description-label"> <span id="@(modelFullHtmlFieldName + "_label_VATCode")"> @Html.DisplayFor(m => m.VATCode) </span> Đ/C: <span id="@(modelFullHtmlFieldName + "_label_BillingAddress")"> @Html.DisplayFor(m => m.BillingAddress) </span>, <span id="@(modelFullHtmlFieldName + "_label_EntireTerritoryEntireName")"> @Html.DisplayFor(m => m.EntireTerritoryEntireName) </span> </div>
+    <div class="customer-description-label">
+        @if (ViewData["CustomerInfo"] != null){
+            @ViewData["CustomerInfo"]}
+        else{
+            <span id="@(modelFullHtmlFieldName + "_label_VATCode")"> @Html.DisplayFor(m => m.VATCode) </span> <text>Đ/C:</text> <span id="@(modelFullHtmlFieldName + "_label_BillingAddress")"> @Html.DisplayFor(m => m.BillingAddress) </span> <text>, </text>  <span id="@(modelFullHtmlFieldName + "_label_EntireTerritoryEntireName")"> @Html.DisplayFor(m => m.EntireTerritoryEntireName) </span>}
+    </div>
 </div>
 
 

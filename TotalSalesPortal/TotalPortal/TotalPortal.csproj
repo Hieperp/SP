@@ -407,6 +407,7 @@
     <Content Include="Content\Images\Menu\Work-50.png" />
     <Content Include="Content\Images\New\1.png" />
     <Content Include="Content\Images\New\2.png" />
+    <Content Include="Content\Images\New\Actions-document-print-icon.png" />
     <Content Include="Content\Images\New\Actions-ok-icon.png" />
     <Content Include="Content\Images\New\Address-icon.png" />
     <Content Include="Content\Images\New\Addressbook-icon.png" />
