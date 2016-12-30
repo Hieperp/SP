@@ -36,6 +36,8 @@
     @Html.HiddenFor(model => model.DeliveryAdvice.Reference);
     @Html.HiddenFor(model => model.DeliveryAdvice.EntryDate);
 
+    @Html.HiddenFor(model => model.Storekeeper.EmployeeID);
+    @Html.HiddenFor(model => model.Storekeeper.Name);
 
     @(Html.Kendo().TabStrip()
         .HtmlAttributes(new { @style = "height: 468px; margin-left: 0px; margin-right: 0px;" })

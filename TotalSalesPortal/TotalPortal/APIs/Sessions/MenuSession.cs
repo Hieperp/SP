@@ -7,6 +7,54 @@ namespace TotalPortal.APIs.Sessions
 {
     public class HomeSession
     {
+        public static int? TryParseID(string storedSessionString)
+        {
+            try
+            {
+                if (storedSessionString != null && storedSessionString != "")
+                {
+                    if (storedSessionString.IndexOf("#@#") > 0)
+                    {
+                        int id;
+                        if (int.TryParse(storedSessionString.Substring(0, storedSessionString.IndexOf("#@#")), out id))
+                            return id;
+                        else
+                            return null;
+                    }
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        public static string TryParseName(string storedSessionString)
+        {
+            try
+            {
+                if (storedSessionString != null && storedSessionString != "")
+                {
+                    if (storedSessionString.IndexOf("#@#") > 0)
+                        return storedSessionString.Substring(storedSessionString.IndexOf("#@#") + 3);
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
         public static DateTime GetGlobalFromDate(HttpContextBase context)
         {
             if (context.Session["GlobalFromDate"] == null)

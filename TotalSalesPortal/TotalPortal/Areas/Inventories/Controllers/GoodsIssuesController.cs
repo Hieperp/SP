@@ -6,9 +6,12 @@ using TotalDTO.Inventories;
 using TotalCore.Services.Inventories;
 
 using TotalPortal.Controllers;
+
+using TotalPortal.APIs.Sessions;
+
 using TotalPortal.Areas.Inventories.ViewModels;
 using TotalPortal.Areas.Inventories.Builders;
-
+using TotalPortal.Areas.Inventories.Controllers.Sessions;
 
 namespace TotalPortal.Areas.Inventories.Controllers
 {
@@ -30,14 +33,30 @@ namespace TotalPortal.Areas.Inventories.Controllers
             return goodsIssueViewDetails;
         }
 
-        //protected override GoodsIssueViewModel TailorViewModel(GoodsIssueViewModel simpleViewModel)
-        //{
-        //    return base.TailorViewModel(simpleViewModel);
 
-        //    if (simpleViewModel.Storekeeper.EmployeeID == null && simpleViewModel.Storekeeper.Name == null)
-        //    {
+        protected override GoodsIssueViewModel InitViewModelByDefault(GoodsIssueViewModel simpleViewModel)
+        {
+            simpleViewModel = base.InitViewModelByDefault(simpleViewModel);
 
-        //    }
-        //}
+            if (simpleViewModel.Storekeeper == null)
+            {
+                string storekeeperSession = GoodsIssueSession.GetStorekeeper(this.HttpContext);
+
+                if (HomeSession.TryParseID(storekeeperSession) > 0)
+                {
+                    simpleViewModel.Storekeeper = new TotalDTO.Commons.EmployeeBaseDTO();
+                    simpleViewModel.Storekeeper.EmployeeID = (int)HomeSession.TryParseID(storekeeperSession);
+                    simpleViewModel.Storekeeper.Name = HomeSession.TryParseName(storekeeperSession);
+                }
+            }
+
+            return simpleViewModel;
+        }
+
+        protected override void BackupViewModelToSession(GoodsIssueViewModel simpleViewModel)
+        {
+            base.BackupViewModelToSession(simpleViewModel);
+            GoodsIssueSession.SetStorekeeper(this.HttpContext, simpleViewModel.Storekeeper.EmployeeID, simpleViewModel.Storekeeper.Name);
+        }
     }
 }

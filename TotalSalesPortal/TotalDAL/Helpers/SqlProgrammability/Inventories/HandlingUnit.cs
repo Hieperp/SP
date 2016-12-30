@@ -176,7 +176,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "               ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
 
             queryString = queryString + "                   BEGIN " + "\r\n";
-            queryString = queryString + "                       " + this.BuildSQLNew(isGoodsIssueID, isGoodsIssueDetailIDs) + " AND GoodsIssueDetails.GoodsIssueDetailID NOT IN (SELECT GoodsIssueDetailID FROM HandlingUnitDetails WHERE HandlingUnitID = @HandlingUnitID) " + "\r\n";
+            queryString = queryString + "                       " + this.BuildSQLNew(isGoodsIssueID, isGoodsIssueDetailIDs) + " WHERE GoodsIssueDetails.GoodsIssueDetailID NOT IN (SELECT GoodsIssueDetailID FROM HandlingUnitDetails WHERE HandlingUnitID = @HandlingUnitID) " + "\r\n";
             queryString = queryString + "                       UNION ALL " + "\r\n";
             queryString = queryString + "                       " + this.BuildSQLEdit(isGoodsIssueID, isGoodsIssueDetailIDs) + "\r\n";
             queryString = queryString + "                       ORDER BY GoodsIssues.EntryDate, GoodsIssues.GoodsIssueID, GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";

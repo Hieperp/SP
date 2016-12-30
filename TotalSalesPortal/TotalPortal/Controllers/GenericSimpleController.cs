@@ -78,6 +78,7 @@ namespace TotalPortal.Controllers
         /// Create NEW from an empty ViewModel object
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         [AccessLevelAuthorize]
         [OnResultExecutingFilterAttribute]
         public virtual ActionResult Create()
@@ -85,7 +86,7 @@ namespace TotalPortal.Controllers
             if (!this.isSimpleCreate) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 
-            return View(this.TailorViewModel(new TSimpleViewModel())); //Need to call new TSimpleViewModel() to ensure construct TSimpleViewModel object using Constructor!
+            return View(this.TailorViewModel(this.InitViewModelByDefault(new TSimpleViewModel()))); //Need to call new TSimpleViewModel() to ensure construct TSimpleViewModel object using Constructor!
         }
 
         [HttpPost]
@@ -113,14 +114,14 @@ namespace TotalPortal.Controllers
         /// Create NEW by show a CreateWizard dialog, where user HAVE TO SELECT A RELATIVE OBJECT to INITIALIZE ViewModel, then SUBMIT the ViewModel
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         [AccessLevelAuthorize]
         [OnResultExecutingFilterAttribute]
         public virtual ActionResult CreateWizard()
         {
             if (!this.isCreateWizard) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            return View(this.TailorViewModel(new TSimpleViewModel()));
-            ////return View(); //ORIGINAL
+            return View(this.TailorViewModel(this.InitViewModelByDefault(new TSimpleViewModel())));
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace TotalPortal.Controllers
                     return RedirectToAction("Create");
                 else
                 {
-                    TSimpleViewModel createWizardViewModel = InitCreateWizardViewModel(simpleViewModel);
+                    TSimpleViewModel createWizardViewModel = InitViewModelByCopy(simpleViewModel);
                     if (createWizardViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     return CreateWizard(createWizardViewModel);
                 }
@@ -468,6 +469,8 @@ namespace TotalPortal.Controllers
                     if (this.GenericService.Save(dto))
                     {
                         simpleViewModel.SetID(dto.GetID());
+                        this.BackupViewModelToSession(simpleViewModel);
+
                         return true;
                     }
                     else
@@ -499,16 +502,41 @@ namespace TotalPortal.Controllers
             return simpleViewModel;
         }
 
+
+
         /// <summary>
-        /// Init new model for CreateWizard. Default, this return null.
-        /// Each module should init its's createWizardViewModel accordingly
+        /// Init new viewmodel by set default value. Default, this procedure does nothing and just return the passing parameter simpleViewModel.
+        /// Each module should override this InitViewModelByDefault to init its's viewmodel accordingly, if needed
         /// </summary>
         /// <param name="simpleViewModel"></param>
         /// <returns></returns>
-        protected virtual TSimpleViewModel InitCreateWizardViewModel(TSimpleViewModel simpleViewModel) //InitViewModelForCreateWizard
+        protected virtual TSimpleViewModel InitViewModelByDefault(TSimpleViewModel simpleViewModel)
+        {
+            return simpleViewModel;
+        }
+
+
+        /// <summary>
+        /// Backup ViewModel to HttpContext.Session for reuse later
+        /// </summary>
+        /// <param name="simpleViewModel"></param>
+        protected virtual void BackupViewModelToSession(TSimpleViewModel simpleViewModel) { }
+
+
+        /// <summary>
+        /// Init new viewmodel by copy from current viewmodel object. Default, this procedure does nothing and return null.
+        /// Each module should override this InitViewModelByCopy to init its's viewmodel accordingly, if needed
+        /// </summary>
+        /// <param name="simpleViewModel"></param>
+        /// <returns></returns>
+        protected virtual TSimpleViewModel InitViewModelByCopy(TSimpleViewModel simpleViewModel)
         {
             return null;
         }
+
+
+
+
 
         protected virtual TSimpleViewModel DecorateViewModel(TSimpleViewModel simpleViewModel)
         {
