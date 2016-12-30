@@ -459,7 +459,9 @@
           <Property Name="HandlingUnitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="Reference" Type="nvarchar" MaxLength="10" />
+          <Property Name="ConsignmentNo" Type="int" Nullable="false" />
           <Property Name="Identification" Type="int" Nullable="false" />
+          <Property Name="CountIdentification" Type="int" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="ReceiverID" Type="int" Nullable="false" />
           <Property Name="ShippingAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -3280,6 +3282,8 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="GoodsIssue" Relationship="TotalSalesPortalModel.FK_HandlingUnits_GoodsIssues" FromRole="HandlingUnit" ToRole="GoodsIssue" />
           <Property Name="PackagingStaffID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="TotalSalesPortalModel.FK_HandlingUnits_Employees" FromRole="HandlingUnit" ToRole="Employee" />
+          <Property Name="ConsignmentNo" Type="Int32" Nullable="false" />
+          <Property Name="CountIdentification" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_HandlingUnits_Locations">
           <End Type="TotalSalesPortalModel.Location" Role="Location" Multiplicity="1" />
@@ -3322,12 +3326,18 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="DateTime" Name="EntryDate" Nullable="true" />
           <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="CustomerDescription" Nullable="false" MaxLength="305" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="TotalQuantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="TotalWeight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="RealWeight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="GoodsIssueReferences" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="ConsignmentNo" Nullable="false" />
+          <Property Type="Int32" Name="Identification" Nullable="false" />
+          <Property Type="Int32" Name="CountIdentification" Nullable="false" />
+          <Property Type="String" Name="PackingMaterialCode" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="HandlingUnitViewDetail">
           <Property Type="Int32" Name="HandlingUnitDetailID" Nullable="false" />
@@ -5087,6 +5097,8 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySetMapping Name="HandlingUnits">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.HandlingUnit">
               <MappingFragment StoreEntitySet="HandlingUnits">
+                <ScalarProperty Name="CountIdentification" ColumnName="CountIdentification" />
+                <ScalarProperty Name="ConsignmentNo" ColumnName="ConsignmentNo" />
                 <ScalarProperty Name="PackagingStaffID" ColumnName="PackagingStaffID" />
                 <ScalarProperty Name="GoodsIssueReferences" ColumnName="GoodsIssueReferences" />
                 <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
@@ -5139,12 +5151,18 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
-                <ScalarProperty Name="CustomerDescription" ColumnName="CustomerDescription" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
                 <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
                 <ScalarProperty Name="RealWeight" ColumnName="RealWeight" />
                 <ScalarProperty Name="GoodsIssueReferences" ColumnName="GoodsIssueReferences" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+                <ScalarProperty Name="ConsignmentNo" ColumnName="ConsignmentNo" />
+                <ScalarProperty Name="Identification" ColumnName="Identification" />
+                <ScalarProperty Name="CountIdentification" ColumnName="CountIdentification" />
+                <ScalarProperty Name="PackingMaterialCode" ColumnName="PackingMaterialCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -552,6 +552,9 @@ tr:hover {
     text-align: right;
 }
 
+.grid-column-center {
+    text-align: center;
+}
 
 /*.k-window-titlebar,
 .myWindow .k-window-content {

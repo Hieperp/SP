@@ -51,6 +51,8 @@ namespace TotalModel.Models
         public string ShippingAddress { get; set; }
         public string GoodsIssueReferences { get; set; }
         public int PackagingStaffID { get; set; }
+        public int ConsignmentNo { get; set; }
+        public int CountIdentification { get; set; }
     
         public virtual Location Location { get; set; }
         public virtual PackingMaterial PackingMaterial { get; set; }
