@@ -2,20 +2,21 @@
 
 @model TotalDTO.Commons.ICustomerBaseDTO
 
-@Html.HiddenFor(model => model.CustomerID)
+@if (ViewData["NullCustomer"] == null){
+    @Html.HiddenFor(model => model.CustomerID)}
 
 
 <div class="right-first-panel">
     <div class="form-group">
         <div class="right-panel-label right-panel-label-icon-only" style="padding-top: 2px;"> <img src="~/Content/Images/Mains/@(ViewData["CustomerIcon"] != null ? ViewData["CustomerIcon"] : "Customer Blue 24.png")" title="@(ViewData["CustomerDisplayName"] != null ? ViewData["CustomerDisplayName"] : "Khách hàng")" />  </div>
         <div class="div-input">
-            @if (ViewData["NullCustomerCodeAndName"] != null)
+            @if (ViewData["NullCustomer"] == null)
             {
-                @Html.Kendo().MaskedTextBox().Name("NullCustomer_CodeAndName").Value((string)ViewData["NullCustomerCodeAndName"]).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
+                @Html.Kendo().MaskedTextBoxFor(model => model.CodeAndName).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
             }
             else
             {
-                @Html.Kendo().MaskedTextBoxFor(model => model.CodeAndName).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
+                @Html.Kendo().MaskedTextBox().Name("NullCustomer_CodeAndName").Value((string)ViewData["NullCustomer"]).HtmlAttributes(new { @class = "right-panel-input", @readonly = "readonly" })
             }
         </div>
         <div class="div-validation-message">

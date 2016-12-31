@@ -50,7 +50,7 @@ namespace TotalModel.Models
 
     public partial class HandlingUnitIndex
     {
-        public string CustomerDescription { get { return this.CustomerName + ", Người nhận: " + this.ReceiverName + ", Giao hàng: " + this.ShippingAddress; } }
+        public string CustomerDescription { get { return this.CustomerName + (this.CustomerName != this.ReceiverName ? ", Người nhận: " + this.ReceiverName : "") + ", Giao hàng: " + this.ShippingAddress; } }
     }
 
     public partial class HandlingUnit : IPrimitiveEntity, IBaseEntity, IBaseDetailEntity<HandlingUnitDetail>

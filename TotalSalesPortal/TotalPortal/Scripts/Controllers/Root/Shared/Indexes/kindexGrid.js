@@ -6,10 +6,10 @@
     };
 
 
-    definedExemplar.prototype.setSelectedRow = function (idName, idValue) {        
-        var that = this;
+    definedExemplar.prototype.setSelectedRow = function (idName, idValue) {
+        var that = this; var elemFound = false
         $.each(this._kenGrid.dataSource.data(), function (idx, elem) {
-            if (idValue > 0 && elem[idName] == idValue) {                
+            if (idValue > 0 && elem[idName] == idValue) {
                 $('[data-uid=' + elem.uid + ']').addClass('k-state-selected');
 
                 //var pageIndex = Math.floor(idx / that._kenGrid.dataSource.pageSize() + 1);
@@ -18,12 +18,15 @@
                 //        that._kenGrid.dataSource.page(pageIndex);
                 //    });
                 //}
-                
-                //return false;
+
+                elemFound = true //return false;
             }
 
-            if (decoratingKindex != undefined)
-                decoratingKindex(idx, elem);
+            if (typeof decoratingKindex === "function")
+                decoratingKindex(idx, elem); // check whether decoratingKindex is defined, then safe to call the decoratingKindex function
+            else
+                if (elemFound === true)
+                    return false;
         });
     };
 

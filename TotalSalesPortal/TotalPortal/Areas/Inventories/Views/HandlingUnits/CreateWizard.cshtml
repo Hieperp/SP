@@ -38,6 +38,8 @@
     @Html.HiddenFor(model => model.GoodsIssue.ReceiverCode);
     @Html.HiddenFor(model => model.GoodsIssue.ReceiverName);
 
+    @Html.HiddenFor(model => model.PackagingStaff.EmployeeID);
+    @Html.HiddenFor(model => model.PackagingStaff.Name);
 
     @(Html.Kendo().TabStrip()
         .HtmlAttributes(new { @style = "height: 468px; margin-left: 0px; margin-right: 0px;" })
