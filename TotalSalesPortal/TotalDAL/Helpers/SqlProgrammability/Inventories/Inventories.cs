@@ -503,6 +503,21 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             //SQL = SQL & "   INSERT " & ltmpSKUInventoryJournal & " EXEC SPSKUInventoryJournal " & lDateFrom & ", " & lDateTo & ", " & lCommodityIDList & ", " & lWarehouseGroupIDList & ", " & lWHLocationIDList & ", " & lWHCategoryIDList & ", " & lWarehouseClassIDList & ", " & lWarehouseIDList
             queryString = queryString + "                   INSERT INTO " + warehouseJournalTable + " EXEC SPSKUInventoryJournal " + fromDate + ", " + toDate + ", " + commodityIDList + ", N'', N'', N'', N'', " + warehouseIDList + "\r\n";//+ ", " + isFullJournal + ", " + isAmountIncluded;
 
+
+
+
+
+
+
+
+
+
+            //COMMENT ON 01-JAN-2017: NO USE WAREHOUSE INVENTORY: 
+
+            queryString = "                     DECLARE     " + warehouseJournalTable + " TABLE \r\n";
+            queryString = queryString + "                  (CommodityID int NULL, WarehouseID int NULL, QuantityBegin float NULL) " + "\r\n";
+            queryString = queryString + "       INSERT INTO " + warehouseJournalTable + " SELECT Commodities.CommodityID, Warehouses.WarehouseID, 9999 AS QuantityBegin FROM @Commodities Commodities CROSS JOIN Warehouses " + "\r\n";
+
             return queryString;
         }
 
