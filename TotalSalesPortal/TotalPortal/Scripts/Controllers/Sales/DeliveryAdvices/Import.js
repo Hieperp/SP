@@ -60,7 +60,7 @@
                         dataRow.set("GrossPrice", Math.round(result.GrossPrice, requireConfig.websiteOptions.rndAmount));
                         dataRow.set("ListedPrice", Math.round(dataRow.UnitPrice, requireConfig.websiteOptions.rndAmount));
 
-                        dataRow.set("DiscountPercent", Math.round(dataRow.DiscountPercent, requireConfig.websiteOptions.rndDiscountPercent));
+                        dataRow.set("DiscountPercent", Math.round(result.DiscountPercent, requireConfig.websiteOptions.rndDiscountPercent));
 
                         dataRow.set("QuantityAvailable", Math.round(result.QuantityAvailable, requireConfig.websiteOptions.rndQuantity));
                         dataRow.set("ControlFreeQuantity", Math.round(result.ControlFreeQuantity, requireConfig.websiteOptions.rndQuantity));
