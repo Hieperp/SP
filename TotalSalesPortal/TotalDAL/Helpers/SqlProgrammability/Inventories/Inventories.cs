@@ -514,9 +514,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
             //COMMENT ON 01-JAN-2017: NO USE WAREHOUSE INVENTORY: 
 
-            queryString = "                     DECLARE     " + warehouseJournalTable + " TABLE \r\n";
+            queryString = "                     DECLARE @My01JAN2017Commodities TABLE (CommodityID int NOT NULL) INSERT INTO @My01JAN2017Commodities SELECT Id FROM dbo.SplitToIntList (" + commodityIDList + ") " + "\r\n";
+            queryString = queryString + "       DECLARE     " + warehouseJournalTable + " TABLE \r\n";
             queryString = queryString + "                  (CommodityID int NULL, WarehouseID int NULL, QuantityBegin float NULL) " + "\r\n";
-            queryString = queryString + "       INSERT INTO " + warehouseJournalTable + " SELECT Commodities.CommodityID, Warehouses.WarehouseID, 9999 AS QuantityBegin FROM @Commodities Commodities CROSS JOIN Warehouses " + "\r\n";
+            queryString = queryString + "       INSERT INTO " + warehouseJournalTable + " SELECT Commodities.CommodityID, Warehouses.WarehouseID, 9999 AS QuantityBegin FROM @My01JAN2017Commodities Commodities CROSS JOIN Warehouses " + "\r\n";
 
             return queryString;
         }
