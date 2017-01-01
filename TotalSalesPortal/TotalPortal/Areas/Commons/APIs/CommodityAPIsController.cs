@@ -31,49 +31,7 @@ namespace TotalPortal.Areas.Commons.APIs
         }
 
 
-        /// <summary>
-        /// This function is designed to use by Purchase Order import function only
-        /// Never to use by orther area
-        /// </summary>
-        /// <param name="code"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult GetCommoditiesByCode(string code, string name, string originalName, int commodityTypeID, int commodityCategoryID)
-        {
-            try
-            {
-                var commodityResult = new { CommodityID = 0, Code = "", Name = "", CommodityTypeID = 0, VATPercent = new decimal(0) };
-
-                var result = commodityRepository.SearchCommodities(code, null, true).Select(s => new { s.CommodityID, s.Code, s.Name, s.CommodityTypeID, s.CommodityCategory.VATPercent });
-                if (result.Count() > 0)
-                    commodityResult = new { CommodityID = result.First().CommodityID, Code = result.First().Code, Name = result.First().Name, CommodityTypeID = result.First().CommodityTypeID, VATPercent = result.First().VATPercent };
-                else
-                {
-                    CommodityDTO commodityDTO = new CommodityDTO();
-                    commodityDTO.Code = TotalBase.CommonExpressions.ComposeCommodityCode(code, commodityTypeID);
-                    commodityDTO.Name = name;
-                    commodityDTO.OfficialName = name;
-                    commodityDTO.OriginalName = originalName;
-                    commodityDTO.CommodityTypeID = commodityTypeID;
-                    commodityDTO.CommodityCategoryID = commodityCategoryID;
-
-                    CommodityService commodityService = new CommodityService(this.commodityRepository);
-                    commodityService.UserID = 2; //Ai cung co quyen add Commodity, boi viec add can cu theo UserID = 2: tanthanhhotel@gmail.com
-
-                    commodityDTO.PreparedPersonID = commodityService.UserID;
-
-                    if (commodityService.Save(commodityDTO))
-                        commodityResult = new { CommodityID = commodityDTO.CommodityID, Code = commodityDTO.Code, Name = commodityDTO.Name, CommodityTypeID = commodityDTO.CommodityTypeID, VATPercent = new decimal(10) };
-                }
-
-                return Json(commodityResult, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { CommodityID = 0, Code = ex.Message, Name = ex.Message, VATPercent = new decimal(10) }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        
 
 
         public JsonResult SearchCommodities(string searchText, string commodityTypeIDList, bool? isOnlyAlphaNumericString)
@@ -116,6 +74,32 @@ namespace TotalPortal.Areas.Commons.APIs
         //    return Json(result, JsonRequestBehavior.AllowGet);
         //}
 
+
+        /// <summary>
+        /// This function is designed to use by import function only
+        /// Never to use by orther area
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetCommodityImport(int? locationID, int? customerID, int? priceCategoryID, int? promotionID, DateTime? entryDate, string searchText)
+        {
+            try
+            {
+                var commodityResult = new { CommodityID = 0, CommodityCode = "", CommodityName = "", CommodityTypeID = 0, WarehouseID = 0, WarehouseCode = "", QuantityAvailable = new decimal(0), ControlFreeQuantity = new decimal(0), GrossPrice = new decimal(0), DiscountPercent = new decimal(0), VATPercent = new decimal(0) };
+
+                var result = commodityRepository.GetCommodityAvailables(locationID, customerID, priceCategoryID, promotionID, entryDate, searchText).Select(s => new { s.CommodityID, s.CommodityCode, s.CommodityName, s.CommodityTypeID, s.WarehouseID, s.WarehouseCode, s.QuantityAvailable, s.ControlFreeQuantity, s.GrossPrice, s.DiscountPercent, s.VATPercent, s.Bookable });
+                if (result.Count() > 0 && (bool)result.First().Bookable)
+                    commodityResult = new { CommodityID = result.First().CommodityID, CommodityCode = result.First().CommodityCode, CommodityName = result.First().CommodityName, CommodityTypeID = result.First().CommodityTypeID, WarehouseID = result.First().WarehouseID, WarehouseCode = result.First().WarehouseCode, QuantityAvailable = (decimal)result.First().QuantityAvailable, ControlFreeQuantity = (decimal)result.First().ControlFreeQuantity, GrossPrice = (decimal)result.First().GrossPrice, DiscountPercent = (decimal)result.First().DiscountPercent, VATPercent = (decimal)result.First().VATPercent };
+
+                return Json(commodityResult, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { CommodityID = 0, CommodityCode = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult GetCommodityAvailables(int? locationID, int? customerID, int? priceCategoryID, int? promotionID, DateTime? entryDate, string searchText)

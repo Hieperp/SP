@@ -961,6 +961,7 @@
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Create.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\CreateWizard.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Edit.js" />
+    <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Import.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Index.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Print.js" />
     <Content Include="Scripts\Controllers\Sales\DeliveryAdvices\Void.js" />
