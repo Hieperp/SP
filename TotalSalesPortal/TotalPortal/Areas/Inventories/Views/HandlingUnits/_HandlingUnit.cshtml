@@ -258,7 +258,7 @@
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu nhãn thùng </button>
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu và in nhãn thùng</button>
             }
-            else
+            @if (Model.HandlingUnitID > 0)
             {
                 <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "HandlingUnits", new { id = @Model.HandlingUnitID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In nhãn thùng đã lưu</button>
             }

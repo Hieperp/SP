@@ -21,35 +21,35 @@
         })
         .ToolBar(toolbar =>
         {
-            toolbar.Template(@<text> <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập hóa đơn </button> </text>);
+            toolbar.Template(@<text> <button type="button" class="k-button" onclick="createWizard()"> <img src="~/Content/Images/Mains/Size24/folder-documents-icon-24.png" /> Lập phiếu giao hàng </button> </text>);
         })
 
-                        .Pageable()
-                        .Groupable(g => g.Messages(messages => messages.Empty("Phân nhóm dữ liệu: Kéo và thả tiêu đề một hoặc nhiều cột dữ liệu ngay bên dưới vào đây để phân nhóm hiển thị theo phân cấp của các cột dữ liệu")))
-                        .Filterable()
-                        .Selectable()
-                        .Sortable()
-                        .Events(e =>
-                        {
-                            e.DataBound("hightLightSelectedRow");
-                        })
-                        .DataSource(dataSource => dataSource
-                            .Ajax()
-                            .Read(read => read.Action("GetGoodsDeliveryIndexes", "GoodsDeliveryAPIs", new { area = "Inventories" }))
-                            .Sort(sort =>
-                                {
-                                    sort.Add(p => p.EntryDate).Descending();
-                                    sort.Add(p => p.GoodsDeliveryID).Descending();
-                                })
-                            .PageSize(20)
-                            .Model(model =>
-                            {
-                                model.Id(x => x.GoodsDeliveryID);
-                                model.Field(m => m.GoodsDeliveryID).DefaultValue(0);
-                            })
-                            .ServerOperation(true)
-                        )
-                        .HtmlAttributes(new { @class = "grid-class" })
+        .Pageable()
+        .Groupable(g => g.Messages(messages => messages.Empty("Phân nhóm dữ liệu: Kéo và thả tiêu đề một hoặc nhiều cột dữ liệu ngay bên dưới vào đây để phân nhóm hiển thị theo phân cấp của các cột dữ liệu")))
+        .Filterable()
+        .Selectable()
+        .Sortable()
+        .Events(e =>
+        {
+            e.DataBound("hightLightSelectedRow");
+        })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Read(read => read.Action("GetGoodsDeliveryIndexes", "GoodsDeliveryAPIs", new { area = "Inventories" }))
+            .Sort(sort =>
+                {
+                    sort.Add(p => p.EntryDate).Descending();
+                    sort.Add(p => p.GoodsDeliveryID).Descending();
+                })
+            .PageSize(20)
+            .Model(model =>
+            {
+                model.Id(x => x.GoodsDeliveryID);
+                model.Field(m => m.GoodsDeliveryID).DefaultValue(0);
+            })
+            .ServerOperation(true)
+        )
+        .HtmlAttributes(new { @class = "grid-class" })
     )
 </div>
 

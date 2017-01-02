@@ -6,10 +6,10 @@
 
     .Columns(columns =>
     {
-        columns.Bound(c => c.ReceiverCode).Title("Mã khách hàng").Width(80);
-        columns.Bound(c => c.ReceiverName).Title("Tên khách hàng").Width(160);
-        columns.Bound(c => c.ReceiverVATCode).Title("MST").Width(50);
-        columns.Bound(c => c.ReceiverTelephone).Title("Điện thoại").Width(56);
+        columns.Bound(c => c.ReceiverCode).Title("Mã đơn vị nhận").Width(62);
+        columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(150);
+        columns.Bound(c => c.ReceiverVATCode).Title("MST").Width(48);
+        columns.Bound(c => c.ReceiverTelephone).Title("Điện thoại").Width(86);
         columns.Bound(c => c.ReceiverBillingAddress).Title("Địa chỉ").Width(180);
     })
     .ToolBar(toolbar =>

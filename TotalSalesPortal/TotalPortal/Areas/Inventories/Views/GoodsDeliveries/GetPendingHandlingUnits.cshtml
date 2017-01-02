@@ -8,11 +8,11 @@
     .Name("gridPendingHandlingUnits")
     .Columns(columns =>
     {
-        columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(70);
-        columns.Bound(c => c.ShippingAddress).Title("Địa chỉ giao hàng").Width(80);
+        columns.Bound(c => c.ReceiverName).Title("Tên đơn vị nhận").Width(80);
+        columns.Bound(c => c.ShippingAddress).Title("Địa chỉ giao hàng").Width(90);
 
         columns.Bound(c => c.GoodsIssueReferences).Title("PXK").Width(70);
-        columns.Bound(c => c.EntryDate).Title("Ngày, giờ đóng gói").Width(70).Format("{0:" + SettingsManager.DateTimeFormat + "}");
+        columns.Bound(c => c.EntryDate).Title("Ngày, giờ đóng gói").Width(50).Format("{0:" + SettingsManager.DateTimeFormat + "}");
 
         columns.Bound(c => c.PrintedLabel).Title("Loại").Width(25);
         columns.Bound(c => c.HandlingUnitIdentification).Title("STT").Width(20);
@@ -27,7 +27,7 @@
     {
         toolbar.Template(@<text>
             <div class="toolbar" style="float: right;">
-                <label>Nhập số phiếu xuất kho/ hoặc mã, tên khách hàng hay đơn vị, người nhận hàng/ hoặc địa chỉ giao hàng/ hoặc loại thùng carton hay bao</label>
+                <label>Nhập số phiếu xuất kho/ hoặc mã hay tên đơn vị, người nhận hàng/ hoặc địa chỉ giao hàng/ hoặc loại thùng carton hay bao</label>
                 <input id="filterText" class="k-textbox" style="text-align: center; padding-right: 13px;" onkeyup="filterText_KeyUp()" />
             </div>
         </text>);
@@ -85,15 +85,12 @@
             gridDetails.dataSource.filter({
                 logic: "or",
                 filters: [
-                    { field: "GoodsIssueReferences", operator: "contains", value: filterText },
-
-                    { field: "CustomerCode", operator: "contains", value: filterText },
-                    { field: "CustomerName", operator: "contains", value: filterText },
-
                     { field: "ReceiverCode", operator: "contains", value: filterText },
                     { field: "ReceiverName", operator: "contains", value: filterText },
-
                     { field: "ShippingAddress", operator: "contains", value: filterText },
+
+                    { field: "GoodsIssueReferences", operator: "contains", value: filterText },
+
                     { field: "PrintedLabel", operator: "contains", value: filterText }
                 ]
             });
