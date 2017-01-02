@@ -18,6 +18,7 @@ namespace TotalModel.Models
         public CustomerType()
         {
             this.CustomerTypes1 = new HashSet<CustomerType>();
+            this.Customers = new HashSet<Customer>();
         }
     
         public int CustomerTypeID { get; set; }
@@ -28,5 +29,7 @@ namespace TotalModel.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerType> CustomerTypes1 { get; set; }
         public virtual CustomerType CustomerType1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

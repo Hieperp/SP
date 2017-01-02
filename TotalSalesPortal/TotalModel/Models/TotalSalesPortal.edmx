@@ -816,6 +816,18 @@ warning 6035: The relationship 'FK_AccountInvoices_AspNetUsers2' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customers_CustomerTypes">
+          <End Role="CustomerTypes" Type="Self.CustomerTypes" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTypes">
+              <PropertyRef Name="CustomerTypeID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="CustomerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customers_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -1725,6 +1737,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <End Role="CustomerCategories" EntitySet="CustomerCategories" />
             <End Role="CustomerCategories1" EntitySet="CustomerCategories" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerTypes" Association="Self.FK_Customers_CustomerTypes">
+            <End Role="CustomerTypes" EntitySet="CustomerTypes" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customers_Employees" Association="Self.FK_Customers_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Customers" EntitySet="Customers" />
@@ -2487,6 +2503,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             <End Role="Employee" EntitySet="Employees" />
             <End Role="GoodsIssue" EntitySet="GoodsIssues" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerTypes" Association="TotalSalesPortalModel.FK_Customers_CustomerTypes">
+            <End Role="CustomerType" EntitySet="CustomerTypes" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -2625,6 +2645,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Name="Remarks" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CustomerTypes1" Relationship="TotalSalesPortalModel.FK_CustomerTypes_CustomerTypes" FromRole="CustomerType" ToRole="CustomerType1" />
           <NavigationProperty Name="CustomerType1" Relationship="TotalSalesPortalModel.FK_CustomerTypes_CustomerTypes" FromRole="CustomerType1" ToRole="CustomerType" />
+          <NavigationProperty Name="Customers" Relationship="TotalSalesPortalModel.FK_Customers_CustomerTypes" FromRole="CustomerType" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -3688,6 +3709,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <NavigationProperty Name="HandlingUnits" Relationship="TotalSalesPortalModel.FK_HandlingUnits_Customers" FromRole="Customer" ToRole="HandlingUnit" />
           <NavigationProperty Name="HandlingUnits1" Relationship="TotalSalesPortalModel.FK_HandlingUnits_Customers1" FromRole="Customer" ToRole="HandlingUnit" />
           <NavigationProperty Name="Receipts" Relationship="TotalSalesPortalModel.FK_Receipts_Customers" FromRole="Customer" ToRole="Receipt" />
+          <NavigationProperty Name="CustomerType" Relationship="TotalSalesPortalModel.FK_Customers_CustomerTypes" FromRole="Customer" ToRole="CustomerType" />
         </EntityType>
         <EntityType Name="DeliveryAdviceDetail">
           <Key>
@@ -4347,6 +4369,18 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             </Principal>
             <Dependent Role="GoodsIssue">
               <PropertyRef Name="StorekeeperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerTypes">
+          <End Type="TotalSalesPortalModel.CustomerType" Role="CustomerType" Multiplicity="1" />
+          <End Type="TotalSalesPortalModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerType">
+              <PropertyRef Name="CustomerTypeID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CustomerTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
