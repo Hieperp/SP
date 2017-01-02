@@ -21,32 +21,14 @@
     @Html.HiddenFor(model => model.Receiver.SalespersonID)
     @Html.HiddenFor(model => model.Receiver.SalespersonName)
 
-
-    @(Html.Kendo().TabStrip()
-        .HtmlAttributes(new { @style = "height: 468px; margin-left: 0px; margin-right: 0px;" })
-        .Name("tabStrip")
-        .Items(tabStrip =>
-        {
-            tabStrip.Add().Text("Chọn phiếu xuất kho")
-                .Selected(true)
-                .Content(@<text>
-                    
-                </text>);
-
-            tabStrip.Add().Text("Chọn khách hàng")
-                .Content(@<text>
-                    @Html.Partial("~/Areas/Inventories/Views/GoodsDeliveries/_GetReceiver.cshtml")
-                </text>);
-        })
-    )
-
-
+    @Html.Partial("~/Areas/Inventories/Views/GoodsDeliveries/_GetReceiver.cshtml")
+    
     <div class="background-bar" style="height: 45px;">
         <div class="popup-button-bar">
             <input id="submitCreateWizard" type="submit" formaction="@Url.Action("CreateWizard", "GoodsDeliveries")" formtarget="_top" style="display:none" />
 
-            <button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Xuất hóa đơn khách hàng đang chọn </button>
-            <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png" /> Xuất hóa đơn tổng hợp </button>
+            <button type="button" class="k-button" onclick="okButton_Click()"> <img src="~/Content/Images/Mains/Size24/Ok-1.png" /> Lập phiếu giao hàng cho đơn vị, người nhận hàng đang chọn </button>
+            <button type="button" class="k-button" onclick="okWOSelectButton_Click()"> <img src="~/Content/Images/Mains/Size24/Accept-Total.png" /> Lập phiếu giao hàng tổng hợp </button>
             <button type="button" class="k-button" onclick="window.parent.$('#myWindow').data('kendoWindow').close()"> <img src="~/Content/Images/Mains/Size24/Users-Exit-icon-24.png" /> Thoát </button>
         </div>
     </div>
@@ -57,7 +39,7 @@
 
 <script type="text/javascript">
     function okButton_Click() {
-        handleOKEvent($("#tabStrip").data("kendoTabStrip").select().index());
+        handleOKEvent($("#gridPendingHandlingUnitReceivers").data("kendoGrid"));
     }
 
     function okWOSelectButton_Click() {
@@ -65,11 +47,10 @@
     }
 
 
-    function handleOKEvent(tabIndex) {
-        if (tabIndex === undefined)
+    function handleOKEvent(selectedGrid) {
+        if (selectedGrid === undefined)
             _setModelInput();
         else {
-            var selectedGrid = $(tabIndex === 0 ? "#" : "#gridPendingHandlingUnitReceivers").data("kendoGrid");
             var selectedDataItem = selectedGrid.dataItem(selectedGrid.select());
             if (selectedDataItem === undefined)
                 return false;

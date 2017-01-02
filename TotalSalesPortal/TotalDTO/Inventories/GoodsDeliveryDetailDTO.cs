@@ -35,12 +35,9 @@ namespace TotalDTO.Inventories
         [Display(Name = "Tên đơn vị nhận")]
         [UIHint("StringReadonly")]
         public string ReceiverName { get; set; }
-        [Display(Name = "Địa chỉ")]
+        [Display(Name = "Địa chỉ giao hàng")]
         [UIHint("StringReadonly")]
-        public string ReceiverBillingAddress { get; set; }
-        [Display(Name = "Khu vực")]
-        [UIHint("StringReadonly")]
-        public string EntireTerritoryEntireName { get; set; }
+        public string ShippingAddress { get; set; }
 
         public int Identification { get; set; }
         public string PrintedLabel { get; set; }

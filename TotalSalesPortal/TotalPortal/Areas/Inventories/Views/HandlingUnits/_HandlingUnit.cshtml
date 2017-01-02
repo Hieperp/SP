@@ -256,12 +256,11 @@
                 @Html.HiddenFor(model => model.PrintAfterClosedSubmit)
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Create" formaction="@Url.Action("Edit", "HandlingUnits")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu và lập phiếu tiếp theo </button>
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu nhãn thùng </button>
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "HandlingUnits")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu và in nhãn thùng</button>
             }
             else
             {
-                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("PrintDetail", "HandlingUnits", new { id = @Model.HandlingUnitID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In bảng kê</button>
-                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "HandlingUnits", new { id = @Model.HandlingUnitID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In hóa đơn</button>
+                <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "HandlingUnits", new { id = @Model.HandlingUnitID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In nhãn thùng đã lưu</button>
             }
         </div>
 

@@ -57,15 +57,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsDeliveryDetails.GoodsDeliveryDetailID, GoodsDeliveryDetails.GoodsDeliveryID, HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsDeliveryDetails.GoodsDeliveryDetailID, GoodsDeliveryDetails.GoodsDeliveryID, HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, HandlingUnits.ShippingAddress, " + "\r\n";
             queryString = queryString + "                   GoodsDeliveryDetails.Quantity, GoodsDeliveryDetails.Weight, GoodsDeliveryDetails.RealWeight, GoodsDeliveryDetails.Remarks" + "\r\n";
 
             queryString = queryString + "       FROM        GoodsDeliveryDetails " + "\r\n";
             queryString = queryString + "                   INNER JOIN HandlingUnits ON GoodsDeliveryDetails.GoodsDeliveryID = @GoodsDeliveryID AND GoodsDeliveryDetails.HandlingUnitID = HandlingUnits.HandlingUnitID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN Customers Receivers ON HandlingUnits.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN Customers ON HandlingUnits.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers Receivers ON HandlingUnits.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN PackingMaterials ON HandlingUnits.PackingMaterialID = PackingMaterials.PackingMaterialID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN EntireTerritories ON Receivers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
             queryString = queryString + "       " + "\r\n";
 
@@ -137,14 +136,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "       IF (@GoodsDeliveryID <= 0) " + "\r\n";
             queryString = queryString + "               BEGIN " + "\r\n";
             queryString = queryString + "                   " + this.GetPGIDsBuildSQLNew(isReceiverID, isHandlingUnitIDs) + "\r\n";
-            queryString = queryString + "                   ORDER BY Receivers.Name, Receivers.Code, HandlingUnits.EntryDate, PackingMaterials.PrintedLabel, HandlingUnits.Identification " + "\r\n";
+            queryString = queryString + "                   ORDER BY Receivers.Name, Receivers.Code, HandlingUnits.EntryDate, HandlingUnits.ConsignmentNo, HandlingUnits.Identification " + "\r\n";
             queryString = queryString + "               END " + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
 
             queryString = queryString + "               IF (@IsReadonly = 1) " + "\r\n";
             queryString = queryString + "                   BEGIN " + "\r\n";
             queryString = queryString + "                       " + this.GetPGIDsBuildSQLEdit(isReceiverID, isHandlingUnitIDs) + "\r\n";
-            queryString = queryString + "                       ORDER BY Receivers.Name, Receivers.Code, HandlingUnits.EntryDate, PackingMaterials.PrintedLabel, HandlingUnits.Identification " + "\r\n";
+            queryString = queryString + "                       ORDER BY Receivers.Name, Receivers.Code, HandlingUnits.EntryDate, HandlingUnits.ConsignmentNo, HandlingUnits.Identification " + "\r\n";
             queryString = queryString + "                   END " + "\r\n";
 
             queryString = queryString + "               ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
@@ -153,7 +152,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                       " + this.GetPGIDsBuildSQLNew(isReceiverID, isHandlingUnitIDs) + "\r\n";
             queryString = queryString + "                       UNION ALL " + "\r\n";
             queryString = queryString + "                       " + this.GetPGIDsBuildSQLEdit(isReceiverID, isHandlingUnitIDs) + "\r\n";
-            queryString = queryString + "                       ORDER BY Receivers.Name, Receivers.Code, HandlingUnits.EntryDate, PackingMaterials.PrintedLabel, HandlingUnits.Identification " + "\r\n";
+            queryString = queryString + "                       ORDER BY Receivers.Name, Receivers.Code, HandlingUnits.EntryDate, HandlingUnits.ConsignmentNo, HandlingUnits.Identification " + "\r\n";
             queryString = queryString + "                   END " + "\r\n";
 
             queryString = queryString + "   END " + "\r\n";
@@ -165,14 +164,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.GoodsIssueReferences, HandlingUnits.ConsignmentNo, HandlingUnits.Identification, CAST(HandlingUnits.Identification AS varchar) + '/' + CAST(HandlingUnits.CountIdentification AS varchar) AS HandlingUnitIdentification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, HandlingUnits.ShippingAddress, " + "\r\n";
             queryString = queryString + "                   HandlingUnits.TotalQuantity AS Quantity, HandlingUnits.TotalWeight AS Weight, HandlingUnits.RealWeight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        HandlingUnits " + "\r\n";
             queryString = queryString + "                   INNER JOIN Customers Receivers ON " + (isReceiverID ? " HandlingUnits.ReceiverID = @ReceiverID AND " : "") + "HandlingUnits.GoodsDeliveryID IS NULL AND HandlingUnits.ReceiverID = Receivers.CustomerID " + (isHandlingUnitIDs ? " AND HandlingUnits.HandlingUnitID NOT IN (SELECT Id FROM dbo.SplitToIntList (@HandlingUnitIDs))" : "") + "\r\n";
             queryString = queryString + "                   INNER JOIN Customers ON HandlingUnits.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN PackingMaterials ON HandlingUnits.PackingMaterialID = PackingMaterials.PackingMaterialID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN EntireTerritories ON Receivers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
             return queryString;
         }
@@ -181,14 +179,13 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString = "";
 
-            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, Receivers.BillingAddress AS ReceiverBillingAddress, EntireTerritories.EntireName AS EntireTerritoryEntireName, " + "\r\n";
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.GoodsIssueReferences, HandlingUnits.ConsignmentNo, HandlingUnits.Identification, CAST(HandlingUnits.Identification AS varchar) + '/' + CAST(HandlingUnits.CountIdentification AS varchar) AS HandlingUnitIdentification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, Receivers.Telephone AS ReceiverTelephone, HandlingUnits.ShippingAddress, " + "\r\n";
             queryString = queryString + "                   HandlingUnits.TotalQuantity AS Quantity, HandlingUnits.TotalWeight AS Weight, HandlingUnits.RealWeight, CAST(1 AS bit) AS IsSelected " + "\r\n";
 
             queryString = queryString + "       FROM        HandlingUnits " + "\r\n";
             queryString = queryString + "                   INNER JOIN Customers Receivers ON HandlingUnits.GoodsDeliveryID = @GoodsDeliveryID AND HandlingUnits.ReceiverID = Receivers.CustomerID " + (isHandlingUnitIDs ? " AND HandlingUnits.HandlingUnitID NOT IN (SELECT Id FROM dbo.SplitToIntList (@HandlingUnitIDs))" : "") + "\r\n";
             queryString = queryString + "                   INNER JOIN Customers ON HandlingUnits.CustomerID = Customers.CustomerID " + "\r\n";
             queryString = queryString + "                   INNER JOIN PackingMaterials ON HandlingUnits.PackingMaterialID = PackingMaterials.PackingMaterialID " + "\r\n";
-            queryString = queryString + "                   INNER JOIN EntireTerritories ON Receivers.TerritoryID = EntireTerritories.TerritoryID " + "\r\n";
 
             return queryString;
         }

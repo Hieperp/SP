@@ -19,6 +19,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
         public void RestoreProcedure()
         {
             this.DeliveryAdviceJournal();
+
+            this.HandlingUnitSheet();
             this.GoodsDeliverySheet();
         }
 
@@ -82,6 +84,33 @@ namespace TotalDAL.Helpers.SqlProgrammability.Reports
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GoodsDeliverySheet", queryString);
         }
+
+
+        private void HandlingUnitSheet()
+        {
+            string queryString;
+
+            queryString = " @HandlingUnitID int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+            queryString = queryString + "    BEGIN " + "\r\n";
+
+            queryString = queryString + "       DECLARE     @LocalHandlingUnitID int      SET @LocalHandlingUnitID = @HandlingUnitID" + "\r\n";
+
+            queryString = queryString + "       SELECT      HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.GoodsIssueReferences, HandlingUnits.Identification, HandlingUnits.CountIdentification, HandlingUnits.TotalWeight, HandlingUnits.RealWeight, PackingMaterials.Code AS PackingMaterialCode, " + "\r\n";
+            queryString = queryString + "                   HandlingUnits.ShippingAddress, Customers.Name AS ReceiverName, PackagingStaffs.Name AS PackagingStaffName, Commodities.CodePartA, Commodities.CodePartB, Commodities.CodePartC, Commodities.CodePartD, HandlingUnitDetails.Quantity " + "\r\n";
+            queryString = queryString + "       FROM        HandlingUnits " + "\r\n";
+            queryString = queryString + "                   INNER JOIN HandlingUnitDetails ON HandlingUnits.HandlingUnitID = @LocalHandlingUnitID AND HandlingUnits.HandlingUnitID = HandlingUnitDetails.HandlingUnitID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN GoodsIssueDetails ON HandlingUnitDetails.GoodsIssueDetailID = GoodsIssueDetails.GoodsIssueDetailID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Commodities ON GoodsIssueDetails.CommodityID = Commodities.CommodityID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers ON HandlingUnits.ReceiverID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Employees PackagingStaffs ON HandlingUnits.PackagingStaffID = PackagingStaffs.EmployeeID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN PackingMaterials ON HandlingUnits.PackingMaterialID = PackingMaterials.PackingMaterialID " + "\r\n";
+            queryString = queryString + "    END " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("HandlingUnitSheet", queryString);
+        }
+
 
     }
 }

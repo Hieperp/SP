@@ -93,7 +93,7 @@ namespace TotalDTO.Inventories
         public GoodsIssueBoxDTO GoodsIssue { get; set; }
 
         public override int PackagingStaffID { get { return (this.PackagingStaff != null ? this.PackagingStaff.EmployeeID : 0); } }
-        [Display(Name = "Nhân viên tiếp thị")]
+        [Display(Name = "Nhân viên đóng hàng")]
         [UIHint("AutoCompletes/EmployeeBase")]
         public EmployeeBaseDTO PackagingStaff { get; set; }
 

@@ -3462,12 +3462,11 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="Int32" Name="ReceiverID" Nullable="false" />
           <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="EntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="RealWeight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ReceiverBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="PendingHandlingUnitReceiver">
           <Property Type="Int32" Name="ReceiverID" Nullable="false" />
@@ -3482,7 +3481,6 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
         <ComplexType Name="PendingHandlingUnit">
           <Property Type="Int32" Name="HandlingUnitID" Nullable="false" />
           <Property Type="DateTime" Name="EntryDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="Reference" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="Identification" Nullable="false" />
           <Property Type="String" Name="PrintedLabel" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="CustomerID" Nullable="false" />
@@ -3492,12 +3490,14 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="String" Name="ReceiverCode" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="ReceiverName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="ReceiverTelephone" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="EntireTerritoryEntireName" Nullable="false" MaxLength="508" />
           <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="RealWeight" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Boolean" Name="IsSelected" Nullable="true" />
-          <Property Type="String" Name="ReceiverBillingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="GoodsIssueReferences" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ShippingAddress" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="ConsignmentNo" Nullable="false" />
+          <Property Type="String" Name="HandlingUnitIdentification" Nullable="true" MaxLength="61" />
         </ComplexType>
         <EntityType Name="GoodsDelivery">
           <Key>
@@ -5288,12 +5288,11 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
                 <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
                 <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
-                <ScalarProperty Name="EntireTerritoryEntireName" ColumnName="EntireTerritoryEntireName" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="RealWeight" ColumnName="RealWeight" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="ReceiverBillingAddress" ColumnName="ReceiverBillingAddress" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5316,7 +5315,6 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
               <ComplexTypeMapping TypeName="TotalSalesPortalModel.PendingHandlingUnit">
                 <ScalarProperty Name="HandlingUnitID" ColumnName="HandlingUnitID" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="Identification" ColumnName="Identification" />
                 <ScalarProperty Name="PrintedLabel" ColumnName="PrintedLabel" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -5326,12 +5324,14 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="ReceiverCode" ColumnName="ReceiverCode" />
                 <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
                 <ScalarProperty Name="ReceiverTelephone" ColumnName="ReceiverTelephone" />
-                <ScalarProperty Name="EntireTerritoryEntireName" ColumnName="EntireTerritoryEntireName" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="RealWeight" ColumnName="RealWeight" />
                 <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
-                <ScalarProperty Name="ReceiverBillingAddress" ColumnName="ReceiverBillingAddress" />
+                <ScalarProperty Name="GoodsIssueReferences" ColumnName="GoodsIssueReferences" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+                <ScalarProperty Name="ConsignmentNo" ColumnName="ConsignmentNo" />
+                <ScalarProperty Name="HandlingUnitIdentification" ColumnName="HandlingUnitIdentification" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

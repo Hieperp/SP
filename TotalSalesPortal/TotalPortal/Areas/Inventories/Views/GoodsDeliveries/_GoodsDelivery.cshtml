@@ -98,7 +98,7 @@
                     if (Model.Editable)
                     {
                         toolbar.Template(@<text>
-                            <button type="button" class="k-button" onclick="GetPendingHandlingUnits()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn thùng carton hoặc gói hàng </button>
+                            <button type="button" class="k-button" onclick="GetPendingHandlingUnits()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn thùng carton hoặc bao hàng </button>
                         </text>);
                     }
                     else
@@ -107,9 +107,9 @@
                             @<text>
                                 <div>
                                     @(Html.Kendo().Button()
-                                                        .Name("iconButton")
-                                                        .HtmlAttributes(new { type = "button" })
-                                                        .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
+                                        .Name("iconButton")
+                                        .HtmlAttributes(new { type = "button" })
+                                        .SpriteCssClass("k-icon k-i-ungroup") //.Content("My button label")
                                     )
                                 </div>
                             </text>);
@@ -127,24 +127,24 @@
                 {
                     events.DataBinding(@<text> function(e) {rowNumber = 0;} </text>);
                 })
-                                                                                                                .DataSource(dataSource => dataSource
-                                                                                                                    .Ajax()
-                                                                                                                    .Batch(true)
-                                                                                                                    .ServerOperation(false)
-                                                                                                                    .Model(model =>
-                                                                                                                    {
-                                                                                                                        model.Id(x => x.GoodsDeliveryDetailID);
-                                                                                                                        model.Field(m => m.GoodsDeliveryDetailID).DefaultValue(0);
-                                                                                                                        model.Field(m => m.GoodsDeliveryID).DefaultValue(@Model.GoodsDeliveryID);
-                                                                                                                    })
-                                                                                                                    .Events(events =>
-                                                                                                                    {
-                                                                                                                        events.Error("kendGrid_ErrorHandler");
-                                                                                                                    })
-                                                                                                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                                                                                    .Aggregates(a => a.Add(x => x.Weight).Sum())
-                                                                                                                    .Aggregates(a => a.Add(x => x.RealWeight).Sum())
-                                                                                                                )
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Batch(true)
+                    .ServerOperation(false)
+                    .Model(model =>
+                    {
+                        model.Id(x => x.GoodsDeliveryDetailID);
+                        model.Field(m => m.GoodsDeliveryDetailID).DefaultValue(0);
+                        model.Field(m => m.GoodsDeliveryID).DefaultValue(@Model.GoodsDeliveryID);
+                    })
+                    .Events(events =>
+                    {
+                        events.Error("kendGrid_ErrorHandler");
+                    })
+                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    .Aggregates(a => a.Add(x => x.Weight).Sum())
+                    .Aggregates(a => a.Add(x => x.RealWeight).Sum())
+                )
             )
 
         </div>
@@ -199,7 +199,8 @@
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsDeliveries")"> <img src="~/Content/Images/New/save-icon.png" /> Lưu phiếu giao hàng </button>
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsDeliveries")" onclick="$('#PrintAfterClosedSubmit').val(true);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu và in phiếu giao hàng</button>
             }
-            @if (Model.GoodsDeliveryID > 0) { 
+            @if (Model.GoodsDeliveryID > 0)
+            {
                 <button type="button" class="k-button custom-button" onclick="location.href='@Url.Action("Print", "GoodsDeliveries", new { id = @Model.GoodsDeliveryID })'"> <img src="~/Content/Images/New/Apps-printer-icon.png" /> In phiếu giao hàng đã lưu</button>}
         </div>
 
@@ -216,7 +217,7 @@
     function GetPendingHandlingUnits() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingHandlingUnits", "GoodsDeliveries", new { area = "Inventories" })", "Chọn phiếu bán hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingHandlingUnits", "GoodsDeliveries", new { area = "Inventories" })", "Chọn thùng/ bao để giao hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
         });
     }
 

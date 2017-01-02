@@ -21,6 +21,42 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
             this.EntireCustomerCategories();
         }
 
+
+
+
+
+        //----DELETE FROM AncestorTerritories 
+        //----INSERT INTO AncestorTerritories (AncestorID, TerritoryID)
+        //----SELECT TerritoryID1 AS AncestorID, TerritoryID FROM EntireTerritories
+        //----UNION ALL 
+        //----SELECT TerritoryID2 AS AncestorID, TerritoryID FROM EntireTerritories WHERE TerritoryID2 <> 0 
+        //----UNION ALL 
+        //----SELECT TerritoryID3 AS AncestorID, TerritoryID FROM EntireTerritories WHERE TerritoryID3 <> 0 
+
+        //----DELETE FROM AncestorCommodityCategories 
+        //----INSERT INTO AncestorCommodityCategories (AncestorID, CommodityCategoryID)
+        //----SELECT CommodityCategoryID1 AS AncestorID, CommodityCategoryID FROM EntireCommodityCategories
+        //----UNION ALL 
+        //----SELECT CommodityCategoryID2 AS AncestorID, CommodityCategoryID FROM EntireCommodityCategories WHERE CommodityCategoryID2 <> 0 
+        //----UNION ALL 
+        //----SELECT CommodityCategoryID3 AS AncestorID, CommodityCategoryID FROM EntireCommodityCategories WHERE CommodityCategoryID3 <> 0 
+
+
+
+
+        //----DELETE FROM AncestorCustomerCategories 
+        //----INSERT INTO AncestorCustomerCategories (AncestorID, CustomerCategoryID)
+        //----SELECT CustomerCategoryID1 AS AncestorID, CustomerCategoryID FROM EntireCustomerCategories
+        //----UNION ALL 
+        //----SELECT CustomerCategoryID2 AS AncestorID, CustomerCategoryID FROM EntireCustomerCategories WHERE CustomerCategoryID2 <> 0 
+        //----UNION ALL 
+        //----SELECT CustomerCategoryID3 AS AncestorID, CustomerCategoryID FROM EntireCustomerCategories WHERE CustomerCategoryID3 <> 0 
+
+
+
+
+
+
         private void SplitToIntList()
         {
             string queryString = " (@strString varchar(max)) " + "\r\n";

@@ -15,7 +15,6 @@ namespace TotalModel.Models
     {
         public int HandlingUnitID { get; set; }
         public System.DateTime EntryDate { get; set; }
-        public string Reference { get; set; }
         public int Identification { get; set; }
         public string PrintedLabel { get; set; }
         public int CustomerID { get; set; }
@@ -25,11 +24,13 @@ namespace TotalModel.Models
         public string ReceiverCode { get; set; }
         public string ReceiverName { get; set; }
         public string ReceiverTelephone { get; set; }
-        public string EntireTerritoryEntireName { get; set; }
         public decimal Quantity { get; set; }
         public decimal Weight { get; set; }
         public decimal RealWeight { get; set; }
         public Nullable<bool> IsSelected { get; set; }
-        public string ReceiverBillingAddress { get; set; }
+        public string GoodsIssueReferences { get; set; }
+        public string ShippingAddress { get; set; }
+        public int ConsignmentNo { get; set; }
+        public string HandlingUnitIdentification { get; set; }
     }
 }
