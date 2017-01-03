@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ConsignmentNo)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.ConsignmentNo).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.ConsignmentNo).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input" })
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.ConsignmentNo, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Identification)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.Identification).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.Identification).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.Identification, "", new { @class = "text-danger" })
@@ -39,7 +39,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CountIdentification)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.CountIdentification).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.CountIdentification).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.CountIdentification, "", new { @class = "text-danger" })

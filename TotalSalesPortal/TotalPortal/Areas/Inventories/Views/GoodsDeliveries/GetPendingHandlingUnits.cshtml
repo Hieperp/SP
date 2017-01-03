@@ -18,7 +18,7 @@
         columns.Bound(c => c.HandlingUnitIdentification).Title("STT").Width(20);
         
         columns.Bound(c => c.Quantity).Title("SLXK").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" });
-        columns.Bound(c => c.Weight).Title("TLXK").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" });
+        columns.Bound(c => c.Weight).Title("TL").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" });
         columns.Bound(c => c.RealWeight).Title("TLTT").Format("{0:n0}").Width(25).HtmlAttributes(new { @class = "grid-number-column" });
         
         columns.Template(t => { }).Title("&nbsp;").ClientTemplate("<input class='IsSelected' #= IsSelected ? checked='checked':'' #  type='checkbox' />").Width(15);

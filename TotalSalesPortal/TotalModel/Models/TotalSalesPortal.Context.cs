@@ -843,5 +843,14 @@ namespace TotalModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HandlingUnitPendingGoodsIssue>("GetHandlingUnitPendingGoodsIssues", locationIDParameter);
         }
+    
+        public virtual ObjectResult<string> HandlingUnitEditable(Nullable<int> entityID)
+        {
+            var entityIDParameter = entityID.HasValue ?
+                new ObjectParameter("EntityID", entityID) :
+                new ObjectParameter("EntityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("HandlingUnitEditable", entityIDParameter);
+        }
     }
 }

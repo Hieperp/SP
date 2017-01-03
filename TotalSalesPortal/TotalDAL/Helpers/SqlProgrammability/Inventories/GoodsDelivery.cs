@@ -37,9 +37,11 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsDeliveries.GoodsDeliveryID, CAST(GoodsDeliveries.EntryDate AS DATE) AS EntryDate, GoodsDeliveries.Reference, Locations.Code AS LocationCode, ISNULL(Receivers.Name + ',    ' + Receivers.BillingAddress, N'Phiếu giao hàng gộp chung của nhiều khách hàng') AS ReceiverDescription, GoodsDeliveries.Description, GoodsDeliveries.TotalQuantity, GoodsDeliveries.TotalWeight, GoodsDeliveries.TotalRealWeight " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsDeliveries.GoodsDeliveryID, CAST(GoodsDeliveries.EntryDate AS DATE) AS EntryDate, GoodsDeliveries.Reference, Locations.Code AS LocationCode, ISNULL(Receivers.Name + ',    ' + Receivers.BillingAddress, N'Phiếu giao hàng gộp chung của nhiều khách hàng') AS ReceiverDescription, Vehicles.Name AS VehicleName, Collectors.Name AS CollectorName, GoodsDeliveries.Description, GoodsDeliveries.TotalQuantity, GoodsDeliveries.TotalWeight, GoodsDeliveries.TotalRealWeight " + "\r\n";
             queryString = queryString + "       FROM        GoodsDeliveries " + "\r\n";
             queryString = queryString + "                   INNER JOIN Locations ON GoodsDeliveries.EntryDate >= @FromDate AND GoodsDeliveries.EntryDate <= @ToDate AND GoodsDeliveries.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsDelivery + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsDeliveries.LocationID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Vehicles ON GoodsDeliveries.VehicleID = Vehicles.VehicleID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Employees Collectors ON GoodsDeliveries.CollectorID = Collectors.EmployeeID " + "\r\n";
             queryString = queryString + "                   LEFT JOIN Customers Receivers ON GoodsDeliveries.ReceiverID = Receivers.CustomerID " + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
@@ -57,7 +59,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsDeliveryDetails.GoodsDeliveryDetailID, GoodsDeliveryDetails.GoodsDeliveryID, HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.Reference, HandlingUnits.Identification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, HandlingUnits.ShippingAddress, " + "\r\n";
+            queryString = queryString + "       SELECT      GoodsDeliveryDetails.GoodsDeliveryDetailID, GoodsDeliveryDetails.GoodsDeliveryID, HandlingUnits.HandlingUnitID, HandlingUnits.EntryDate, HandlingUnits.GoodsIssueReferences, CAST(HandlingUnits.Identification AS varchar) + '/' + CAST(HandlingUnits.CountIdentification AS varchar) AS HandlingUnitIdentification, PackingMaterials.PrintedLabel, HandlingUnits.CustomerID, Customers.Code AS CustomerCode, Customers.Name AS CustomerName, HandlingUnits.ReceiverID, Receivers.Code AS ReceiverCode, Receivers.Name AS ReceiverName, HandlingUnits.ShippingAddress, " + "\r\n";
             queryString = queryString + "                   GoodsDeliveryDetails.Quantity, GoodsDeliveryDetails.Weight, GoodsDeliveryDetails.RealWeight, GoodsDeliveryDetails.Remarks" + "\r\n";
 
             queryString = queryString + "       FROM        GoodsDeliveryDetails " + "\r\n";

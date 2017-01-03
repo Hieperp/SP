@@ -17,8 +17,6 @@ namespace TotalModel.Models
         public int GoodsDeliveryID { get; set; }
         public int HandlingUnitID { get; set; }
         public System.DateTime EntryDate { get; set; }
-        public string Reference { get; set; }
-        public int Identification { get; set; }
         public string PrintedLabel { get; set; }
         public int CustomerID { get; set; }
         public string CustomerCode { get; set; }
@@ -31,5 +29,7 @@ namespace TotalModel.Models
         public decimal RealWeight { get; set; }
         public string Remarks { get; set; }
         public string ShippingAddress { get; set; }
+        public string GoodsIssueReferences { get; set; }
+        public string HandlingUnitIdentification { get; set; }
     }
 }

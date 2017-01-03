@@ -11,7 +11,7 @@ namespace TotalDAL.Repositories.Inventories
     public class HandlingUnitRepository : GenericWithDetailRepository<HandlingUnit, HandlingUnitDetail>, IHandlingUnitRepository
     {
         public HandlingUnitRepository(TotalSalesPortalEntities totalSalesPortalEntities)
-            : base(totalSalesPortalEntities) { }
+            : base(totalSalesPortalEntities, "HandlingUnitEditable") { }
     }
 
 

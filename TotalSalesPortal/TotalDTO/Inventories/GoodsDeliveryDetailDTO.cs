@@ -19,7 +19,7 @@ namespace TotalDTO.Inventories
         public override string CommodityName { get { return "#"; } }
         public override int CommodityTypeID { get { return 1; } }
 
-        
+
         public int CustomerID { get; set; }
         [Display(Name = "Mã khách hàng")]
         [UIHint("StringReadonly")]
@@ -39,13 +39,24 @@ namespace TotalDTO.Inventories
         [UIHint("StringReadonly")]
         public string ShippingAddress { get; set; }
 
-        public int Identification { get; set; }
+        [Display(Name = "PXK")]
+        [UIHint("StringReadonly")]
+        public string GoodsIssueReferences { get; set; }
+        [Display(Name = "STT")]
+        [UIHint("StringReadonly")]
+        public string HandlingUnitIdentification { get; set; }
+
+        [Display(Name = "Loại")]
+        [UIHint("StringReadonly")]
         public string PrintedLabel { get; set; }
 
-        [Display(Name = "Trọng lượng")]
+        //[Display(Name = "TL")]
+        //[UIHint("DecimalReadonly")]
+        //public override decimal Quantity { get; set; }
+        [Display(Name = "TL")]
         [UIHint("DecimalReadonly")]
         public decimal Weight { get; set; }
-        [Display(Name = "TL thực tế")]
+        [Display(Name = "TLTT")]
         [UIHint("DecimalReadonly")]
         public decimal RealWeight { get; set; }
     }

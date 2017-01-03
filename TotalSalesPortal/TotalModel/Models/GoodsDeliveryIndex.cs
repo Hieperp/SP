@@ -22,5 +22,7 @@ namespace TotalModel.Models
         public decimal TotalWeight { get; set; }
         public decimal TotalRealWeight { get; set; }
         public string ReceiverDescription { get; set; }
+        public string VehicleName { get; set; }
+        public string CollectorName { get; set; }
     }
 }
