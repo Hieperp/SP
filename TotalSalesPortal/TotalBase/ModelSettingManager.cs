@@ -70,7 +70,7 @@ namespace TotalBase
                              END";
 
                 default:
-                    return "";
+                    return "A";
             }
 
 
