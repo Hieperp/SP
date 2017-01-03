@@ -59,7 +59,7 @@
 
             @Html.EditorFor(d => d.Consumer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Consumer), CustomerIcon = "Customer Red 24.png", NullCustomer = (Model.ConsumerID > 0 ? null : "Xuất HĐ từ dữ liệu bán hàng tổng hợp của nhiều khách hàng")})
 
-            <div style="float: right; margin-top: -100px; " title="Bảng giá áp dụng cho đơn hàng">
+            <div style="float: right; margin-top: -91px; " title="Phiếu xuất kho">
                 @Html.DisplayFor(d => d.GoodsIssue)
             </div>
         </div>
