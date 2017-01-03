@@ -52,7 +52,11 @@ function handleOKEvent(goodsDeliveryGridDataSource, pendingHandlingUnitDetailGri
         dataRow.ReceiverID = handlingUnitGridDataItem.ReceiverID;
         dataRow.ReceiverName = handlingUnitGridDataItem.ReceiverName;
         dataRow.ReceiverCode = handlingUnitGridDataItem.ReceiverCode;
+        dataRow.ShippingAddress = handlingUnitGridDataItem.ShippingAddress;
 
+        dataRow.GoodsIssueReferences = handlingUnitGridDataItem.GoodsIssueReferences;
+        dataRow.HandlingUnitIdentification = handlingUnitGridDataItem.HandlingUnitIdentification;
+        dataRow.PrintedLabel = handlingUnitGridDataItem.PrintedLabel;
 
         dataRow.Quantity = handlingUnitGridDataItem.Quantity;
         dataRow.Weight = handlingUnitGridDataItem.Weight;
