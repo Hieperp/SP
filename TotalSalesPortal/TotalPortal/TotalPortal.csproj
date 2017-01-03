@@ -232,6 +232,7 @@
     <Compile Include="Areas\Inventories\Controllers\GoodsDeliveriesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\GoodsIssuesController.cs" />
     <Compile Include="Areas\Inventories\Controllers\HandlingUnitsController.cs" />
+    <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsDeliverySession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\GoodsIssueSession.cs" />
     <Compile Include="Areas\Inventories\Controllers\Sessions\HandlingUnitSession.cs" />
     <Compile Include="Areas\Inventories\InventoriesAreaRegistration.cs" />
