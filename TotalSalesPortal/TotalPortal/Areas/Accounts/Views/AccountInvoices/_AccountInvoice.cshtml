@@ -53,9 +53,12 @@
     </div>
 
     <div class="right-panel">
-        <div style="clear: both; height: 136px;">
+        <div style="clear: both; height: 127px;">
             @Html.EditorFor(d => d.Customer, new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
-            @Html.EditorFor(d => d.Consumer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Consumer), CustomerIcon = "Customer Red 24.png" })
+            @*@Html.EditorFor(d => d.Consumer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Consumer), CustomerIcon = "Customer Red 24.png" })*@
+
+            @Html.EditorFor(d => d.Consumer, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Consumer), CustomerIcon = "Customer Red 24.png", NullCustomer = (Model.ConsumerID > 0 ? null : "Xuất HĐ từ dữ liệu bán hàng tổng hợp của nhiều khách hàng")})
+
             <div style="float: right; margin-top: -100px; " title="Bảng giá áp dụng cho đơn hàng">
                 @Html.DisplayFor(d => d.GoodsIssue)
             </div>
