@@ -6,10 +6,11 @@ using TotalDTO.Inventories;
 using TotalCore.Services.Inventories;
 
 using TotalPortal.Controllers;
+using TotalPortal.APIs.Sessions;
+using TotalPortal.Areas.Inventories.Controllers.Sessions;
 using TotalPortal.Areas.Inventories.ViewModels;
 using TotalPortal.Areas.Inventories.Builders;
-using TotalPortal.Areas.Inventories.Controllers.Sessions;
-using TotalPortal.APIs.Sessions;
+
 
 namespace TotalPortal.Areas.Inventories.Controllers
 {

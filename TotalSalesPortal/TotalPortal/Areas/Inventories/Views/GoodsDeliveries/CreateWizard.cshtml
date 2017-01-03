@@ -21,6 +21,12 @@
     @Html.HiddenFor(model => model.Receiver.SalespersonID)
     @Html.HiddenFor(model => model.Receiver.SalespersonName)
 
+    @Html.HiddenFor(model => model.Driver.EmployeeID);
+    @Html.HiddenFor(model => model.Driver.Name);
+
+    @Html.HiddenFor(model => model.Collector.EmployeeID);
+    @Html.HiddenFor(model => model.Collector.Name);
+    
     @Html.Partial("~/Areas/Inventories/Views/GoodsDeliveries/_GetReceiver.cshtml")
     
     <div class="background-bar" style="height: 45px;">
