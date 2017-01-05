@@ -66,6 +66,9 @@
         $("#Receiver_label_VATCode").text($("#Customer_label_VATCode").val());
         $("#Receiver_label_BillingAddress").text($("#Customer_label_BillingAddress").val());
         $("#Receiver_label_EntireTerritoryEntireName").text($("#Customer_label_EntireTerritoryEntireName").val());
+
+        //Also remember last AutoComplete value for Receiver
+        $("#Receiver_TempCodeAndName").val($("#Receiver_CodeAndName").val());
         //}
     })
 
