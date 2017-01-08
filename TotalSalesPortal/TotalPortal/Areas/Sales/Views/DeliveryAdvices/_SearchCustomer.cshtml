@@ -3,35 +3,54 @@
 
 @model TotalPortal.Areas.Sales.ViewModels.DeliveryAdviceViewModel
 
-@(Html.Kendo().Grid<Promotion>()
-    .Name("gridPromotion")
-    .Columns(columns =>
-    {
-        columns.Bound(c => c.Code).Title("Mã chương trình").Width(18);
-        columns.Bound(c => c.Name).Title("Tên chương trình").Width(22);
+@if (false)
+{
+    @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase", new { CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+    @Html.EditorFor(d => d.Receiver, "AutoCompletes/CustomerBase", new { CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
 
-        columns.Bound(c => c.DiscountPercent).Title("% CK").Width(9).Format("{0:n0}");
-        columns.Bound(c => c.Remarks).Title("Ghi chú").Width(16);
-    })
-    .ToolBar(toolbar =>
+    
+    
+    @Html.EditorFor(d => d.ShippingAddress)
+}
+else
+{
+    @(Html.Kendo().Grid<Promotion>()
+        .Name("gridPromotion")
+        .Columns(columns =>
         {
-            toolbar.Template(@<text>
-                <div class="toolbar">
-                    @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
-                </div>
-                <div class="toolbar">
-                    @Html.EditorFor(d => d.Receiver, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
-                </div>
-            </text>);
+            columns.Bound(c => c.Code).Title("Mã chương trình").Width(18);
+            columns.Bound(c => c.Name).Title("Tên chương trình").Width(35);
+
+            columns.Bound(c => c.DiscountPercent).Title("% CK").Width(5).HtmlAttributes(new { @class = "grid-number-column" }).Format("{0:n0}");
+            columns.Bound(c => c.Remarks).Title("Ghi chú").Width(25);
         })
-    .Scrollable(s => s.Height(SettingsManager.PopupContentHeight))
-    .DataSource(ds => ds.Ajax()
-    .Read(read => read.Action("GetPromotionByCustomers", "PromotionAPIs", new { area = "Commons" }).Data("onGetPromotionByCustomers"))
-    .ServerOperation(true))
-    .Selectable()
-)
+        .ToolBar(toolbar =>
+            {
+                toolbar.Template(@<text>
+                    <div class="toolbar" style="height: 168px; margin-top: 13px; margin-right: 13px;">
+                        @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "false", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+                        @Html.EditorFor(d => d.Receiver, new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
 
-
+                        @Html.EditorFor(d => d.ShippingAddress)
+                    </div>
+                    @*<div class="toolbar">
+                            @Html.EditorFor(d => d.Customer, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Customer) })
+                        </div>
+                        <div class="toolbar">
+                            @Html.EditorFor(d => d.Receiver, "AutoCompletes/CustomerBase", new { CustomerDescriptionHidden = "true", CustomerDisplayName = @Model.GetDisplayName(m => m.Receiver), CustomerIcon = "Customer Red 24.png" })
+                        </div>
+                        <div class="toolbar">
+                            @Html.EditorFor(d => d.ShippingAddress)
+                        </div>*@
+                </text>);
+            })
+                                                                        .Scrollable() //s => s.Height(SettingsManager.PopupContentHeight)
+                                                                        .DataSource(ds => ds.Ajax()
+                                                                        .Read(read => read.Action("GetPromotionByCustomers", "PromotionAPIs", new { area = "Commons" }).Data("onGetPromotionByCustomers"))
+                                                                        .ServerOperation(true))
+                                                                        .Selectable()
+    )
+}
 
 <script type="text/javascript">
     function onGetPromotionByCustomers(e) {
@@ -41,9 +60,10 @@
     }
 
     $("#Customer_CustomerID").change(function (e) {
-        $("#gridPromotion").data("kendoGrid").dataSource.read();
 
-        //if ($("#Receiver_CustomerID") == undefined) { //If using this condition, it will be set for the first time only        
+        if ($("#gridPromotion").length != 0) //Check whether gridPromotion exists
+            $("#gridPromotion").data("kendoGrid").dataSource.read();
+
         $("#Receiver_CustomerID").val($("#Customer_CustomerID").val());
         $("#Receiver_Code").val($("#Customer_Code").val());
         $("#Receiver_Name").val($("#Customer_Name").val());
@@ -62,15 +82,24 @@
         $("#Receiver_PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
 
         //Set display label
-        $("#Receiver_label_Telephone").text($("#Customer_label_Telephone").val());
-        $("#Receiver_label_VATCode").text($("#Customer_label_VATCode").val());
-        $("#Receiver_label_BillingAddress").text($("#Customer_label_BillingAddress").val());
-        $("#Receiver_label_EntireTerritoryEntireName").text($("#Customer_label_EntireTerritoryEntireName").val());
+        $("#Receiver_label_Telephone").text($("#Receiver_Telephone").val());
+        $("#Receiver_label_VATCode").text($("#Receiver_VATCode").val());
+        $("#Receiver_label_BillingAddress").text($("#Receiver_BillingAddress").val());
+        $("#Receiver_label_EntireTerritoryEntireName").text($("#Receiver_EntireTerritoryEntireName").val());
 
         //Also remember last AutoComplete value for Receiver
         $("#Receiver_TempCodeAndName").val($("#Receiver_CodeAndName").val());
-        //}
+
+        initShippingAddress();
     })
+
+    $("#Receiver_CustomerID").change(function (e) {
+        initShippingAddress();
+    })
+
+    function initShippingAddress() {
+        $("#ShippingAddress").val($("#Receiver_ShippingAddress").val() != "" ? $("#Receiver_ShippingAddress").val() : $("#Receiver_BillingAddress").val());
+    }
 
     $("#gridPromotion").dblclick(function (e) {
         okButton_Click();
@@ -78,7 +107,7 @@
 </script>
 
 <style>
-    .form-group {
+    /*.form-group {
         margin-top: 0px;
     }
 
@@ -88,7 +117,7 @@
 
     .right-second-panel-small {
         width: 16%;
-        display: none; /*//Tam thoi khong hien thi, se chinh sua sau*/
+        display: none;
     }
 
 
@@ -116,7 +145,8 @@
     #customer-description-icon {
         visibility: visible;
     }
+
     .customerBase_AutoComplete {
         width: 93%;
-    }
+    }*/
 </style>

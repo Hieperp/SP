@@ -985,7 +985,7 @@ ul.k-panelbar .k-link {
 
 .right-panel-input {
     width: 72%;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .right-panel-input-whole-width{

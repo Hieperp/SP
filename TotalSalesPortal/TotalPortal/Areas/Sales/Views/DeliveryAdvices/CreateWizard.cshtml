@@ -8,12 +8,14 @@
 {
     @Html.AntiForgeryToken()
 
+    <input id="preventImplicitSubmission" type="submit" style="display:none" onclick="return false;" />
+
     @Html.HiddenFor(model => model.Salesperson.EmployeeID);
     @Html.HiddenFor(model => model.Salesperson.Name);
 
     @Html.HiddenFor(model => model.PriceCategoryID);
     @Html.HiddenFor(model => model.PriceCategoryCode);
-    @Html.HiddenFor(model => model.ShippingAddress);
+    @*@Html.HiddenFor(model => model.ShippingAddress);*@
 
     @Html.HiddenFor(model => model.Promotion.PromotionID);
     @Html.HiddenFor(model => model.Promotion.Name);
@@ -89,7 +91,7 @@
         function _setModelInput(selectedDataItem) {
             $("#PriceCategoryID").val($("#Customer_PriceCategoryID").val());
             $("#PriceCategoryCode").val($("#Customer_PriceCategoryCode").val());
-            $("#ShippingAddress").val($("#Receiver_ShippingAddress").val() != "" ? $("#Receiver_ShippingAddress").val() : $("#Receiver_BillingAddress").val());
+            //$("#ShippingAddress").val($("#Receiver_ShippingAddress").val() != "" ? $("#Receiver_ShippingAddress").val() : $("#Receiver_BillingAddress").val());
 
             $("#Salesperson_EmployeeID").val($("#Customer_SalespersonID").val()); //INIT DEFAULT Salesperson_EmployeeID, Salesperson_Name FROM Customer_SalespersonID, Customer_SalespersonName
             $("#Salesperson_Name").val($("#Customer_SalespersonName").val());
