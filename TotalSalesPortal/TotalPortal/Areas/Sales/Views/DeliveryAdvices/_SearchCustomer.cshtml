@@ -32,7 +32,7 @@
                 </div>
             </text>);
         })
-        .Scrollable() //s => s.Height(SettingsManager.PopupContentHeight)
+        .Scrollable(s => s.Height(214))
         .DataSource(ds => ds.Ajax()
         .Read(read => read.Action("GetPromotionByCustomers", "PromotionAPIs", new { area = "Commons" }).Data("onGetPromotionByCustomers"))
         .ServerOperation(true))
@@ -100,48 +100,3 @@
         okButton_Click();
     })
 </script>
-
-<style>
-    /*.form-group {
-        margin-top: 0px;
-    }
-
-    .right-first-panel {
-        width: 42%;
-    }
-
-    .right-second-panel-small {
-        width: 16%;
-        display: none;
-    }
-
-
-    .right-panel-label-icon-only {
-        width: 28px;
-    }
-
-    .right-panel-label-larger-width {
-        width: 84%;
-    }
-
-    .right-panel-label-double-height {
-        width: 28px;
-        height: 100%;
-    }
-
-    .customer-description-label {
-        width: 92%;
-        padding-top: 5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    #customer-description-icon {
-        visibility: visible;
-    }
-
-    .customerBase_AutoComplete {
-        width: 93%;
-    }*/
-</style>
