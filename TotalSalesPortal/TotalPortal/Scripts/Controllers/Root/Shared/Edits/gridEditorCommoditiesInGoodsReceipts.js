@@ -30,8 +30,7 @@
             currentDataSourceRow.set("EngineCode", dataItem.EngineCode);
             currentDataSourceRow.set("ColorCode", dataItem.ColorCode);
             currentDataSourceRow.set("QuantityAvailable", dataItem.QuantityAvailable);
-            currentDataSourceRow.set("Quantity", 1);
-            currentDataSourceRow.set("DiscountPercent", 0); //Important: Need to clear DiscountPercent first
+            currentDataSourceRow.set("Quantity", 1);            
             currentDataSourceRow.set("VATPercent", dataItem.VATPercent);
             currentDataSourceRow.set("GrossPrice", dataItem.GrossPrice);            
 

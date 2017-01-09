@@ -27,6 +27,7 @@
     definedExemplar.prototype._changeCommodityID = function (dataRow) {
         if (dataRow.ListedPrice != undefined) {
             dataRow.set("ListedPrice", 0);
+            dataRow.set("DiscountPercent", 0);
         }
     }
 
