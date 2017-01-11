@@ -10,10 +10,14 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.DeliveryAdviceID)
+    
     @Html.HiddenFor(model => model.TotalQuantity)
     @Html.HiddenFor(model => model.TotalFreeQuantity)
+    @Html.HiddenFor(model => model.TotalListedAmount)
     @Html.HiddenFor(model => model.TotalAmount)
+    @Html.HiddenFor(model => model.TotalListedVATAmount)
     @Html.HiddenFor(model => model.TotalVATAmount)
+    @Html.HiddenFor(model => model.TotalListedGrossAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
     @Html.HiddenFor(model => model.AverageDiscountPercent)
 
@@ -151,6 +155,10 @@
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', UnitPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
 
+                    columns.Bound(p => p.ListedAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedAmount' value='#= ListedAmount #' />");                    
                     columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
@@ -159,21 +167,35 @@
                     columns.Bound(p => p.VATPercent).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}%', VATPercent) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATPercent' value='#= VATPercent #' />");
+
+                    columns.Bound(p => p.ListedVATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedVATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedVATAmount' value='#= ListedVATAmount #' />");                    
                     columns.Bound(p => p.VATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', VATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATAmount' value='#= VATAmount #' />");
 
+
+                    columns.Bound(p => p.ListedGrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedGrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedGrossPrice' value='#= ListedGrossPrice #' />");                    
                     columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', GrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossPrice' value='#= GrossPrice #' />");
 
 
+                    columns.Bound(p => p.ListedGrossAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .Format("{0:n0}")
+                        .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedGrossAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedGrossAmount' value='#= ListedGrossAmount #' />");
                     columns.Bound(p => p.GrossAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', GrossAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossAmount' value='#= GrossAmount #' />");
 
+                    
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
@@ -268,8 +290,11 @@
                                                                                                                                     .Aggregates(a => a.Add(x => x.Quantity).Sum())
                                                                                                                                     .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
                                                                                                                                     .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                                                                                                                                    .Aggregates(a => a.Add(x => x.ListedAmount).Sum())
                                                                                                                                     .Aggregates(a => a.Add(x => x.Amount).Sum())
+                                                                                                                                    .Aggregates(a => a.Add(x => x.ListedVATAmount).Sum())
                                                                                                                                     .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                                                                                                                                    .Aggregates(a => a.Add(x => x.ListedGrossAmount).Sum())
                                                                                                                                     .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
                                                                                                                                 )
             )

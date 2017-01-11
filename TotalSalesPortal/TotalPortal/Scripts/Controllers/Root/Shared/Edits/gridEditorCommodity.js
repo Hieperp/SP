@@ -26,6 +26,8 @@
 
             if (currentDataSourceRow.ListedPrice != undefined)
                 currentDataSourceRow.set("ListedPrice", currentDataSourceRow.UnitPrice);
+            if (currentDataSourceRow.ListedGrossPrice != undefined)
+                currentDataSourceRow.set("ListedGrossPrice", currentDataSourceRow.GrossPrice);
         }
 
 
