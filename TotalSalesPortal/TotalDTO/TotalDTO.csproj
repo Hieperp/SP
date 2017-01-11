@@ -95,6 +95,8 @@
     <Compile Include="Helpers\FreeQuantityDiscountVATAmountDetailDTO.cs" />
     <Compile Include="Helpers\FreeQuantityDiscountVATAmountDTO.cs" />
     <Compile Include="Helpers\Interfaces\IPriceCategory.cs" />
+    <Compile Include="Helpers\ListedAmountDiscountVATAmountDetailDTO.cs" />
+    <Compile Include="Helpers\ListedAmountDiscountVATAmountDTO.cs" />
     <Compile Include="Helpers\QuantityDetailDTO.cs" />
     <Compile Include="Helpers\QuantityDTO.cs" />
     <Compile Include="Helpers\VATAmountDetailDTO.cs" />
