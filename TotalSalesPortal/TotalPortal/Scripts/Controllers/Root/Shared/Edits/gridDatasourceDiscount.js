@@ -48,13 +48,8 @@
 
     definedExemplar.prototype._changeUnitPrice = function (dataRow) {
         this._updateRowDiscountPercent(dataRow);
-        this._updateRowGrossPrice(dataRow);
-        this._updateRowAmount(dataRow);
-    }
-
-    definedExemplar.prototype._changeGrossPrice = function (dataRow) {
-        this._updateRowUnitPrice(dataRow);
-        this._updateRowGrossAmount(dataRow);
+        
+        definedExemplar._super._changeUnitPrice.call(this, dataRow);
     }
 
 

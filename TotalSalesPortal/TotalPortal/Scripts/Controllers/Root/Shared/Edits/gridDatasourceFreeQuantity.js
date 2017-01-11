@@ -1,11 +1,11 @@
-﻿define(["superBase", "gridDatasourceDiscount"], (function (superBase, gridDatasourceDiscount) {
+﻿define(["superBase", "gridDatasourceListedAmount"], (function (superBase, gridDatasourceListedAmount) {
 
     var definedExemplar = function (kenGridName) {
         definedExemplar._super.constructor.call(this, kenGridName);
     }
 
     var superBaseHelper = new superBase();
-    superBaseHelper.inherits(definedExemplar, gridDatasourceDiscount);
+    superBaseHelper.inherits(definedExemplar, gridDatasourceListedAmount);
 
 
 
