@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.DeliveryAdviceID)
-    
+
     @Html.HiddenFor(model => model.TotalQuantity)
     @Html.HiddenFor(model => model.TotalFreeQuantity)
     @Html.HiddenFor(model => model.TotalListedAmount)
@@ -107,7 +107,7 @@
                     columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(200)
                         .ClientFooterTemplate("Tổng cộng:")
                         .ClientTemplate("<div> #= CommodityName #</div>" +
-                                //"<div> #= '[' ##= WarehouseCode ##= ']' #</div>" +
+                        //"<div> #= '[' ##= WarehouseCode ##= ']' #</div>" +
                                 "<div> #= (VoidTypeName == null)? '' : VoidTypeName #</div>" +
                                 "<div class = 'isBonus'> #= (IsBonus == true) ? '[Quà tặng]' : '' #</div>" +
                                 "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
@@ -146,20 +146,20 @@
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedPrice' value='#= ListedPrice #' />");
 
-                    columns.Bound(p => p.DiscountPercent).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" })
+                    columns.Bound(p => p.DiscountPercent).DisplayNameTitle().Filterable(false).Width(50).HtmlAttributes(new { @class = "grid-number-column" }).Hidden(@Model.ShowDiscount ? false : true)
                         .Format("{0:n1}%")
                         .ClientFooterTemplate("#= kendo.format('{0:n1}%', average) #")
                         .ClientTemplate("#= kendo.format('{0:n1}%', DiscountPercent) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].DiscountPercent' value='#= DiscountPercent #' />");
 
-                    columns.Bound(p => p.UnitPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                    columns.Bound(p => p.UnitPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden(@Model.ShowDiscount ? false : true)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', UnitPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
 
                     columns.Bound(p => p.ListedAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', ListedAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedAmount' value='#= ListedAmount #' />");                    
-                    columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedAmount' value='#= ListedAmount #' />");
+                    columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden(@Model.ShowDiscount ? false : true)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', Amount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Amount' value='#= Amount #' />");
@@ -171,8 +171,8 @@
                     columns.Bound(p => p.ListedVATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
-                        .ClientTemplate("#= kendo.format('{0:n0}', ListedVATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedVATAmount' value='#= ListedVATAmount #' />");                    
-                    columns.Bound(p => p.VATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedVATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedVATAmount' value='#= ListedVATAmount #' />");
+                    columns.Bound(p => p.VATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden(@Model.ShowDiscount ? false : true)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', VATAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].VATAmount' value='#= VATAmount #' />");
@@ -180,8 +180,8 @@
 
                     columns.Bound(p => p.ListedGrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
                         .Format("{0:n0}")
-                        .ClientTemplate("#= kendo.format('{0:n0}', ListedGrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedGrossPrice' value='#= ListedGrossPrice #' />");                    
-                    columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                        .ClientTemplate("#= kendo.format('{0:n0}', ListedGrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedGrossPrice' value='#= ListedGrossPrice #' />");
+                    columns.Bound(p => p.GrossPrice).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden(@Model.ShowDiscount ? false : true)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', GrossPrice) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossPrice' value='#= GrossPrice #' />");
 
@@ -190,12 +190,12 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedGrossAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].ListedGrossAmount' value='#= ListedGrossAmount #' />");
-                    columns.Bound(p => p.GrossAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90)
+                    columns.Bound(p => p.GrossAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(90).Hidden(@Model.ShowDiscount ? false : true)
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', GrossAmount) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].GrossAmount' value='#= GrossAmount #' />");
 
-                    
+
                     columns.Bound(p => p.Remarks).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
 
@@ -274,29 +274,29 @@
                     }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                                                                                                                                    .Ajax()
-                                                                                                                                    .Batch(true)
-                                                                                                                                    .ServerOperation(false)
-                                                                                                                                    .Model(model =>
-                                                                                                                                    {
-                                                                                                                                        model.Id(x => x.DeliveryAdviceDetailID);
-                                                                                                                                        model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
-                                                                                                                                        model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
-                                                                                                                                    })
-                                                                                                                                    .Events(events =>
-                                                                                                                                    {
-                                                                                                                                        events.Error("kendGrid_ErrorHandler");
-                                                                                                                                    })
-                                                                                                                                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.ListedAmount).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.Amount).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.ListedVATAmount).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.ListedGrossAmount).Sum())
-                                                                                                                                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
-                                                                                                                                )
+                                                                                                                                                                        .Ajax()
+                                                                                                                                                                        .Batch(true)
+                                                                                                                                                                        .ServerOperation(false)
+                                                                                                                                                                        .Model(model =>
+                                                                                                                                                                        {
+                                                                                                                                                                            model.Id(x => x.DeliveryAdviceDetailID);
+                                                                                                                                                                            model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
+                                                                                                                                                                            model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
+                                                                                                                                                                        })
+                                                                                                                                                                        .Events(events =>
+                                                                                                                                                                        {
+                                                                                                                                                                            events.Error("kendGrid_ErrorHandler");
+                                                                                                                                                                        })
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.ListedAmount).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.Amount).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.ListedVATAmount).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.ListedGrossAmount).Sum())
+                                                                                                                                                                        .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                                                                                                                                                                    )
             )
         </div>
 
@@ -354,7 +354,7 @@
         {
             <div><input type="file" name="xlfile" id="xlf" /></div>
         }
-        
+
     </div>
 }
 
