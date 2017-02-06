@@ -35,8 +35,8 @@ namespace TotalDTO.Helpers
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
             if ((this.UnitPrice != 0 && this.GrossPrice == 0) || (this.UnitPrice == 0 && this.GrossPrice != 0)) yield return new ValidationResult("Lỗi giá sau thuế", new[] { "GrossPrice" });
-            if (Math.Round(this.Quantity * this.GrossPrice, 0) != this.GrossAmount) yield return new ValidationResult("Lỗi thành tiền sau thuế", new[] { "GrossAmount" });
-            if ((this.Amount == 0 && this.VATAmount != 0) || (this.Amount != 0 && this.VATPercent != 0 && this.VATAmount == 0) || (this.Amount != 0 && this.VATPercent == 0 && this.VATAmount != 0)) yield return new ValidationResult("Lỗi tiền thuế", new[] { "VATAmount" });
+            if (this.CalculatingTypeID != 0 && Math.Round(this.Quantity * this.GrossPrice, 0) != this.GrossAmount) yield return new ValidationResult("Lỗi thành tiền sau thuế", new[] { "GrossAmount" });
+            if ((this.CalculatingTypeID == 0 && Math.Round(this.Amount * this.VATPercent / 100, 0) != this.VATAmount) || (this.Amount == 0 && this.VATAmount != 0) || (this.Amount != 0 && this.VATPercent != 0 && this.VATAmount == 0) || (this.Amount != 0 && this.VATPercent == 0 && this.VATAmount != 0)) yield return new ValidationResult("Lỗi tiền thuế", new[] { "VATAmount" });
             if (Math.Round(this.Amount + this.VATAmount, 0) != this.GrossAmount) yield return new ValidationResult("Lỗi thành tiền sau thuế", new[] { "GrossAmount" });
         }
     }

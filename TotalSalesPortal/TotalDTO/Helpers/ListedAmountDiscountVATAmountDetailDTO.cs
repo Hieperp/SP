@@ -38,8 +38,8 @@ namespace TotalDTO.Helpers
             if ((this.ListedPrice != 0 && this.ListedGrossPrice == 0) || (this.ListedPrice == 0 && this.ListedGrossPrice != 0)) yield return new ValidationResult("Lỗi giá gốc sau thuế", new[] { "ListedGrossPrice" });
             
             if (Math.Round(this.Quantity * this.ListedPrice, 0) != this.ListedAmount) yield return new ValidationResult("Lỗi thành tiền giá gốc", new[] { "ListedAmount" });
-            if (Math.Round(this.Quantity * this.ListedGrossPrice, 0) != this.ListedGrossAmount) yield return new ValidationResult("Lỗi thành tiền giá gốc sau thuế", new[] { "ListedGrossAmount" });
-            if ((this.ListedAmount == 0 && this.ListedVATAmount != 0) || (this.ListedAmount != 0 && this.VATPercent != 0 && this.ListedVATAmount == 0) || (this.ListedAmount != 0 && this.VATPercent == 0 && this.ListedVATAmount != 0)) yield return new ValidationResult("Lỗi tiền thuế giá gốc", new[] { "ListedVATAmount" });
+            if (this.CalculatingTypeID != 0 && Math.Round(this.Quantity * this.ListedGrossPrice, 0) != this.ListedGrossAmount) yield return new ValidationResult("Lỗi thành tiền giá gốc sau thuế", new[] { "ListedGrossAmount" });
+            if ((this.CalculatingTypeID == 0 && Math.Round(this.ListedAmount * this.VATPercent / 100, 0) != this.ListedVATAmount) || (this.ListedAmount == 0 && this.ListedVATAmount != 0) || (this.ListedAmount != 0 && this.VATPercent != 0 && this.ListedVATAmount == 0) || (this.ListedAmount != 0 && this.VATPercent == 0 && this.ListedVATAmount != 0)) yield return new ValidationResult("Lỗi tiền thuế giá gốc", new[] { "ListedVATAmount" });
             if (Math.Round(this.ListedAmount + this.ListedVATAmount, 0) != this.ListedGrossAmount) yield return new ValidationResult("Lỗi thành tiền giá gốc sau thuế", new[] { "ListedGrossAmount" });
 
         }

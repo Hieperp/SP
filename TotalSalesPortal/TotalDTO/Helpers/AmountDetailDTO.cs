@@ -6,12 +6,16 @@ namespace TotalDTO.Helpers
 {
     public interface IAmountDetailDTO : IQuantityDetailDTO
     {
+        int CalculatingTypeID { get; set; }
+
         decimal UnitPrice { get; set; }
         decimal Amount { get; set; }
     }
 
     public abstract class AmountDetailDTO : QuantityDetailDTO, IAmountDetailDTO
-    {        
+    {
+        public int CalculatingTypeID { get; set; }
+
         [Display(Name = "Đơn giá")]
         [UIHint("DecimalReadonly")] //[UIHint("Decimal")]
         public virtual decimal UnitPrice { get; set; }

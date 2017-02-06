@@ -29,7 +29,9 @@
 
     definedExemplar.prototype._changeQuantity = function (dataRow) {
         this._updateRowAmount(dataRow);
-        this._updateRowGrossAmount(dataRow);
+
+        if (dataRow.CalculatingTypeID != 0)
+            this._updateRowGrossAmount(dataRow);
 
         definedExemplar._super._changeQuantity.call(this, dataRow);
     }
@@ -41,25 +43,37 @@
 
     definedExemplar.prototype._changeVATPercent = function (dataRow) {
         this._updateRowGrossPrice(dataRow);
+
+        if (dataRow.CalculatingTypeID == 0)
+            this._updateRowVATAmount(dataRow);
     }
 
     definedExemplar.prototype._changeGrossPrice = function (dataRow) {
         this._updateRowUnitPrice(dataRow);
-        this._updateRowGrossAmount(dataRow);
+
+        if (dataRow.CalculatingTypeID != 0)
+            this._updateRowGrossAmount(dataRow);
     }
 
     definedExemplar.prototype._changeAmount = function (dataRow) {
         this._updateRowVATAmount(dataRow);
 
+        if (dataRow.CalculatingTypeID == 0)
+            this._updateRowGrossAmount(dataRow);
+
         this._updateTotalToModelProperty("TotalAmount", "Amount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
     definedExemplar.prototype._changeVATAmount = function (dataRow) {
+        if (dataRow.CalculatingTypeID == 0)
+            this._updateRowGrossAmount(dataRow);
+
         this._updateTotalToModelProperty("TotalVATAmount", "VATAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
     definedExemplar.prototype._changeGrossAmount = function (dataRow) {
-        this._updateRowVATAmount(dataRow);
+        if (dataRow.CalculatingTypeID != 0)
+            this._updateRowVATAmount(dataRow);
 
         this._updateTotalToModelProperty("TotalGrossAmount", "GrossAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
@@ -85,11 +99,11 @@
     }
 
     definedExemplar.prototype._updateRowVATAmount = function (dataRow) {
-        dataRow.set("VATAmount", this._round(dataRow.GrossAmount - dataRow.Amount, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("VATAmount", this._round((dataRow.CalculatingTypeID == 0 ? dataRow.Amount * dataRow.VATPercent / 100 : dataRow.GrossAmount - dataRow.Amount), requireConfig.websiteOptions.rndAmount));
     }
 
     definedExemplar.prototype._updateRowGrossAmount = function (dataRow) {
-        dataRow.set("GrossAmount", this._round(dataRow.Quantity * dataRow.GrossPrice, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("GrossAmount", this._round((dataRow.CalculatingTypeID == 0 ? dataRow.Amount + dataRow.VATAmount : dataRow.Quantity * dataRow.GrossPrice), requireConfig.websiteOptions.rndAmount));
     }
 
 

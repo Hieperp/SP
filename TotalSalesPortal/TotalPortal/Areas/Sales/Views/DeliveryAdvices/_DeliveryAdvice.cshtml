@@ -274,29 +274,30 @@
                     }
                         </text>);
                     }).DataSource(dataSource => dataSource
-                                                                                                                                                                        .Ajax()
-                                                                                                                                                                        .Batch(true)
-                                                                                                                                                                        .ServerOperation(false)
-                                                                                                                                                                        .Model(model =>
-                                                                                                                                                                        {
-                                                                                                                                                                            model.Id(x => x.DeliveryAdviceDetailID);
-                                                                                                                                                                            model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
-                                                                                                                                                                            model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
-                                                                                                                                                                        })
-                                                                                                                                                                        .Events(events =>
-                                                                                                                                                                        {
-                                                                                                                                                                            events.Error("kendGrid_ErrorHandler");
-                                                                                                                                                                        })
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.Quantity).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.ListedAmount).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.Amount).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.ListedVATAmount).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.VATAmount).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.ListedGrossAmount).Sum())
-                                                                                                                                                                        .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
-                                                                                                                                                                    )
+                    .Ajax()
+                    .Batch(true)
+                    .ServerOperation(false)
+                    .Model(model =>
+                    {
+                        model.Id(x => x.DeliveryAdviceDetailID);
+                        model.Field(m => m.DeliveryAdviceDetailID).DefaultValue(0);
+                        model.Field(m => m.DeliveryAdviceID).DefaultValue(@Model.DeliveryAdviceID);
+                        model.Field(m => m.CalculatingTypeID).DefaultValue(@GlobalEnums.CalculatingTypeID);
+                    })
+                    .Events(events =>
+                    {
+                        events.Error("kendGrid_ErrorHandler");
+                    })
+                    .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                    .Aggregates(a => a.Add(x => x.FreeQuantity).Sum())
+                    .Aggregates(a => a.Add(x => x.DiscountPercent).Average())
+                    .Aggregates(a => a.Add(x => x.ListedAmount).Sum())
+                    .Aggregates(a => a.Add(x => x.Amount).Sum())
+                    .Aggregates(a => a.Add(x => x.ListedVATAmount).Sum())
+                    .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                    .Aggregates(a => a.Add(x => x.ListedGrossAmount).Sum())
+                    .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                )
             )
         </div>
 

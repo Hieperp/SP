@@ -29,12 +29,14 @@
 
     definedExemplar.prototype._changeQuantity = function (dataRow) {
         this._updateRowListedAmount(dataRow);
-        this._updateRowListedGrossAmount(dataRow);
+
+        if (dataRow.CalculatingTypeID != 0)
+            this._updateRowListedGrossAmount(dataRow);
 
         definedExemplar._super._changeQuantity.call(this, dataRow);
     }
-    
-    definedExemplar.prototype._changeListedPrice = function (dataRow) {                
+
+    definedExemplar.prototype._changeListedPrice = function (dataRow) {
         this._updateRowListedGrossPrice(dataRow);
         this._updateRowListedAmount(dataRow);
 
@@ -44,26 +46,38 @@
     definedExemplar.prototype._changeVATPercent = function (dataRow) {
         this._updateRowListedGrossPrice(dataRow);
 
+        if (dataRow.CalculatingTypeID == 0)
+            this._updateRowListedVATAmount(dataRow);
+
         definedExemplar._super._changeVATPercent.call(this, dataRow);
     }
 
     definedExemplar.prototype._changeListedGrossPrice = function (dataRow) {
         this._updateRowListedPrice(dataRow);
-        this._updateRowListedGrossAmount(dataRow);
+
+        if (dataRow.CalculatingTypeID != 0)
+            this._updateRowListedGrossAmount(dataRow);
     }
 
     definedExemplar.prototype._changeListedAmount = function (dataRow) {
         this._updateRowListedVATAmount(dataRow);
 
+        if (dataRow.CalculatingTypeID == 0)
+            this._updateRowListedGrossAmount(dataRow);
+
         this._updateTotalToModelProperty("TotalListedAmount", "ListedAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
     definedExemplar.prototype._changeListedVATAmount = function (dataRow) {
+        if (dataRow.CalculatingTypeID == 0)
+            this._updateRowListedGrossAmount(dataRow);
+
         this._updateTotalToModelProperty("TotalListedVATAmount", "ListedVATAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
 
     definedExemplar.prototype._changeListedGrossAmount = function (dataRow) {
-        this._updateRowListedVATAmount(dataRow);
+        if (dataRow.CalculatingTypeID != 0)
+            this._updateRowListedVATAmount(dataRow);
 
         this._updateTotalToModelProperty("TotalListedGrossAmount", "ListedGrossAmount", "sum", requireConfig.websiteOptions.rndAmount);
     }
@@ -71,7 +85,7 @@
 
 
 
-    
+
     definedExemplar.prototype._updateRowListedPrice = function (dataRow) {
         var newListedPrice = dataRow.ListedGrossPrice * 100 / (100 + dataRow.VATPercent);
         if (dataRow.ListedPrice - newListedPrice > 0.8 || newListedPrice - dataRow.ListedPrice > 0.8)
@@ -89,11 +103,11 @@
     }
 
     definedExemplar.prototype._updateRowListedVATAmount = function (dataRow) {
-        dataRow.set("ListedVATAmount", this._round(dataRow.ListedGrossAmount - dataRow.ListedAmount, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("ListedVATAmount", this._round((dataRow.CalculatingTypeID == 0 ? dataRow.ListedAmount * dataRow.VATPercent / 100 : dataRow.ListedGrossAmount - dataRow.ListedAmount), requireConfig.websiteOptions.rndAmount));
     }
 
     definedExemplar.prototype._updateRowListedGrossAmount = function (dataRow) {
-        dataRow.set("ListedGrossAmount", this._round(dataRow.Quantity * dataRow.ListedGrossPrice, requireConfig.websiteOptions.rndAmount));
+        dataRow.set("ListedGrossAmount", this._round((dataRow.CalculatingTypeID == 0 ? dataRow.ListedAmount + dataRow.ListedVATAmount : dataRow.Quantity * dataRow.ListedGrossPrice), requireConfig.websiteOptions.rndAmount));
     }
 
 
