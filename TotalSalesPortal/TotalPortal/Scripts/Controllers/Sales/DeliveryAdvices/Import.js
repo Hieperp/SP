@@ -3,8 +3,10 @@
     $(document).ready(function () {
         var xlf = document.getElementById('xlf');
 
-        if (xlf.addEventListener) {
-            xlf.addEventListener('change', handleFile, false);
+        if (xlf != null) {
+            if (xlf.addEventListener) {
+                xlf.addEventListener('change', handleFile, false);
+            }
         }
     });
 

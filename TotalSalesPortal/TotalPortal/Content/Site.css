@@ -571,7 +571,7 @@ tr:hover {
 #top-menu-container {
     width: 100%;
     min-width: 1150px;
-    height: 55px;
+    height: 57px;
     clear: both;
     background-color: forestgreen;
     text-align: right;
@@ -580,8 +580,8 @@ tr:hover {
 }
 
 .MainMenu-left {
-    height: 55px;
-    width: 400px;
+    height: 57px;
+    width: 410px;
     float: left;
     background: linear-gradient(#ca4646, darkred); /*linear-gradient(darkred, #66A5C9);*/
 }
@@ -595,7 +595,7 @@ tr:hover {
     #MainMenu > .k-item {
         border: 0px;
         width: 95px;
-        height: 55px;
+        height: 57px;
         /*padding: 2px;*/
         /*font-size: small;*/
         font-weight: lighter;
@@ -611,7 +611,7 @@ tr:hover {
         #MainMenu > .k-item > .k-link:hover {
             color: yellow;
             background-color: #ca0e0b;
-            height: 51px;
+            height: 53px;
             box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.4) inset;
             -webkit-animation: myfirst 1s; /* Chrome, Safari, Opera */
             animation: myfirst 1s; /*animation: orange-red 4s;*/
