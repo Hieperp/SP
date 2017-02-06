@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using TotalBase.Enums;
+
 namespace TotalDTO.Helpers
 {
     public interface IAmountDetailDTO : IQuantityDetailDTO
@@ -28,7 +30,7 @@ namespace TotalDTO.Helpers
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if (Math.Round(this.Quantity * this.UnitPrice, 0) != this.Amount) yield return new ValidationResult("Lỗi thành tiền", new[] { "Amount" });
+            if (Math.Round(this.Quantity * this.UnitPrice, GlobalEnums.rndAmount, MidpointRounding.AwayFromZero) != this.Amount) yield return new ValidationResult("Lỗi thành tiền", new[] { "Amount" });
         }
     }
 }

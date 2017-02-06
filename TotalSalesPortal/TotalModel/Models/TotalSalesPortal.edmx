@@ -18,6 +18,7 @@
           <Property Name="UnApprovalPermitted" Type="bit" Nullable="false" />
           <Property Name="VoidablePermitted" Type="bit" Nullable="false" />
           <Property Name="UnVoidablePermitted" Type="bit" Nullable="false" />
+          <Property Name="ShowDiscount" Type="bit" Nullable="false" />
           <Property Name="AccessLevelBACKUP" Type="int" />
           <Property Name="ApprovalPermittedBACKUP" Type="bit" />
           <Property Name="UnApprovalPermittedBACKUP" Type="bit" />
@@ -1609,6 +1610,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Parameter Name="CustomerID" Type="int" Mode="In" />
           <Parameter Name="IsReadonly" Type="bit" Mode="In" />
         </Function>
+        <Function Name="GetShowDiscount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="NMVNTaskID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetUnApprovalPermitted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="NMVNTaskID" Type="int" Mode="In" />
@@ -2520,6 +2525,10 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <FunctionImport Name="HandlingUnitEditable" ReturnType="Collection(String)">
           <Parameter Name="EntityID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetShowDiscount" ReturnType="Collection(Boolean)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="NMVNTaskID" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="OrganizationalUnit">
           <Key>
@@ -2832,6 +2841,8 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Type="Decimal" Name="TotalFreeQuantityIssue" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Boolean" Name="InActive" Nullable="false" />
           <Property Type="Boolean" Name="InActivePartial" Nullable="false" />
+          <Property Type="Decimal" Name="TotalListedGrossAmount" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="VoidTypeName" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="DeliveryAdviceViewDetail">
           <Property Type="Int32" Name="DeliveryAdviceDetailID" Nullable="false" />
@@ -3116,6 +3127,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <Property Name="AccessLevelBACKUP" Type="Int32" />
           <Property Name="ApprovalPermittedBACKUP" Type="Boolean" />
           <Property Name="UnApprovalPermittedBACKUP" Type="Boolean" />
+          <Property Name="ShowDiscount" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="VoidType">
           <Key>
@@ -4663,6 +4675,8 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
                 <ScalarProperty Name="TotalFreeQuantityIssue" ColumnName="TotalFreeQuantityIssue" />
                 <ScalarProperty Name="InActive" ColumnName="InActive" />
                 <ScalarProperty Name="InActivePartial" ColumnName="InActivePartial" />
+                <ScalarProperty Name="TotalListedGrossAmount" ColumnName="TotalListedGrossAmount" />
+                <ScalarProperty Name="VoidTypeName" ColumnName="VoidTypeName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4994,6 +5008,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
           <EntitySetMapping Name="AccessControls">
             <EntityTypeMapping TypeName="TotalSalesPortalModel.AccessControl">
               <MappingFragment StoreEntitySet="AccessControls">
+                <ScalarProperty Name="ShowDiscount" ColumnName="ShowDiscount" />
                 <ScalarProperty Name="UnApprovalPermittedBACKUP" ColumnName="UnApprovalPermittedBACKUP" />
                 <ScalarProperty Name="ApprovalPermittedBACKUP" ColumnName="ApprovalPermittedBACKUP" />
                 <ScalarProperty Name="AccessLevelBACKUP" ColumnName="AccessLevelBACKUP" />
@@ -5712,6 +5727,7 @@ warning 6035: The relationship 'FK_Receipts_AspNetUsers' has columns that are no
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="HandlingUnitEditable" FunctionName="TotalSalesPortalModel.Store.HandlingUnitEditable" />
+          <FunctionImportMapping FunctionImportName="GetShowDiscount" FunctionName="TotalSalesPortalModel.Store.GetShowDiscount" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

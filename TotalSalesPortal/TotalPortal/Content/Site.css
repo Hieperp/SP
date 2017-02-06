@@ -822,6 +822,11 @@ a[class^='info-bar'] {
     color: orange;
 }
 
+
+.isBonus1 {
+    color: orange;
+}
+
 .isBonus {
     color: darkcyan;
 }

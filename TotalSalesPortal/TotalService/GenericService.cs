@@ -112,6 +112,10 @@ namespace TotalService
             return this.genericRepository.GetUnVoidablePermitted(this.UserID, this.nmvnTaskID, organizationalUnitID);
         }
 
+        public override bool GetShowDiscount()
+        {
+            return this.genericRepository.GetShowDiscount(this.UserID, this.nmvnTaskID);
+        }
 
         public virtual bool Approvable(TDto dto)
         {
@@ -429,7 +433,7 @@ namespace TotalService
             if (this.functionNameToggleVoid != null && this.functionNameToggleVoid != "")
             {
                 ObjectParameter[] parameters = new ObjectParameter[] { new ObjectParameter("EntityID", dto.GetID()), new ObjectParameter("InActive", !dto.InActive), new ObjectParameter("VoidTypeID", dto.VoidTypeID) };
-                if (this.genericRepository.ExecuteFunction(this.functionNameToggleVoid, parameters) != 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.InActive ? "phục hồi lệnh" : "") + "hủy");
+                if (this.genericRepository.ExecuteFunction(this.functionNameToggleVoid, parameters) < 1) throw new System.ArgumentException("Lỗi", "Chứng từ không tồn tại hoặc đã " + (dto.InActive ? "phục hồi lệnh" : "") + "hủy");
             }
             else
                 throw new System.ArgumentException("Lỗi", "Hệ thống không cho phép thực hiện tác vụ này.");

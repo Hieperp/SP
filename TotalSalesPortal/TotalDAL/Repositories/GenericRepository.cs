@@ -186,6 +186,14 @@ namespace TotalDAL.Repositories
             return unVoidablePermitted == null ? false : (bool)unVoidablePermitted;
         }
 
+        public bool GetShowDiscount(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID)
+        {
+            if (userID == null || userID == 0 || (int)nmvnTaskID == 0) return false;
+
+            bool? showDiscount = this.TotalSalesPortalEntities.GetShowDiscount(userID, (int)nmvnTaskID).Single();
+            return showDiscount == null ? false : (bool)showDiscount;
+        }
+
         public bool GetApproved(int id)
         {
             return this.CheckExisting(id, this.functionNameApproved);

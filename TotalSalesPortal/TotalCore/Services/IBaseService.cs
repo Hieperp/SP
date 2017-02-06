@@ -25,5 +25,8 @@ namespace TotalCore.Services
         bool GetUnVoidablePermitted();
         bool GetUnVoidablePermitted(int? organizationalUnitID);
 
+        
+        bool GetShowDiscount();
+
     }
 }

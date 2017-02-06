@@ -20,6 +20,8 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
             this.GetUnApprovalPermitted();
             this.GetVoidablePermitted();
             this.GetUnVoidablePermitted();
+
+            this.GetShowDiscount();
             this.UpdateLockedDate();
         }
 
@@ -97,6 +99,19 @@ namespace TotalDAL.Helpers.SqlProgrammability.Commons
             queryString = queryString + "       WHERE       UserID = @UserID AND NMVNTaskID = @NMVNTaskID AND (@OrganizationalUnitID <= 0 OR (@OrganizationalUnitID > 0 AND OrganizationalUnitID = @OrganizationalUnitID)) " + "\r\n";
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GetUnVoidablePermitted", queryString);
+        }
+
+
+        private void GetShowDiscount()
+        {
+            string queryString = " @UserID Int, @NMVNTaskID Int " + "\r\n";
+            queryString = queryString + " WITH ENCRYPTION " + "\r\n";
+            queryString = queryString + " AS " + "\r\n";
+
+            queryString = queryString + "       SELECT      CAST(MAX(CAST(ShowDiscount AS Int)) AS Bit) AS ShowDiscount FROM AccessControls " + "\r\n";
+            queryString = queryString + "       WHERE       UserID = @UserID AND NMVNTaskID = @NMVNTaskID " + "\r\n";
+
+            this.totalSalesPortalEntities.CreateStoredProcedure("GetShowDiscount", queryString);
         }
 
         private void UpdateLockedDate()

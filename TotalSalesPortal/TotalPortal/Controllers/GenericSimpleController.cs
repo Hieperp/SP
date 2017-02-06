@@ -64,6 +64,8 @@ namespace TotalPortal.Controllers
         public virtual ActionResult Index(int? id)
         {
             ViewBag.SelectedEntityID = id == null ? -1 : (int)id;
+            ViewBag.ShowDiscount = this.GenericService.GetShowDiscount();
+
             return View();
         }
 
@@ -564,11 +566,12 @@ namespace TotalPortal.Controllers
 
             if (forAlter)//NOW THIS GlobalLocked attribute ONLY be considered WHEN ALTER ACTION to USE IN ALTER VIEW: to ALLOW or NOT ALTER.
                 simpleViewModel.GlobalLocked = this.GenericService.GlobalLocked(simpleViewModel);
+            
+            simpleViewModel.ShowDiscount = this.GenericService.GetShowDiscount();
 
             RequireJsOptions.Add("Editable", simpleViewModel.Editable, RequireJsOptionsScope.Page);
             RequireJsOptions.Add("Deletable", simpleViewModel.Deletable, RequireJsOptionsScope.Page);
-
-            simpleViewModel.ShowDiscount = false;
+            
             simpleViewModel.UserID = this.GenericService.UserID; //CAU LENH NAY TAM THOI DUOC SU DUNG DE SORT USER DROPDWONLIST. SAU NAY NEN LAM CACH KHAC, CACH NAY KHONG HAY
 
             this.viewModelSelectListBuilder.BuildSelectLists(simpleViewModel); //Buil select list for dropdown box using IEnumerable<SelectListItem> (using for short data list only). For the long list, it should use Kendo automplete instead.

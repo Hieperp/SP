@@ -49,6 +49,7 @@ namespace TotalCore.Repositories
         bool GetUnApprovalPermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
         bool GetVoidablePermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
         bool GetUnVoidablePermitted(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID, int? organizationalUnitID);
+        bool GetShowDiscount(int? userID, GlobalEnums.NmvnTaskID nmvnTaskID);
 
         bool GetApproved(int id);
         bool GetEditable(int id);

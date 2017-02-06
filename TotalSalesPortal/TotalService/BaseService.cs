@@ -70,5 +70,8 @@ namespace TotalService
         public virtual bool GetUnVoidablePermitted(int? organizationalUnitID)
         { return false; }
 
+
+        public virtual bool GetShowDiscount()
+        { return false; }
     }
 }

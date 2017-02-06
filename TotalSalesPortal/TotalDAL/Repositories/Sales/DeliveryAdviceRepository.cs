@@ -17,6 +17,11 @@ namespace TotalDAL.Repositories.Sales
         {
             return;
 
+            Helpers.SqlProgrammability.Commons.AccessControl accessControl = new Helpers.SqlProgrammability.Commons.AccessControl(totalSalesPortalEntities);
+            accessControl.RestoreProcedure();
+
+            
+
             Helpers.SqlProgrammability.Reports.SaleReports saleReports = new Helpers.SqlProgrammability.Reports.SaleReports(totalSalesPortalEntities);
             saleReports.RestoreProcedure();
 
@@ -57,8 +62,7 @@ namespace TotalDAL.Repositories.Sales
 
             
 
-            Helpers.SqlProgrammability.Commons.AccessControl accessControl = new Helpers.SqlProgrammability.Commons.AccessControl(totalSalesPortalEntities);
-            accessControl.RestoreProcedure();
+            
 
         }
     }

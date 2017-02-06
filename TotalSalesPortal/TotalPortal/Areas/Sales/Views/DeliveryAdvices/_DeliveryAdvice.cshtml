@@ -9,6 +9,8 @@
 {
     @Html.AntiForgeryToken()
 
+    <input id="preventImplicitSubmission" type="submit" style="display:none" onclick="return false;" />
+    
     @Html.HiddenFor(model => model.DeliveryAdviceID)
 
     @Html.HiddenFor(model => model.TotalQuantity)
@@ -213,7 +215,7 @@
 
                     columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50).Hidden(!@Model.Editable);
 
-                    columns.Template(model => null).Hidden(!@Model.Voidable && !@Model.UnVoidable)
+                    columns.Template(model => null).Width(50).Hidden(!@Model.Voidable && !@Model.UnVoidable)
                         .ClientTemplate("<a class='k-button' style='padding:0px;' onclick='callVoidDetail(#= DeliveryAdviceDetailID #)'><span class='k-icon k-edit'></span></a>");
                 })
                     .Filterable()
