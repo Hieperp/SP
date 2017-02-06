@@ -22,7 +22,7 @@ namespace TotalDTO.Helpers
         public string CommodityCode { get; set; }
 
         //[UIHint("StringReadonly")]  Note: Must set later for any derived class, event for readonly attribute. Don't know why can not override this attribute when needed only
-        [Display(Name = "Hàng hóa")]
+        [Display(Name = "Hàng hóa, dịch vụ")]
         [Required(ErrorMessage = "Vui lòng chọn hàng hóa")]        
         public virtual string CommodityName { get; set; }
 

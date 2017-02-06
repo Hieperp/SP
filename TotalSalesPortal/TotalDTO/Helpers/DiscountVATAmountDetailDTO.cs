@@ -10,7 +10,7 @@ namespace TotalDTO.Helpers
 
     public abstract class DiscountVATAmountDetailDTO : VATAmountDetailDTO, IDiscountVATAmountDetailDTO
     {
-        [Display(Name = "Giá niêm yết")]
+        [Display(Name = "Đơn giá")]
         [UIHint("DecimalReadonly")]
         public decimal ListedPrice { get; set; }
 

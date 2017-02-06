@@ -16,7 +16,7 @@ namespace TotalDTO.Helpers
     {
         public int CalculatingTypeID { get; set; }
 
-        [Display(Name = "Đơn giá")]
+        [Display(Name = "Giá bán")]
         [UIHint("DecimalReadonly")] //[UIHint("Decimal")]
         public virtual decimal UnitPrice { get; set; }
 

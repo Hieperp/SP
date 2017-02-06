@@ -26,7 +26,7 @@ namespace TotalDTO.Helpers
         [UIHint("DecimalReadonly")]
         public decimal VATAmount { get; set; }
 
-        [Display(Name = "TT sau thuế")]
+        [Display(Name = "Tổng cộng")]
         [UIHint("DecimalReadonly")]
         public decimal GrossAmount { get; set; }
 
