@@ -44,7 +44,7 @@
     
 
     definedExemplar.prototype._updateRowWeight = function (dataRow) {
-        dataRow.set("Weight", this._round(dataRow.Quantity * dataRow.UnitWeight, requireConfig.websiteOptions.rndWeight));
+        dataRow.set("Weight", this._round(dataRow.Quantity * dataRow.UnitWeight /1000, requireConfig.websiteOptions.rndWeight));
     }
 
 

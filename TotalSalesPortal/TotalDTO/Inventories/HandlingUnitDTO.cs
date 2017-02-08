@@ -49,6 +49,8 @@ namespace TotalDTO.Inventories
 
         [Display(Name = "Trọng lượng thực tế")]
         public decimal RealWeight { get; set; }
+        [Display(Name = "Chênh lệch trọng lượng")]
+        public decimal WeightDifference { get; set; }
 
         [Display(Name = "Tổng trọng lượng")]
         public decimal TotalWeight { get; set; }

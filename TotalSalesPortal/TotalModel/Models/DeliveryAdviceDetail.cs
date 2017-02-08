@@ -57,6 +57,7 @@ namespace TotalModel.Models
         public decimal ListedAmount { get; set; }
         public decimal ListedVATAmount { get; set; }
         public decimal ListedGrossAmount { get; set; }
+        public int CalculatingTypeID { get; set; }
     
         public virtual Commodity Commodity { get; set; }
         public virtual DeliveryAdvice DeliveryAdvice { get; set; }

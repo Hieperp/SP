@@ -17,7 +17,6 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string Reference { get; set; }
         public string LocationCode { get; set; }
-        public string CustomerDescription { get; set; }
         public Nullable<System.DateTime> SalesOrderDate { get; set; }
         public string SalesOrderReference { get; set; }
         public decimal TotalGrossAmount { get; set; }
@@ -30,5 +29,7 @@ namespace TotalModel.Models
         public bool InActivePartial { get; set; }
         public decimal TotalListedGrossAmount { get; set; }
         public string VoidTypeName { get; set; }
+        public string CustomerName { get; set; }
+        public string ReceiverDescription { get; set; }
     }
 }

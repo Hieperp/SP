@@ -124,6 +124,9 @@
                         .ClientTemplate("#= WarehouseCode #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].WarehouseCode' value='#= WarehouseCode #' />");
 
 
+                    columns.Bound(p => p.CalculatingTypeID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CalculatingTypeID #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].CalculatingTypeID' value='#= CalculatingTypeID #' />");
+                    
                     columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
                         .ClientTemplate("#= kendo.format('{0:n0}', (CommodityTypeID == 6? 0: QuantityAvailable) ) #" + "<input type='hidden' name='DeliveryAdviceViewDetails[#= index(data) #].QuantityAvailable' value='#= QuantityAvailable #' />");

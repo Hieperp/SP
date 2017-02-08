@@ -45,11 +45,12 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + " AS " + "\r\n";
             queryString = queryString + "    BEGIN " + "\r\n";
 
-            queryString = queryString + "       SELECT      GoodsIssues.GoodsIssueID, CAST(GoodsIssues.EntryDate AS DATE) AS EntryDate, GoodsIssues.Reference, Locations.Code AS LocationCode, Customers.Code + ', ' + Customers.Name + ',    ' + Customers.BillingAddress AS CustomerDescription, DeliveryAdvices.Reference AS DeliveryAdviceReference, ISNULL(DeliveryAdvices.EntryDate, NULL) AS DeliveryAdviceEntryDate, GoodsIssues.TotalQuantity, GoodsIssues.TotalFreeQuantity, GoodsIssues.TotalGrossAmount, GoodsIssues.Description " + "\r\n";
-            queryString = queryString + "       FROM        GoodsIssues INNER JOIN" + "\r\n";
-            queryString = queryString + "                   Locations ON GoodsIssues.EntryDate >= @FromDate AND GoodsIssues.EntryDate <= @ToDate AND GoodsIssues.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsIssue + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsIssues.LocationID INNER JOIN " + "\r\n";
-            queryString = queryString + "                   Customers Customers ON GoodsIssues.CustomerID = Customers.CustomerID LEFT JOIN" + "\r\n";
-            queryString = queryString + "                   DeliveryAdvices ON GoodsIssues.DeliveryAdviceID = DeliveryAdvices.DeliveryAdviceID" + "\r\n";
+            queryString = queryString + "       SELECT      GoodsIssues.GoodsIssueID, CAST(GoodsIssues.EntryDate AS DATE) AS EntryDate, GoodsIssues.Reference, Locations.Code AS LocationCode, Customers.Name AS CustomerName, CASE WHEN DeliveryAdvices.CustomerID = DeliveryAdvices.ReceiverID THEN '' ELSE Receivers.Name + ', ' END + GoodsIssues.ShippingAddress AS ReceiverDescription, DeliveryAdvices.Reference AS DeliveryAdviceReference, ISNULL(DeliveryAdvices.EntryDate, NULL) AS DeliveryAdviceEntryDate, GoodsIssues.TotalQuantity, GoodsIssues.TotalFreeQuantity, GoodsIssues.TotalListedGrossAmount, GoodsIssues.TotalGrossAmount, GoodsIssues.Description " + "\r\n";
+            queryString = queryString + "       FROM        GoodsIssues " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Locations ON GoodsIssues.EntryDate >= @FromDate AND GoodsIssues.EntryDate <= @ToDate AND GoodsIssues.OrganizationalUnitID IN (SELECT AccessControls.OrganizationalUnitID FROM AccessControls INNER JOIN AspNetUsers ON AccessControls.UserID = AspNetUsers.UserID WHERE AspNetUsers.Id = @AspUserID AND AccessControls.NMVNTaskID = " + (int)TotalBase.Enums.GlobalEnums.NmvnTaskID.GoodsIssue + " AND AccessControls.AccessLevel > 0) AND Locations.LocationID = GoodsIssues.LocationID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers Customers ON GoodsIssues.CustomerID = Customers.CustomerID " + "\r\n";
+            queryString = queryString + "                   INNER JOIN Customers Receivers ON GoodsIssues.ReceiverID = Receivers.CustomerID " + "\r\n";
+            queryString = queryString + "                   LEFT JOIN DeliveryAdvices ON GoodsIssues.DeliveryAdviceID = DeliveryAdvices.DeliveryAdviceID" + "\r\n";
             queryString = queryString + "       " + "\r\n";
 
             queryString = queryString + "    END " + "\r\n";
@@ -97,7 +98,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
 
         private void GetGoodsIssueViewDetails()
         {
-            string queryString; 
+            string queryString;
 
             SqlProgrammability.Inventories.Inventories inventories = new Inventories(this.totalSalesPortalEntities);
 
@@ -133,10 +134,10 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "       " + inventories.GET_WarehouseJournal_BUILD_SQL("@WarehouseJournalTable", "@EntryDate", "@EntryDate", "@WarehouseIDList", "@CommodityIDList", "0", "0") + "\r\n";
 
             queryString = queryString + "       IF (@DeliveryAdviceID > 0) ";
-            queryString = queryString + "           " + this.BuildSQL(true) ;
+            queryString = queryString + "           " + this.BuildSQL(true);
             queryString = queryString + "       ELSE ";
             queryString = queryString + "           " + this.BuildSQL(false);
-            
+
             queryString = queryString + "   END " + "\r\n";
 
             this.totalSalesPortalEntities.CreateStoredProcedure("GetGoodsIssueViewDetails", queryString);
@@ -151,14 +152,14 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "       IF (@GoodsIssueID <= 0) " + "\r\n";
             queryString = queryString + "           BEGIN " + "\r\n";
             queryString = queryString + "               " + this.BuildSQLNew(isDeliveryAdviceID) + "\r\n";
-            queryString = queryString + "               ORDER BY DeliveryAdviceDetails.EntryDate, DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
+            queryString = queryString + "               ORDER BY Commodities.CommodityTypeID, Commodities.Code, DeliveryAdviceDetails.EntryDate, DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
             queryString = queryString + "           END " + "\r\n";
             queryString = queryString + "       ELSE " + "\r\n";
 
             queryString = queryString + "           IF (@IsReadonly = 1) " + "\r\n";
             queryString = queryString + "               BEGIN " + "\r\n";
             queryString = queryString + "                   " + this.BuildSQLEdit(isDeliveryAdviceID) + "\r\n";
-            queryString = queryString + "                   ORDER BY DeliveryAdviceDetails.EntryDate, DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
+            queryString = queryString + "                   ORDER BY Commodities.CommodityTypeID, Commodities.Code, DeliveryAdviceDetails.EntryDate, DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
             queryString = queryString + "               END " + "\r\n";
 
             queryString = queryString + "           ELSE " + "\r\n"; //FULL SELECT FOR EDIT MODE
@@ -167,7 +168,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "                   " + this.BuildSQLNew(isDeliveryAdviceID) + " WHERE DeliveryAdviceDetails.DeliveryAdviceDetailID NOT IN (SELECT DeliveryAdviceDetailID FROM GoodsIssueDetails WHERE GoodsIssueID = @GoodsIssueID) " + "\r\n";
             queryString = queryString + "                   UNION ALL " + "\r\n";
             queryString = queryString + "                   " + this.BuildSQLEdit(isDeliveryAdviceID) + "\r\n";
-            queryString = queryString + "                   ORDER BY DeliveryAdviceDetails.EntryDate, DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
+            queryString = queryString + "                   ORDER BY Commodities.CommodityTypeID, Commodities.Code, DeliveryAdviceDetails.EntryDate, DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
             queryString = queryString + "               END " + "\r\n";
 
             queryString = queryString + "   END " + "\r\n";
@@ -179,14 +180,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString;
 
-            queryString = "                     SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, 0 AS GoodsIssueDetailID, 0 AS GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, NULL AS VoidTypeID, CAST(NULL AS nvarchar(50)) AS VoidTypeCode, CAST(NULL AS nvarchar(50)) AS VoidTypeName, NULL AS VoidClassID, " + "\r\n";
-            queryString = queryString + "                       DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) AS FreeQuantityRemains, IIF(Commodities.CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + ", DeliveryAdviceDetails.Quantity + DeliveryAdviceDetails.FreeQuantity, CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2))) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
-            queryString = queryString + "                       0.0 AS Quantity, 0.0 AS FreeQuantity, DeliveryAdviceDetails.ListedPrice, DeliveryAdviceDetails.DiscountPercent, DeliveryAdviceDetails.UnitPrice, DeliveryAdviceDetails.VATPercent, DeliveryAdviceDetails.GrossPrice, 0.0 AS Amount, 0.0 AS VATAmount, 0.0 AS GrossAmount, DeliveryAdviceDetails.IsBonus, DeliveryAdviceDetails.Remarks " + "\r\n";
+            queryString = "                     SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdvices.Reference AS DeliveryAdviceReference, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, 0 AS GoodsIssueDetailID, 0 AS GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, NULL AS VoidTypeID, CAST(NULL AS nvarchar(50)) AS VoidTypeCode, CAST(NULL AS nvarchar(50)) AS VoidTypeName, NULL AS VoidClassID, " + "\r\n";
+            queryString = queryString + "                       DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, DeliveryAdviceDetails.CalculatingTypeID, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, 0) AS FreeQuantityRemains, IIF(Commodities.CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + ", DeliveryAdviceDetails.Quantity + DeliveryAdviceDetails.FreeQuantity, CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2))) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
+            queryString = queryString + "                       0.0 AS Quantity, 0.0 AS FreeQuantity, DeliveryAdviceDetails.ListedPrice, DeliveryAdviceDetails.DiscountPercent, DeliveryAdviceDetails.UnitPrice, DeliveryAdviceDetails.VATPercent, DeliveryAdviceDetails.ListedGrossPrice, DeliveryAdviceDetails.GrossPrice, 0.0 AS ListedAmount, 0.0 AS Amount, 0.0 AS ListedVATAmount, 0.0 AS VATAmount, 0.0 AS ListedGrossAmount, 0.0 AS GrossAmount, DeliveryAdviceDetails.IsBonus, DeliveryAdviceDetails.Remarks " + "\r\n";
 
             queryString = queryString + "       FROM            DeliveryAdviceDetails " + "\r\n";
             queryString = queryString + "                       INNER JOIN " + (isDeliveryAdviceID ? "Commodities" : "DeliveryAdvices") + " ON " + (isDeliveryAdviceID ? "DeliveryAdviceDetails.DeliveryAdviceID = @DeliveryAdviceID" : "DeliveryAdviceDetails.LocationID = @LocationID AND DeliveryAdviceDetails.CustomerID = @CustomerID AND DeliveryAdviceDetails.ReceiverID = @ReceiverID AND DeliveryAdvices.ShippingAddress = @ShippingAddress") + " AND DeliveryAdviceDetails.Approved = 1 AND DeliveryAdviceDetails.InActive = 0 AND DeliveryAdviceDetails.InActivePartial = 0 AND DeliveryAdviceDetails.InActiveIssue = 0 AND (ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue, " + (int)GlobalEnums.rndQuantity + ") > 0 OR ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue, " + (int)GlobalEnums.rndQuantity + ") > 0) AND " + (isDeliveryAdviceID ? "DeliveryAdviceDetails.CommodityID = Commodities.CommodityID" : "DeliveryAdviceDetails.DeliveryAdviceID = DeliveryAdvices.DeliveryAdviceID") + "\r\n";
             queryString = queryString + "                       " + (isDeliveryAdviceID ? "" : "INNER JOIN Commodities ON DeliveryAdviceDetails.CommodityID = Commodities.CommodityID ") + "\r\n";
             queryString = queryString + "                       INNER JOIN Warehouses ON DeliveryAdviceDetails.WarehouseID = Warehouses.WarehouseID " + "\r\n";
+            queryString = queryString + "                       " + (isDeliveryAdviceID ? "INNER JOIN DeliveryAdvices ON DeliveryAdviceDetails.DeliveryAdviceID = DeliveryAdvices.DeliveryAdviceID " : "") + "\r\n";
             queryString = queryString + "                       LEFT JOIN (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n";
 
             return queryString;
@@ -196,14 +198,15 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
         {
             string queryString;
 
-            queryString = "                     SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, GoodsIssueDetails.GoodsIssueDetailID, GoodsIssueDetails.GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, VoidTypes.VoidTypeID, VoidTypes.Code AS VoidTypeCode, VoidTypes.Name AS VoidTypeName, VoidTypes.VoidClassID, " + "\r\n";
-            queryString = queryString + "                       DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue + GoodsIssueDetails.Quantity, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue + GoodsIssueDetails.FreeQuantity, 0) AS FreeQuantityRemains, IIF(Commodities.CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + ", DeliveryAdviceDetails.Quantity + DeliveryAdviceDetails.FreeQuantity, ROUND(CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2)) + GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity, 0)) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
-            queryString = queryString + "                       GoodsIssueDetails.Quantity, GoodsIssueDetails.FreeQuantity, GoodsIssueDetails.ListedPrice, GoodsIssueDetails.DiscountPercent, GoodsIssueDetails.UnitPrice, GoodsIssueDetails.VATPercent, GoodsIssueDetails.GrossPrice, GoodsIssueDetails.Amount, GoodsIssueDetails.VATAmount, GoodsIssueDetails.GrossAmount, GoodsIssueDetails.IsBonus, GoodsIssueDetails.Remarks " + "\r\n";
+            queryString = "                     SELECT          DeliveryAdviceDetails.DeliveryAdviceID, DeliveryAdvices.Reference AS DeliveryAdviceReference, DeliveryAdviceDetails.EntryDate AS DeliveryAdviceDate, GoodsIssueDetails.GoodsIssueDetailID, GoodsIssueDetails.GoodsIssueID, DeliveryAdviceDetails.DeliveryAdviceDetailID, VoidTypes.VoidTypeID, VoidTypes.Code AS VoidTypeCode, VoidTypes.Name AS VoidTypeName, VoidTypes.VoidClassID, " + "\r\n";
+            queryString = queryString + "                       DeliveryAdviceDetails.CommodityID, Commodities.Code AS CommodityCode, Commodities.Name AS CommodityName, Commodities.CommodityTypeID, Warehouses.WarehouseID, Warehouses.Code AS WarehouseCode, GoodsIssueDetails.CalculatingTypeID, ROUND(DeliveryAdviceDetails.Quantity - DeliveryAdviceDetails.QuantityIssue + GoodsIssueDetails.Quantity, 0) AS QuantityRemains, ROUND(DeliveryAdviceDetails.FreeQuantity - DeliveryAdviceDetails.FreeQuantityIssue + GoodsIssueDetails.FreeQuantity, 0) AS FreeQuantityRemains, IIF(Commodities.CommodityTypeID = " + (int)GlobalEnums.CommodityTypeID.Services + ", DeliveryAdviceDetails.Quantity + DeliveryAdviceDetails.FreeQuantity, ROUND(CAST(ISNULL(CommoditiesAvailable.QuantityAvailable, 0) AS decimal(18, 2)) + GoodsIssueDetails.Quantity + GoodsIssueDetails.FreeQuantity, 0)) AS QuantityAvailable, DeliveryAdviceDetails.ControlFreeQuantity, " + "\r\n";
+            queryString = queryString + "                       GoodsIssueDetails.Quantity, GoodsIssueDetails.FreeQuantity, GoodsIssueDetails.ListedPrice, GoodsIssueDetails.DiscountPercent, GoodsIssueDetails.UnitPrice, GoodsIssueDetails.VATPercent, GoodsIssueDetails.ListedGrossPrice, GoodsIssueDetails.GrossPrice, GoodsIssueDetails.ListedAmount, GoodsIssueDetails.Amount, GoodsIssueDetails.ListedVATAmount, GoodsIssueDetails.VATAmount, GoodsIssueDetails.ListedGrossAmount, GoodsIssueDetails.GrossAmount, GoodsIssueDetails.IsBonus, GoodsIssueDetails.Remarks " + "\r\n";
 
             queryString = queryString + "       FROM            GoodsIssueDetails " + "\r\n";
             queryString = queryString + "                       INNER JOIN DeliveryAdviceDetails ON GoodsIssueDetails.GoodsIssueID = @GoodsIssueID AND GoodsIssueDetails.DeliveryAdviceDetailID = DeliveryAdviceDetails.DeliveryAdviceDetailID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Commodities ON GoodsIssueDetails.CommodityID = Commodities.CommodityID " + "\r\n";
             queryString = queryString + "                       INNER JOIN Warehouses ON DeliveryAdviceDetails.WarehouseID = Warehouses.WarehouseID " + "\r\n";
+            queryString = queryString + "                       INNER JOIN DeliveryAdvices ON DeliveryAdviceDetails.DeliveryAdviceID = DeliveryAdvices.DeliveryAdviceID " + "\r\n";
             queryString = queryString + "                       LEFT JOIN VoidTypes ON GoodsIssueDetails.VoidTypeID = VoidTypes.VoidTypeID " + "\r\n";
             queryString = queryString + "                       LEFT JOIN (SELECT WarehouseID, CommodityID, SUM(QuantityBegin) AS QuantityAvailable FROM @WarehouseJournalTable GROUP BY WarehouseID, CommodityID) CommoditiesAvailable ON DeliveryAdviceDetails.WarehouseID = CommoditiesAvailable.WarehouseID AND DeliveryAdviceDetails.CommodityID = CommoditiesAvailable.CommodityID " + "\r\n";
 

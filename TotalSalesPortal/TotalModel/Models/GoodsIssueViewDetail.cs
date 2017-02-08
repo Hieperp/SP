@@ -44,5 +44,11 @@ namespace TotalModel.Models
         public string VoidTypeCode { get; set; }
         public string VoidTypeName { get; set; }
         public Nullable<int> VoidClassID { get; set; }
+        public int CalculatingTypeID { get; set; }
+        public decimal ListedGrossPrice { get; set; }
+        public decimal ListedAmount { get; set; }
+        public decimal ListedVATAmount { get; set; }
+        public decimal ListedGrossAmount { get; set; }
+        public string DeliveryAdviceReference { get; set; }
     }
 }

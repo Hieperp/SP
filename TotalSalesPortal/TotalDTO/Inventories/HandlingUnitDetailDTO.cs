@@ -40,7 +40,7 @@ namespace TotalDTO.Inventories
         {
             foreach (var result in base.Validate(validationContext)) { yield return result; }
 
-            if (Math.Round(this.Quantity * this.UnitWeight, GlobalEnums.rndWeight, MidpointRounding.AwayFromZero) != this.Weight) yield return new ValidationResult("Lỗi trọng lượng", new[] { "TotalWeight" });
+            if (Math.Round(this.Quantity * this.UnitWeight /1000, GlobalEnums.rndWeight, MidpointRounding.AwayFromZero) != this.Weight) yield return new ValidationResult("Lỗi trọng lượng", new[] { "TotalWeight" });
         }
 
     }

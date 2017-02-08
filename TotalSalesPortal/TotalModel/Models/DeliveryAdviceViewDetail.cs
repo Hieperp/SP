@@ -45,5 +45,6 @@ namespace TotalModel.Models
         public decimal ListedAmount { get; set; }
         public decimal ListedVATAmount { get; set; }
         public decimal ListedGrossAmount { get; set; }
+        public int CalculatingTypeID { get; set; }
     }
 }

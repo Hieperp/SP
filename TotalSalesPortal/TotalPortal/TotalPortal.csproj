@@ -441,6 +441,7 @@
     <Content Include="Content\Images\New\Fixxing68.png" />
     <Content Include="Content\Images\New\Folders-OS-Personal-Metro-icon.png" />
     <Content Include="Content\Images\New\Futon-bed-icon.png" />
+    <Content Include="Content\Images\New\green-ok-icon.png" />
     <Content Include="Content\Images\New\header_Background.jpg" />
     <Content Include="Content\Images\New\icons\Cleanup.ico" />
     <Content Include="Content\Images\New\icons\Dakirby309-Windows-8-Metro-Apps-Disk-Cleanup-Metro.ico" />
@@ -482,6 +483,8 @@
     <Content Include="Content\Images\New\money-icon1.png" />
     <Content Include="Content\Images\New\Near-Me.png" />
     <Content Include="Content\Images\New\Near-Me_Gray.png" />
+    <Content Include="Content\Images\New\Ok-icon-1.png" />
+    <Content Include="Content\Images\New\Ok-icon.png" />
     <Content Include="Content\Images\New\palette.png" />
     <Content Include="Content\Images\New\payment-icon.png" />
     <Content Include="Content\Images\New\PersonIcon.png" />
@@ -490,6 +493,7 @@
     <Content Include="Content\Images\New\pipe-line-icon.png" />
     <Content Include="Content\Images\New\Sale2-24.png" />
     <Content Include="Content\Images\New\Sale2-32.png" />
+    <Content Include="Content\Images\New\Save-icon-blue.png" />
     <Content Include="Content\Images\New\save-icon.png" />
     <Content Include="Content\Images\New\sprite.png" />
     <Content Include="Content\Images\New\supplier_div_bg.png" />
@@ -508,6 +512,7 @@
     <Content Include="Content\Images\New\Void32.png" />
     <Content Include="Content\Images\New\Void32m.png" />
     <Content Include="Content\Images\New\warehouse_div_bg.png" />
+    <Content Include="Content\Images\New\yellow-ok-icon.png" />
     <Content Include="Content\Images\Old\ChangeRoom.png" />
     <Content Include="Content\Images\Old\Cleanup.png" />
     <Content Include="Content\Images\Old\Cleanup48.png" />

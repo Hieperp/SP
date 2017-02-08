@@ -245,7 +245,7 @@ namespace TotalDAL.Helpers.SqlProgrammability.Inventories
             queryString = queryString + "           END " + "\r\n";
 
             queryString = queryString + "       IF  @Identification > 0 " + "\r\n";
-            queryString = queryString + "               UPDATE              HandlingUnits SET CountIdentification = @Identification WHERE ConsignmentNo = @ConsignmentNo " + "\r\n";
+            queryString = queryString + "               UPDATE              HandlingUnits SET CountIdentification = @Identification WHERE YEAR(EntryDate) = YEAR(@EntryDate) AND MONTH(EntryDate) = MONTH(@EntryDate) AND DAY(EntryDate) = DAY(@EntryDate) AND CustomerID = @CustomerID AND ReceiverID = @ReceiverID AND ShippingAddress = @ShippingAddress AND ConsignmentNo = @ConsignmentNo " + "\r\n";
 
             queryString = queryString + "       CLOSE           CursorEntryDate;    DEALLOCATE CursorEntryDate; " + "\r\n";
 

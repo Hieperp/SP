@@ -16,11 +16,15 @@ namespace TotalDTO.Inventories
 
         public int StorekeeperID { get; set; }
 
+        [Display(Name = "Phiếu ĐN")]
+        [UIHint("StringReadonly")]
+        public string DeliveryAdviceReference { get; set; }
+
         [UIHint("StringReadonly")]
         public override string CommodityName { get; set; }
-        
 
-        [Display(Name = "SL ĐH")]
+
+        [Display(Name = "SL ĐN")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityRemains { get; set; }
 

@@ -54,6 +54,9 @@ namespace TotalModel.Models
         public bool InActive { get; set; }
         public bool InActivePartial { get; set; }
         public Nullable<System.DateTime> InActiveDate { get; set; }
+        public decimal TotalListedAmount { get; set; }
+        public decimal TotalListedVATAmount { get; set; }
+        public decimal TotalListedGrossAmount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountInvoice> AccountInvoices { get; set; }

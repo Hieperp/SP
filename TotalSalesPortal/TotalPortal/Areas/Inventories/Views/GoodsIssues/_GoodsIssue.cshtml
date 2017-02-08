@@ -1,4 +1,6 @@
-﻿@model TotalPortal.Areas.Inventories.ViewModels.GoodsIssueViewModel
+﻿@using TotalPortal.Configuration
+
+@model TotalPortal.Areas.Inventories.ViewModels.GoodsIssueViewModel
 
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MainForm" }))
@@ -9,9 +11,13 @@
     @Html.HiddenFor(model => model.GoodsIssueID)
     @Html.HiddenFor(model => model.TotalQuantity)
     @Html.HiddenFor(model => model.TotalFreeQuantity)
+    @Html.HiddenFor(model => model.TotalListedAmount)
     @Html.HiddenFor(model => model.TotalAmount)
+    @Html.HiddenFor(model => model.TotalListedVATAmount)
     @Html.HiddenFor(model => model.TotalVATAmount)
+    @Html.HiddenFor(model => model.TotalListedGrossAmount)
     @Html.HiddenFor(model => model.TotalGrossAmount)
+    @Html.HiddenFor(model => model.AverageDiscountPercent)
 
     <div class="left-panel">
 
@@ -50,7 +56,7 @@
 
 
         <div class="div-k-grid-detail">
-            @(Html.Kendo().Grid(Model.GoodsIssueViewDetails)
+                                    @(Html.Kendo().Grid(Model.GoodsIssueViewDetails)
                 .Name("kendoGridDetails")
                 .Columns(columns =>
                 {
@@ -65,6 +71,15 @@
                         .ClientTemplate("#= DeliveryAdviceID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].DeliveryAdviceID' value='#= DeliveryAdviceID #' />");
                     columns.Bound(p => p.DeliveryAdviceDetailID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= DeliveryAdviceDetailID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].DeliveryAdviceDetailID' value='#= DeliveryAdviceDetailID #' />");
+
+
+                    columns.Bound(p => p.DeliveryAdviceReference).DisplayNameTitle().Filterable(false).Width(60).Hidden(@Model.DeliveryAdvice != null && @Model.DeliveryAdvice.DeliveryAdviceID != null ? true : false)
+                        .ClientTemplate("#= DeliveryAdviceReference #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].DeliveryAdviceReference' value='#= DeliveryAdviceReference #' />");
+
+                    columns.Bound(p => p.EntryDate).DisplayNameTitle().Filterable(false).Width(80).Hidden(@Model.DeliveryAdvice != null && @Model.DeliveryAdvice.DeliveryAdviceID != null ? true : false)
+                        .Format("{0:" + @SettingsManager.DateFormat + "}")
+                        .ClientTemplate("#= kendo.format('{0:" + @SettingsManager.DateFormat + "}', EntryDate) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].EntryDate' value='#= kendo.format('{0:" + @SettingsManager.DateFormat + "}', EntryDate) #' />");
+
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
@@ -84,6 +99,9 @@
                     columns.Bound(p => p.WarehouseCode).DisplayNameTitle().Filterable(false).Width(80)
                         .ClientTemplate("#= WarehouseCode #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].WarehouseCode' value='#= WarehouseCode #' />");
 
+
+                    columns.Bound(p => p.CalculatingTypeID).DisplayNameTitle().Filterable(false).Hidden()
+                        .ClientTemplate("#= CalculatingTypeID #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].CalculatingTypeID' value='#= CalculatingTypeID #' />");
 
                     columns.Bound(p => p.QuantityAvailable).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Width(50)
                         .Format("{0:n0}")
@@ -138,7 +156,7 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedAmount) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].ListedAmount' value='#= ListedAmount #' />");
-                    
+
                     columns.Bound(p => p.Amount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
@@ -152,7 +170,7 @@
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
                         .ClientTemplate("#= kendo.format('{0:n0}', ListedVATAmount) #" + "<input type='hidden' name='GoodsIssueViewDetails[#= index(data) #].ListedVATAmount' value='#= ListedVATAmount #' />");
-                    
+
                     columns.Bound(p => p.VATAmount).DisplayNameTitle().Filterable(false).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
                         .Format("{0:n0}")
                         .ClientFooterTemplate("#= kendo.format('{0:n0}', sum) #")
@@ -298,7 +316,7 @@
             {
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Save" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(false);"> <img src="~/Content/Images/New/save-icon.png" /> Lưu PXK </button>
                 <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(false);"> <img src="~/Content/Images/New/Actions-document-print-icon.png" /> Lưu và in phiếu xuất kho</button>
-                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(true);"> <img src="~/Content/Images/New/payment-icon.png" /> Hoàn tất xuất kho </button>
+                <button type="submit" class="k-button custom-button SubmitTypeOption-Closed" formaction="@Url.Action("Edit", "GoodsIssues")" onclick="$('#Approved').val(true);"> <img src="~/Content/Images/New/Ok-icon-1.png" /> Hoàn tất xuất kho </button>
             }
             else
             {

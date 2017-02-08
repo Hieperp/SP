@@ -39,6 +39,8 @@
 
         if (arguments.length < 5 || isUpdateFooterTemplate === true) //Missing isUpdateFooterTemplate => Default isUpdateFooterTemplate === true
             this._updateTotalToFooterTemplate(fieldName, aggregateFunction);
+
+        $("#" + totalFieldName).trigger("change"); //Raise Change event for the BOM because sometime we need to Listening for Change event of model total property. Ex: We listening for Change Events on TotalWeight to update WeightDifference, ...
     }
 
 
