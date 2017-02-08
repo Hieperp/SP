@@ -58,3 +58,9 @@ function keydown_insert(columnEdit) {
 
 
 
+function DoRound(value, decimals) {
+    if (arguments.length < 2 || decimals === undefined || decimals === 0)
+        return Math.round(value);
+    else
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}

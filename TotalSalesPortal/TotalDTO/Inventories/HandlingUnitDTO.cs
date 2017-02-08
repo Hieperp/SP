@@ -40,6 +40,9 @@ namespace TotalDTO.Inventories
         [Display(Name = "Tổng số thùng, bao trong lô")]
         public int CountIdentification { get; set; }
 
+        [Display(Name = "Số thứ tự thùng, bao")]
+        public string IdentificationPerConsignmentNo { get { return this.Identification.ToString("0") + "/" + this.CountIdentification.ToString("0"); } }
+
         [Display(Name = "Loại thùng, bao")]
         public int PackingMaterialID { get; set; }
         [Display(Name = "Quy cách, kích thước thùng, bao")]

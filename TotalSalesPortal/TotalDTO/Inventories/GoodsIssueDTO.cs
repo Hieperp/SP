@@ -32,6 +32,8 @@ namespace TotalDTO.Inventories
 
         public virtual Nullable<int> DeliveryAdviceID { get; set; }
 
+        public string DeliveryAdviceReferences { get; set; }
+
         [Display(Name = "Ngày giao hàng")]
         public Nullable<System.DateTime> DeliveryDate { get; set; }
 
@@ -40,7 +42,10 @@ namespace TotalDTO.Inventories
         public override void PerformPresaveRule()
         {
             base.PerformPresaveRule();
-            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.StorekeeperID = this.StorekeeperID; });
+
+            string deliveryAdviceReferences = "";
+            this.DtoDetails().ToList().ForEach(e => { e.CustomerID = this.CustomerID; e.ReceiverID = this.ReceiverID; e.StorekeeperID = this.StorekeeperID; if (deliveryAdviceReferences.IndexOf(e.DeliveryAdviceReference) < 0) deliveryAdviceReferences = deliveryAdviceReferences + (deliveryAdviceReferences != "" ? ", " : "") + e.DeliveryAdviceReference; });
+            this.DeliveryAdviceReferences = deliveryAdviceReferences;
         }
     }
 

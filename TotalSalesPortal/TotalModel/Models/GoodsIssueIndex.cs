@@ -17,8 +17,6 @@ namespace TotalModel.Models
         public Nullable<System.DateTime> EntryDate { get; set; }
         public string Reference { get; set; }
         public string LocationCode { get; set; }
-        public string DeliveryAdviceReference { get; set; }
-        public Nullable<System.DateTime> DeliveryAdviceEntryDate { get; set; }
         public decimal TotalQuantity { get; set; }
         public decimal TotalGrossAmount { get; set; }
         public string Description { get; set; }
@@ -26,5 +24,6 @@ namespace TotalModel.Models
         public decimal TotalListedGrossAmount { get; set; }
         public string CustomerName { get; set; }
         public string ReceiverDescription { get; set; }
+        public string DeliveryAdviceReferences { get; set; }
     }
 }

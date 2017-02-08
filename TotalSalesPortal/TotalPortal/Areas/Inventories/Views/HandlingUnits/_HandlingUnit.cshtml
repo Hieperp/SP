@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RealWeight)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.RealWeight).HtmlAttributes(new { @class = "left-panel-input" })
+                @Html.Kendo().NumericTextBoxFor(model => model.RealWeight).HtmlAttributes(new { @class = "left-panel-input" }).Events(e => e.Change("UpdateWeightDifference").Spin("UpdateWeightDifference"))
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.RealWeight, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WeightDifference)
             <div class="div-input">
-                @Html.Kendo().MaskedTextBoxFor(model => model.WeightDifference).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                @Html.Kendo().NumericTextBoxFor(model => model.WeightDifference).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
                 @Html.ValidationMessageFor(model => model.WeightDifference, "", new { @class = "text-danger" })
@@ -46,23 +46,14 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Identification)
-            <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.Identification).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
-            </div>
-            <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.Identification, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CountIdentification)
+            @Html.LabelFor(model => model.IdentificationPerConsignmentNo)
             <div class="div-input">
-                @Html.Kendo().NumericTextBoxFor(model => model.CountIdentification).Format(@SettingsManager.NumberFormat).HtmlAttributes(new { @class = "left-panel-input", @readonly = "readonly" })
+                @Html.Kendo().MaskedTextBoxFor(model => model.IdentificationPerConsignmentNo).HtmlAttributes(new { @class = "left-panel-input text-align-right", @readonly = "readonly" })
             </div>
             <div class="div-validation-message">
-                @Html.ValidationMessageFor(model => model.CountIdentification, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.IdentificationPerConsignmentNo, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -292,34 +283,14 @@
         });
     }
 
-    function UpdateSpin() {
-        //alert("AA");
-        $("#TotalWeight").val($("#RealWeight").val());
-        $("#TotalWeight").trigger("change");
-    }
-
-
-    //$("#RealWeight").change(UpdateWeightDifference())
-    //$("#TotalWeight").change(alert("#TotalWeight"))
-
-    $("#RealWeight").change(function (e) {
-
-        UpdateWeightDifference();
-    })
 
     $("#TotalWeight").change(function (e) {
-
         UpdateWeightDifference();
     })
-
-
-
-
     function UpdateWeightDifference() {
-        //alert("AA");
-        $("#WeightDifference").val($("#RealWeight").val() - $("#TotalWeight").val());
+        $("#WeightDifference").data("kendoNumericTextBox").value(DoRound($("#RealWeight").val() - $("#TotalWeight").val(), requireConfig.websiteOptions.rndWeight))
     }
-
+    
 </script>
 
 <style type="text/css">

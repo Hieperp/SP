@@ -29,5 +29,6 @@ namespace TotalModel.Models
         public int Identification { get; set; }
         public int CountIdentification { get; set; }
         public string PackingMaterialCode { get; set; }
+        public decimal WeightDifference { get; set; }
     }
 }

@@ -53,6 +53,7 @@ namespace TotalModel.Models
         public int PackagingStaffID { get; set; }
         public int ConsignmentNo { get; set; }
         public int CountIdentification { get; set; }
+        public decimal WeightDifference { get; set; }
     
         public virtual Location Location { get; set; }
         public virtual PackingMaterial PackingMaterial { get; set; }
