@@ -13,7 +13,6 @@ namespace TotalModel.Models
     
     public partial class HandlingUnitPendingGoodsIssueDetail
     {
-        public System.DateTime EntryDate { get; set; }
         public int GoodsIssueID { get; set; }
         public int GoodsIssueDetailID { get; set; }
         public int CommodityID { get; set; }
@@ -31,5 +30,6 @@ namespace TotalModel.Models
         public decimal Weight { get; set; }
         public Nullable<bool> IsSelected { get; set; }
         public string GoodsIssueReference { get; set; }
+        public System.DateTime GoodsIssueEntryDate { get; set; }
     }
 }

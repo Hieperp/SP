@@ -6,7 +6,7 @@ namespace TotalPortal.Areas.Commons.ViewModels.Helpers
 {
     public interface IPackingMaterialDropDownViewModel
     {
-        [Display(Name = "Phương thức TT")]
+        [Display(Name = "Loại thùng, bao")]
         int PackingMaterialID { get; set; }
         IEnumerable<SelectListItem> PackingMaterialSelectList { get; set; }
     }

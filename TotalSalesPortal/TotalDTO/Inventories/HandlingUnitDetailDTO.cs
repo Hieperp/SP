@@ -20,14 +20,23 @@ namespace TotalDTO.Inventories
         public int ReceiverID { get; set; }
         public int GoodsIssueID { get; set; }
         public int GoodsIssueDetailID { get; set; }
-        public string GoodsIssueReference { get; set; }
 
-        [Display(Name = "SL ĐH")]
+        [Display(Name = "Phiếu XK")]
+        [UIHint("StringReadonly")]
+        public string GoodsIssueReference { get; set; }
+        [Display(Name = "Ngày, giờ XK")]
+        [UIHint("DateTime")]
+        public System.DateTime GoodsIssueEntryDate { get; set; }
+
+        [UIHint("StringReadonly")]
+        public override string CommodityName { get; set; }
+
+        [Display(Name = "SL XK")]
         [UIHint("DecimalReadonly")]
         public decimal QuantityRemains { get; set; }
 
 
-        [Display(Name = "TL chuẩn")]
+        [Display(Name = "TL chuẩn (g)")]
         [UIHint("DecimalReadonly")] 
         public virtual decimal UnitWeight { get; set; }
 

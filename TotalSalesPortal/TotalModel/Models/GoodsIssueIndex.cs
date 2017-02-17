@@ -25,5 +25,6 @@ namespace TotalModel.Models
         public string CustomerName { get; set; }
         public string ReceiverDescription { get; set; }
         public string DeliveryAdviceReferences { get; set; }
+        public bool Approved { get; set; }
     }
 }

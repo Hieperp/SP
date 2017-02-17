@@ -27,5 +27,6 @@ namespace TotalModel.Models
         public string Remarks { get; set; }
         public decimal UnitWeight { get; set; }
         public string GoodsIssueReference { get; set; }
+        public System.DateTime GoodsIssueEntryDate { get; set; }
     }
 }

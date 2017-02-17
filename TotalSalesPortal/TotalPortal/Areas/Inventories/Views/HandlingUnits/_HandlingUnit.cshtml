@@ -110,15 +110,17 @@
                     columns.Bound(p => p.GoodsIssueDetailID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= GoodsIssueDetailID #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueDetailID' value='#= GoodsIssueDetailID #' />");
 
-                    columns.Bound(p => p.GoodsIssueReference).DisplayNameTitle().Filterable(false)
+                    columns.Bound(p => p.GoodsIssueReference).DisplayNameTitle().Filterable(false).Width(60)
                         .ClientTemplate("#= GoodsIssueReference #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueReference' value='#= GoodsIssueReference #' />");
+                    columns.Bound(p => p.GoodsIssueEntryDate).DisplayNameTitle().Filterable(false).Width(130)
+                        .ClientTemplate("#= GoodsIssueEntryDate ? kendo.toString(kendo.parseDate(GoodsIssueEntryDate), '" + SettingsManager.DateTimeFormat + "') : '' #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].GoodsIssueEntryDate' value='#= kendo.toString(GoodsIssueEntryDate, '" + SettingsManager.DateTimeFormat + "') #' />");
                     
 
                     columns.Bound(p => p.CommodityID).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityID #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].CommodityID' value='#= CommodityID #' />");
                     columns.Bound(p => p.CommodityCode).DisplayNameTitle().Filterable(false).Hidden()
                         .ClientTemplate("#= CommodityCode #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].CommodityCode' value='#= CommodityCode #' />");
-                    columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(200)
+                    columns.Bound(p => p.CommodityName).DisplayNameTitle().Filterable(false).Width(300)
                         .ClientFooterTemplate("Tổng cộng:")
                         .ClientTemplate("#= CommodityName #" + "<input type='hidden' name='HandlingUnitViewDetails[#= index(data) #].CommodityName' value='#= CommodityName #' />");
 
@@ -157,8 +159,8 @@
                     if (Model.Editable)
                     {
                         toolbar.Template(@<text>
-                            <button type="button" class="k-button" onclick="GetPendingGoodsIssueDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng xuất HĐ </button>
-                            <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Xuất HĐ theo số lượng xuất kho </button>
+                            <button type="button" class="k-button" onclick="GetPendingGoodsIssueDetails()"> <img src="~/Content/Images/Mains/Size24/Actions-bookmark-add-icon-24.png" /> Chọn mặt hàng đóng gói </button>
+                            <button type="button" class="k-button" onclick="copyRemainsToQuantity()"> <img src="~/Content/Images/Mains/Size24/Borderlands-Select-icon-24.png" /> Đóng gói toàn bộ đã số lượng xuất kho </button>
                         </text>);
                     }
                     else
@@ -279,7 +281,7 @@
     function GetPendingGoodsIssueDetails() {
         require(["kpopupWindow"], function (kpopupWindow) {
             var createWizardWindow = new kpopupWindow();
-            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "HandlingUnits", new { area = "Inventories" })", "Chọn phiếu bán hàng", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
+            createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("GetPendingGoodsIssueDetails", "HandlingUnits", new { area = "Inventories" })", "Chọn phiếu xuất kho", "@SettingsManager.PopupWidthLarge", "@SettingsManager.PopupHeightWithTab");
         });
     }
 

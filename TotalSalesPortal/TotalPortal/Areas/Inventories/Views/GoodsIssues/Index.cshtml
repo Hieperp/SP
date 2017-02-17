@@ -79,4 +79,12 @@
             createWizardWindow.openWindow($("#popupWindow"), "@Url.Action("CreateWizard", "GoodsIssues")", "Chọn đề nghị giao hàng", "@SettingsManager.PopupWidth", "@SettingsManager.PopupHeightWithTab");
         });
     }
+
+    decoratingKindex = function (idx, elem) {
+
+        var isWarrantyClaim = elem.Approved;
+        if (isWarrantyClaim == null || isWarrantyClaim == false) {
+            $('tr[data-uid="' + elem.uid + '"]').addClass("isBonus");
+        }
+    }
 </script>
