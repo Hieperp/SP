@@ -1397,6 +1397,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Commons\DeliveryAdviceBox.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Commons\ShippingAddress.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDowns\Vehicle.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimeReadonly.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
